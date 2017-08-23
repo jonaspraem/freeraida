@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+#parent {
+  margin-top: 50px;
+  margin-left: 150px;
+  background-color: white;
+}
