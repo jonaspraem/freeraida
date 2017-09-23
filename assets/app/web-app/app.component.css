@@ -1,0 +1,13 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+#parent {
+    margin-top: 50px;
+    margin-left: 150px;
+    background-color: white;
+}
+
