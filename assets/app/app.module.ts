@@ -4,10 +4,10 @@ import { FormsModule } from "@angular/forms";
 
 //Components
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ProfileComponent } from './components/profile/profile.component';
-import { AccountPanelComponent } from './components/account-panel/account-panel.component';
-import { MessageComponent } from "../messages/message.component";
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AccountPanelComponent } from './account-panel/account-panel.component';
+import { MessageComponent } from "./messages/message.component";
 
 // Google material design
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
