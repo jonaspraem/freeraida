@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 //Components
 import { AppComponent } from './app.component';
@@ -18,6 +18,9 @@ import {MessagesComponent} from "./messages/messages.component";
 import {AuthenticationComponent} from "./auth/authentication.component";
 import {HeaderComponent} from "./header.component";
 import {routing} from "./app.routing";
+import {LogoutComponent} from "./auth/logout.component";
+import {SignInComponent} from "./auth/sign-in.component";
+import {SignUpComponent} from "./auth/sign-up.component";
 
 @NgModule({
     declarations: [
@@ -30,7 +33,10 @@ import {routing} from "./app.routing";
         MessageInputComponent,
         MessagesComponent,
         AuthenticationComponent,
-        HeaderComponent
+        HeaderComponent,
+        LogoutComponent,
+        SignInComponent,
+        SignUpComponent
     ],
     imports: [
         BrowserModule,
@@ -38,7 +44,8 @@ import {routing} from "./app.routing";
         MdButtonModule,
         MdCheckboxModule,
         FormsModule,
-        routing
+        routing,
+        ReactiveFormsModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [],
