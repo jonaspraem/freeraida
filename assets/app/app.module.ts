@@ -12,6 +12,8 @@ import { MessageComponent } from "./messages/message.component";
 // Google material design
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdButtonModule, MdCheckboxModule} from '@angular/material';
+import {MessageListComponent} from "./messages/message-list.component";
+import {MessageInputComponent} from "./messages/message-input.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import {MdButtonModule, MdCheckboxModule} from '@angular/material';
     SidebarComponent,
     ProfileComponent,
     AccountPanelComponent,
-    MessageComponent
+    MessageComponent,
+    MessageListComponent,
+    MessageInputComponent
   ],
   imports: [
     BrowserModule,
