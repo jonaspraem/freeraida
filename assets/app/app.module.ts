@@ -21,6 +21,7 @@ import {routing} from "./app.routing";
 import {LogoutComponent} from "./auth/logout.component";
 import {SignInComponent} from "./auth/sign-in.component";
 import {SignUpComponent} from "./auth/sign-up.component";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import {SignUpComponent} from "./auth/sign-up.component";
         MdCheckboxModule,
         FormsModule,
         routing,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [],
