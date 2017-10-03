@@ -1,7 +1,8 @@
-import {Component, OnInit} from "@angular/core";
-import {MessageService} from "./message.service";
-import {Message} from "./message.model";
-import {NgForm} from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { MessageService } from "./message.service";
+import { Message } from "./message.model";
+import { NgForm } from "@angular/forms";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
     selector: 'app-message-input',
@@ -24,7 +25,7 @@ export class MessageInputComponent implements OnInit{
             this.message = null;
         } else {
             // Create
-            const message = new Message(form.value.content, 'Max');
+            const message = new Message(form.value.content, '');
             this.messageService.addMessage(message)
                 .subscribe(
                     data => console.log(data),

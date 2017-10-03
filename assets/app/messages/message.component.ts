@@ -1,6 +1,6 @@
-import {Component, Input} from "@angular/core";
-import {Message} from "./message.model";
-import {MessageService} from "./message.service";
+import { Component, Input } from "@angular/core";
+import { Message } from "./message.model";
+import { MessageService } from "./message.service";
 
 @Component({
     selector: 'app-message',
@@ -23,5 +23,9 @@ export class MessageComponent {
             .subscribe(
                 result => console.log(result)
             );
+    }
+
+    belongsToUser() {
+        return localStorage.getItem('userId') == this.message.userId;
     }
 }
