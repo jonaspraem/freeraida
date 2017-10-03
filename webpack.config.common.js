@@ -16,7 +16,7 @@ module.exports = {
                 use: [{ loader: 'html-loader' }]
             },
             {
-                test: /\.css/,
+                test: /\.css$/,
                 use: [{ loader: 'raw-loader' }]
             }
         ],

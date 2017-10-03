@@ -30,6 +30,7 @@ module.exports = webpackMerge.smart(commonConfig, {
     },
 
     plugins: [
+        new webpack.NoErrorsPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false
         })
