@@ -18,6 +18,8 @@ import { SignInComponent } from "./auth/sign-in.component";
 import { SignUpComponent } from "./auth/sign-up.component";
 import { HttpModule } from "@angular/http";
 import { AuthService } from "./auth/auth.service";
+import { ErrorComponent } from "./errors/error.component";
+import { ErrorService } from "./errors/error.service";
 
 @NgModule({
     declarations: [
@@ -33,7 +35,8 @@ import { AuthService } from "./auth/auth.service";
         HeaderComponent,
         LogoutComponent,
         SignInComponent,
-        SignUpComponent
+        SignUpComponent,
+        ErrorComponent
     ],
     imports: [
         BrowserModule,
@@ -44,7 +47,7 @@ import { AuthService } from "./auth/auth.service";
         HttpModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    providers: [AuthService],
+    providers: [AuthService, ErrorService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
