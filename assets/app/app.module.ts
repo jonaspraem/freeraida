@@ -2,11 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { ProfileComponent } from './profile/profile.component';
-import { AccountPanelComponent } from './account-panel/account-panel.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationComponent } from "./auth/authentication.component";
-import { HeaderComponent } from "./header.component";
+import { HeaderComponent } from "./header/header.component";
 import { routing } from "./app.routing";
 import { HttpModule } from "@angular/http";
 import { AuthService } from "./auth/auth.service";
@@ -18,8 +16,6 @@ import { MessageModule } from "./messages/message.module";
     declarations: [
         AppComponent,
         SidebarComponent,
-        ProfileComponent,
-        AccountPanelComponent,
         AuthenticationComponent,
         HeaderComponent,
         ErrorComponent

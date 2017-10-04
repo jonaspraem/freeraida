@@ -1,0 +1,25 @@
+.container {
+    margin: 0;
+    background-color: black;
+    width: 100%;
+    color: #6495ED;
+}
+
+.active {
+    background-color: white;
+    border-bottom: 1px solid #6495ED;
+    color: black;
+}
+
+.navbar-header {
+    margin: 0;
+    padding:0;
+    border: 0;
+}
+
+h1 {
+    color: white;
+    text-shadow: 1px 0 #6495ED, 0 1px #6495ED, 1px 0 #6495ED, 0 -1px #6495ED;
+    margin: 0;
+    vertical-align: center;
+}

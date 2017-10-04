@@ -9,3 +9,10 @@ body {
     background-color: white;
 }
 
+.container {
+    margin: 0;
+    width: 100%;
+    border: 0;
+    padding: 0;
+}
+
