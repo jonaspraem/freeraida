@@ -5,6 +5,7 @@ var jwt = require('jsonwebtoken');
 var User = require('../models/user');
 var Message = require('../models/message');
 
+// Get all messages
 router.get('/', function (req, res, next) {
     Message.find()
         .populate('user', 'firstName')
@@ -23,6 +24,7 @@ router.get('/', function (req, res, next) {
 });
 
 // TODO: change secret variable
+// Verify token
 router.use('/', function(req, res, next) {
     jwt.verify(req.query.token, 'secret', function(err, decoded) {
         if (err) {
@@ -35,6 +37,7 @@ router.use('/', function(req, res, next) {
     })
 });
 
+// Post message
 router.post('/', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     User.findById(decoded.user._id, function (err, user) {
@@ -56,7 +59,14 @@ router.post('/', function(req, res, next) {
                 });
             }
             user.messages.push(result);
-            user.save();
+            user.save(function (err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occured',
+                        error: err
+                    });
+                }
+            });
             res.status(201).json({
                 message: 'Message saved',
                 obj: result
@@ -65,6 +75,7 @@ router.post('/', function(req, res, next) {
     });
 });
 
+// Edit message
 router.patch('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     Message.findById(req.params.id, function(err, message) {
@@ -102,6 +113,7 @@ router.patch('/:id', function(req, res, next) {
     });
 });
 
+// Delete message
 router.delete('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     Message.findById(req.params.id, function(err, message) {

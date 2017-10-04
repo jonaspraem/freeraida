@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var index = require('./routes/app');
 var messageRoutes = require('./routes/messages');
 var userRoutes = require('./routes/user');
+var connectRoutes = require('./routes/connect');
 
 var app = express();
 mongoose.connect('localhost:27017/node-angular');
@@ -31,6 +32,7 @@ app.use(function(req, res, next){
 
 app.use('/message', messageRoutes);
 app.use('/user', userRoutes);
+app.use('/connect', connectRoutes);
 app.use('/', index);
 
 // catch 404 and forward to error handler
