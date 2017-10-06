@@ -15,7 +15,6 @@ export class MessageComponent {
 
     onEdit() {
         this.messageService.editMessage(this.message);
-
     }
 
     onDelete() {

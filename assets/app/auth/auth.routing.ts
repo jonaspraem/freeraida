@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
-import {SignUpComponent} from "./sign-up.component";
-import {SignInComponent} from "./sign-in.component";
-import {LogoutComponent} from "./logout.component";
+import { SignUpComponent } from "./sign-up.component";
+import { SignInComponent } from "./sign-in.component";
+import { LogoutComponent } from "./logout.component";
 
 const AUTH_ROUTES: Routes = [
     { path: '', redirectTo: 'sign-up', pathMatch: 'full' },

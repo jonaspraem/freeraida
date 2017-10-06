@@ -4,6 +4,7 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
 var User = require('../models/user');
+var Profile = require('../models/profile');
 
 // Register new user
 router.post('/', function(req, res, next) {
@@ -21,9 +22,22 @@ router.post('/', function(req, res, next) {
                 error: err
             });
         }
-        res.status(201).json({
-           message: 'User created',
-           obj: result
+        var profile = new Profile({
+           user: result,
+           bio: 'new bio'
+        });
+
+        profile.save(function (err, result) {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            return res.status(201).json({
+                message: 'User created',
+                obj: result
+            });
         });
     });
 });
