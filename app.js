@@ -9,6 +9,7 @@ var index = require('./routes/app');
 var messageRoutes = require('./routes/messages');
 var userRoutes = require('./routes/user');
 var connectRoutes = require('./routes/connect');
+var profileRoutes = require('./routes/profile');
 
 var app = express();
 mongoose.connect('localhost:27017/node-angular');
@@ -24,20 +25,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next){
-  res.setHeader('Acces-Control-Allow-Origin', '*');
-  res.setHeader('Acces-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.setHeader('Acces-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
-  next();
+    res.setHeader('Acces-Control-Allow-Origin', '*');
+    res.setHeader('Acces-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Acces-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
+    next();
 });
 
 app.use('/message', messageRoutes);
 app.use('/user', userRoutes);
 app.use('/connect', connectRoutes);
+app.use('/profile', profileRoutes);
 app.use('/', index);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  res.render('index');
+    res.render('index');
 });
 
 module.exports = app;
