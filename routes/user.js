@@ -9,10 +9,9 @@ var Profile = require('../models/profile');
 // Register new user
 router.post('/', function(req, res, next) {
     var user = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password: bcrypt.hashSync(req.body.password, 10),
-        email: req.body.email
+        username: req.body.username,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, 10)
     });
     
     user.save(function (err, result) {
@@ -23,8 +22,10 @@ router.post('/', function(req, res, next) {
             });
         }
         var profile = new Profile({
-           user: result,
-           bio: 'new bio'
+            username: req.body.username,
+            bio: 'new bio',
+            firstName: req.body.firstName,
+            lastName: req.body.lastName
         });
 
         profile.save(function (err, result) {
@@ -52,25 +53,53 @@ router.post('/signin', function(req, res, next) {
             });
         }
         if (!user) {
-            return res.status(401).json({
-                title: 'Login failed',
-                error: {message: 'Invalid login credentials'}
+            User.findOne({username: req.body.username}, function(err, userByUsername) {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occured',
+                        error: err
+                    });
+                }
+                // TODO: change message on error
+                if (!userByUsername) {
+                    return res.status(401).json({
+                        title: 'Login failed',
+                        error: {message: 'Invalid login username'}
+                    });
+                }
+                // TODO: change message on error
+                if (!bcrypt.compareSync(req.body.password, userByUsername.password)) {
+                    return res.status(401).json({
+                        title: 'Login failed',
+                        error: {message: 'Invalid login password : username'}
+                    });
+                }
+                // Create token
+                // TODO: change secret string to a more complicated one
+                var token = jwt.sign({user: userByUsername}, 'secret', {expiresIn: 7200});
+                return res.status(200).json({
+                    message: 'Successfully logged in',
+                    token: token,
+                    userId: userByUsername._id
+                });
+            });
+        } else {
+            if (!bcrypt.compareSync(req.body.password, user.password)) {
+                // TODO: change message on error
+                return res.status(401).json({
+                    title: 'Login failed',
+                    error: {message: 'Invalid login password'}
+                });
+            }
+            // Create token
+            // TODO: change secret string to a more complicated one
+            var token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
+            res.status(200).json({
+                message: 'Successfully logged in',
+                token: token,
+                userId: user._id
             });
         }
-        if (!bcrypt.compareSync(req.body.password, user.password)) {
-            return res.status(401).json({
-                title: 'Login failed',
-                error: {message: 'Invalid login credentials'}
-            });
-        }
-        // Create token
-        // TODO: change secret string to a more complicated one
-        var token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
-        res.status(200).json({
-            message: 'Successfully logged in',
-            token: token,
-            userId: user._id
-        });
     });
 });
 

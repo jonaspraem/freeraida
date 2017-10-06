@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { User } from "./user.model";
 import { AuthService } from "./auth.service";
@@ -9,14 +9,24 @@ import { Router } from "@angular/router";
     templateUrl: './sign-in.component.html'
 })
 
-export class SignInComponent {
+export class SignInComponent implements OnInit {
     myForm: FormGroup;
 
     constructor(private authService: AuthService, private router: Router) {}
 
     onSubmit() {
-        const user = new User(this.myForm.value.email, this.myForm.value.password);
-        this.authService.signin(user)
+        var identification = this.myForm.value.identification.toString();
+        var username = '';
+        var email = '';
+
+        // TODO: make better email verifier
+        if (identification.includes('@') && identification.includes('.')) {
+            email = this.myForm.value.identification;
+        } else {
+            username = this.myForm.value.identification;
+        }
+        const user = new User(username, email, this.myForm.value.password);
+        this.authService.signIn(user)
             .subscribe(
             data => {
                 localStorage.setItem('token', data.token);
@@ -30,10 +40,7 @@ export class SignInComponent {
 
     ngOnInit() {
         this.myForm = new FormGroup({
-            email: new FormControl(null, [
-                Validators.required,
-                Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-            ]),
+            identification: new FormControl(null, Validators.required),
             password: new FormControl(null, Validators.required)
         });
     }
