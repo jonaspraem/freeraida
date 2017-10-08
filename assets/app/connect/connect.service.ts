@@ -1,13 +1,12 @@
 import 'rxjs/Rx';
 import { Http, Headers, Response } from "@angular/http";
 import { ErrorService } from "../errors/error.service";
-import { User } from "../auth/user.model";
 import { Observable } from "rxjs/Observable";
 import { Injectable } from "@angular/core";
 
 @Injectable()
 
-export class AuthService {
+export class ConnectService {
 
     constructor(private http: Http, private errorService: ErrorService) {}
 

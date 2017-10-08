@@ -4,9 +4,11 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 import { ProfileService } from "./profile.service";
 import { ProfileComponent } from "./profile.component";
+import { BioComponent } from "./bio.component";
 
 @NgModule({
     declarations: [
+        BioComponent,
         ProfileComponent
     ],
     imports: [

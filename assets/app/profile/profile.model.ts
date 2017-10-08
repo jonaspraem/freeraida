@@ -1,9 +1,13 @@
 export class Profile {
-    userId: string;
+    username: string;
     bio?: string;
+    firstName?: string;
+    lastName?: string;
 
-    constructor(userId: string, bio: string) {
-        this.userId = userId;
+    constructor(username: string, bio?: string, firstName?: string, lastName?: string) {
+        this.username = username;
         this.bio = bio;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 }

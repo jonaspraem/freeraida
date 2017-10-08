@@ -14,10 +14,11 @@ export class ProfileComponent implements OnInit{
     constructor(private profileService: ProfileService) {}
 
     ngOnInit(): void {
-        this.profileService.getProfile(localStorage.getItem('userId'))
+        this.profileService.getProfile(localStorage.getItem('username').toString())
             .subscribe(
                 (profile: Profile) => {
                     this.profile = profile;
+                    console.log(profile);
                 }
             );
     }

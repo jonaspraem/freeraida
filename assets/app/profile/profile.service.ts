@@ -10,13 +10,15 @@ export class ProfileService {
 
     constructor(private http: Http, private errorService: ErrorService) {}
 
-    getProfile(userId: string) {
-        return this.http.get('http://localhost:3000/profile/'+userId)
+    getProfile(username: string) {
+        return this.http.get('http://localhost:3000/profile/'+username)
             .map((response: Response) => {
-                const result = response.json();
+                const result = response.json().obj;
                 const profile = new Profile(
-                    result.obj.user._id,
-                    result.obj.bio
+                    result.username,
+                    result.bio,
+                    result.firstName,
+                    result.lastName
                 );
                 return profile;
             })
@@ -25,5 +27,4 @@ export class ProfileService {
                 return Observable.throw(error.json());
             });
     }
-
 }
