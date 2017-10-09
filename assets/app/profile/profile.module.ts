@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { ProfileService } from "./profile.service";
 import { ProfileComponent } from "./profile.component";
 import { BioComponent } from "./bio.component";
+import { profileRouting } from "./profile.routing";
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import { BioComponent } from "./bio.component";
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        profileRouting
     ],
     providers: [ ProfileService ]
 })
