@@ -6,7 +6,7 @@ import { ProfileComponent } from "./profile/profile.component";
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/messages', pathMatch: 'full' },
     { path: 'messages', component: MessagesComponent },
-    { path: 'profile', component: ProfileComponent, loadChildren: './profile/profile.module#ProfileModule'},
+    { path: 'user', component: ProfileComponent, loadChildren: './profile/profile.module#ProfileModule'},
     { path: 'auth', component: AuthenticationComponent, loadChildren: './auth/auth.module#AuthModule' },
 ];
 

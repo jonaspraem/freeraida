@@ -18,7 +18,6 @@ export class ProfileComponent implements OnInit{
             .subscribe(
                 (profile: Profile) => {
                     this.profile = profile;
-                    console.log(profile);
                 }
             );
     }
