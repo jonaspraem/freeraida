@@ -48,6 +48,7 @@
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.1.2",
     "del-cli": "^0.2.0",
+    "file-loader": "^1.1.5",
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.30.1",
     "raw-loader": "^0.5.1",

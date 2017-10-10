@@ -7,12 +7,12 @@ import { Profile } from "./profile.model";
     styleUrls: ['./bio.component.css']
 })
 
-export class BioComponent {
+export class BioComponent{
     @Input() profile: Profile;
-    defaultImagePath: string;
+    default_img : string = 'assets/resources/images/default-skier.jpg';
 
-    constructor() {
-        this.defaultImagePath = 'assets/resources/default_profile_img.png';
+    getDefaultImageUrl() {
+        return this.default_img;
     }
 
     hasImage() {
