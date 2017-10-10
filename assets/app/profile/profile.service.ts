@@ -18,7 +18,9 @@ export class ProfileService {
                     result.username,
                     result.bio,
                     result.firstName,
-                    result.lastName
+                    result.lastName,
+                    result.followers,
+                    result.following
                 );
                 return profile;
             })

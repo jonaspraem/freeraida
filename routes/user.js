@@ -25,7 +25,9 @@ router.post('/', function(req, res, next) {
             username: req.body.username,
             bio: 'new bio',
             firstName: req.body.firstName,
-            lastName: req.body.lastName
+            lastName: req.body.lastName,
+            followers: [],
+            following: []
         });
 
         profile.save(function (err, result) {

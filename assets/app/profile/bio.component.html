@@ -5,6 +5,35 @@
         <img [src]="getDefaultImageUrl()" alt="Default Profile Picture" height="40px" width="40px">
     </ng-template>
 
-    <p class="h3">{{ profile?.firstName }} {{ profile?.lastName }}</p>
+    <p class="h3">{{ profile?.username }}</p>
+
+    <div *ngIf="profile; test_user"></div>
+    <ng-template #test_user>
+        <div *ngIf="canFollow(); then show_button"></div>
+        <ng-template #show_button>
+            <div *ngIf="isFollowing(); then follow_button else unfollow_button"></div>
+            <ng-template #follow_button>
+                <button type="button" class="btn btn-primary">Follow</button>
+            </ng-template>
+            <ng-template #unfollow_button>
+                <button type="button" class="btn btn-primary">Unfollow</button>
+            </ng-template>
+        </ng-template>
+    </ng-template>
+
+    <hr>
+    <table>
+        <tr>
+            <th>Rides</th>
+            <th>Followers</th>
+            <th>Following</th>
+        </tr>
+        <tr>
+            <td>0</td>
+            <td>{{profile?.followers?.length}}</td>
+            <td>{{profile?.following?.length}}</td>
+        </tr>
+    </table>
+    <hr>
     <p class="lead">{{ profile?.bio }}</p>
 </div>

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 
-var User = require('../models/user');
+var Profile = require('../models/profile');
 
 // TODO: change secret variable
 // Verify token
@@ -19,25 +19,23 @@ router.use('/', function(req, res, next) {
 });
 
 // Get followers
-router.get('/followers', function (req, res, next) {
-    var decoded = jwt.decode(req.query.token);
-    User.findById(decoded.user._id, function (err, followedUser) {
-        if (err) {
+router.get('/followers/:username', function (req, res, next) {
+    Profile.findOne({username: req.params.username}, function(p_err, profile) {
+        if (p_err) {
             return res.status(500).json({
                 title: 'An error occured',
                 error: err
             });
         }
-        if (!followedUser) {
-            return res.status(500).json({
-                title: 'No user found found',
-                error: {message: 'No user found'}
+        if (!profile) {
+            return res.status(400).json({
+                title: 'No profile found',
+                error: {message: 'No profile matching the id'}
             });
         }
-        var followers = followedUser.followers;
-        return res.status(201).json({
-            message: 'User successfully followed',
-            obj: followers
+        return res.status(200).json({
+            message: 'Profile successfully received',
+            obj: profile
         });
     });
 });

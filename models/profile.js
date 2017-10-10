@@ -10,8 +10,8 @@ var schema = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     messages: [{type: Schema.Types.ObjectId, ref: 'Message'}],
-    following: [{type: Schema.Types.ObjectId, ref: 'User'}],
-    followers: [{type: Schema.Types.ObjectId, ref: 'User'}]
+    following: [{type: String}],
+    followers: [{type: String}]
 });
 
 module.exports = mongoose.model('Profile', schema);
