@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { Profile } from "./profile.model";
 import { AuthService } from "../auth/auth.service";
+import { ProfileService } from "./profile.service";
 
 @Component({
     selector: 'app-profile-bio',
@@ -12,7 +13,17 @@ export class BioComponent{
     @Input() profile: Profile;
     default_img : string = 'assets/resources/images/default-skier.jpg';
 
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService, private profileService: ProfileService) {}
+
+    follow() {
+        console.log('follow '+this.profile.username);
+        this.profileService.followUser(this.profile.username);
+    }
+
+    unfollow() {
+        console.log('unfollow '+this.profile.username);
+        this.profileService.unfollowUser(this.profile.username);
+    }
 
     canFollow() {
         if (this.profile) {

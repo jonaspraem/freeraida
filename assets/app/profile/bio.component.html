@@ -9,12 +9,12 @@
 
     <div *ngIf="(profile | json) !== '{}'">
         <div *ngIf="canFollow()">
-            <div *ngIf="isFollowing(); then follow_button else unfollow_button"></div>
-            <ng-template #follow_button>
-                <button type="button" class="btn btn-primary">Unfollow</button>
-            </ng-template>
+            <div *ngIf="isFollowing(); then unfollow_button else follow_button"></div>
             <ng-template #unfollow_button>
-                <button type="button" class="btn btn-primary">Follow</button>
+                <button type="button" class="btn btn-primary" (click)="unfollow()">Unfollow</button>
+            </ng-template>
+            <ng-template #follow_button>
+                <button type="button" class="btn btn-primary" (click)="follow()">Follow</button>
             </ng-template>
         </div>
     </div>

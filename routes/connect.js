@@ -11,7 +11,7 @@ router.use('/', function(req, res, next) {
         if (err) {
             return res.status(401).json({
                 title: 'Not Authenticated',
-                error: err
+                error: {message: 'jwt must be provided'}
             });
         }
         next();
@@ -19,7 +19,7 @@ router.use('/', function(req, res, next) {
 });
 
 // Follow another user
-router.post('/follow', function(req, res, next) {
+router.post('/follow/:username', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     User.findById(decoded.user._id, function (err, followee) {
         if (err) {
@@ -30,20 +30,34 @@ router.post('/follow', function(req, res, next) {
         }
         if (!followee) {
             return res.status(500).json({
-                title: 'No user found found',
+                title: 'No user found',
                 error: {message: 'No user found'}
             });
         }
-        User.findOne({_id: req.body.userid}, function (err, userToFollow) {
-            if (err) {
+
+        var isAlreadyFollowing = (followee.profile.following.indexOf(req.params.username) > -1);
+        if (isAlreadyFollowing) {
+            return res.status(500).json({
+                title: 'User is already followed',
+                error: {message: 'You are already following this user'}
+            });
+        }
+        Profile.findOne({username: req.params.username}, function(p_err, userToFollow) {
+            if (p_err) {
                 return res.status(500).json({
                     title: 'An error occured',
                     error: err
                 });
             }
-            followee.following.push(userToFollow._id);
-            userToFollow.followers.push(followee._id);
-            followee.save(function (err, result) {
+            if (!userToFollow) {
+                return res.status(500).json({
+                    title: 'No user found',
+                    error: {message: 'No user found'}
+                });
+            }
+            followee.profile.following.push(req.params.username);
+            userToFollow.followers.push(followee.username);
+            followee.profile.save(function (err, result) {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occured',
@@ -59,13 +73,71 @@ router.post('/follow', function(req, res, next) {
                     });
                 }
             });
-
-            // Success
-            res.status(201).json({
+            return res.status(201).json({
                 message: 'User successfully followed'
             });
         });
+    });
+});
 
+// Un-follow user
+router.post('/unfollow/:username', function(req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, function (err, followee) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        if (!followee) {
+            return res.status(500).json({
+                title: 'No user found',
+                error: {message: 'No user found'}
+            });
+        }
+        var isAlreadyFollowing = (followee.profile.following.indexOf(req.params.username) > -1);
+        if (!isAlreadyFollowing) {
+            return res.status(500).json({
+                title: 'User not followed',
+                error: {message: 'User is not being followed by you'}
+            });
+        }
+        Profile.findOne({username: req.params.username}, function(p_err, userToUnFollow) {
+            if (p_err) {
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            if (!userToUnFollow) {
+                return res.status(500).json({
+                    title: 'No user found',
+                    error: {message: 'No user found'}
+                });
+            }
+            followee.profile.following.splice(followee.profile.following.indexOf(req.params.username), 1);
+            userToUnFollow.followers.splice(userToUnFollow.followers.indexOf(followee.username), 1);
+            followee.profile.save(function (err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occured',
+                        error: err
+                    });
+                }
+            });
+            userToFollow.save(function (err, result) {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occured',
+                        error: err
+                    });
+                }
+            });
+            return res.status(201).json({
+                message: 'User successfully un-followed'
+            });
+        });
     });
 });
 

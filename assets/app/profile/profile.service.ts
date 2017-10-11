@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Headers, Http, Response } from "@angular/http";
+import { Http, Response } from "@angular/http";
 import { ErrorService } from "../errors/error.service";
 import { Observable } from "rxjs/Observable";
 import { Profile } from "./profile.model";
@@ -24,6 +24,24 @@ export class ProfileService {
                 );
                 return profile;
             })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    followUser(username: string) {
+        return this.http.get('http://localhost:3000/connect/follow/'+username)
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    unfollowUser(username: string) {
+        return this.http.get('http://localhost:3000/connect/unfollow/'+username)
+            .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
