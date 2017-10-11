@@ -6,6 +6,7 @@ import { ProfileService } from "./profile.service";
 import { ProfileComponent } from "./profile.component";
 import { BioComponent } from "./bio.component";
 import { profileRouting } from "./profile.routing";
+import { PostModule } from "../posts/post.module";
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { profileRouting } from "./profile.routing";
         CommonModule,
         ReactiveFormsModule,
         profileRouting,
+        PostModule
     ],
     providers: [ ProfileService ]
 })

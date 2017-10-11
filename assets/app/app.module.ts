@@ -11,7 +11,6 @@ import { routing } from "./app.routing";
 import { AuthService } from "./auth/auth.service";
 import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
-import { PostModule } from "./posts/post.module";
 import { ProfileModule } from "./profile/profile.module";
 
 @NgModule({
@@ -27,7 +26,6 @@ import { ProfileModule } from "./profile/profile.module";
         BrowserAnimationsModule,
         routing,
         HttpModule,
-        PostModule,
         ProfileModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

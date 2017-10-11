@@ -20,6 +20,12 @@ import { PostComponent } from "./post.component";
         CommonModule,
         FormsModule
     ],
+    exports: [
+        PostsComponent,
+        PostListComponent,
+        PostComponent,
+        PostInputComponent
+    ],
     providers: [ PostService ]
 })
 
