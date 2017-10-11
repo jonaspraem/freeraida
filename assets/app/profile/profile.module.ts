@@ -15,7 +15,7 @@ import { profileRouting } from "./profile.routing";
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        profileRouting
+        profileRouting,
     ],
     providers: [ ProfileService ]
 })

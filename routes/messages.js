@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var User = require('../models/user');
 var Message = require('../models/message');
 
-// Get all messages
+// Get all posts
 router.get('/', function (req, res, next) {
     Message.find()
         .populate('user', 'firstName')
@@ -37,7 +37,7 @@ router.use('/', function(req, res, next) {
     })
 });
 
-// Post message
+// Post post
 router.post('/', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     User.findById(decoded.user._id, function (err, user) {
@@ -68,14 +68,14 @@ router.post('/', function(req, res, next) {
                 }
             });
             res.status(201).json({
-                message: 'Message saved',
+                message: 'Post saved',
                 obj: result
             });
         });
     });
 });
 
-// Edit message
+// Edit post
 router.patch('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     Message.findById(req.params.id, function(err, message) {
@@ -87,14 +87,14 @@ router.patch('/:id', function(req, res, next) {
         }
         if (!message) {
             return res.status(500).json({
-                title: 'No message found',
-                error: { message: 'Message not found'}
+                title: 'No post found',
+                error: { message: 'Post not found'}
             });
         }
         if (message.user != decoded.user._id) {
             return res.status(401).json({
                 title: 'Not Authenticated',
-                error: {message: 'Not the user\'s message'}
+                error: {message: 'Not the user\'s post'}
             });
         }
         message.content = req.body.content;
@@ -106,14 +106,14 @@ router.patch('/:id', function(req, res, next) {
                 });
             }
             res.status(200).json({
-                message: 'message updated',
+                message: 'post updated',
                 obj: result
             });
         });
     });
 });
 
-// Delete message
+// Delete post
 router.delete('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     Message.findById(req.params.id, function(err, message) {
@@ -125,14 +125,14 @@ router.delete('/:id', function(req, res, next) {
         }
         if (!message) {
             return res.status(500).json({
-                title: 'No message found',
-                error: { message: 'Message not found'}
+                title: 'No post found',
+                error: { message: 'Post not found'}
             });
         }
         if (message.user != decoded.user._id) {
             return res.status(401).json({
                 title: 'Not Authenticated',
-                error: {message: 'Not the user\'s message'}
+                error: {message: 'Not the user\'s post'}
             });
         }
         message.remove(function(err, result) {
@@ -143,7 +143,7 @@ router.delete('/:id', function(req, res, next) {
                 });
             }
             res.status(200).json({
-                message: 'message deleted',
+                message: 'post deleted',
                 obj: result
             });
         });
