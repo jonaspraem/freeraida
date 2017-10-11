@@ -18,52 +18,6 @@ router.use('/', function(req, res, next) {
     })
 });
 
-// Get followers
-router.get('/followers/:username', function (req, res, next) {
-    Profile.findOne({username: req.params.username}, function(p_err, profile) {
-        if (p_err) {
-            return res.status(500).json({
-                title: 'An error occured',
-                error: err
-            });
-        }
-        if (!profile) {
-            return res.status(400).json({
-                title: 'No profile found',
-                error: {message: 'No profile matching the id'}
-            });
-        }
-        return res.status(200).json({
-            message: 'Profile successfully received',
-            obj: profile
-        });
-    });
-});
-
-// Get following users
-router.get('/following', function (req, res, next) {
-    var decoded = jwt.decode(req.query.token);
-    User.findById(decoded.user._id, function (err, followee) {
-        if (err) {
-            return res.status(500).json({
-                title: 'An error occured',
-                error: err
-            });
-        }
-        if (!followee) {
-            return res.status(500).json({
-                title: 'No user found found',
-                error: {message: 'No user found'}
-            });
-        }
-        var following = followee.following;
-        return res.status(201).json({
-            message: 'User successfully followed',
-            obj: following
-        });
-    });
-});
-
 // Follow another user
 router.post('/follow', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);

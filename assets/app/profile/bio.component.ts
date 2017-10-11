@@ -15,18 +15,25 @@ export class BioComponent{
     constructor(private authService: AuthService) {}
 
     canFollow() {
-        console.log(this.authService.activeUser.username + "profile "+this.profile.username);
-        if (!this.profile.username) return false;
-        if (!this.authService.isLoggedIn()) return false;
-        if (this.authService.activeUser.username == this.profile.username) {
-            return false;
+        if (this.profile) {
+            if (this.profile.username) {
+                if (this.authService.isLoggedIn()) {
+                    if (localStorage.getItem('username') != this.profile.username) {
+                        return true;
+                    }
+                }
+            }
         }
-        return true;
+        return false;
     }
 
     isFollowing() {
-        if (this.contains(this.profile.followers, this.authService.activeUser.username)) return true;
-        else return false;
+        if (this.profile) {
+            if (this.profile.followers) {
+                if (this.contains(this.profile.followers, localStorage.getItem('username').toString())) return true;
+            }
+        }
+        return false;
     }
 
     getDefaultImageUrl() {

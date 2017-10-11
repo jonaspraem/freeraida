@@ -7,19 +7,17 @@
 
     <p class="h3">{{ profile?.username }}</p>
 
-    <div *ngIf="profile; test_user"></div>
-    <ng-template #test_user>
-        <div *ngIf="canFollow(); then show_button"></div>
-        <ng-template #show_button>
+    <div *ngIf="(profile | json) !== '{}'">
+        <div *ngIf="canFollow()">
             <div *ngIf="isFollowing(); then follow_button else unfollow_button"></div>
             <ng-template #follow_button>
-                <button type="button" class="btn btn-primary">Follow</button>
-            </ng-template>
-            <ng-template #unfollow_button>
                 <button type="button" class="btn btn-primary">Unfollow</button>
             </ng-template>
-        </ng-template>
-    </ng-template>
+            <ng-template #unfollow_button>
+                <button type="button" class="btn btn-primary">Follow</button>
+            </ng-template>
+        </div>
+    </div>
 
     <hr>
     <table>
