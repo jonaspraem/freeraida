@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var index = require('./routes/app');
-var messageRoutes = require('./routes/messages');
+var postRoutes = require('./routes/posts');
 var userRoutes = require('./routes/user');
 var connectRoutes = require('./routes/connect');
 var profileRoutes = require('./routes/profile');
@@ -31,7 +31,7 @@ app.use(function(req, res, next){
     next();
 });
 
-app.use('/message', messageRoutes);
+app.use('/post', postRoutes);
 app.use('/user', userRoutes);
 app.use('/connect', connectRoutes);
 app.use('/profile', profileRoutes);

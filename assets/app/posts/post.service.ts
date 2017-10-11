@@ -20,7 +20,7 @@ export class PostService {
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.http.post('http://localhost:3000/message' + token, body, {headers: headers})
+        return this.http.post('http://localhost:3000/post' + token, body, {headers: headers})
             .map((response: Response) => {
                 const result = response.json();
                 const post_obj = new Post(
@@ -39,7 +39,7 @@ export class PostService {
     }
 
     getPosts() {
-        return this.http.get('http://localhost:3000/message')
+        return this.http.get('http://localhost:3000/post')
             .map((response: Response) => {
                 const messages = response.json().obj;
                 let transformedMessages: Post[] = [];
@@ -70,7 +70,7 @@ export class PostService {
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.http.patch('http://localhost:3000/message/' + post.postId + token, body, {headers: headers})
+        return this.http.patch('http://localhost:3000/post/' + post.postId + token, body, {headers: headers})
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
@@ -83,7 +83,7 @@ export class PostService {
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.http.delete('http://localhost:3000/message/' + post.postId + token)
+        return this.http.delete('http://localhost:3000/post/' + post.postId + token)
             .map((response: Response) => response.json())
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

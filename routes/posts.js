@@ -3,11 +3,11 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 
 var User = require('../models/user');
-var Message = require('../models/message');
+var Post = require('../models/post');
 
 // Get all posts
 router.get('/', function (req, res, next) {
-    Message.find()
+    Post.find()
         .populate('user', 'firstName')
         .exec(function (err, messages) {
             if (err) {
@@ -47,11 +47,11 @@ router.post('/', function(req, res, next) {
                 error: err
             });
         }
-        var message = new Message({
+        var post = new Post({
             content: req.body.content,
             user: user
         });
-        message.save(function (err, result) {
+        post.save(function (err, result) {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occured',
@@ -78,27 +78,27 @@ router.post('/', function(req, res, next) {
 // Edit post
 router.patch('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
-    Message.findById(req.params.id, function(err, message) {
+    Post.findById(req.params.id, function(err, post) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occured',
                 error: err
             });
         }
-        if (!message) {
+        if (!post) {
             return res.status(500).json({
                 title: 'No post found',
                 error: { message: 'Post not found'}
             });
         }
-        if (message.user != decoded.user._id) {
+        if (post.user != decoded.user._id) {
             return res.status(401).json({
                 title: 'Not Authenticated',
                 error: {message: 'Not the user\'s post'}
             });
         }
-        message.content = req.body.content;
-        message.save(function(err, result) {
+        post.content = req.body.content;
+        post.save(function(err, result) {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occured',
@@ -116,26 +116,26 @@ router.patch('/:id', function(req, res, next) {
 // Delete post
 router.delete('/:id', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
-    Message.findById(req.params.id, function(err, message) {
+    Post.findById(req.params.id, function(err, post) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occured',
                 error: err
             });
         }
-        if (!message) {
+        if (!post) {
             return res.status(500).json({
                 title: 'No post found',
                 error: { message: 'Post not found'}
             });
         }
-        if (message.user != decoded.user._id) {
+        if (post.user != decoded.user._id) {
             return res.status(401).json({
                 title: 'Not Authenticated',
                 error: {message: 'Not the user\'s post'}
             });
         }
-        message.remove(function(err, result) {
+        post.remove(function(err, result) {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occured',
