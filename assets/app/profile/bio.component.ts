@@ -17,12 +17,21 @@ export class BioComponent{
 
     follow() {
         console.log('follow '+this.profile.username);
-        this.profileService.followUser(this.profile.username);
+        this.profileService.followUser(this.profile.username).subscribe(
+            (profile: Profile) => {
+                this.profile = profile
+            }
+        );
     }
 
     unfollow() {
         console.log('unfollow '+this.profile.username);
-        this.profileService.unfollowUser(this.profile.username);
+        this.profileService.unfollowUser(this.profile.username)
+            .subscribe(
+                (profile: Profile) => {
+                        this.profile = profile
+                }
+            );
     }
 
     canFollow() {

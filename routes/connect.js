@@ -25,7 +25,7 @@ router.post('/follow/:username', function(req, res, next) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occured',
-                error: err
+                error: {message: 'An error occured'}
             });
         }
         if (!followee) {
@@ -46,7 +46,7 @@ router.post('/follow/:username', function(req, res, next) {
             if (p_err) {
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'An error occured'}
                 });
             }
             if (!userToFollow) {
@@ -61,7 +61,7 @@ router.post('/follow/:username', function(req, res, next) {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occured',
-                        error: err
+                        error: {message: 'An error occured'}
                     });
                 }
             });
@@ -69,12 +69,13 @@ router.post('/follow/:username', function(req, res, next) {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occured',
-                        error: err
+                        error: {message: 'An error occured'}
                     });
                 }
-            });
-            return res.status(201).json({
-                message: 'User successfully followed'
+                return res.status(201).json({
+                    message: 'User successfully followed',
+                    obj: result
+                });
             });
         });
     });
@@ -87,7 +88,7 @@ router.post('/unfollow/:username', function(req, res, next) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occured',
-                error: err
+                error: {message: 'An error occured'}
             });
         }
         if (!followee) {
@@ -107,7 +108,7 @@ router.post('/unfollow/:username', function(req, res, next) {
             if (p_err) {
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'An error occured'}
                 });
             }
             if (!userToUnFollow) {
@@ -122,20 +123,21 @@ router.post('/unfollow/:username', function(req, res, next) {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occured',
-                        error: err
+                        error: {message: 'An error occured'}
                     });
                 }
             });
-            userToFollow.save(function (err, result) {
+            userToUnFollow.save(function (err, result) {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occured',
-                        error: err
+                        error: {message: 'An error occured'}
                     });
                 }
-            });
-            return res.status(201).json({
-                message: 'User successfully un-followed'
+                return res.status(201).json({
+                    message: 'User successfully un-followed',
+                    obj: result
+                });
             });
         });
     });
