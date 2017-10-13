@@ -9,19 +9,19 @@ import { NgForm } from "@angular/forms";
 })
 
 export class PostInputComponent implements OnInit{
-    message: Post;
+    post: Post;
 
     constructor(private postService: PostService) {}
 
     onSubmit(form: NgForm) {
-        if (this.message) {
+        if (this.post) {
             // Edit
-            this.message.content = form.value.content;
-            this.postService.updatePost(this.message)
+            this.post.content = form.value.content;
+            this.postService.updatePost(this.post)
                 .subscribe(
                     result => console.log(result)
                 );
-            this.message = null;
+            this.post = null;
         } else {
             // Create
             const message = new Post(form.value.content, '');
@@ -35,13 +35,13 @@ export class PostInputComponent implements OnInit{
     }
 
     onClear(form: NgForm) {
-        this.message = null;
+        this.post = null;
         form.resetForm();
     }
 
     ngOnInit(): void {
         this.postService.postIsEdit.subscribe(
-            (message: Post) => this.message = message
+            (post: Post) => this.post = post
         );
     }
 }

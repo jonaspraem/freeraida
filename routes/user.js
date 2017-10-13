@@ -62,14 +62,14 @@ router.post('/signin', function(req, res, next) {
                         error: err
                     });
                 }
-                // TODO: change message on error
+                // TODO: change post on error
                 if (!userByUsername) {
                     return res.status(401).json({
                         title: 'Login failed',
                         error: {message: 'Invalid login username'}
                     });
                 }
-                // TODO: change message on error
+                // TODO: change post on error
                 if (!bcrypt.compareSync(req.body.password, userByUsername.password)) {
                     return res.status(401).json({
                         title: 'Login failed',
@@ -87,7 +87,7 @@ router.post('/signin', function(req, res, next) {
             });
         } else {
             if (!bcrypt.compareSync(req.body.password, user.password)) {
-                // TODO: change message on error
+                // TODO: change post on error
                 return res.status(401).json({
                     title: 'Login failed',
                     error: {message: 'Invalid login password'}

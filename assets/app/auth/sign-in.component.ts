@@ -25,7 +25,7 @@ export class SignInComponent implements OnInit {
         } else {
             username = this.myForm.value.identification;
         }
-        const user = new User(username, email, this.myForm.value.password);
+        const user = new User(username, email, this.myForm.value.password, this.myForm.value.firstName, this.myForm.value.lastName);
         this.authService.signIn(user)
             .subscribe(
             data => {

@@ -21,18 +21,15 @@ module.exports = webpackMerge.smart(commonConfig, {
             {
                 test: /\.ts$/,
                 use: [
-                    {loader: 'awesome-typescript-loader', options: {
-                        transpileOnly: true
-                    }},
-                    {loader: 'angular2-template-loader'},
-                    {loader: 'angular-router-loader?aot=true&genDir=public/js/app'}
+                    'awesome-typescript-loader',
+                    'angular2-template-loader',
+                    'angular-router-loader?aot=true'
                 ]
             }
         ]
     },
 
     plugins: [
-        new webpack.NoEmitOnErrorsPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false
         })
