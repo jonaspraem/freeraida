@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Response } from "@angular/http";
+import { Headers, Http, Response } from "@angular/http";
 import { ErrorService } from "../errors/error.service";
 import { Observable } from "rxjs/Observable";
 import { Profile } from "./profile.model";
@@ -33,10 +33,12 @@ export class ProfileService {
     }
 
     followUser(username: string) {
+        const body = '';
+        const headers = new Headers({'Content-Type': 'application/json'});
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.http.get('http://localhost:3000/connect/follow/'+username+token)
+        return this.http.post('http://localhost:3000/connect/follow/'+username+token, body, {headers: headers})
             .map((response: Response) => {
                 const result = response.json().obj;
                 const profile = new Profile(
@@ -57,10 +59,12 @@ export class ProfileService {
     }
 
     unfollowUser(username: string) {
+        const body = JSON.stringify('');
+        const headers = new Headers({'Content-Type': 'application/json'});
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
             : '';
-        return this.http.get('http://localhost:3000/connect/unfollow/'+username+token)
+        return this.http.post('http://localhost:3000/connect/unfollow/'+username+token, body, {headers: headers})
             .map((response: Response) => {
                 const result = response.json().obj;
                 const profile = new Profile(

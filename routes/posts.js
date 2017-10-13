@@ -34,7 +34,7 @@ router.use('/', function(req, res, next) {
             });
         }
         next();
-    })
+    });
 });
 
 // Post post

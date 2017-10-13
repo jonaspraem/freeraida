@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 
+var User = require('../models/user');
 var Profile = require('../models/profile');
 
 // TODO: change secret variable
@@ -15,7 +16,7 @@ router.use('/', function(req, res, next) {
             });
         }
         next();
-    })
+    });
 });
 
 // Follow another user
@@ -34,50 +35,67 @@ router.post('/follow/:username', function(req, res, next) {
                 error: {message: 'No user found'}
             });
         }
-
-        var isAlreadyFollowing = (followee.profile.following.indexOf(req.params.username) > -1);
-        if (isAlreadyFollowing) {
-            return res.status(500).json({
-                title: 'User is already followed',
-                error: {message: 'You are already following this user'}
-            });
-        }
-        Profile.findOne({username: req.params.username}, function(p_err, userToFollow) {
-            if (p_err) {
+        Profile.findOne({username: followee.username}, function(profile_err, followee_profile) {
+            if (profile_err) {
                 return res.status(500).json({
                     title: 'An error occured',
                     error: {message: 'An error occured'}
                 });
             }
-            if (!userToFollow) {
+            if (!followee_profile) {
                 return res.status(500).json({
                     title: 'No user found',
                     error: {message: 'No user found'}
                 });
             }
-            followee.profile.following.push(req.params.username);
-            userToFollow.followers.push(followee.username);
-            followee.profile.save(function (err, result) {
-                if (err) {
+
+            var isAlreadyFollowing = (followee_profile.following.indexOf(req.params.username) > -1);
+            if (isAlreadyFollowing) {
+                return res.status(500).json({
+                    title: 'User is already followed',
+                    error: {message: 'You are already following this user'}
+                });
+            }
+            Profile.findOne({username: req.params.username}, function(p_err, userToFollow) {
+                if (p_err) {
                     return res.status(500).json({
                         title: 'An error occured',
                         error: {message: 'An error occured'}
                     });
                 }
-            });
-            userToFollow.save(function (err, result) {
-                if (err) {
+                if (!userToFollow) {
                     return res.status(500).json({
-                        title: 'An error occured',
-                        error: {message: 'An error occured'}
+                        title: 'No user found',
+                        error: {message: 'No user found'}
                     });
                 }
-                return res.status(201).json({
-                    message: 'User successfully followed',
-                    obj: result
+                followee_profile.following.push(req.params.username);
+                userToFollow.followers.push(followee.username);
+                followee_profile.save(function (err, result) {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: {message: 'An error occured'}
+                        });
+                    }
+                });
+                userToFollow.save(function (err, result) {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: {message: 'An error occured'}
+                        });
+                    }
+                    return res.status(201).json({
+                        message: 'User successfully followed',
+                        obj: result
+                    });
                 });
             });
+
         });
+
+
     });
 });
 
