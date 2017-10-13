@@ -115,49 +115,68 @@ router.post('/unfollow/:username', function(req, res, next) {
                 error: {message: 'No user found'}
             });
         }
-        var isAlreadyFollowing = (followee.profile.following.indexOf(req.params.username) > -1);
-        if (!isAlreadyFollowing) {
-            return res.status(500).json({
-                title: 'User not followed',
-                error: {message: 'User is not being followed by you'}
-            });
-        }
-        Profile.findOne({username: req.params.username}, function(p_err, userToUnFollow) {
-            if (p_err) {
+        Profile.findOne({username: followee.username}, function(profile_err, followee_profile) {
+            if (profile_err) {
                 return res.status(500).json({
                     title: 'An error occured',
                     error: {message: 'An error occured'}
                 });
             }
-            if (!userToUnFollow) {
+            if (!followee_profile) {
                 return res.status(500).json({
                     title: 'No user found',
                     error: {message: 'No user found'}
                 });
             }
-            followee.profile.following.splice(followee.profile.following.indexOf(req.params.username), 1);
-            userToUnFollow.followers.splice(userToUnFollow.followers.indexOf(followee.username), 1);
-            followee.profile.save(function (err, result) {
-                if (err) {
+
+
+            var isAlreadyFollowing = (followee_profile.following.indexOf(req.params.username) > -1);
+            if (!isAlreadyFollowing) {
+                return res.status(500).json({
+                    title: 'User not followed',
+                    error: {message: 'User is not being followed by you'}
+                });
+            }
+            Profile.findOne({username: req.params.username}, function(p_err, userToUnFollow) {
+                if (p_err) {
                     return res.status(500).json({
                         title: 'An error occured',
                         error: {message: 'An error occured'}
                     });
                 }
-            });
-            userToUnFollow.save(function (err, result) {
-                if (err) {
+                if (!userToUnFollow) {
                     return res.status(500).json({
-                        title: 'An error occured',
-                        error: {message: 'An error occured'}
+                        title: 'No user found',
+                        error: {message: 'No user found'}
                     });
                 }
-                return res.status(201).json({
-                    message: 'User successfully un-followed',
-                    obj: result
+                followee_profile.following.splice(followee_profile.following.indexOf(req.params.username), 1);
+                userToUnFollow.followers.splice(userToUnFollow.followers.indexOf(followee.username), 1);
+                followee_profile.save(function (err, result) {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: {message: 'An error occured'}
+                        });
+                    }
+                });
+                userToUnFollow.save(function (err, result) {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: {message: 'An error occured'}
+                        });
+                    }
+                    return res.status(201).json({
+                        message: 'User successfully un-followed',
+                        obj: result
+                    });
                 });
             });
+
         });
+
+
     });
 });
 

@@ -59,7 +59,7 @@ export class ProfileService {
     }
 
     unfollowUser(username: string) {
-        const body = JSON.stringify('');
+        const body = '';
         const headers = new Headers({'Content-Type': 'application/json'});
         const token = localStorage.getItem('token')
             ? '?token=' + localStorage.getItem('token')
