@@ -41,7 +41,7 @@ router.use('/', function(req, res, next) {
     })
 });
 
-// Edit bio
+// Edit bio TODO: fix
 router.patch('/:bio', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
     Profile.findOne({user: req.body.user._id}, function(err, profile) {

@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 
 @Component({
     selector: 'app-posts',
-    templateUrl: './posts.component.html'
+    templateUrl: './profile-feed.component.html'
 })
 
-export class PostsComponent {
+export class ProfileFeedComponent {
 
 }

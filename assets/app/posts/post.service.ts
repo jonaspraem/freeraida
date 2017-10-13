@@ -25,9 +25,9 @@ export class PostService {
                 const result = response.json();
                 const post_obj = new Post(
                     result.obj.content,
-                    result.obj.user.firstName,
-                    result.obj._id,
-                    result.obj.user._id
+                    result.obj.timestamp,
+                    result.obj.username,
+                    result.obj._id
                 );
                 this.posts.push(post_obj);
                 return post_obj;
@@ -38,21 +38,21 @@ export class PostService {
             });
     }
 
-    getPosts() {
-        return this.http.get('http://localhost:3000/post')
+    getPosts(username: string) {
+        return this.http.get('http://localhost:3000/post/'+username)
             .map((response: Response) => {
-                const messages = response.json().obj;
-                let transformedMessages: Post[] = [];
-                for (let message of messages) {
-                    transformedMessages.push(new Post(
+                const posts = response.json().obj;
+                let transformedPosts: Post[] = [];
+                for (let message of posts) {
+                    transformedPosts.push(new Post(
                         message.content,
-                        message.user.firstName,
+                        message.timestamp,
+                        message.username,
                         message._id,
-                        message.user._id
                     ));
                 }
-                this.posts = transformedMessages;
-                return transformedMessages;
+                this.posts = transformedPosts;
+                return transformedPosts;
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());

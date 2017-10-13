@@ -4,23 +4,28 @@ var jwt = require('jsonwebtoken');
 
 var User = require('../models/user');
 var Post = require('../models/post');
+var Profile = require('../models/profile');
 
-// Get all posts
-router.get('/', function (req, res, next) {
-    Post.find()
-        .populate('user', 'firstName')
-        .exec(function (err, messages) {
-            if (err) {
-                return res.status(500).json({
-                    title: 'An error occured',
-                    error: err
-                });
-            }
-            res.status(200).json({
-                message: 'Messages received',
-                obj: messages
+// Get all user posts
+router.get('/:username', function (req, res, next) {
+    Profile.findOne({username: req.params.username}, function(err, user_profile) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
             });
+        }
+        if (!user_profile) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        return res.status(201).json({
+            message: 'Post saved',
+            obj: user_profile.posts
         });
+    });
 });
 
 // TODO: change secret variable
@@ -47,29 +52,51 @@ router.post('/', function(req, res, next) {
                 error: err
             });
         }
+        if (!user) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
         var post = new Post({
             content: req.body.content,
-            user: user
+            username: user.username,
+            timestamp: new Date()
         });
-        post.save(function (err, result) {
-            if (err) {
+
+        Profile.findOne({username: user.username}, function(profile_err, user_profile) {
+            if (profile_err) {
                 return res.status(500).json({
                     title: 'An error occured',
-                    error: err
+                    error: {message: 'An error occured'}
                 });
             }
-            user.messages.push(result);
-            user.save(function (err, result) {
+            if (!user_profile) {
+                return res.status(500).json({
+                    title: 'No user found',
+                    error: {message: 'No user found'}
+                });
+            }
+            post.save(function (err, result) {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occured',
                         error: err
                     });
                 }
-            });
-            res.status(201).json({
-                message: 'Post saved',
-                obj: result
+                user_profile.posts.push(result);
+                user_profile.save(function (err, result) {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: err
+                        });
+                    }
+                    return res.status(201).json({
+                        message: 'Post saved',
+                        obj: post
+                    });
+                });
             });
         });
     });

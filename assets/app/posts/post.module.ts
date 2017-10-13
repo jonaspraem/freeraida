@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
 import { PostService } from "./post.service";
-import { PostsComponent } from "./posts.component";
+import { ProfileFeedComponent } from "./profile-feed.component";
 import { PostListComponent } from "./post-list.component";
 import { PostInputComponent } from "./post-input.component";
 import { PostComponent } from "./post.component";
@@ -11,7 +11,7 @@ import { PostComponent } from "./post.component";
 
 @NgModule({
     declarations: [
-        PostsComponent,
+        ProfileFeedComponent,
         PostListComponent,
         PostComponent,
         PostInputComponent
@@ -21,7 +21,7 @@ import { PostComponent } from "./post.component";
         FormsModule
     ],
     exports: [
-        PostsComponent,
+        ProfileFeedComponent,
         PostListComponent,
         PostComponent,
         PostInputComponent

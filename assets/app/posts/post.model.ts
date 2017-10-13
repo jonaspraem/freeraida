@@ -1,13 +1,13 @@
 export class Post {
     content: string;
-    author: string;
+    timestamp?: Date;
+    username?: string;
     postId?: string;
-    userId?: string;
 
-    constructor(content: string, author: string, postId?: string, userId?: string) {
+    constructor(content: string, timestamp?: Date, username?: string, postId?: string) {
         this.content = content;
-        this.author = author;
+        this.timestamp = timestamp;
+        this.username = username;
         this.postId = postId;
-        this.userId = userId;
     }
 }

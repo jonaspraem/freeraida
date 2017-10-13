@@ -5,7 +5,8 @@ var User = require('./user');
 
 var schema = new Schema({
     content: {type: String, required: true},
-    user: {type: Schema.Types.ObjectId, ref: 'User'}
+    username: {type: String},
+    timestamp: {type: Date}
 });
 
 schema.post('remove', function(message) {
@@ -15,4 +16,4 @@ schema.post('remove', function(message) {
     });
 });
 
-module.exports = mongoose.model('Message', schema);
+module.exports = mongoose.model('Post', schema);

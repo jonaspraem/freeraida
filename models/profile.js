@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var User = require('./user');
+var Post = require('./post');
 
 var schema = new Schema({
     username: {type: String, required: true},
@@ -9,7 +9,7 @@ var schema = new Schema({
     img: {data: Buffer, contentType: String},
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
-    messages: [{type: Schema.Types.ObjectId, ref: 'Message'}],
+    posts: [{type: Schema.Types.ObjectId, ref: 'Post'}],
     following: [{type: String}],
     followers: [{type: String}]
 });
