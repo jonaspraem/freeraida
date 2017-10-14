@@ -22,12 +22,12 @@ export class PostService {
             : '';
         return this.http.post('http://localhost:3000/post' + token, body, {headers: headers})
             .map((response: Response) => {
-                const result = response.json();
+                const result = response.json().obj;
                 const post_obj = new Post(
-                    result.obj.content,
-                    result.obj.timestamp,
-                    result.obj.username,
-                    result.obj._id
+                    result.content,
+                    result.timestamp,
+                    result.username,
+                    result._id
                 );
                 this.posts.push(post_obj);
                 return post_obj;
@@ -43,12 +43,12 @@ export class PostService {
             .map((response: Response) => {
                 const posts = response.json().obj;
                 let transformedPosts: Post[] = [];
-                for (let message of posts) {
+                for (let post of posts) {
                     transformedPosts.push(new Post(
-                        message.content,
-                        message.timestamp,
-                        message.username,
-                        message._id,
+                        post.content,
+                        post.timestamp,
+                        post.username,
+                        post._id,
                     ));
                 }
                 this.posts = transformedPosts;

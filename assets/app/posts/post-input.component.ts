@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { PostService } from "./post.service";
-import { Post } from "./post.model";
 import { NgForm } from "@angular/forms";
+
+import { Post } from "./post.model";
+import { Profile } from "../profile/profile.model";
 
 @Component({
     selector: 'app-message-input',
@@ -9,6 +11,7 @@ import { NgForm } from "@angular/forms";
 })
 
 export class PostInputComponent implements OnInit{
+    @Input() profile: Profile;
     post: Post;
 
     constructor(private postService: PostService) {}
@@ -25,6 +28,7 @@ export class PostInputComponent implements OnInit{
         } else {
             // Create
             const post = new Post(form.value.content);
+            console.log(post);
             this.postService.addPost(post)
                 .subscribe(
                     data => console.log(data),

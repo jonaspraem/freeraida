@@ -25,6 +25,6 @@ export class PostComponent {
     }
 
     belongsToUser() {
-        return localStorage.getItem('userId') == this.post.userId;
+        return localStorage.getItem('username') == this.post.username;
     }
 }

@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Headers, Http, Response } from "@angular/http";
+import 'rxjs/Rx';
+
 import { ErrorService } from "../errors/error.service";
 import { Observable } from "rxjs/Observable";
 import { Profile } from "./profile.model";
@@ -7,7 +9,7 @@ import { Profile } from "./profile.model";
 @Injectable()
 
 export class ProfileService {
-    profile: Profile;
+    public profile: Profile;
 
     constructor(private http: Http, private errorService: ErrorService) {}
 

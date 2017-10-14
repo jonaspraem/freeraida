@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Post } from "./post.model";
 import { Profile } from "../profile/profile.model";
-import { ActivatedRoute } from "@angular/router";
 import { PostService } from "./post.service";
+import { ProfileService } from "../profile/profile.service";
 
 @Component({
     selector: 'app-post-list',
@@ -10,20 +10,21 @@ import { PostService } from "./post.service";
 })
 
 export class PostListComponent implements OnInit{
+    @Input() profile: Profile;
     posts: Post[];
 
-    constructor(private postService: PostService, private route: ActivatedRoute) {}
+    constructor(private postService: PostService, private profileService: ProfileService) {}
 
-    // TODO: parse from profile.component
     ngOnInit(): void {
-        this.route.params.subscribe(params => {
-            var username = params['user'];
-            this.postService.getPosts(username.toString())
+        if (this.profileService.profile) {
+            console.log('received profile: '+this.profileService.profile.username);
+            this.postService.getPosts(this.profileService.profile.username)
                 .subscribe(
                     (posts: Post[]) => {
+                        console.log(posts);
                         this.posts = posts;
                     }
                 );
-        });
+        }
     }
 }
