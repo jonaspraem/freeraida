@@ -6,9 +6,8 @@ var User = require('../models/user');
 var Post = require('../models/post');
 var Profile = require('../models/profile');
 
-// Get all user posts
-router.get('/:username', function (req, res, next) {
-    Profile.findOne({username: req.params.username}, function (err, user_profile) {
+function getUserPosts(username, res) {
+    Profile.findOne({username: username}, function (err, user_profile) {
         if (err) {
             return res.status(500).json({
                 title: 'An error occured',
@@ -40,6 +39,11 @@ router.get('/:username', function (req, res, next) {
             });
         });
     });
+}
+
+// Get all user posts
+router.get('/:username', function (req, res, next) {
+    return getUserPosts(req.params.username, res);
 });
 
 // TODO: change secret variable
@@ -53,6 +57,57 @@ router.use('/', function(req, res, next) {
             });
         }
         next();
+    });
+});
+
+// Get user live-feed
+router.get('/feed', function (req, res, next) {
+    var decoded = jwt.decode(req.query.token);
+    User.findById(decoded.user._id, function (err, user) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        if (!user) {
+            return res.status(500).json({
+                title: 'An error occured',
+                error: err
+            });
+        }
+        Profile.findOne({username: user.username}, function(profile_err, user_profile) {
+            if (profile_err) {
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            if (!user_profile) {
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
+            var transformedPosts = [];
+            user_profile.following.forEach(function(product, index){
+                console.log(product + ' ' + index);
+                var user_posts = getUserPosts(req.params.username, res);
+                transformedPosts.push.apply(transformedPosts, user_posts);
+            });
+            transformedPosts.sort(function(a, b){
+                var keyA = new Date(a.timestamp),
+                    keyB = new Date(b.timestamp);
+                // Compare the 2 dates
+                if(keyA < keyB) return -1;
+                if(keyA > keyB) return 1;
+                return 0;
+            });
+            return res.status(201).json({
+                message: 'User feed successfully generated',
+                obj: transformedPosts
+            });
+        });
     });
 });
 
