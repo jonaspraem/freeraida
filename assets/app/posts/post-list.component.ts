@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Post } from "./post.model";
-import { Profile } from "../profile/profile.model";
 import { PostService } from "./post.service";
 import { ProfileService } from "../profile/profile.service";
 
@@ -10,12 +9,12 @@ import { ProfileService } from "../profile/profile.service";
 })
 
 export class PostListComponent implements OnInit{
-    @Input() profile: Profile;
     posts: Post[];
 
     constructor(private postService: PostService, private profileService: ProfileService) {}
 
     ngOnInit(): void {
+        // TODO: profile is not existing on manual routing
         if (this.profileService.profile) {
             this.postService.getPosts(this.profileService.profile.username)
                 .subscribe(

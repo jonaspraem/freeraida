@@ -11,8 +11,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li routerLinkActive="active"><a [routerLink]="['/messages']">Messages</a></li>
+                <li routerLinkActive="active"><a [routerLink]="['/feed']">live feed</a></li>
                 <li routerLinkActive="active" *ngIf="isLoggedIn()"><a [routerLink]="['/user']">Profile</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

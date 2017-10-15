@@ -7,6 +7,8 @@ import { ProfileFeedComponent } from "./profile-feed.component";
 import { PostListComponent } from "./post-list.component";
 import { PostInputComponent } from "./post-input.component";
 import { PostComponent } from "./post.component";
+import { LiveFeedComponent } from "./feed/live-feed.component";
+import { FeedListComponent } from "./feed/feed-list.component";
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { PostComponent } from "./post.component";
         ProfileFeedComponent,
         PostListComponent,
         PostComponent,
-        PostInputComponent
+        PostInputComponent,
+        LiveFeedComponent,
+        FeedListComponent
     ],
     imports: [
         CommonModule,
@@ -24,7 +28,9 @@ import { PostComponent } from "./post.component";
         ProfileFeedComponent,
         PostListComponent,
         PostComponent,
-        PostInputComponent
+        PostInputComponent,
+        LiveFeedComponent,
+        FeedListComponent
     ],
     providers: [ PostService ]
 })

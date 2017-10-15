@@ -1,11 +1,11 @@
 import { RouterModule, Routes } from "@angular/router";
 import { AuthenticationComponent } from "./auth/authentication.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { SidebarComponent } from "./sidebar/sidebar.component";
+import { LiveFeedComponent } from "./posts/feed/live-feed.component";
 
 const APP_ROUTES: Routes = [
-    { path: '', redirectTo: '/messages', pathMatch: 'full' },
-    { path: 'messages', component: SidebarComponent },
+    { path: '', redirectTo: '/feed', pathMatch: 'full' },
+    { path: 'feed', component: LiveFeedComponent },
     { path: 'user', component: ProfileComponent, loadChildren: './profile/profile.module#ProfileModule'},
     { path: 'auth', component: AuthenticationComponent, loadChildren: './auth/auth.module#AuthModule' },
 ];

@@ -24,6 +24,7 @@
     "@angular/upgrade": "^4.4.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.17.1",
+    "bootstrap-material-design": "^4.0.0-beta.3",
     "cookie-parser": "~1.4.3",
     "core-js": "^2.5.1",
     "debug": "~2.6.3",

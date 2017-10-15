@@ -39,7 +39,32 @@ export class PostService {
     }
 
     getPosts(username: string) {
-        return this.http.get('http://localhost:3000/post/'+username)
+        return this.http.get('http://localhost:3000/post/profile-feed/'+username)
+            .map((response: Response) => {
+                const posts = response.json().obj;
+                let transformedPosts: Post[] = [];
+                for (let post of posts) {
+                    transformedPosts.push(new Post(
+                        post.content,
+                        post.timestamp,
+                        post.username,
+                        post._id,
+                    ));
+                }
+                this.posts = transformedPosts;
+                return transformedPosts;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
+    getFeed() {
+        const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : '';
+        return this.http.get('http://localhost:3000/post/feed' + token)
             .map((response: Response) => {
                 const posts = response.json().obj;
                 let transformedPosts: Post[] = [];
