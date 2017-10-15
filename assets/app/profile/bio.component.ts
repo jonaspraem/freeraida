@@ -16,7 +16,6 @@ export class BioComponent{
     constructor(private authService: AuthService, private profileService: ProfileService) {}
 
     follow() {
-        console.log('follow '+this.profile.username);
         this.profileService.followUser(this.profile.username).subscribe(
             (profile: Profile) => {
                 this.profile = profile
@@ -25,7 +24,6 @@ export class BioComponent{
     }
 
     unfollow() {
-        console.log('unfollow '+this.profile.username);
         this.profileService.unfollowUser(this.profile.username)
             .subscribe(
                 (profile: Profile) => {

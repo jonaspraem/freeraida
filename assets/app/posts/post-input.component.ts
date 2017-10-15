@@ -28,7 +28,6 @@ export class PostInputComponent implements OnInit{
         } else {
             // Create
             const post = new Post(form.value.content);
-            console.log(post);
             this.postService.addPost(post)
                 .subscribe(
                     data => console.log(data),

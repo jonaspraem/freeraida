@@ -17,11 +17,9 @@ export class PostListComponent implements OnInit{
 
     ngOnInit(): void {
         if (this.profileService.profile) {
-            console.log('received profile: '+this.profileService.profile.username);
             this.postService.getPosts(this.profileService.profile.username)
                 .subscribe(
                     (posts: Post[]) => {
-                        console.log(posts);
                         this.posts = posts;
                     }
                 );
