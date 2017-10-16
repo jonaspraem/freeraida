@@ -26,7 +26,7 @@ import { ProfileModule } from "./profile/profile.module";
         BrowserAnimationsModule,
         routing,
         HttpModule,
-        ProfileModule
+        ProfileModule,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [AuthService, ErrorService],

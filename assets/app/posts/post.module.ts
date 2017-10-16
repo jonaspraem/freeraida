@@ -2,6 +2,9 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
+// Material design
+import { MatCardModule, MatButtonModule, MatInputModule } from "@angular/material";
+
 import { PostService } from "./post.service";
 import { ProfileFeedComponent } from "./profile-feed.component";
 import { PostListComponent } from "./post-list.component";
@@ -22,7 +25,10 @@ import { FeedListComponent } from "./feed/feed-list.component";
     ],
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        MatCardModule,
+        MatButtonModule,
+        MatInputModule
     ],
     exports: [
         ProfileFeedComponent,
@@ -30,7 +36,7 @@ import { FeedListComponent } from "./feed/feed-list.component";
         PostComponent,
         PostInputComponent,
         LiveFeedComponent,
-        FeedListComponent
+        FeedListComponent,
     ],
     providers: [ PostService ]
 })

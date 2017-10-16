@@ -8,8 +8,8 @@
     "build:prod": "del-cli public/js/app && ngc -p tsconfig.aot.json && ngc -p tsconfig.aot.json && webpack --config webpack.config.prod.js --progress --profile --bail && del-cli 'public/js/app/**/*.js' 'public/js/app/**/*.js.map' '!public/js/app/bundle.js' '!public/js/app/*.chunk.js' 'assets/app/**/*.*.ngfactory.ts' 'assets/app/**/*.shim.ts' 'assets/app/**/*.ngsummary.json' 'assets/app/**/*.ngstyle.ts'"
   },
   "dependencies": {
-    "@angular/animations": "^4.4.3",
-    "@angular/cdk": "github:angular/cdk-builds",
+    "@angular/animations": "^4.4.5",
+    "@angular/cdk": "^2.0.0-beta.12",
     "@angular/cli": "^1.4.2",
     "@angular/common": "^4.4.3",
     "@angular/compiler": "^4.4.3",
@@ -17,6 +17,7 @@
     "@angular/core": "^4.4.3",
     "@angular/forms": "^4.4.3",
     "@angular/http": "^4.4.3",
+    "@angular/material": "^2.0.0-beta.12",
     "@angular/platform-browser": "^4.4.3",
     "@angular/platform-browser-dynamic": "^4.4.3",
     "@angular/platform-server": "^4.4.3",
@@ -24,7 +25,6 @@
     "@angular/upgrade": "^4.4.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.17.1",
-    "bootstrap-material-design": "^4.0.0-beta.3",
     "cookie-parser": "~1.4.3",
     "core-js": "^2.5.1",
     "debug": "~2.6.3",

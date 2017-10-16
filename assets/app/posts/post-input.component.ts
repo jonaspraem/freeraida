@@ -7,6 +7,7 @@ import { Post } from "./post.model";
 @Component({
     selector: 'app-message-input',
     templateUrl: './post-input.component.html',
+    styleUrls: ['./post-input.component.css']
 })
 
 export class PostInputComponent implements OnInit{
