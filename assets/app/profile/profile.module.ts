@@ -2,6 +2,9 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 
+// Material design
+import { MatCardModule } from "@angular/material";
+
 import { ProfileService } from "./profile.service";
 import { ProfileComponent } from "./profile.component";
 import { BioComponent } from "./bio.component";
@@ -17,7 +20,8 @@ import { PostModule } from "../posts/post.module";
         CommonModule,
         ReactiveFormsModule,
         profileRouting,
-        PostModule
+        PostModule,
+        MatCardModule
     ],
     providers: [ ProfileService ]
 })
