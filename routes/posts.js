@@ -50,6 +50,16 @@ function getTransformedList(profile, callback) {
     });
 }
 
+function getUserFeed(profile, callback) {
+    var postList = [];
+    Post.find({'_id': {$in: profile.posts}}, function (err, user_posts) {
+        if (err) return null;
+        if (!user_posts) return null;
+        postList.push.apply(postList, user_posts);
+        callback(postList);
+    });
+}
+
 // Get all user posts
 router.get('/profile-feed/:username', function (req, res, next) {
     Profile.findOne({username: req.params.username}, function (err, user_profile) {
@@ -65,22 +75,14 @@ router.get('/profile-feed/:username', function (req, res, next) {
                 error: {message: 'An error occurred 1'}
             });
         }
-        Post.find({'_id': {$in: user_profile.posts}}, function (err, user_posts) {
-            if (err) {
-                return res.status(500).json({
-                    title: 'An error occurred',
-                    error: err
+        getUserFeed(user_profile, function(list) {
+            console.log(list);
+            sortList(list, function(sortedList) {
+                console.log(sortedList);
+                return res.status(201).json({
+                    message: 'User feed successfully generated',
+                    obj: sortedList
                 });
-            }
-            if (!user_posts) {
-                return res.status(500).json({
-                    title: 'An error occurred',
-                    error: {message: 'An error occurred'}
-                });
-            }
-            return res.status(201).json({
-                message: 'User feed successfully generated',
-                obj: user_posts
             });
         });
     });
