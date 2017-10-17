@@ -23,3 +23,7 @@ h1 {
     margin: 0;
     vertical-align: center;
 }
+
+.navbar {
+    margin-bottom: 0;
+}

@@ -3,8 +3,11 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// Material design
+import { MatSidenavModule, MatCardModule } from '@angular/material';
+
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 import { AuthenticationComponent } from "./auth/authentication.component";
 import { HeaderComponent } from "./header/header.component";
 import { routing } from "./app.routing";
@@ -12,11 +15,13 @@ import { AuthService } from "./auth/auth.service";
 import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
 import { ProfileModule } from "./profile/profile.module";
+import { SidenavContentComponent } from "./sidenav/sidenav-content.component";
 
 @NgModule({
     declarations: [
         AppComponent,
-        SidebarComponent,
+        SidenavComponent,
+        SidenavContentComponent,
         AuthenticationComponent,
         HeaderComponent,
         ErrorComponent
@@ -27,6 +32,8 @@ import { ProfileModule } from "./profile/profile.module";
         routing,
         HttpModule,
         ProfileModule,
+        MatSidenavModule,
+        MatCardModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [AuthService, ErrorService],
