@@ -132,12 +132,13 @@ router.get('/feed', function (req, res, next) {
                 });
             }
             getTransformedList(user_profile, function(list) {
-                console.log(list);
-                sortList(list, function(sortedList) {
-                    console.log(sortedList);
-                    return res.status(201).json({
-                        message: 'User feed successfully generated',
-                        obj: sortedList
+                getUserFeed(user_profile, function(user_list){
+                    list.push.apply(list, user_list);
+                    sortList(list, function(sortedList) {
+                        return res.status(201).json({
+                            message: 'User feed successfully generated',
+                            obj: sortedList
+                        });
                     });
                 });
             });
