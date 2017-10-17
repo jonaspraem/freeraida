@@ -1,16 +1,21 @@
-.sidenav-content {
+html, body, sidenav-container, .sidenav-content {
     margin: 0;
     width: 100%;
     height: 100%;
-    text-align: center;
-    align-content: center;
+}
+
+.sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .sidenav-container {
     color: white;
     position: fixed;
-    width: 100px;
     height: 100%;
+    width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
@@ -21,7 +26,13 @@
 }
 
 .row-icon {
+    align-content: center;
+    text-align: center;
     vertical-align: middle;
-    width: 200px;
-    height: 50px;
+    height: 20px;
+}
+
+.content {
+    height: 100%;
+    width: 100%;
 }

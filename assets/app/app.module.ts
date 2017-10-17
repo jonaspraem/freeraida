@@ -16,6 +16,7 @@ import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
 import { ProfileModule } from "./profile/profile.module";
 import { SidenavContentComponent } from "./sidenav/sidenav-content.component";
+import { PostModule } from "./posts/post.module";
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { SidenavContentComponent } from "./sidenav/sidenav-content.component";
         HttpModule,
         ProfileModule,
         MatSidenavModule,
-        MatCardModule
+        MatCardModule,
+        PostModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [AuthService, ErrorService],
