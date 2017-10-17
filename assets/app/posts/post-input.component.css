@@ -12,5 +12,11 @@
 }
 
 .post-input-form-field {
+    margin: 20px;
+    border-color: #141D2F;
     width: 100%;
+}
+
+.button-submit {
+    background-color: #6495ED;
 }

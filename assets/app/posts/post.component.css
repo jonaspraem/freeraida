@@ -13,3 +13,10 @@
     opacity: 0.5;
 }
 
+.post-actions {
+    text-align: right;
+    font-weight: 600;
+    color: #141D2F;
+    opacity: 0.9;
+}
+

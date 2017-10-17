@@ -7,7 +7,7 @@
     </mat-card-content>
     <mat-card-footer>
     </mat-card-footer>
-    <mat-card-actions *ngIf="belongsToUser()">
+    <mat-card-actions *ngIf="belongsToUser()" class="post-actions">
         <a (click)="onDelete()">Delete</a>
     </mat-card-actions>
 </mat-card>
