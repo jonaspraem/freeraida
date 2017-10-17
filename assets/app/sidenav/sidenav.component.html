@@ -1,7 +1,23 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav class="sidenav" mode="side" opened="true">
-        <mat-card class="row-icon" (click)="onExpand()"><i class="material-icons">fast_forward</i></mat-card>
-        <mat-card class="row-icon"><i class="material-icons">home</i></mat-card>
+        <mat-list *ngIf="!expanded">
+            <mat-list-item>
+                <mat-card class="row-icon" (click)="onExpand()"><i class="material-icons">chevron_right</i></mat-card>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-card class="row-icon"><i class="material-icons">home</i></mat-card>
+            </mat-list-item>
+        </mat-list>
+
+        <mat-list *ngIf="expanded">
+            <mat-list-item>
+                <mat-card class="row-icon" (click)="onCollapse()"><i class="material-icons">chevron_left</i></mat-card>
+            </mat-list-item>
+            <mat-list-item>
+                <mat-card class="row-icon"><i class="material-icons">lightbulb_outline</i></mat-card>
+            </mat-list-item>
+        </mat-list>
+
     </mat-sidenav>
 
     <div class="sidenav-content">
