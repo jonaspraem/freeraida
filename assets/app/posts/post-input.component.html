@@ -1,8 +1,7 @@
-<div class="col-md-8 col-md-offset-2">
-    <form ngNativeValidate (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <div class="form-group">
-            <label for="content">Content</label>
-            <input
+<div class="container">
+    <form ngNativeValidate (ngSubmit)="onSubmit(f)" #f="ngForm" class="post-input-form">
+        <mat-form-field class="post-input-form-field">
+            <input matInput
                     type="text"
                     id="content"
                     class="form-control"
@@ -10,8 +9,8 @@
                     name="content"
                     required
             >
-        </div>
-        <button class="btn btn-danger" type="button" (click)="onClear(f)">Clear</button>
-        <button class="btn btn-primary" type="submit">Save</button>
+        </mat-form-field>
+        <button mat-raised-button type="button" (click)="onClear(f)">Clear</button>
+        <button mat-raised-button type="submit" class="button-submit">Save</button>
     </form>
 </div>

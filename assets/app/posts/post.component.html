@@ -1,14 +1,13 @@
-<article class="panel panel-default">
-    <div class="panel-body">
-        {{ post.content }}
-    </div>
-    <footer class="panel-footer">
-        <div class="author">
-            {{ post.username }}
-        </div>
-        <div class="config" *ngIf="belongsToUser()">
-            <a (click)="onEdit()">Edit</a>
-            <a (click)="onDelete()">Delete</a>
-        </div>
-    </footer>
-</article>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title><h3 class="author"> {{ post.username }} </h3> <p class="date"> {{ getFormattedDate() }}</p></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{ post.content }}</p>
+    </mat-card-content>
+    <mat-card-footer>
+    </mat-card-footer>
+    <mat-card-actions *ngIf="belongsToUser()" class="post-actions">
+        <a (click)="onDelete()">Delete</a>
+    </mat-card-actions>
+</mat-card>

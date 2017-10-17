@@ -1,5 +1,4 @@
-import { Component, Input } from "@angular/core";
-import { Profile } from "../profile/profile.model";
+import { Component } from "@angular/core";
 
 @Component({
     selector: 'app-profile-feed',
@@ -7,6 +6,5 @@ import { Profile } from "../profile/profile.model";
 })
 
 export class ProfileFeedComponent {
-    @Input() profile: Profile;
 
 }

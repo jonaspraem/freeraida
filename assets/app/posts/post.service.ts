@@ -46,7 +46,7 @@ export class PostService {
                 for (let post of posts) {
                     transformedPosts.push(new Post(
                         post.content,
-                        post.timestamp,
+                        new Date(post.timestamp),
                         post.username,
                         post._id,
                     ));
@@ -71,7 +71,7 @@ export class PostService {
                 for (let post of posts) {
                     transformedPosts.push(new Post(
                         post.content,
-                        post.timestamp,
+                        new Date(post.timestamp),
                         post.username,
                         post._id,
                     ));
