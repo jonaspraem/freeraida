@@ -1,6 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav class="sidenav" mode="side" opened="true">
-        <mat-list *ngIf="!expanded">
+    <mat-sidenav #sidenav class="sidenav" mode="side">
+        <mat-list>
             <mat-list-item>
                 <mat-card class="row-icon" (click)="onExpand()"><i class="material-icons">chevron_right</i></mat-card>
             </mat-list-item>
@@ -9,18 +9,21 @@
             </mat-list-item>
         </mat-list>
 
-        <mat-list *ngIf="expanded">
-            <mat-list-item>
-                <mat-card class="row-icon" (click)="onCollapse()"><i class="material-icons">chevron_left</i></mat-card>
-            </mat-list-item>
-            <mat-list-item>
-                <mat-card class="row-icon"><i class="material-icons">lightbulb_outline</i></mat-card>
-            </mat-list-item>
-        </mat-list>
 
     </mat-sidenav>
 
     <div class="sidenav-content">
+        <div *ngIf="isExpanded(); then collapse_button else expand_button"></div>
+        <ng-template #collapse_button>
+            <button class="expand-collapse-button" type="button" mat-button (click)="sidenav.close(); onCollapse();">
+                <i class="material-icons">chevron_left</i>
+            </button>
+        </ng-template>
+        <ng-template #expand_button>
+            <button class="expand-collapse-button" type="button" mat-button (click)="sidenav.open(); onExpand();">
+                <i class="material-icons">chevron_right</i>
+            </button>
+        </ng-template>
         <app-sidenav-content class="content"></app-sidenav-content>
     </div>
 

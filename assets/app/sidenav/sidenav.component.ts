@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-    expanded: Boolean = false;
+    expanded: Boolean = true;
 
     constructor() {}
 
@@ -20,6 +20,10 @@ export class SidenavComponent implements OnInit {
 
     onCollapse() {
         this.expanded = false;
+    }
+
+    isExpanded() {
+        return this.expanded;
     }
 
 }

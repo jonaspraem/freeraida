@@ -5,7 +5,6 @@ html, body, sidenav-container, .sidenav-content {
 }
 
 .sidenav-content {
-    display: flex;
     height: 100%;
     align-items: center;
     justify-content: center;
@@ -13,10 +12,8 @@ html, body, sidenav-container, .sidenav-content {
 
 .sidenav-container {
     color: white;
-    position: fixed;
     height: 100%;
     width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .sidenav {
@@ -35,4 +32,12 @@ html, body, sidenav-container, .sidenav-content {
 .content {
     height: 100%;
     width: 100%;
+}
+
+.expand-collapse-button {
+    color: black;
+    background-color: transparent;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
 }
