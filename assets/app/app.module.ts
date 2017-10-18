@@ -4,7 +4,7 @@ import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Material design
-import { MatSidenavModule, MatCardModule } from '@angular/material';
+import { MatSidenavModule, MatCardModule, MatExpansionModule, MatIconModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
@@ -35,7 +35,9 @@ import { PostModule } from "./posts/post.module";
         ProfileModule,
         MatSidenavModule,
         MatCardModule,
-        PostModule
+        PostModule,
+        MatExpansionModule,
+        MatIconModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [AuthService, ErrorService],

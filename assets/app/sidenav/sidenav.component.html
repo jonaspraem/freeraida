@@ -1,13 +1,62 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav class="sidenav" mode="side">
-        <mat-list>
-            <mat-list-item>
-                <mat-card class="row-icon" (click)="onExpand()"><i class="material-icons">chevron_right</i></mat-card>
-            </mat-list-item>
-            <mat-list-item>
-                <mat-card class="row-icon"><i class="material-icons">home</i></mat-card>
-            </mat-list-item>
-        </mat-list>
+    <mat-sidenav #sidenav class="sidenav" mode="side" open="true">
+        <mat-expansion-panel class="main-item" [disabled]="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>home</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <h3>Dashboard</h3>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel open="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>landscape</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <h3>Rides</h3>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field>
+                <h3>Register ride</h3>
+            </mat-form-field>
+
+            <mat-form-field>
+                <h3>Browse ride</h3>
+            </mat-form-field>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel open="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-icon>location_on</mat-icon>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <h3>Live tracker</h3>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field>
+                <h3>Track ride</h3>
+            </mat-form-field>
+
+            <mat-form-field>
+                <h3>Track something</h3>
+            </mat-form-field>
+        </mat-expansion-panel>
+
+        <!--<mat-list>-->
+        <!--<mat-list-item>-->
+        <!--<mat-card class="row-icon" (click)="onExpand()"><i class="material-icons">chevron_right</i></mat-card>-->
+        <!--</mat-list-item>-->
+        <!--<mat-list-item>-->
+        <!--<mat-card class="row-icon"><i class="material-icons">home</i></mat-card>-->
+        <!--</mat-list-item>-->
+        <!--</mat-list>-->
 
 
     </mat-sidenav>

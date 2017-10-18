@@ -18,7 +18,7 @@ html, body, sidenav-container, .sidenav-content {
 
 .sidenav {
     background-color: #1E2934;
-    width: 100px;
+    width: 200px;
     height: 100%;
 }
 
@@ -40,4 +40,21 @@ html, body, sidenav-container, .sidenav-content {
     border: none;
     cursor:pointer;
     overflow: hidden;
+}
+
+.material-icons {
+    height: 100%;
+    align-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+h3 {
+    font-size: large;
+    font-weight: 500;
+}
+
+.main-item {
+    align-content: center;
+    vertical-align: middle;
 }
