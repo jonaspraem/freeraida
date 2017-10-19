@@ -11,7 +11,7 @@ export class SidenavComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
-        this.expanded = false;
+        this.expanded = true;
     }
 
     onExpand() {
