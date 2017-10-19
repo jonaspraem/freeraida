@@ -5,7 +5,7 @@
             <li class="menu-list-item" (click)="onCollapse();"><div class="menu-item-container"><span>
                 <div class="expanded-list-container"><i class="material-icons">chevron_left</i><p>Collapse</p></div>
             </span></div></li>
-            <li class="menu-list-item"><div class="menu-item-container"><span>
+            <li class="menu-list-item" (click)="setContent('dashboard')"><div class="menu-item-container"><span>
                 <div class="expanded-list-container"><i class="material-icons">home</i><p>Dashboard</p></div>
             </span></div></li>
             <li class="menu-list-item"><div class="menu-item-container"><span>
@@ -14,7 +14,7 @@
             <li class="menu-list-item"><div class="menu-item-container"><span>
                 <div class="expanded-list-container"><i class="material-icons">location_on</i><p>Live tracker</p></div>
             </span></div></li>
-            <li class="menu-list-item"><div class="menu-item-container"><span>
+            <li class="menu-list-item" (click)="setContent('user_center')"><div class="menu-item-container"><span>
                 <div class="expanded-list-container"><i class="material-icons">verified_user</i><p>User center</p></div>
             </span></div></li>
         </ul>
@@ -30,7 +30,14 @@
     </ng-template>
 
     <div class="sidenav-content">
-        <app-sidenav-content class="content"></app-sidenav-content>
+        <app-sidenav-content class="content">
+            <!--<div *ngIf="getContent()=='dashboard'">-->
+                <!--<app-feed></app-feed>-->
+            <!--</div>-->
+            <!--<div *ngIf="getContent()=='user_center'">-->
+                <!--<app-authentication></app-authentication>-->
+            <!--</div>-->
+        </app-sidenav-content>
     </div>
 
 </mat-sidenav-container>

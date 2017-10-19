@@ -93,3 +93,8 @@ p {
     color: white;
     background-color: black;
 }
+
+.active {
+    border-right: groove #6495ED;
+    color: #6495ED;
+}

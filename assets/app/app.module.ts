@@ -9,7 +9,8 @@ import {
     MatCardModule,
     MatExpansionModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatToolbarModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -21,14 +22,12 @@ import { AuthService } from "./auth/auth.service";
 import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
 import { ProfileModule } from "./profile/profile.module";
-import { SidenavContentComponent } from "./sidenav/sidenav-content.component";
 import { PostModule } from "./posts/post.module";
 
 @NgModule({
     declarations: [
         AppComponent,
         SidenavComponent,
-        SidenavContentComponent,
         AuthenticationComponent,
         HeaderComponent,
         ErrorComponent
@@ -44,7 +43,8 @@ import { PostModule } from "./posts/post.module";
         PostModule,
         MatExpansionModule,
         MatIconModule,
-        MatListModule
+        MatListModule,
+        MatToolbarModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [AuthService, ErrorService],

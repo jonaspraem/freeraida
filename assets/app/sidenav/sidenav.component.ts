@@ -7,11 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
     expanded: Boolean = true;
+    content: String;
 
     constructor() {}
 
     ngOnInit() {
         this.expanded = true;
+        this.content = 'dashboard';
     }
 
     onExpand() {
@@ -25,5 +27,15 @@ export class SidenavComponent implements OnInit {
     isExpanded() {
         return this.expanded;
     }
+
+    setContent(value: String) {
+        this.content = value;
+    }
+
+    getContent() {
+        return this.content;
+    }
+
+
 
 }
