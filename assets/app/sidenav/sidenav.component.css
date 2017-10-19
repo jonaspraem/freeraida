@@ -4,6 +4,19 @@ html, body, sidenav-container, .sidenav-content {
     height: 100%;
 }
 
+i {
+    white-space: nowrap;
+
+}
+
+span {
+    height: 100%;
+    width: 100%;
+    transform: translateY(+25%);
+    display: inline-block;
+    white-space: nowrap;
+}
+
 .sidenav-content {
     height: 100%;
     align-items: center;
@@ -16,45 +29,59 @@ html, body, sidenav-container, .sidenav-content {
     width: 100%;
 }
 
-.sidenav {
-    background-color: #1E2934;
-    width: 200px;
-    height: 100%;
-}
-
-.row-icon {
-    align-content: center;
-    text-align: center;
-    vertical-align: middle;
-    height: 20px;
-}
-
 .content {
     height: 100%;
     width: 100%;
 }
 
+.collapsed-sidenav {
+    padding: 0;
+    list-style-type: none;
+    background-color: black;
+    position: fixed;
+    height: 100%;
+    width: 50px;
+}
+
 .expand-collapse-button {
     color: black;
-    background-color: transparent;
+    background-color: white;
     border: none;
-    cursor:pointer;
+    cursor: pointer;
     overflow: hidden;
+    border: 3px solid black;
+    border-radius: 25px;
 }
 
-.material-icons {
+.expanded-sidenav {
+    padding: 0;
+    list-style-type: none;
+    background-color: black;
+    position: fixed;
     height: 100%;
-    align-content: center;
+    width: 200px;
+}
+
+.menu-list-item {
+    height: 50px;
+    cursor: pointer;
+}
+
+.menu-item-container {
     text-align: center;
-    vertical-align: middle;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: black;
+    border-bottom: 1px solid white;
 }
 
-h3 {
-    font-size: large;
-    font-weight: 500;
-}
-
-.main-item {
-    align-content: center;
-    vertical-align: middle;
+.expand-collapse-container {
+    text-align: center;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: black;
 }
