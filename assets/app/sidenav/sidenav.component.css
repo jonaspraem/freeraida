@@ -4,17 +4,26 @@ html, body, sidenav-container, .sidenav-content {
     height: 100%;
 }
 
-i {
-    white-space: nowrap;
-
-}
-
 span {
     height: 100%;
     width: 100%;
     transform: translateY(+25%);
     display: inline-block;
+}
+
+p {
+    display: inline-block;
+    transform: translateY(-25%);
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.expanded-list-container {
+    padding-left: 20px;
+    text-align: left;
+    width: 100%;
     white-space: nowrap;
+    display: inline-block;
 }
 
 .sidenav-content {
@@ -49,7 +58,6 @@ span {
     border: none;
     cursor: pointer;
     overflow: hidden;
-    border: 3px solid black;
     border-radius: 25px;
 }
 
