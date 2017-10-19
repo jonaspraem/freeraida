@@ -1,0 +1,49 @@
+<mat-sidenav-container class="sidenav-container">
+    <div *ngIf="isExpanded(); then expanded_sidenav else collapsed_sidenav"></div>
+    <ng-template #expanded_sidenav>
+        <ul class="expanded-sidenav">
+            <li class="menu-list-item" (click)="onCollapse();"><div class="menu-item-container"><span>
+                <div class="expanded-list-container"><i class="material-icons">chevron_left</i><p>Collapse</p></div>
+            </span></div></li>
+            <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
+                <a routerLinkActive="active" [routerLink]="['/feed']"><span><div class="expanded-list-container"><i class="material-icons">home</i><p>Dashboard</p></div></span></a>
+            </div></li>
+            <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
+                <span><div class="expanded-list-container"><i class="material-icons">landscape</i><p>Rides</p></div></span>
+            </div></li>
+            <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
+                <span><div class="expanded-list-container"><i class="material-icons">location_on</i><p>Live tracker</p></div></span>
+            </div></li>
+            <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
+                <a routerLinkActive="active" [routerLink]="['/user']"><span><div class="expanded-list-container"><i class="material-icons">account_circle</i><p>Profile</p></div></span></a>
+            </div></li>
+            <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
+                <a routerLinkActive="active" [routerLink]="['/auth']"><span><div class="expanded-list-container"><i class="material-icons">verified_user</i><p>User center</p></div></span></a>
+            </div></li>
+        </ul>
+    </ng-template>
+    <ng-template #collapsed_sidenav>
+        <ul class="collapsed-sidenav">
+            <li class="menu-list-item" (click)="onExpand();"><div class="menu-item-container"><span><i class="material-icons">chevron_right</i></span></div></li>
+            <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container"><a routerLinkActive="active" [routerLink]="['/feed']"><span><i class="material-icons">home</i></span></a></div></li>
+            <li class="menu-list-item"><div class="menu-item-container"><span><i class="material-icons">landscape</i></span></div></li>
+            <li class="menu-list-item"><div class="menu-item-container"><span><i class="material-icons">location_on</i></span></div></li>
+            <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container"><a routerLinkActive="active" [routerLink]="['/user']"><span><i class="material-icons">account_circle</i></span></a></div></li>
+            <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container"><a routerLinkActive="active" [routerLink]="['/auth']"><span><i class="material-icons">verified_user</i></span></a></div></li>
+        </ul>
+    </ng-template>
+
+</mat-sidenav-container>
+<div class="sidenav-content">
+    <div *ngIf="isExpanded(); then expanded_content else collapsed_content"></div>
+    <ng-template #expanded_content>
+        <div class="expanded-content">
+            <router-outlet></router-outlet>
+        </div>
+    </ng-template>
+    <ng-template #collapsed_content>
+        <div class="collapsed-content">
+            <router-outlet></router-outlet>
+        </div>
+    </ng-template>
+</div>

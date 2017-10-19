@@ -1,0 +1,103 @@
+html, body, sidenav-container, .sidenav-content {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+span {
+    height: 100%;
+    width: 100%;
+    transform: translateY(+25%);
+    display: inline-block;
+}
+
+p {
+    display: inline-block;
+    transform: translateY(-25%);
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+a {
+    color: white;
+}
+
+.expanded-list-container {
+    padding-left: 20px;
+    text-align: left;
+    width: 100%;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.sidenav-content {
+    height: 100%;
+}
+
+.collapsed-sidenav {
+    padding: 0;
+    list-style-type: none;
+    background-color: black;
+    position: fixed;
+    height: 100%;
+    width: 50px;
+}
+
+.expand-collapse-button {
+    color: black;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 25px;
+}
+
+.expanded-sidenav {
+    padding: 0;
+    list-style-type: none;
+    background-color: black;
+    position: fixed;
+    height: 100%;
+    width: 200px;
+}
+
+.menu-list-item {
+    height: 50px;
+    cursor: pointer;
+}
+
+.menu-item-container {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: black;
+    border-bottom: 1px solid white;
+}
+
+.expand-collapse-container {
+    text-align: center;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    color: white;
+    background-color: black;
+}
+
+.active {
+    border-right: groove #6495ED;
+    color: #6495ED;
+}
+
+a:active {
+    color: #6495ED;
+}
+
+.expanded-content {
+    margin-left: 200px;
+}
+
+.collapsed-content {
+    margin-left: 50px;
+}

@@ -15,7 +15,6 @@ export class PostComponent {
 
     getFormattedDate() {
         var timestamp: Date = this.post.timestamp;
-        console.log(timestamp);
         var date = timestamp.getDate();
         var month_index = timestamp.getMonth();
         var month;

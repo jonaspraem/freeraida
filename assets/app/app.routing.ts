@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
 import { AuthenticationComponent } from "./auth/authentication.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { SidenavComponent } from "./sidenav/sidenav.component";
 import { LiveFeedComponent } from "./posts/feed/live-feed.component";
 
 const APP_ROUTES: Routes = [
