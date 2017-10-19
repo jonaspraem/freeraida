@@ -18,6 +18,10 @@ p {
     padding-left: 10px;
 }
 
+a {
+    color: white;
+}
+
 .expanded-list-container {
     padding-left: 20px;
     text-align: left;
@@ -28,19 +32,6 @@ p {
 
 .sidenav-content {
     height: 100%;
-    align-items: center;
-    justify-content: center;
-}
-
-.sidenav-container {
-    color: white;
-    height: 100%;
-    width: 100%;
-}
-
-.content {
-    height: 100%;
-    width: 100%;
 }
 
 .collapsed-sidenav {
@@ -97,4 +88,16 @@ p {
 .active {
     border-right: groove #6495ED;
     color: #6495ED;
+}
+
+a:active {
+    color: #6495ED;
+}
+
+.expanded-content {
+    margin-left: 200px;
+}
+
+.collapsed-content {
+    margin-left: 50px;
 }
