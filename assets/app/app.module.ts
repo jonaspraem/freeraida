@@ -10,7 +10,8 @@ import {
     MatExpansionModule,
     MatIconModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonToggleModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
 import { ProfileModule } from "./profile/profile.module";
 import { PostModule } from "./posts/post.module";
+import { RideCenterModule } from "./rides/ride-center.module";
 
 @NgModule({
     declarations: [
@@ -38,13 +40,17 @@ import { PostModule } from "./posts/post.module";
         routing,
         HttpModule,
         ProfileModule,
+        RideCenterModule,
+
+        // Material design modules:
         MatSidenavModule,
         MatCardModule,
         PostModule,
         MatExpansionModule,
         MatIconModule,
         MatListModule,
-        MatToolbarModule
+        MatToolbarModule,
+        MatButtonToggleModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [AuthService, ErrorService],

@@ -1,0 +1,45 @@
+<div class="container">
+
+    <h1>{{ title }}</h1>
+
+    <!-- this creates a google map on the page with the given lat/lng from -->
+    <!-- the component as the initial center of the map: -->
+    <mat-card class="map-container">
+        <agm-map [mapTypeId]="'hybrid'"
+                 [latitude]="lat"
+                 [longitude]="lng"
+                 [disableDefaultUI]="true"
+                 [backgroundColor]="'#6495ED'"
+                 (mapClick)="mapClicked($event)"
+        >
+            <agm-marker
+                    *ngFor="let m of markers;let i = index"
+                    (markerClick)="clickedMarker(m, i)"
+                    [latitude]="m.lat"
+                    [longitude]="m.lng"
+                    [markerDraggable]="m.draggable"
+                    (dragEnd)="markerDragEnd(m, $event)"
+            ></agm-marker>
+        </agm-map>
+    </mat-card>
+
+    <mat-card class="map-editor">
+        <mat-button-toggle-group #group="matButtonToggleGroup">
+            <mat-button-toggle value="satellite">
+                <mat-icon>satellite</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="terrain">
+                <mat-icon>terrain</mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle value="hybrid">
+                <mat-icon>merge_type</mat-icon>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </mat-card>
+
+    <!--<button mat-raised-button><i class="material-icons">satellite</i></button>-->
+    <!--<button mat-raised-button><i class="material-icons">terrain</i></button>-->
+    <!--<button mat-raised-button><i class="material-icons">merge_type</i></button>-->
+
+    <div class="example-selected-value">Selected value: {{group.value}}</div>
+</div>
