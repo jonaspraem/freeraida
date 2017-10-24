@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MapMarker } from "./mapmarker.model";
+import { PolylineManager } from "@agm/core";
 
 @Component({
     selector: 'app-register-ride',
@@ -14,8 +15,10 @@ export class RegisterRideComponent implements OnInit{
     mapType: string;
     markers: MapMarker[];
 
+    constructor() {}
+
     ngOnInit(): void {
-        this.mapType = 'hybrid';
+        this.mapType = 'satellite';
         this.markers = [];
     }
 
@@ -28,6 +31,13 @@ export class RegisterRideComponent implements OnInit{
             draggable:false
         };
         this.markers.push(marker);
+        // add polyline
+        // _polylineManager.addPolyline(line: AgmPolyline)
+
+    }
+
+    onMapTypeChange(val: string) {
+        this.mapType = val;
     }
 
 }

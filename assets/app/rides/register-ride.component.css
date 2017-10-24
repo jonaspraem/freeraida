@@ -12,30 +12,105 @@ agm-map {
 .map-container {
     alignment: center;
     margin: auto;
-    height: 500px;
+    height: 700px;
     width: 80%;
     padding: 0;
 }
 
-.map-editor {
-    margin: auto;
-    height: 50px;
+.map-options-container {
+    alignment: center;
+    margin: 20px auto;
+    height: 300px;
     width: 80%;
-    align-content: left;
-    text-align: left;
     padding: 0;
 }
 
-mat-button-toggle-group {
-    height: 100%;
-    vertical-align: middle;
+.map-options-card {
+    height: 180px;
+    width: auto;
+    padding: 0;
+    background-color: #D8E4D8;
 }
 
-mat-button-toggle {
-    height: 100%;
-    vertical-align: middle;
+body {
+    font-family: sans-serif;
+    font-weight: normal;
+    margin: 10px;
+    color: white;
+    background-color: #eee;
 }
 
-.material-icons {
-    color: #287A28;
+form {
+    margin: 30px 0;
+}
+
+div {
+    clear: both;
+    margin: 0 20px;
+}
+
+label {
+    margin: 0;
+    width: 200px;
+    border-radius: 3px;
+    border: 1px solid #D1D3D4;
+}
+
+/* hide input */
+input.radio:empty {
+    margin-left: -999px;
+}
+
+/* style label */
+input.radio:empty ~ label {
+    position: relative;
+    float: left;
+    line-height: 2.5em;
+    text-indent: 3.25em;
+    /*margin-top: 2em;*/
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input.radio:empty ~ label:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 2.5em;
+    background: #D1D3D4;
+    border-radius: 3px 0 0 3px;
+}
+
+/* toggle hover */
+input.radio:hover:not(:checked) ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #C2C2C2;
+}
+
+input.radio:hover:not(:checked) ~ label {
+    color: #888;
+}
+
+/* toggle on */
+input.radio:checked ~ label:before {
+    content:'\2714';
+    text-indent: .9em;
+    color: #9CE2AE;
+    background-color: #4DCB6D;
+}
+
+input.radio:checked ~ label {
+    color: #777;
+}
+
+/* radio focus */
+input.radio:focus ~ label:before {
+    box-shadow: 0 0 0 3px #999;
 }
