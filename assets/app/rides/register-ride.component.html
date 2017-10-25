@@ -4,6 +4,24 @@
 
     <!-- this creates a google map on the page with the given lat/lng from -->
     <!-- the component as the initial center of the map: -->
+    <mat-card class="route-description-container">
+        <ul>
+            <li><input type="radio" name="options" (click)="mapType = 'satellite'"
+                       [checked]="mapType === 'satellite'">Satellite</li>
+            <li><input type="radio" name="options" (click)="mapType = 'terrain'"
+                       [checked]="mapType === 'terrain'">Terrain</li>
+            <li><input type="radio" name="options" (click)="mapType = 'hybrid'"
+                       [checked]="mapType === 'hybrid'">Hybrid</li>
+        </ul>
+        <br>
+        <ul>
+            <li class="route-list-li" *ngFor="let m of markers">
+                <i class="material-icons">location_on</i>
+                <p>{{m.name}} </p>
+                <div class="list-coordinates"><p class="extra-small">{{m.lat}}</p><p class="extra-small">{{m.lng}}</p></div>
+            </li>
+        </ul>
+    </mat-card>
     <mat-card class="map-container">
         <agm-map [mapTypeId]="mapType"
                  [latitude]="lat"
@@ -17,47 +35,13 @@
                     (markerClick)="clickedMarker(m, i)"
                     [latitude]="m.lat"
                     [longitude]="m.lng"
+                    [draggable]="m.draggable"
                     (dragEnd)="markerDragEnd(m, $event)"
             >
-                <agm-polyline *ngFor="let data of markers" [editable]="false" [strokeColor]="'#6495ED'" [geodesic]="true">
+                <agm-polyline *ngFor="let m of markers" [editable]="false" [strokeColor]="'#6495ED'" [geodesic]="true">
                 </agm-polyline>
             </agm-marker>
 
         </agm-map>
     </mat-card>
-
-    <div class="map-options-container">
-        <mat-card class="map-options-card">
-            <div>
-                <input type="radio" name="radio" id="radio1" class="radio" checked/>
-                <label for="radio1">Satellite</label>
-            </div>
-
-            <div>
-                <input type="radio" name="radio" id="radio2" class="radio"/>
-                <label for="radio2">Terrain</label>
-            </div>
-
-            <div>
-                <input type="radio" name="radio" id="radio3" class="radio"/>
-                <label for="radio3">Hybrid</label>
-            </div>
-        </mat-card>
-    </div>
-
-    <div class="map-options-container">
-        <mat-card class="map-list-card">
-            <mat-list>
-                <mat-list-item *ngFor="let m of markers;let i = index">
-                    <div mat-line>
-                        <mat-icon mat-list-icon>terrain</mat-icon>
-                        <h4>{{m.name}}</h4>
-                        <p>{{m.lat}} , {{m.lng}}</p>
-                    </div>
-                </mat-list-item>
-            </mat-list>
-        </mat-card>
-    </div>
-
-
 </div>

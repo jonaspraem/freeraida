@@ -5,120 +5,54 @@ agm-map {
 .container {
     height: 100%;
     width: 100%;
-    align-content: center;
-    text-align: center;
 }
 
 .map-container {
-    alignment: center;
-    margin: auto;
     height: 700px;
+    margin: 0 15px;
     width: 80%;
     padding: 0;
-}
-
-.map-options-container {
-    alignment: center;
-    margin: 20px auto;
-    height: 300px;
-    width: 80%;
-    padding: 0;
-}
-
-.map-options-card {
-    height: 180px;
-    width: auto;
-    padding: 0;
-    background-color: #D8E4D8;
-}
-
-.map-list-card {
-    height: 400px;
-    width: auto;
-    padding: 0;
-    background-color: #D8E4D8;
-    overflow: scroll;
-}
-
-body {
-    font-family: sans-serif;
-    font-weight: normal;
-    margin: 10px;
-    color: white;
-    background-color: #eee;
-}
-
-form {
-    margin: 30px 0;
-}
-
-div {
-    clear: both;
-    margin: 0 20px;
-}
-
-label {
-    margin: 0;
-    width: 200px;
-    border-radius: 3px;
-    border: 1px solid #D1D3D4;
-}
-
-/* hide input */
-input.radio:empty {
-    margin-left: -999px;
-}
-
-/* style label */
-input.radio:empty ~ label {
-    position: relative;
     float: left;
-    line-height: 2.5em;
-    text-indent: 3.25em;
-    /*margin-top: 2em;*/
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
-input.radio:empty ~ label:before {
-    position: absolute;
+.route-description-container {
+    height: 700px;
+    width: 15%;
+    padding: 0;
+    background-color: #141D2F;
+    float: left;
+}
+
+i {
+    white-space: nowrap;
+    transform: translateY(+25%);
+}
+
+ul {
+    list-style: none;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.route-list-li {
+    white-space: nowrap;
+    border-top: 1px solid white;
+}
+
+p {
+   display: inline-block;
+   margin-right: 2px;
+}
+
+.extra-small {
     display: block;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    content: '';
-    width: 2.5em;
-    background: #D1D3D4;
-    border-radius: 3px 0 0 3px;
+    font-size: xx-small;
+    color: lightgrey;
+    margin: 0;
 }
 
-/* toggle hover */
-input.radio:hover:not(:checked) ~ label:before {
-    content:'\2714';
-    text-indent: .9em;
-    color: #C2C2C2;
-}
-
-input.radio:hover:not(:checked) ~ label {
-    color: #888;
-}
-
-/* toggle on */
-input.radio:checked ~ label:before {
-    content:'\2714';
-    text-indent: .9em;
-    color: #9CE2AE;
-    background-color: #4DCB6D;
-}
-
-input.radio:checked ~ label {
-    color: #777;
-}
-
-/* radio focus */
-input.radio:focus ~ label:before {
-    box-shadow: 0 0 0 3px #999;
+.list-coordinates {
+    display: inline-block;
+    padding: 4px;
 }

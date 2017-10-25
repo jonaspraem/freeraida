@@ -9,7 +9,8 @@ import {
     MatCardModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule
 } from '@angular/material';
 
 
@@ -26,7 +27,8 @@ import {
         MatCardModule,
         MatButtonModule,
         MatButtonToggleModule,
-        MatIconModule
+        MatIconModule,
+        MatListModule
     ]
 })
 

@@ -20,24 +20,22 @@ export class RegisterRideComponent implements OnInit{
     ngOnInit(): void {
         this.mapType = 'satellite';
         this.markers = [];
+
+
     }
 
     mapClicked($event:any){
         console.log('Map Clicked');
         const marker: MapMarker = {
-            name: 'Point '+this.markers.length + 1,
+            name: 'Point '+(this.markers.length + 1),
             lat: $event.coords.lat,
             lng: $event.coords.lng,
-            draggable:false
+            draggable: true
         };
         this.markers.push(marker);
         // add polyline
         // _polylineManager.addPolyline(line: AgmPolyline)
 
-    }
-
-    onMapTypeChange(val: string) {
-        this.mapType = val;
     }
 
 }
