@@ -3,6 +3,7 @@ agm-map {
 }
 
 .container {
+    margin: 20px;
     height: 100%;
     width: 100%;
 }
@@ -54,5 +55,15 @@ p {
 
 .list-coordinates {
     display: inline-block;
-    padding: 4px;
+    padding: 10px;
+}
+
+.route-info-card {
+    margin: 15px 15px 15px 0;
+    height: 500px;
+    display: block;
+    float: left;
+    width: 1184px;
+    background-color: #141D2F;
+    color: white;
 }
