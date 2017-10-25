@@ -17,14 +17,9 @@
                     (markerClick)="clickedMarker(m, i)"
                     [latitude]="m.lat"
                     [longitude]="m.lng"
-                    [markerDraggable]="m.draggable"
                     (dragEnd)="markerDragEnd(m, $event)"
             >
                 <agm-polyline *ngFor="let data of markers" [editable]="false" [strokeColor]="'#6495ED'" [geodesic]="true">
-                    <agm-polyline-point
-                            [latitude]="data.lat"
-                            [longitude]="data.lng">
-                    </agm-polyline-point>
                 </agm-polyline>
             </agm-marker>
 
@@ -47,6 +42,20 @@
                 <input type="radio" name="radio" id="radio3" class="radio"/>
                 <label for="radio3">Hybrid</label>
             </div>
+        </mat-card>
+    </div>
+
+    <div class="map-options-container">
+        <mat-card class="map-list-card">
+            <mat-list>
+                <mat-list-item *ngFor="let m of markers;let i = index">
+                    <div mat-line>
+                        <mat-icon mat-list-icon>terrain</mat-icon>
+                        <h4>{{m.name}}</h4>
+                        <p>{{m.lat}} , {{m.lng}}</p>
+                    </div>
+                </mat-list-item>
+            </mat-list>
         </mat-card>
     </div>
 

@@ -32,6 +32,14 @@ agm-map {
     background-color: #D8E4D8;
 }
 
+.map-list-card {
+    height: 400px;
+    width: auto;
+    padding: 0;
+    background-color: #D8E4D8;
+    overflow: scroll;
+}
+
 body {
     font-family: sans-serif;
     font-weight: normal;

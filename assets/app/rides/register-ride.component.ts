@@ -25,7 +25,7 @@ export class RegisterRideComponent implements OnInit{
     mapClicked($event:any){
         console.log('Map Clicked');
         const marker: MapMarker = {
-            name: 'Untitled',
+            name: 'Point '+this.markers.length + 1,
             lat: $event.coords.lat,
             lng: $event.coords.lng,
             draggable:false
