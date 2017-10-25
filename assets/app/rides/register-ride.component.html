@@ -14,6 +14,7 @@
                        [checked]="mapType === 'hybrid'">Hybrid</li>
         </ul>
         <br>
+        <!--TODO: make way for overflowing  -->
         <ul>
             <li class="route-list-li" *ngFor="let m of markers">
                 <i class="material-icons">location_on</i>
@@ -22,6 +23,7 @@
             </li>
         </ul>
     </mat-card>
+    <!-- TODO: Add polylines and heightmap -->
     <mat-card class="map-container">
         <agm-map [mapTypeId]="mapType"
                  [latitude]="lat"
