@@ -26,7 +26,7 @@
         <agm-map [mapTypeId]="mapType"
                  [latitude]="lat"
                  [longitude]="lng"
-                 [disableDefaultUI]="true"
+                 [disableDefaultUI]="false"
                  [backgroundColor]="'#6495ED'"
                  (mapClick)="mapClicked($event)"
         >
@@ -35,22 +35,23 @@
                     (markerClick)="clickedMarker(m, i)"
                     [latitude]="m.lat"
                     [longitude]="m.lng"
-                    [draggable]="m.draggable"
+                    [markerDraggable]="m.draggable"
                     (dragEnd)="markerDragEnd(m, $event)"
             >
+                <agm-info-window>
+                    <strong>{{m.name}}</strong>
+                </agm-info-window>
             </agm-marker>
 
             <agm-polyline *ngFor="let item of polyCords"
                           [editable]="false"
                           strokeColor="#6495ED"
-                          strokeWeight="2"
+                          strokeWeight="5"
+                          [geodesic]="true"
                           >
                 <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
                 <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
             </agm-polyline>
-            <!--</agm-polyline>
-
-            (lineClick)="lineClick($event)"-->
 
         </agm-map>
     </mat-card>

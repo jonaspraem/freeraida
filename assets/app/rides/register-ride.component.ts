@@ -46,9 +46,20 @@ export class RegisterRideComponent implements OnInit{
         };
         this.markers.push(marker);
         this.updatePolyCords();
-        // add polyline
-        // _polylineManager.addPolyline(line: AgmPolyline)
+    }
 
+    clickedMarker(marker:MapMarker, index:number) {
+        console.log('Clicked marker '+marker.name+' at index '+index);
+    }
+
+    markerDragEnd(marker:any, $event:any) {
+        for (let m of this.markers) {
+            if (m.name == marker.name) {
+                m.lat = $event.coords.lat;
+                m.lng = $event.coords.lng;
+            }
+        }
+        this.updatePolyCords();
     }
 
 }
