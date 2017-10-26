@@ -38,9 +38,19 @@
                     [draggable]="m.draggable"
                     (dragEnd)="markerDragEnd(m, $event)"
             >
-                <agm-polyline *ngFor="let m of markers" [editable]="false" [strokeColor]="'#6495ED'" [geodesic]="true">
-                </agm-polyline>
             </agm-marker>
+
+            <agm-polyline *ngFor="let item of polyCords"
+                          [editable]="false"
+                          strokeColor="#6495ED"
+                          strokeWeight="2"
+                          >
+                <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
+                <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
+            </agm-polyline>
+            <!--</agm-polyline>
+
+            (lineClick)="lineClick($event)"-->
 
         </agm-map>
     </mat-card>

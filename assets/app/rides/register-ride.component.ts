@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, QueryList } from "@angular/core";
 import { MapMarker } from "./mapmarker.model";
-import { PolylineManager } from "@agm/core";
+import { PolylineCoords } from "./path.model";
 
 @Component({
     selector: 'app-register-ride',
@@ -14,14 +14,26 @@ export class RegisterRideComponent implements OnInit{
     lng: number = 7.809007;
     mapType: string;
     markers: MapMarker[];
+    polyCords: PolylineCoords[];
 
     constructor() {}
 
     ngOnInit(): void {
         this.mapType = 'satellite';
         this.markers = [];
+    }
 
-
+    updatePolyCords() {
+        let cords: PolylineCoords[] = [];
+        let prev_lat;
+        let prev_lng;
+        for (let m of this.markers) {
+            if (prev_lat && prev_lng) cords.push(new PolylineCoords(prev_lat, prev_lng, m.lat, m.lng));
+            prev_lat = m.lat;
+            prev_lng = m.lng;
+        }
+        console.log(cords);
+        this.polyCords =  cords;
     }
 
     mapClicked($event:any){
@@ -33,6 +45,7 @@ export class RegisterRideComponent implements OnInit{
             draggable: true
         };
         this.markers.push(marker);
+        this.updatePolyCords();
         // add polyline
         // _polylineManager.addPolyline(line: AgmPolyline)
 

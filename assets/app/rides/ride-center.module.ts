@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { RegisterRideComponent } from "./register-ride.component";
 import { AgmCoreModule } from "@agm/core";
 
 // Material design
@@ -13,10 +12,14 @@ import {
     MatListModule
 } from '@angular/material';
 
+import { RegisterRideComponent } from "./register-ride.component";
+import { MapContentComponent } from "./map-content";
+
 
 @NgModule({
     declarations: [
-        RegisterRideComponent
+        RegisterRideComponent,
+        MapContentComponent
     ],
     imports: [
         CommonModule,
