@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MapMarker } from "./mapmarker.model";
 import { PolylineCoords } from "./path.model";
 
@@ -15,6 +15,12 @@ export class RegisterRideComponent implements OnInit{
     mapType: string;
     markers: MapMarker[];
     polyCords: PolylineCoords[];
+
+    // Form values
+    overall_dangerlevel: string;
+    tree_level: string;
+    rock_level: string;
+    cliff_level: string;
 
     constructor() {}
 

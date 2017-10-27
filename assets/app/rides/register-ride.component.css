@@ -29,6 +29,16 @@ i {
     transform: translateY(+25%);
 }
 
+li {
+    display: block;
+    margin: 10px 0;
+}
+
+li:after {
+    content:"\a";
+    white-space: pre;
+}
+
 ul {
     list-style: none;
     color: white;
@@ -66,4 +76,60 @@ p {
     width: 1184px;
     background-color: #141D2F;
     color: white;
+}
+
+.option {
+    display: block;
+    float: left;
+    clear: none;
+}
+
+h5 {
+    white-space: nowrap;
+    float: left;
+    margin-right: 10px;
+}
+
+.option-options {
+    display: inline-block;
+    float: left;
+    clear: none;
+}
+
+label {
+    float: left;
+    clear: none;
+    display: block;
+    margin-left: 5px;
+    padding: 2px 1em 0 0;
+}
+
+input[type=radio],
+input.radio {
+    float: left;
+    clear: none;
+}
+
+.li-option {
+    display: inline-block;
+}
+
+.safe {
+    border-left: solid 5px greenyellow;
+    padding-left: 10px;
+}
+
+.caution {
+    border-left: solid 5px yellow;
+    padding-left: 10px;
+}
+
+.danger {
+    border-left: solid 5px red;
+    padding-left: 10px;
+}
+
+.extreme {
+    border-left: solid 5px orangered;
+    padding-left: 10px;
 }

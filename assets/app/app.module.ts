@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -26,6 +26,8 @@ import { ProfileModule } from "./profile/profile.module";
 import { PostModule } from "./posts/post.module";
 import { RideCenterModule } from "./rides/ride-center.module";
 
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -41,6 +43,7 @@ import { RideCenterModule } from "./rides/ride-center.module";
         HttpModule,
         ProfileModule,
         RideCenterModule,
+        MDBBootstrapModule.forRoot(),
 
         // Material design modules:
         MatSidenavModule,
@@ -52,7 +55,7 @@ import { RideCenterModule } from "./rides/ride-center.module";
         MatToolbarModule,
         MatButtonToggleModule
     ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
     providers: [AuthService, ErrorService],
     bootstrap: [AppComponent]
 })
