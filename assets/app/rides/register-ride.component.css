@@ -133,3 +133,27 @@ input.radio {
     border-left: solid 5px orangered;
     padding-left: 10px;
 }
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.left-side {
+    width: 40%;
+    float: left;
+}
+
+.right-side {
+    width: 60%;
+    float: right;
+}
+
+.delete {
+    margin-top: 10px;
+}

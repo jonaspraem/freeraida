@@ -17,7 +17,7 @@ export class RegisterRideComponent implements OnInit{
     polyCords: PolylineCoords[];
 
     // Form values
-    overall_dangerlevel: string;
+    danger_level: string;
     tree_level: string;
     rock_level: string;
     cliff_level: string;
@@ -63,6 +63,15 @@ export class RegisterRideComponent implements OnInit{
             if (m.name == marker.name) {
                 m.lat = $event.coords.lat;
                 m.lng = $event.coords.lng;
+            }
+        }
+        this.updatePolyCords();
+    }
+
+    removeMarker(marker) {
+        for (let i = 0; i < this.markers.length; i++) {
+            if (this.markers[i].lat == marker.lat && this.markers[i].lng == marker.lng) {
+                this.markers.splice(i, 1);
             }
         }
         this.updatePolyCords();
