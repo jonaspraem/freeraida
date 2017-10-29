@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var Post = require('./post');
+var Line = require('./line');
 
 var schema = new Schema({
     username: {type: String, required: true},
@@ -10,6 +11,7 @@ var schema = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     posts: [{type: Schema.Types.ObjectId, ref: 'Post'}],
+    lines: [{type: Schema.Types.ObjectId, ref: 'Line'}],
     following: [{type: String}],
     followers: [{type: String}]
 });
