@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MapMarker } from "./mapmarker.model";
 import { PolylineCoords } from "./path.model";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { LineTransferModel } from "./lineTransfer.model";
 
 @Component({
     selector: 'app-register-ride',
@@ -12,10 +14,12 @@ export class RegisterRideComponent implements OnInit{
     lat: number = 51.678418;
     lng: number = 7.809007;
     mapType: string;
-    markers: MapMarker[];
     polyCords: PolylineCoords[];
 
     // Form values
+    lineForm: FormGroup;
+    markers: MapMarker[];
+    lineName: string;
     danger_level: string;
     tree_level: string;
     rock_level: string;
@@ -24,8 +28,17 @@ export class RegisterRideComponent implements OnInit{
     constructor(private cdRef: ChangeDetectorRef) {}
 
     ngOnInit(): void {
-        this.mapType = 'satellite';
+        this.mapType = 'hybrid';
         this.markers = [];
+
+        this.lineForm = new FormGroup({
+            lineName: new FormControl(null, Validators.required),
+            danger_level: new FormControl(null, Validators.required),
+            tree_level: new FormControl(null, Validators.required),
+            rock_level: new FormControl(null, Validators.required),
+            cliff_level: new FormControl(null, Validators.required),
+            markers: new FormControl(null, Validators.min(2))
+        });
     }
 
     updatePolyCords() {
@@ -84,5 +97,23 @@ export class RegisterRideComponent implements OnInit{
     markerDeleteAll() {
         this.markers = [];
         this.updatePolyCords();
+    }
+
+    onSubmit() {
+        const lineTransfer = new LineTransferModel(this.lineForm.value.lineName, this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
+        // check for data
+        if (lineTransfer.lineName &&
+            lineTransfer.markers.length > 1 &&
+            lineTransfer.danger_level &&
+            lineTransfer.tree_level &&
+            lineTransfer.rock_level &&
+            lineTransfer.cliff_level) {
+            // submit
+            console.log('can submit');
+        }
+        // TODO: make better error message
+        else {
+            console.log('cant submit');
+        }
     }
 }

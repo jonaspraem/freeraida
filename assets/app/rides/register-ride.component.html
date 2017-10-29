@@ -67,15 +67,15 @@
     </mat-card>
 
     <mat-card class="route-info-card">
-        <form [formGroup]="rideForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="lineForm">
             <div class="left-side">
                 <div class="form-group">
-                    <label for="linename">Name of line</label>
+                    <label for="lineName">Name of line</label>
                     <input
                             type="text"
-                            id="linename"
+                            id="lineName"
                             class="form-control"
-                            formControlName="linename"
+                            formControlName="lineName"
                     >
                 </div>
                 <br>
@@ -83,20 +83,22 @@
                 <ul>
                     <li>
                         <div class="option">
-                            <h5>Danger level</h5>
-                            <div class="option-options">
-                                <input type="radio" name="danger-options" (click)="danger_level = 'safe'"
-                                       [checked]="overall_dangerlevel === 'safe'">
-                                <label>Safe</label>
-                                <input type="radio" name="danger-options" (click)="danger_level = 'caution'"
-                                       [checked]="overall_dangerlevel === 'caution'">
-                                <label>Caution</label>
-                                <input type="radio" name="danger-options" (click)="danger_level = 'danger'"
-                                       [checked]="overall_dangerlevel === 'danger'">
-                                <label>Danger</label>
-                                <input type="radio" name="danger-options" (click)="danger_level = 'extreme'"
-                                       [checked]="overall_dangerlevel === 'extreme'">
-                                <label>Extreme</label>
+                            <div class="form-group">
+                                <h5>Danger level</h5>
+                                <div class="option-options">
+                                    <input type="radio" name="danger-options" (click)="danger_level = 'safe'"
+                                           [checked]="danger_level === 'safe'">
+                                    <label>Safe</label>
+                                    <input type="radio" name="danger-options" (click)="danger_level = 'caution'"
+                                           [checked]="danger_level === 'caution'">
+                                    <label>Caution</label>
+                                    <input type="radio" name="danger-options" (click)="danger_level = 'danger'"
+                                           [checked]="danger_level === 'danger'">
+                                    <label>Danger</label>
+                                    <input type="radio" name="danger-options" (click)="danger_level = 'extreme'"
+                                           [checked]="danger_level === 'extreme'">
+                                    <label>Extreme</label>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -163,7 +165,9 @@
                 </ul>
             </div>
             <div class="right-side">
-
+                <button class="list-delete-item" mat-icon-button (click)="onSubmit()">
+                    <mat-icon>add</mat-icon>
+                </button>
             </div>
         </form>
     </mat-card>
