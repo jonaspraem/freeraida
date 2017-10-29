@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
     markerName: {type: String, required: true},
-    lat: {type: float, required: true},
-    lng: {type: float, required: true}
+    lat: {type: Number, required: true},
+    lng: {type: Number, required: true}
 });
 
-module.exports = mongoose.model('Line', schema);
+module.exports = mongoose.model('Marker', schema);

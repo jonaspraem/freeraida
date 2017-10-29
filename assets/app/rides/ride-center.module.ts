@@ -19,6 +19,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { RegisterRideComponent } from "./register-ride.component";
 import { MapContentComponent } from "./map-content";
+import { LineService } from "./line.service";
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { MapContentComponent } from "./map-content";
         MatIconModule,
         MatListModule,
         MatInputModule
-    ]
+    ],
+    providers: [LineService]
 })
 
 export class RideCenterModule {

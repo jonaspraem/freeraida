@@ -10,6 +10,7 @@ var Line = require('../models/line');
 // TODO: change secret variable
 // Verify token
 router.use('/', function(req, res, next) {
+    console.log(req.body);
     jwt.verify(req.query.token, 'secret', function(err, decoded) {
         if (err) {
             return res.status(401).json({
@@ -23,6 +24,7 @@ router.use('/', function(req, res, next) {
 
 router.post('/newline', function(req, res, next) {
     var decoded = jwt.decode(req.query.token);
+    console.log(req.body);
     User.findById(decoded.user._id, function (err, user) {
         if (err) {
             return res.status(500).json({
@@ -55,7 +57,7 @@ router.post('/newline', function(req, res, next) {
                   markerName: req.body.markers[i].markerName,
                   lat: req.body.markers[i].lat,
                   lng: req.body.markers[i].lng
-                }))
+                }));
             }
 
             var line = new Line({
@@ -83,3 +85,5 @@ router.post('/newline', function(req, res, next) {
         });
     });
 });
+
+module.exports = router;
