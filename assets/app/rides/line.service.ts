@@ -19,7 +19,7 @@ export class LineService {
             ? '?token=' + localStorage.getItem('token')
             : '';
         console.log(body);
-        return this.http.post('http://localhost:3000/lineservice/newline' + token, body, {headers: headers})
+        return this.http.post('http://localhost:3000/lineservice/newline/' + token, body, {headers: headers})
             .map((response: Response) => {
                 console.log(response.json());
                 return response.json();

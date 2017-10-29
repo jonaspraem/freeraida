@@ -23,6 +23,7 @@ router.use('/', function(req, res, next) {
 });
 
 router.post('/newline', function(req, res, next) {
+    console.log('newline');
     var decoded = jwt.decode(req.query.token);
     console.log(req.body);
     User.findById(decoded.user._id, function (err, user) {
