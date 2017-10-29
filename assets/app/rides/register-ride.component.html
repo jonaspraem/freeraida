@@ -43,7 +43,7 @@
                     (markerClick)="clickedMarker(m, i)"
                     [latitude]="m.lat"
                     [longitude]="m.lng"
-                    [markerDraggable]="m.draggable"
+                    [markerDraggable]="true"
                     (dragEnd)="markerDragEnd(m, $event)"
             >
                 <agm-info-window>

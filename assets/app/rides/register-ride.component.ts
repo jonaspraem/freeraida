@@ -59,8 +59,7 @@ export class RegisterRideComponent implements OnInit{
         const marker: MapMarker = {
             name: 'Point '+(this.markers.length + 1),
             lat: $event.coords.lat,
-            lng: $event.coords.lng,
-            draggable: true
+            lng: $event.coords.lng
         };
         this.markers.push(marker);
         this.updatePolyCords();
