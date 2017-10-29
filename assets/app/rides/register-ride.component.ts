@@ -51,7 +51,6 @@ export class RegisterRideComponent implements OnInit{
             prev_lat = m.lat;
             prev_lng = m.lng;
         }
-        console.log(cords);
         this.polyCords =  cords;
         this.cdRef.detectChanges();
     }
@@ -111,8 +110,8 @@ export class RegisterRideComponent implements OnInit{
             lineTransfer.cliff_level) {
             // submit
             this.lineService.addLine(lineTransfer).subscribe(
-                (soemthing: string) => {
-                    console.log(soemthing);
+                (line: LineTransferModel) => {
+                    console.log(line);
                 });
         }
         // TODO: make better error message

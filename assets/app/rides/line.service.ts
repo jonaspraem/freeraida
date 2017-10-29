@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 import { ErrorService } from "../errors/error.service";
 import { LineTransferModel } from "./lineTransfer.model";
 import { Observable } from "rxjs/Observable";
+import { MapMarker } from "./mapmarker.model";
 
 @Injectable()
 
@@ -21,8 +22,25 @@ export class LineService {
         console.log(body);
         return this.http.post('http://localhost:3000/lineservice/newline/' + token, body, {headers: headers})
             .map((response: Response) => {
-                console.log(response.json());
-                return response.json();
+                const result = response.json().obj;
+                const markers = [];
+                for (let i = 0; i < result.markers.length; i++) {
+                    markers.push(new MapMarker(
+                        result.markers[i].name,
+                        result.markers[i].lat,
+                        result.markers[i].lng
+                    ));
+                }
+                const line = new LineTransferModel(
+                    result.lineName,
+                    markers,
+                    result.danger_level,
+                    result.tree_level,
+                    result.rock_level,
+                    result.cliff_level,
+
+                );
+                return line;
             })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
