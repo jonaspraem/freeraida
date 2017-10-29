@@ -157,3 +157,18 @@ input.radio {
 .delete {
     margin-top: 10px;
 }
+
+.marker-list {
+    height: 75%;
+    overflow-y: scroll;
+}
+
+.list-delete-item {
+    margin: 10px;
+    float: right;
+}
+
+.list-delete {
+    vertical-align: bottom;
+    width: 100%;
+}

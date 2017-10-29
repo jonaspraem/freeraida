@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { MapMarker } from "./mapmarker.model";
 import { PolylineCoords } from "./path.model";
 
@@ -9,7 +9,6 @@ import { PolylineCoords } from "./path.model";
 })
 
 export class RegisterRideComponent implements OnInit{
-    title: string = 'Rides';
     lat: number = 51.678418;
     lng: number = 7.809007;
     mapType: string;
@@ -22,7 +21,7 @@ export class RegisterRideComponent implements OnInit{
     rock_level: string;
     cliff_level: string;
 
-    constructor() {}
+    constructor(private cdRef: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this.mapType = 'satellite';
@@ -40,10 +39,10 @@ export class RegisterRideComponent implements OnInit{
         }
         console.log(cords);
         this.polyCords =  cords;
+        this.cdRef.detectChanges();
     }
 
     mapClicked($event:any){
-        console.log('Map Clicked');
         const marker: MapMarker = {
             name: 'Point '+(this.markers.length + 1),
             lat: $event.coords.lat,
@@ -77,4 +76,13 @@ export class RegisterRideComponent implements OnInit{
         this.updatePolyCords();
     }
 
+    markerDeleteLast() {
+        this.markers.splice(this.markers.length-1, 1);
+        this.updatePolyCords();
+    }
+
+    markerDeleteAll() {
+        this.markers = [];
+        this.updatePolyCords();
+    }
 }

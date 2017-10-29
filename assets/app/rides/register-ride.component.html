@@ -13,13 +13,21 @@
         </ul>
         <br>
         <!--TODO: make way for overflowing  -->
-        <ul>
+        <ul class="marker-list">
             <li class="route-list-li" *ngFor="let m of markers">
                 <i class="material-icons">location_on</i>
                 <p>{{m.name}} </p>
                 <div class="list-coordinates"><p class="extra-small">{{m.lat}}</p><p class="extra-small">{{m.lng}}</p></div>
             </li>
         </ul>
+        <div class="list-delete">
+            <button class="list-delete-item" mat-icon-button (click)="markerDeleteAll()">
+                <mat-icon>delete_sweep</mat-icon>
+            </button>
+            <button class="list-delete-item" mat-icon-button (click)="markerDeleteLast()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </mat-card>
     <!-- TODO: Add polylines and heightmap -->
     <mat-card class="map-container">
