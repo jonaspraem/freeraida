@@ -1,0 +1,31 @@
+<div class="col-md-8 col-md-offset-2" *ngFor="let line of lines; let i of index">
+    <mat-card class="main-card">
+        <div class="map">
+            <agm-map [mapTypeId]="terrain"
+                     [latitude]="getAverageLat(i)"
+                     [longitude]="getAverageLng(i)"
+                     [disableDefaultUI]="true"
+                     [backgroundColor]="'#6495ED'"
+            >
+                <agm-marker
+                        *ngFor="let m of line.markers"
+                        [latitude]="m.lat"
+                        [longitude]="m.lng"
+                        [markerDraggable]="false"
+                >
+                </agm-marker>
+                <agm-polyline *ngFor="let poly of getPolyCords(i)"
+                              [editable]="false"
+                              strokeColor="#6495ED"
+                              strokeWeight="5"
+                >
+                    <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
+                    <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
+                </agm-polyline>
+            </agm-map>
+        </div>
+        <div class="line-information">
+            <p>{{line.lineName}}</p>
+        </div>
+    </mat-card>
+</div>

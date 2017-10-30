@@ -7,6 +7,97 @@ var Profile = require('../models/profile');
 var Marker = require('../models/marker');
 var Line = require('../models/line');
 
+function sortList(list, callback) {
+    list.sort(function(a, b){
+        var keyA = new Date(a.timestamp),
+            keyB = new Date(b.timestamp);
+        // Compare the 2 dates
+        if(keyA < keyB) return -1;
+        if(keyA > keyB) return 1;
+        return 0;
+    });
+    callback(list);
+}
+
+function getLineMarkers(id_list, callback) {
+    Marker.find({'_id': {$in: id_list}}, function (err, markers) {
+        console.log('markers from db: '+markers);
+        if (err) return null;
+        if (!markers) return null;
+        callback(markers);
+    });
+}
+
+function getTransformedLine(line, callback) {
+    var newLine = line;
+    console.log('line.markers: '+line.markers);
+    getLineMarkers(line.markers, function (marker_list) {
+        console.log('marker_list: '+marker_list);
+        newLine.markers = marker_list;
+        callback(newLine);
+    });
+}
+
+function getTransformedLineList(lines, callback) {
+    var transformedLines = [];
+    var counter = 0;
+    for (var i = 0; i < lines.length; i++) {
+        getTransformedLine(lines[i], function (line) {
+            console.log('getTransformedLine: '+line);
+            counter++;
+            if (line) transformedLines.push(line);
+            if (lines.length == counter) callback(transformedLines);
+        });
+    }
+}
+
+function getUserLines(profile, callback) {
+    Line.find({'_id': {$in: profile.lines}}, function (err, user_lines) {
+        if (err) return null;
+        if (!user_lines) return null;
+        getTransformedLineList(user_lines, function(transformedLineList) {
+            console.log('transformedLineList: '+transformedLineList);
+            callback(transformedLineList);
+        });
+    });
+}
+
+function saveMarkerList(marker_list, callback) {
+    var counter = 0;
+    for (var i = 0; i < marker_list.length; i++) {
+        marker_list[i].save(function (err, result) {
+            counter++;
+            if (counter == marker_list.length) callback(true);
+        });
+    }
+}
+
+router.get('/:username', function (req, res, next) {
+    Profile.findOne({username: req.params.username}, function (err, user_profile) {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!user_profile) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: {message: 'An error occurred 1'}
+            });
+        }
+        getUserLines(user_profile, function(list) {
+            console.log("list:"+list);
+            sortList(list, function(sortedList) {
+                return res.status(201).json({
+                    message: 'User feed successfully generated',
+                    obj: sortedList
+                });
+            });
+        });
+    });
+});
+
 // TODO: change secret variable
 // Verify token
 router.use('/', function(req, res, next) {
@@ -54,17 +145,19 @@ router.post('/newline', function(req, res, next) {
             }
             var markerlist = [];
             for (var i = 0; i<req.body.markers.length; i++) {
-                markerlist.push(new Marker({
-                  markerName: req.body.markers[i].markerName,
-                  lat: req.body.markers[i].lat,
-                  lng: req.body.markers[i].lng
-                }));
+                var marker = new Marker({
+                    markerName: req.body.markers[i].markerName,
+                    lat: req.body.markers[i].lat,
+                    lng: req.body.markers[i].lng
+                });
+                markerlist.push(marker);
             }
 
             var line = new Line({
                 username: user_profile.username,
                 lineName: req.body.lineName,
                 markers: markerlist,
+                timestamp: new Date(),
                 danger_level: req.body.danger_level,
                 tree_level: req.body.tree_level,
                 rock_level: req.body.rock_level,
@@ -78,9 +171,26 @@ router.post('/newline', function(req, res, next) {
                         error: err
                     });
                 }
-                return res.status(201).json({
-                    message: 'Line saved',
-                    obj: result
+                user_profile.lines.push(result);
+                saveMarkerList(markerlist, function(save_success) {
+                    if (!save_success) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: err
+                        });
+                    }
+                    user_profile.save(function (err, profile_result) {
+                        if (err) {
+                            return res.status(500).json({
+                                title: 'An error occured',
+                                error: err
+                            });
+                        }
+                        return res.status(201).json({
+                            message: 'Line saved',
+                            obj: result
+                        });
+                    });
                 });
             });
         });

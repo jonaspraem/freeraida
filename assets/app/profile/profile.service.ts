@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 import { ErrorService } from "../errors/error.service";
 import { Observable } from "rxjs/Observable";
 import { Profile } from "./profile.model";
+import { LineTransferModel } from "../lines/lineTransfer.model";
 
 @Injectable()
 
@@ -17,13 +18,26 @@ export class ProfileService {
         return this.http.get('http://localhost:3000/profile/'+username)
             .map((response: Response) => {
                 const result = response.json().obj;
+                const lines = [];
+                for (let i = 0; i < result.lines; i++) {
+                    lines.push(new LineTransferModel(
+                        result.lines[i].lineName,
+                        result.lines[i].markers,
+                        result.lines[i].danger_level,
+                        result.lines[i].tree_level,
+                        result.lines[i].rock_level,
+                        result.lines[i].cliff_level
+                        ));
+                }
+                console.log(result);
                 const profile = new Profile(
                     result.username,
                     result.bio,
                     result.firstName,
                     result.lastName,
                     result.followers,
-                    result.following
+                    result.following,
+                    lines
                 );
                 this.profile = profile;
                 return this.profile;

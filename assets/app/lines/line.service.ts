@@ -48,4 +48,36 @@ export class LineService {
             });
     }
 
+    getLines(username: string) {
+        return this.http.get('http://localhost:3000/lineservice/'+username)
+            .map((response: Response) => {
+                const lines = response.json().obj;
+                let transformedLines: LineTransferModel[] = [];
+                for (let line of lines) {
+                    let route: MapMarker[] = [];
+                    for (let marker of line.markers) {
+                        route.push(new MapMarker(
+                           marker.name,
+                           marker.lat,
+                           marker.lng
+                        ));
+                    }
+                    transformedLines.push(new LineTransferModel(
+                        line.lineName,
+                        route,
+                        line.danger_level,
+                        line.tree_level,
+                        line.rock_level,
+                        line.cliff_level
+                    ));
+                }
+                console.log('lines: '+response.json());
+                return transformedLines;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
+    }
+
 }

@@ -20,12 +20,14 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { RegisterRideComponent } from "./register-ride.component";
 import { MapContentComponent } from "./map-content";
 import { LineService } from "./line.service";
+import { LineHistoryComponent } from "./line-history.component";
 
 
 @NgModule({
     declarations: [
         RegisterRideComponent,
-        MapContentComponent
+        MapContentComponent,
+        LineHistoryComponent
     ],
     imports: [
         CommonModule,
@@ -42,6 +44,9 @@ import { LineService } from "./line.service";
         MatIconModule,
         MatListModule,
         MatInputModule
+    ],
+    exports: [
+        LineHistoryComponent
     ],
     providers: [LineService]
 })

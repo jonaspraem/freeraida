@@ -24,7 +24,7 @@ import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
 import { ProfileModule } from "./profile/profile.module";
 import { PostModule } from "./posts/post.module";
-import { RideCenterModule } from "./rides/ride-center.module";
+import { RideCenterModule } from "./lines/ride-center.module";
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 

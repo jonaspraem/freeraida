@@ -1,0 +1,17 @@
+.main-card {
+    border-left: 10px solid #141D2F;
+    float: left;
+    height: 300px;
+}
+
+.map {
+    display: inline-block;
+    height: 300px;
+    width: 300px;
+}
+
+.line-information {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
