@@ -64,9 +64,11 @@ function getUserLines(profile, callback) {
 
 function saveMarkerList(marker_list, callback) {
     var counter = 0;
+    console.log('marker list to save: '+marker_list);
     for (var i = 0; i < marker_list.length; i++) {
         marker_list[i].save(function (err, result) {
             counter++;
+            console.log('marker save: '+result);
             if (counter == marker_list.length) callback(true);
         });
     }
@@ -114,9 +116,8 @@ router.use('/', function(req, res, next) {
 });
 
 router.post('/newline', function(req, res, next) {
-    console.log('newline');
     var decoded = jwt.decode(req.query.token);
-    console.log(req.body);
+    console.log('body: '+req.body.markers);
     User.findById(decoded.user._id, function (err, user) {
         if (err) {
             return res.status(500).json({
@@ -146,7 +147,7 @@ router.post('/newline', function(req, res, next) {
             var markerlist = [];
             for (var i = 0; i<req.body.markers.length; i++) {
                 var marker = new Marker({
-                    markerName: req.body.markers[i].markerName,
+                    markerName: req.body.markers[i].name,
                     lat: req.body.markers[i].lat,
                     lng: req.body.markers[i].lng
                 });

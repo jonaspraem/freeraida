@@ -57,7 +57,7 @@ export class LineService {
                     let route: MapMarker[] = [];
                     for (let marker of line.markers) {
                         route.push(new MapMarker(
-                           marker.name,
+                           marker.markerName,
                            marker.lat,
                            marker.lng
                         ));
@@ -70,8 +70,9 @@ export class LineService {
                         line.rock_level,
                         line.cliff_level
                     ));
+                    console.log('markers: '+JSON.stringify(route));
                 }
-                console.log('lines: '+response.json());
+                console.log('lines: '+JSON.stringify(transformedLines));
                 return transformedLines;
             })
             .catch((error: Response) => {

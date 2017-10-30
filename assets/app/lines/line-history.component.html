@@ -1,6 +1,6 @@
 <div class="col-md-8 col-md-offset-2" *ngFor="let line of lines; let i of index">
     <mat-card class="main-card">
-        <div class="map">
+        <div class="map" *ngIf="indexExists(i)">
             <agm-map [mapTypeId]="terrain"
                      [latitude]="getAverageLat(i)"
                      [longitude]="getAverageLng(i)"

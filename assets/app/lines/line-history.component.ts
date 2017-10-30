@@ -26,6 +26,10 @@ export class LineHistoryComponent {
         }
     }
 
+    indexExists(index) : boolean {
+        return (this.lines[index] != null)
+    }
+
     getAverageLat(index) : number {
         let sum = 0;
         for (let m of this.lines[index].markers) {
