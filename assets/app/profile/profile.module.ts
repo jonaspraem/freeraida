@@ -10,6 +10,7 @@ import { ProfileComponent } from "./profile.component";
 import { BioComponent } from "./bio.component";
 import { profileRouting } from "./profile.routing";
 import { PostModule } from "../posts/post.module";
+import { RideCenterModule } from "../lines/ride-center.module";
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { PostModule } from "../posts/post.module";
         ReactiveFormsModule,
         profileRouting,
         PostModule,
-        MatCardModule
+        MatCardModule,
+        RideCenterModule
     ],
     providers: [ ProfileService ]
 })

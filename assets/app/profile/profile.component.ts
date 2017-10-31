@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from "./profile.service";
 import { Profile } from "./profile.model";
+import { LineService } from "../lines/line.service";
+import { LineTransferModel } from "../lines/lineTransfer.model";
 
 @Component({
     selector: 'app-profile',
@@ -12,16 +14,23 @@ import { Profile } from "./profile.model";
 
 export class ProfileComponent implements OnInit{
     profile: Profile;
+    lines: LineTransferModel[];
 
-    constructor(private profileService: ProfileService, private route: ActivatedRoute) {}
+    constructor(private profileService: ProfileService, private lineService: LineService, private route: ActivatedRoute) {}
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
-            var username = params['user'];
+            let username = params['user'];
             this.profileService.getProfile(username.toString())
                 .subscribe(
                     (profile: Profile) => {
                         this.profile = profile;
+                    }
+                );
+            this.lineService.getLines(username.toString())
+                .subscribe(
+                    (lines: LineTransferModel[]) => {
+                        this.lines = lines;
                     }
                 );
         });

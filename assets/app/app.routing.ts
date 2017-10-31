@@ -2,7 +2,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { AuthenticationComponent } from "./auth/authentication.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { LiveFeedComponent } from "./posts/feed/live-feed.component";
-import { RegisterRideComponent } from "./rides/register-ride.component";
+import { RegisterRideComponent } from "./lines/register-ride.component";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: '/feed', pathMatch: 'full' },
