@@ -30,6 +30,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthGuard } from "./auth-guard.service";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { WebAppComponent } from "./webapp.component";
+import { LandingPageModule } from "./landing-page/landing-page.module";
 
 @NgModule({
     declarations: [
@@ -38,7 +39,6 @@ import { WebAppComponent } from "./webapp.component";
         AuthenticationComponent,
         HeaderComponent,
         ErrorComponent,
-        LandingPageComponent,
         WebAppComponent
     ],
     imports: [
@@ -48,6 +48,7 @@ import { WebAppComponent } from "./webapp.component";
         HttpModule,
         ProfileModule,
         RideCenterModule,
+        LandingPageModule,
         MDBBootstrapModule.forRoot(),
 
         // Material design modules:

@@ -15,7 +15,7 @@
     "@angular/common": "^4.4.3",
     "@angular/compiler": "^4.4.3",
     "@angular/compiler-cli": "^4.4.3",
-    "@angular/core": "^4.4.3",
+    "@angular/core": "^4.4.5",
     "@angular/forms": "^4.4.3",
     "@angular/http": "^4.4.3",
     "@angular/material": "^2.0.0-beta.12",
@@ -25,6 +25,8 @@
     "@angular/router": "^4.4.3",
     "@angular/upgrade": "^4.4.3",
     "angular-bootstrap-md": "^4.3.7",
+    "angular-google-signin": "^0.1.5",
+    "auth0-js": "^8.10.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "~1.17.1",
     "bootstrap-select": "^1.12.4",
@@ -43,7 +45,7 @@
     "rxjs": "^5.4.3",
     "serve-favicon": "~2.4.2",
     "webpack": "^3.6.0",
-    "zone.js": "^0.8.17"
+    "zone.js": "^0.8.18"
   },
   "devDependencies": {
     "@types/core-js": "0.9.36",
