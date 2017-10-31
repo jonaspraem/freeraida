@@ -27,6 +27,9 @@ import { PostModule } from "./posts/post.module";
 import { RideCenterModule } from "./lines/ride-center.module";
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { AuthGuard } from "./auth-guard.service";
+import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { WebAppComponent } from "./webapp.component";
 
 @NgModule({
     declarations: [
@@ -34,7 +37,9 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         SidenavComponent,
         AuthenticationComponent,
         HeaderComponent,
-        ErrorComponent
+        ErrorComponent,
+        LandingPageComponent,
+        WebAppComponent
     ],
     imports: [
         BrowserModule,
@@ -56,7 +61,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         MatButtonToggleModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [AuthService, ErrorService],
+    providers: [AuthService, ErrorService, AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

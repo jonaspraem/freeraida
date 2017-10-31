@@ -9,6 +9,7 @@ import { ErrorService } from "../errors/error.service";
 
 export class AuthService {
     activeUser: User;
+    redirectUrl: string;
     constructor(private http: Http, private errorService: ErrorService) {}
 
     signUp(user: User) {
