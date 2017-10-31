@@ -70,9 +70,7 @@ export class LineService {
                         line.rock_level,
                         line.cliff_level
                     ));
-                    console.log('markers: '+JSON.stringify(route));
                 }
-                console.log('lines: '+JSON.stringify(transformedLines));
                 return transformedLines;
             })
             .catch((error: Response) => {
