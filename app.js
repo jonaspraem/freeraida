@@ -11,6 +11,7 @@ var userRoutes = require('./routes/user');
 var connectRoutes = require('./routes/connect');
 var profileRoutes = require('./routes/profile');
 var lineRoutes = require('./routes/lines');
+var googleAuthRoutes = require('./routes/googleauth');
 
 var app = express();
 mongoose.connect('localhost:27017/node-angular');
@@ -37,6 +38,7 @@ app.use('/user', userRoutes);
 app.use('/connect', connectRoutes);
 app.use('/profile', profileRoutes);
 app.use('/lineservice', lineRoutes);
+app.use('/googleauthentication', googleAuthRoutes);
 app.use('/', index);
 
 // catch 404 and forward to error handler
