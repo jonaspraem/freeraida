@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { GoogleSignInSuccess } from 'angular-google-signin';
-import { GoogleAuthService } from "./google-auth.service";
+import { GoogleAuthService } from "./googleauth.service";
 
 @Component({
     selector: 'app-auth-sign-in',
@@ -22,7 +22,10 @@ export class GoogleAuthComponent {
         console.log('Name: ' + profile.getName());
         let id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
-        this.googleAuthService.verifyGoogleLogin(id_token);
+        this.googleAuthService.verifyGoogleLogin(id_token).subscribe(
+            data => console.log(data),
+            error => console.error(error)
+        );
     }
 
     onSignOut() {

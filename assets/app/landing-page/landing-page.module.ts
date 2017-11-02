@@ -4,7 +4,8 @@ import { GoogleAuthComponent } from "../google-auth/google-sign-in.component";
 import { LandingPageComponent } from "./landing-page.component";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
-import { GoogleAuthService } from "../google-auth/google-auth.service";
+import { BrowserModule } from "@angular/platform-browser";
+import { GoogleAuthService } from "../google-auth/googleauth.service";
 
 @NgModule({
     declarations: [
@@ -13,8 +14,9 @@ import { GoogleAuthService } from "../google-auth/google-auth.service";
         GoogleSignInComponent
     ],
     imports: [
-    CommonModule,
-    ReactiveFormsModule
+        CommonModule,
+        ReactiveFormsModule,
+        BrowserModule
     ],
     providers: [ GoogleAuthService ]
 })

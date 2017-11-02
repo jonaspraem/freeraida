@@ -38,7 +38,7 @@ app.use('/user', userRoutes);
 app.use('/connect', connectRoutes);
 app.use('/profile', profileRoutes);
 app.use('/lineservice', lineRoutes);
-app.use('/googleauthentication', googleAuthRoutes);
+app.use('/verify-user', googleAuthRoutes);
 app.use('/', index);
 
 // catch 404 and forward to error handler
