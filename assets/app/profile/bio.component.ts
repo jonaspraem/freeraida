@@ -11,7 +11,7 @@ import { ProfileService } from "./profile.service";
 
 export class BioComponent{
     @Input() profile: Profile;
-    default_img : string = 'assets/resources/images/default-skier.jpg';
+    default_img : string = 'assets/images/images/default-skier.jpg';
 
     constructor(private authService: AuthService, private profileService: ProfileService) {}
 
