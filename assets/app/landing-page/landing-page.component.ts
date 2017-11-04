@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+const image = require('../../images/350214-mountain-view.jpg');
 
 @Component({
     selector: 'app-landing-page',

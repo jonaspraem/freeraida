@@ -1,0 +1,10 @@
+.container {
+}
+
+.background {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-image: url("js/app/assets/350214-mountain-view.0e19ad6496c20f342c1bc7f111a12be5.jpg");
+    background-size: cover;
+}
