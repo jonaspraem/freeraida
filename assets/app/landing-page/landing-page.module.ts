@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { GoogleAuthService } from "../google-auth/googleauth.service";
+import { MatCardModule } from "@angular/material";
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { GoogleAuthService } from "../google-auth/googleauth.service";
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        BrowserModule
+        BrowserModule,
+        MatCardModule
     ],
     providers: [ GoogleAuthService ]
 })
