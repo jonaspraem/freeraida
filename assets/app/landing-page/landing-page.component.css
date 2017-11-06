@@ -1,12 +1,14 @@
 header {
     display: flex;
     align-items: center;
-    justify-content: center;;
+    justify-content: center;
 }
 
 .signature-card {
     width: 500px;
     background-color: white;
+    align-content: center;
+    text-align: center;
 }
 
 .background {

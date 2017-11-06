@@ -1,9 +1,9 @@
 <google-signin
         [clientId]="myClientId"
         [width]="400"
-        [theme]="myTheme"
+        [theme]="dark"
         [scope]="myScope"
-        [longTitle]="myLongTitle"
+        [longTitle]="true"
         (googleSignInSuccess)="onGoogleSignInSuccess($event)">
 </google-signin>
 <button (click)="onSignOut()"></button>

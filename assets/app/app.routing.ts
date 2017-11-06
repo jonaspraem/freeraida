@@ -8,7 +8,7 @@ import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { WebAppComponent } from "./webapp.component";
 
 const APP_ROUTES: Routes = [
-    { path: 'landing-page', component: LandingPageComponent },
+    { path: 'landing-page', component: LandingPageComponent }, // , loadChildren: './landing-page/landing-page.module#LandingPageModule'
     { path: '', component: WebAppComponent, data:{requiresLogin: true}, canActivate: [AuthGuard]},
     { path: 'home', component: LiveFeedComponent, data:{requiresLogin: true}, canActivate: [AuthGuard]},
     // { path: 'ride-center', component: RegisterRideComponent, data:{requiresLogin: true}},

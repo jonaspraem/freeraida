@@ -4,23 +4,27 @@ import { GoogleAuthComponent } from "../google-auth/google-sign-in.component";
 import { LandingPageComponent } from "./landing-page.component";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
-import { BrowserModule } from "@angular/platform-browser";
 import { GoogleAuthService } from "../google-auth/googleauth.service";
-import { MatCardModule } from "@angular/material";
+import { MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatCardModule, MatFormFieldModule, MatInputModule } from "@angular/material";
+import { FrontSignInComponent } from "./front-sign-in.component";
+import { FrontSignUpComponent } from "./front-sign-up.component";
 
 @NgModule({
     declarations: [
         LandingPageComponent,
         GoogleAuthComponent,
-        GoogleSignInComponent
+        GoogleSignInComponent,
+        FrontSignInComponent,
+        FrontSignUpComponent
     ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        BrowserModule,
-        MatCardModule
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
     ],
-    providers: [ GoogleAuthService ]
+    providers: [ GoogleAuthService, {provide: MAT_PLACEHOLDER_GLOBAL_OPTIONS, useValue: {float: 'auto'}} ]
 })
 
 export class LandingPageModule {}
