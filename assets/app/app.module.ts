@@ -28,9 +28,10 @@ import { RideCenterModule } from "./lines/ride-center.module";
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthGuard } from "./auth-guard.service";
-import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { WebAppComponent } from "./webapp.component";
 import { LandingPageModule } from "./landing-page/landing-page.module";
+import { NewAuthService } from "./auth/new-auth.service";
+import { AuthGuardService } from "./auth/auth-guard.service";
 
 @NgModule({
     declarations: [
@@ -62,7 +63,7 @@ import { LandingPageModule } from "./landing-page/landing-page.module";
         MatButtonToggleModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [AuthService, ErrorService, AuthGuard],
+    providers: [AuthService, AuthGuardService, NewAuthService, ErrorService, AuthGuard],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

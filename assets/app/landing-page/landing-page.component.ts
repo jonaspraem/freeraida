@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { NewAuthService } from "../auth/new-auth.service";
 const image = require('../../images/350214-mountain-view.jpg');
 
 @Component({
@@ -7,7 +8,7 @@ const image = require('../../images/350214-mountain-view.jpg');
     styleUrls: ['./landing-page.component.css']
 })
 
-export class LandingPageComponent {
+export class LandingPageComponent{
     content: string = 'sign-in';
 
     isSignIn() {

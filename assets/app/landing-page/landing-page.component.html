@@ -1,19 +1,7 @@
 <div class="background">
     <header>
         <mat-card class="signature-card">
-            <nav class="col-md-8 col-md-offset-2">
-                <ul class="nav nav-tabs">
-                    <li><a (click)="openSignIn()">Sign In</a></li>
-                    <li><a (click)="openSignUp()">Sign Up</a></li>
-                </ul>
-            </nav>
-            <div *ngIf="isSignIn(); then sign_in_content else sign_up_content"></div>
-            <ng-template #sign_in_content>
-                <app-front-sign-in></app-front-sign-in>
-            </ng-template>
-            <ng-template #sign_up_content>
-                <app-front-sign-up></app-front-sign-up>
-            </ng-template>
+            <app-auth0></app-auth0>
         </mat-card>
     </header>
 </div>

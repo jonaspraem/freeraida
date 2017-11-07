@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var jwt = require('jsonwebtoken');
+var jwt = require('express-jwt');
+var jwks = require('jwks-rsa');
 
 var User = require('../models/user');
 var Post = require('../models/post');
@@ -89,7 +90,7 @@ router.get('/profile-feed/:username', function (req, res, next) {
 });
 
 // TODO: change secret variable
-// Verify token
+//Verify token
 router.use('/', function(req, res, next) {
     jwt.verify(req.query.token, 'secret', function(err, decoded) {
         if (err) {
@@ -100,6 +101,8 @@ router.use('/', function(req, res, next) {
         }
         next();
     });
+    console.log(jwtCheck.toString());
+    next();
 });
 
 // Get user live-feed

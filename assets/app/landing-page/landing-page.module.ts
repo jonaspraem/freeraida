@@ -6,16 +6,14 @@ import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { GoogleAuthService } from "../google-auth/googleauth.service";
 import { MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatCardModule, MatFormFieldModule, MatInputModule } from "@angular/material";
-import { FrontSignInComponent } from "./front-sign-in.component";
-import { FrontSignUpComponent } from "./front-sign-up.component";
+import { Auth0Component } from "./auth0.component";
 
 @NgModule({
     declarations: [
         LandingPageComponent,
         GoogleAuthComponent,
         GoogleSignInComponent,
-        FrontSignInComponent,
-        FrontSignUpComponent
+        Auth0Component,
     ],
     imports: [
         CommonModule,

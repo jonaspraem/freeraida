@@ -22,3 +22,9 @@ header {
     vertical-align: middle;
     text-align: center;
 }
+
+.hiw-login-container {
+    height: 100%;
+    width: 100%;
+    padding: 2px;
+}
