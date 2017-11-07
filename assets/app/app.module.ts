@@ -22,9 +22,7 @@ import { routing } from "./app.routing";
 import { AuthService } from "./auth/auth.service";
 import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
-import { ProfileModule } from "./profile/profile.module";
 import { PostModule } from "./posts/post.module";
-import { RideCenterModule } from "./lines/ride-center.module";
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthGuard } from "./auth-guard.service";
@@ -32,35 +30,22 @@ import { WebAppComponent } from "./webapp.component";
 import { LandingPageModule } from "./landing-page/landing-page.module";
 import { NewAuthService } from "./auth/new-auth.service";
 import { AuthGuardService } from "./auth/auth-guard.service";
+import { WebAppModule } from "./webapp.module";
 
 @NgModule({
     declarations: [
         AppComponent,
-        SidenavComponent,
         AuthenticationComponent,
-        HeaderComponent,
         ErrorComponent,
-        WebAppComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         routing,
         HttpModule,
-        ProfileModule,
-        RideCenterModule,
         LandingPageModule,
+        WebAppModule,
         MDBBootstrapModule.forRoot(),
-
-        // Material design modules:
-        MatSidenavModule,
-        MatCardModule,
-        PostModule,
-        MatExpansionModule,
-        MatIconModule,
-        MatListModule,
-        MatToolbarModule,
-        MatButtonToggleModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
     providers: [AuthService, AuthGuardService, NewAuthService, ErrorService, AuthGuard],
