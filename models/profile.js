@@ -5,7 +5,7 @@ var Post = require('./post');
 var Line = require('./line');
 
 var schema = new Schema({
-    username: {type: String, required: true},
+    user_id: {type: String, required: true},
     bio: {type: String },
     img: {data: Buffer, contentType: String},
     firstName: {type: String, required: true},

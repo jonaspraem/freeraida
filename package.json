@@ -26,6 +26,7 @@
     "@angular/upgrade": "^4.4.3",
     "angular-bootstrap-md": "^4.3.7",
     "angular-google-signin": "^0.1.5",
+    "auth0": "^2.8.0",
     "auth0-js": "^8.10.1",
     "auth0-lock": "^10.23.1",
     "bcryptjs": "^2.4.3",

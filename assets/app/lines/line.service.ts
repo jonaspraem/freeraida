@@ -16,8 +16,8 @@ export class LineService {
     addLine(line: LineTransferModel) {
         const body = JSON.stringify(line);
         const headers = new Headers({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('token')
-            ? '?token=' + localStorage.getItem('token')
+        const token = localStorage.getItem('id_token')
+            ? '?token=' + localStorage.getItem('id_token')
             : '';
         console.log(body);
         return this.http.post('http://localhost:3000/lineservice/newline/' + token, body, {headers: headers})

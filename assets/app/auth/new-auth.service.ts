@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { User } from "./user.model";
+import { Observable } from "rxjs/Observable";
+import { Http, Headers, Response } from "@angular/http";
+import { TokenTransferModel } from "./token.model";
 
 @Injectable()
 
@@ -18,11 +22,27 @@ export class NewAuthService {
         container: 'hiw-login-container'
     });
 
-    constructor(public router: Router) {}
+    constructor(public router: Router, public http: Http) {}
 
     public login(): void {
         this.auth0.authorize();
         this.router.navigate(['/home']);
+    }
+
+    public initUser(): void {
+        console.log('initUser');
+        this.getTokenInfo()
+            .subscribe(
+                (jsonData) => {
+                    console.log('jsonData: '+jsonData.toString());
+                    this.postLoginCheck(jsonData.user_id, jsonData.given_name, jsonData.family_name)
+                        .subscribe(
+                            (res) => {
+                                console.log('response: '+res.toString());
+                            }
+                        );
+                }
+            );
     }
 
     public handleAuthentication(): void {
@@ -60,6 +80,37 @@ export class NewAuthService {
         // access token's expiry time
         const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
         return new Date().getTime() < expiresAt;
+    }
+
+    private getTokenInfo() {
+        const headers = new Headers({'Content-Type': 'application/json'});
+        const tokenObject = new TokenTransferModel(localStorage.getItem('id_token'));
+        const body = JSON.stringify(tokenObject);
+        return this.http.post('https://freeraida.eu.auth0.com/tokeninfo', body, {headers: headers})
+            .map((response: Response) => response.json())
+            .catch((error: Response) => {
+                return Observable.throw(error.json());
+            });
+    }
+
+    private postLoginCheck(user_id, given_name, family_name) {
+        const profile_headers = new Headers({'Content-Type': 'application/json'});
+        const user = new User(
+            user_id,
+            given_name,
+            family_name,
+        );
+        const profile_body = JSON.stringify(user);
+
+        return this.http.post('http://localhost:3000/user-init/', profile_body, {headers: profile_headers})
+            .map((response: Response) => {
+                const res = response.json();
+                console.log(res.toString());
+                return res;
+            })
+            .catch((error: Response) => {
+                return Observable.throw(error.json());
+            });
     }
 
 }

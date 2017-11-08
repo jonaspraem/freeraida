@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var jwt = require('jsonwebtoken');
+var request = require('request');
 
-var User = require('../models/user');
 var Profile = require('../models/profile');
 var Marker = require('../models/marker');
 var Line = require('../models/line');
@@ -100,102 +99,100 @@ router.get('/:username', function (req, res, next) {
     });
 });
 
-// TODO: change secret variable
 // Verify token
 router.use('/', function(req, res, next) {
-    console.log(req.body);
-    jwt.verify(req.query.token, 'secret', function(err, decoded) {
-        if (err) {
-            return res.status(401).json({
-                title: 'Not Authenticated',
-                error: err
-            });
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        { json: { id_token: req.query.token } },
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                next();
+            } else {
+                return res.status(401).json({
+                    title: 'Not Authenticated',
+                    error: {message: 'jwt must be provided'}
+                });
+            }
         }
-        next();
-    });
+    );
 });
 
-router.post('/newline', function(req, res, next) {
-    var decoded = jwt.decode(req.query.token);
-    console.log('body: '+req.body.markers);
-    User.findById(decoded.user._id, function (err, user) {
-        if (err) {
-            return res.status(500).json({
-                title: 'Error finding user',
-                error: err
-            });
-        }
-        if (!user) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: {message: 'An error occurred regarding user'}
-            });
-        }
-        Profile.findOne({username: user.username}, function (profile_err, user_profile) {
-            if (profile_err) {
-                return res.status(500).json({
-                    title: 'Error finding user profile',
-                    error: profile_err
-                });
-            }
-            if (!user_profile) {
-                return res.status(500).json({
-                    title: 'An error occurred',
-                    error: {message: 'An error occurred regarding profile'}
-                });
-            }
-            var markerlist = [];
-            for (var i = 0; i<req.body.markers.length; i++) {
-                var marker = new Marker({
-                    markerName: req.body.markers[i].name,
-                    lat: req.body.markers[i].lat,
-                    lng: req.body.markers[i].lng
-                });
-                markerlist.push(marker);
-            }
-
-            var line = new Line({
-                username: user_profile.username,
-                lineName: req.body.lineName,
-                markers: markerlist,
-                timestamp: new Date(),
-                danger_level: req.body.danger_level,
-                tree_level: req.body.tree_level,
-                rock_level: req.body.rock_level,
-                cliff_level: req.body.cliff_level
-            });
-
-            line.save(function (err, result) {
-                if (err) {
-                    return res.status(500).json({
-                        title: 'An error occured',
-                        error: err
-                    });
-                }
-                user_profile.lines.push(result);
-                saveMarkerList(markerlist, function(save_success) {
-                    if (!save_success) {
+router.post('/newline/', function(req, res, next) {
+    console.log('newline post');
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        { json: { id_token: req.query.token } },
+        function (error, response, body) {
+            if (!error) {
+                Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
+                    console.log('PROFILE FOUND');
+                    if (profile_err) {
                         return res.status(500).json({
-                            title: 'An error occured',
-                            error: err
+                            title: 'Error finding user profile',
+                            error: profile_err
                         });
                     }
-                    user_profile.save(function (err, profile_result) {
+                    if (!user_profile) {
+                        return res.status(500).json({
+                            title: 'Error finding user profile',
+                            error: {message: 'An error occurred regarding profile'}
+                        });
+                    }
+                    var markerlist = [];
+                    for (var i = 0; i<req.body.markers.length; i++) {
+                        var marker = new Marker({
+                            markerName: req.body.markers[i].name,
+                            lat: req.body.markers[i].lat,
+                            lng: req.body.markers[i].lng
+                        });
+                        markerlist.push(marker);
+                    }
+
+                    var line = new Line({
+                        user_id: body.user_id,
+                        lineName: req.body.lineName,
+                        markers: markerlist,
+                        timestamp: new Date(),
+                        danger_level: req.body.danger_level,
+                        tree_level: req.body.tree_level,
+                        rock_level: req.body.rock_level,
+                        cliff_level: req.body.cliff_level
+                    });
+
+                    line.save(function (err, result) {
                         if (err) {
                             return res.status(500).json({
-                                title: 'An error occured',
+                                title: 'Couldn\'t save line',
                                 error: err
                             });
                         }
-                        return res.status(201).json({
-                            message: 'Line saved',
-                            obj: result
+                        user_profile.lines.push(result);
+                        saveMarkerList(markerlist, function(save_success) {
+                            if (!save_success) {
+                                return res.status(500).json({
+                                    title: 'An error occured',
+                                    error: err
+                                });
+                            }
+                            user_profile.save(function (err, profile_result) {
+                                if (err) {
+                                    return res.status(500).json({
+                                        title: 'An error occured',
+                                        error: err
+                                    });
+                                }
+                                console.log('EVERYTHING SAVED');
+                                return res.status(201).json({
+                                    message: 'Line saved',
+                                    obj: result
+                                });
+                            });
                         });
                     });
                 });
-            });
-        });
-    });
+            }
+        }
+    );
 });
 
 module.exports = router;

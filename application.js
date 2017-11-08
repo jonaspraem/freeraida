@@ -7,14 +7,14 @@ var mongoose = require('mongoose');
 
 var index = require('./routes/app');
 var postRoutes = require('./routes/posts');
-var userRoutes = require('./routes/user');
+var userRoutes = require('./routes/userinit');
 var connectRoutes = require('./routes/connect');
 var profileRoutes = require('./routes/profile');
 var lineRoutes = require('./routes/lines');
 var googleAuthRoutes = require('./routes/googleauth');
 
 var app = express();
-mongoose.connect('localhost:27017/node-angular');
+mongoose.connect('test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,7 +34,7 @@ app.use(function(req, res, next){
 });
 
 app.use('/post', postRoutes);
-app.use('/user', userRoutes);
+app.use('/user-init', userRoutes);
 app.use('/connect', connectRoutes);
 app.use('/profile', profileRoutes);
 app.use('/lineservice', lineRoutes);
