@@ -1,7 +1,19 @@
 <mat-toolbar>
     <span><h1>FREERAIDA</h1></span>
     <span class="spacer"></span>
-    <mat-icon (click)="onLogout()" class="example-icon">verified_user</mat-icon>
+    <span><div class="user-container">
+        <div *ngIf="hasImage(); then original_img else default_img"></div>
+        <ng-template #original_img>
+            <img src="{{profile?.picture}}" class="avatar" alt="avatar">
+        </ng-template>
+        <ng-template #default_img>
+            <i class="material-icons">account_circle</i>
+        </ng-template>
+
+        <h4 class="nickname">{{ profile?.given_name }} {{ profile?.family_name}}</h4>
+        <i class="material-icons">keyboard_arrow_down</i>
+    </div></span>
+
 </mat-toolbar>
 
 

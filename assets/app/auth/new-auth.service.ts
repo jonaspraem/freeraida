@@ -12,14 +12,23 @@ import { TokenTransferModel } from "./token.model";
 
 export class NewAuthService {
 
+    userProfile: any;
     private auth0 = new auth0.WebAuth({
         clientID: 'RGHlxY9aYwq0DdMQEjXfz2XD7Z26KezJ',
         domain: 'freeraida.eu.auth0.com',
-        responseType: 'token id_token',
+        responseType: 'token id_token access_token',
         audience: 'https://freeraida.eu.auth0.com/userinfo',
         redirectUri: 'http://localhost:3000/home',
-        scope: 'openid email user_metadata app_metadata picture',
+        scope: 'openid profile email ',
         container: 'hiw-login-container'
+    });
+
+    private auth0_tokenInfo = new auth0.WebAuth({
+        clientID: 'RGHlxY9aYwq0DdMQEjXfz2XD7Z26KezJ',
+        domain: 'freeraida.eu.auth0.com',
+        responseType: 'token',
+        audience: 'https://freeraida.eu.auth0.com/tokeninfo',
+        scope: 'openid profile email ',
     });
 
     constructor(public router: Router, public http: Http) {}
@@ -80,6 +89,34 @@ export class NewAuthService {
         // access token's expiry time
         const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
         return new Date().getTime() < expiresAt;
+    }
+
+    public getProfile() {
+        const idToken = localStorage.getItem('id_token');
+        if (!idToken) {
+            throw new Error('Access token must exist to fetch profile');
+        }
+
+        const self = this;
+
+        const headers = new Headers({'Content-Type': 'application/json'});
+        const body = { id_token: idToken };
+        return this.http.post('https://freeraida.eu.auth0.com/tokeninfo', body, {headers: headers})
+            .map((response: Response) => {
+                console.log('profile recieved: '+JSON.stringify(response.json()));
+                return response.json();
+            })
+            .catch((error: Response) => {
+                return Observable.throw(error.json());
+            });
+
+        // this.auth0_tokenInfo.client.userInfo(idToken, (err, profile) => {
+        //     if (profile) {
+        //         self.userProfile = profile;
+        //     }
+        //     console.log('profile recieved: '+JSON.stringify(profile));
+        //     cb(err, profile);
+        // });
     }
 
     private getTokenInfo() {

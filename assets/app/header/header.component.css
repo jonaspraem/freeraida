@@ -1,8 +1,27 @@
+body {
+    color: white;
+}
+
 h1 {
     color: white;
     text-shadow: 1px 0 #6495ED, 0 1px #6495ED, 1px 0 #6495ED, 0 -1px #6495ED;
     margin: 0;
     vertical-align: center;
+}
+
+h3 {
+    color: blue;
+}
+
+img {
+    display: inline-block;
+    width: 40px;
+}
+
+i {
+    margin-left: 10px;
+    color: white;
+    transform: translateY(+25%);
 }
 
 .spacer {
@@ -11,4 +30,18 @@ h1 {
 
 .mat-toolbar {
     background-color: black;
+}
+
+.nickname {
+    display: inline-block;
+    color: white;
+    width: 100px;
+}
+
+.user-container {
+    vertical-align: middle;
+    margin-right: 30px;
+    width: 200px;
+    height: 40px;
+    text-align: left;
 }
