@@ -1,7 +1,9 @@
 <mat-toolbar>
-    <span><h1>FREERAIDA</h1></span>
+    <h1>FREERAIDA</h1>
     <span class="spacer"></span>
-    <span><div class="user-container">
+    <div class="user-container" (click)="onOpen()">
+        <div class="dropdown">
+
         <div *ngIf="hasImage(); then original_img else default_img"></div>
         <ng-template #original_img>
             <img src="{{profile?.picture}}" class="avatar" alt="avatar">
@@ -12,6 +14,11 @@
 
         <h5 class="nickname">{{ profile?.given_name }} {{ profile?.family_name}}</h5>
         <i class="material-icons">keyboard_arrow_down</i>
-    </div></span>
+
+            <div class="dropdown-content">
+                <app-user-options-dropdown></app-user-options-dropdown>
+            </div>
+        </div>
+    </div>
 
 </mat-toolbar>

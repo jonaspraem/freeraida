@@ -10,6 +10,7 @@ import { NewAuthService } from "../auth/new-auth.service";
 
 export class HeaderComponent implements OnInit {
     profile: any;
+    isOpen: boolean = false;
 
     constructor(private authService: NewAuthService) {}
 
@@ -41,6 +42,14 @@ export class HeaderComponent implements OnInit {
 
     onLogout() {
         this.authService.logout();
+    }
+
+    onOpen() {
+        this.isOpen = true;
+    }
+
+    onClose() {
+        this.isOpen = false;
     }
 
 

@@ -18,7 +18,7 @@ import { AppComponent } from './app.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { AuthenticationComponent } from "./auth/authentication.component";
 import { HeaderComponent } from "./header/header.component";
-import { routing } from "./app.routing";
+import { appRouting } from "./app.routing";
 import { AuthService } from "./auth/auth.service";
 import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
@@ -31,6 +31,7 @@ import { LandingPageModule } from "./landing-page/landing-page.module";
 import { NewAuthService } from "./auth/new-auth.service";
 import { AuthGuardService } from "./auth/auth-guard.service";
 import { WebAppModule } from "./webapp.module";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
     declarations: [
@@ -41,7 +42,7 @@ import { WebAppModule } from "./webapp.module";
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        routing,
+        appRouting,
         HttpModule,
         LandingPageModule,
         WebAppModule,

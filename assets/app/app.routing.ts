@@ -4,9 +4,10 @@ import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { WebAppComponent } from "./webapp.component";
 
 const APP_ROUTES: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'landing-page', component: LandingPageComponent }, // , loadChildren: './landing-page/landing-page.module#LandingPageModule'
+    { path: '', redirectTo: 'home', pathMatch: 'full'},
+    { path: 'landing-page', component: LandingPageComponent },
     { path: 'home', component: WebAppComponent, canActivate: [AuthGuard], loadChildren: './webapp.module#WebAppModule'},
+    { path: '**', redirectTo: '', pathMatch: 'full'},
 ];
 
-export const routing = RouterModule.forRoot(APP_ROUTES);
+export const appRouting = RouterModule.forRoot(APP_ROUTES, { enableTracing: true });

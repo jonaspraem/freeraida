@@ -16,26 +16,20 @@ export class NewAuthService {
     private auth0 = new auth0.WebAuth({
         clientID: 'RGHlxY9aYwq0DdMQEjXfz2XD7Z26KezJ',
         domain: 'freeraida.eu.auth0.com',
-        responseType: 'token id_token access_token',
+        responseType: 'token id_token',
         audience: 'https://freeraida.eu.auth0.com/userinfo',
-        redirectUri: 'http://localhost:3000/home',
+        redirectUri: 'http://localhost:3000/',
         scope: 'openid profile email ',
         container: 'hiw-login-container'
-    });
-
-    private auth0_tokenInfo = new auth0.WebAuth({
-        clientID: 'RGHlxY9aYwq0DdMQEjXfz2XD7Z26KezJ',
-        domain: 'freeraida.eu.auth0.com',
-        responseType: 'token',
-        audience: 'https://freeraida.eu.auth0.com/tokeninfo',
-        scope: 'openid profile email ',
     });
 
     constructor(public router: Router, public http: Http) {}
 
     public login(): void {
         this.auth0.authorize();
-        this.router.navigate(['/home']);
+        this.handleAuthentication();
+        console.log('login');
+        this.router.navigate(['/']);
     }
 
     public initUser(): void {
@@ -59,9 +53,9 @@ export class NewAuthService {
             if (authResult && authResult.accessToken && authResult.idToken) {
                 window.location.hash = '';
                 this.setSession(authResult);
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
             } else if (err) {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/landing-page']);
                 console.log(err);
             }
         });

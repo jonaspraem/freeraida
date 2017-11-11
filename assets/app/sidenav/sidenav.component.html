@@ -6,10 +6,10 @@
                 <div class="expanded-list-container"><i class="material-icons">chevron_left</i><p>Collapse</p></div>
             </span></div></li>
             <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
-                <a routerLinkActive="active" [routerLink]="['/home/feed']"><span><div class="expanded-list-container"><i class="material-icons">home</i><p>Dashboard</p></div></span></a>
+                <a routerLinkActive="active" [routerLink]="['feed']"><span><div class="expanded-list-container"><i class="material-icons">home</i><p>Dashboard</p></div></span></a>
             </div></li>
             <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
-                <a routerLinkActive="active" [routerLink]="['/home/ride-center']"><span><div class="expanded-list-container"><i class="material-icons">landscape</i><p>Rides</p></div></span></a>
+                <a routerLinkActive="active" [routerLink]="['ride-center']"><span><div class="expanded-list-container"><i class="material-icons">landscape</i><p>Rides</p></div></span></a>
             </div></li>
             <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
                 <span><div class="expanded-list-container"><i class="material-icons">location_on</i><p>Live tracker</p></div></span>
@@ -26,9 +26,9 @@
         <ul class="collapsed-sidenav">
             <li class="menu-list-item" (click)="onExpand();"><div class="menu-item-container"><span><i class="material-icons">chevron_right</i></span></div></li>
             <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
-                <a routerLinkActive="active" [routerLink]="['/feed']"><span><i class="material-icons">home</i></span></a></div></li>
+                <a routerLinkActive="active" [routerLink]="['feed']"><span><i class="material-icons">home</i></span></a></div></li>
             <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
-                <a routerLinkActive="active" [routerLink]="['/ride-center']"><span><i class="material-icons">landscape</i></span></a></div></li>
+                <a routerLinkActive="active" [routerLink]="['ride-center']"><span><i class="material-icons">landscape</i></span></a></div></li>
             <li class="menu-list-item"><div class="menu-item-container"><span><i class="material-icons">location_on</i></span></div></li>
             <li class="menu-list-item" routerLinkActive="active"><div class="menu-item-container">
                 <a routerLinkActive="active" [routerLink]="['/user']"><span><i class="material-icons">account_circle</i></span></a></div></li>

@@ -15,12 +15,14 @@ import {
 } from "@angular/material";
 import { PostModule } from "./posts/post.module";
 import { WebAppComponent } from "./webapp.component";
+import { UserOptionsDropdownComponent } from "./header/user-options/user-options-dropdown.component";
 
 @NgModule({
     declarations: [
         WebAppComponent,
         HeaderComponent,
         SidenavComponent,
+        UserOptionsDropdownComponent
     ],
     imports: [
         CommonModule,
@@ -29,7 +31,6 @@ import { WebAppComponent } from "./webapp.component";
         ProfileModule,
         RideCenterModule,
         PostModule,
-
         // Material design modules:
         MatSidenavModule,
         MatCardModule,
@@ -38,6 +39,9 @@ import { WebAppComponent } from "./webapp.component";
         MatListModule,
         MatToolbarModule,
         MatButtonToggleModule
+    ],
+    exports: [
+        WebAppComponent,
     ]
 })
 
