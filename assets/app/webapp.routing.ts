@@ -6,11 +6,10 @@ import { WebAppComponent } from "./webapp.component";
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 
 const WEBAPP_ROUTES: Routes = [
-    // { path: '', component: WebAppComponent, canActivate: [AuthGuard]},
     // { path: '**', redirectTo: '', pathMatch: 'full'}
     { path: 'feed', component: LiveFeedComponent},
     { path: 'ride-center', component: RegisterRideComponent},
-    { path: 'user', component: ProfileComponent, data:{requiresLogin: true},loadChildren: './profile/profile.module#ProfileModule', outlet: 'web-app'},
+    { path: 'user', component: ProfileComponent, data:{requiresLogin: true},loadChildren: './profile/profile.module#ProfileModule'},
 ];
 
 export const webappRouting = RouterModule.forChild(WEBAPP_ROUTES);

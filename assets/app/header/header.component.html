@@ -15,8 +15,8 @@
         <h5 class="nickname">{{ profile?.given_name }} {{ profile?.family_name}}</h5>
         <i class="material-icons">keyboard_arrow_down</i>
 
-            <div class="dropdown-content">
-                <app-user-options-dropdown></app-user-options-dropdown>
+            <div *ngIf="isOpen">
+                <app-user-options-dropdown [profile]="profile"></app-user-options-dropdown>
             </div>
         </div>
     </div>
