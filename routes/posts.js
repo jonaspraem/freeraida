@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var jwt = require('express-jwt');
-var jwks = require('jwks-rsa');
 
 var User = require('../models/user');
 var Post = require('../models/post');

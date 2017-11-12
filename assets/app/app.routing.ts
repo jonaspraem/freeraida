@@ -7,7 +7,7 @@ const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'landing-page', component: LandingPageComponent },
     { path: 'home', component: WebAppComponent, canActivate: [AuthGuard], loadChildren: './webapp.module#WebAppModule'},
-    { path: '**', redirectTo: '', pathMatch: 'full'},
+    { path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];
 
 export const appRouting = RouterModule.forRoot(APP_ROUTES, { enableTracing: true });

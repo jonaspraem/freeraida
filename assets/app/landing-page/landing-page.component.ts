@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NewAuthService } from "../auth/new-auth.service";
+import { Router } from "@angular/router";
 const image = require('../../images/350214-mountain-view.jpg');
 
 @Component({
@@ -8,19 +9,13 @@ const image = require('../../images/350214-mountain-view.jpg');
     styleUrls: ['./landing-page.component.css']
 })
 
-export class LandingPageComponent{
-    content: string = 'sign-in';
+export class LandingPageComponent implements OnInit{
 
-    isSignIn() {
-        return (this.content == 'sign-in');
-    }
+    constructor(private newAuthService: NewAuthService, private router: Router) {}
 
-    openSignIn() {
-        this.content = 'sign-in';
-    }
-
-    openSignUp() {
-        this.content = 'sign-up'
+    ngOnInit(): void {
+        if (!this.newAuthService.isAuthenticated()) this.newAuthService.login();
+        else this.router.navigate(['home'])
     }
 
 }

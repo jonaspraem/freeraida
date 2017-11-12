@@ -9,6 +9,8 @@ header {
     background-color: white;
     align-content: center;
     text-align: center;
+    height: 500px;
+    transform: translateY(-250px);
 }
 
 .background {
@@ -21,10 +23,4 @@ header {
     align-content: center;
     vertical-align: middle;
     text-align: center;
-}
-
-.hiw-login-container {
-    height: 100%;
-    width: 100%;
-    padding: 2px;
 }

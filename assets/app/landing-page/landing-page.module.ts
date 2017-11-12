@@ -6,14 +6,12 @@ import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 import { GoogleAuthService } from "../google-auth/googleauth.service";
 import { MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatCardModule, MatFormFieldModule, MatInputModule } from "@angular/material";
-import { Auth0Component } from "./auth0.component";
 
 @NgModule({
     declarations: [
         LandingPageComponent,
         GoogleAuthComponent,
         GoogleSignInComponent,
-        Auth0Component,
     ],
     imports: [
         CommonModule,

@@ -48,7 +48,7 @@
     "rxjs": "^5.4.3",
     "serve-favicon": "~2.4.2",
     "webpack": "^3.6.0",
-    "zone.js": "^0.8.18"
+    "zone.js": "0.8.18"
   },
   "devDependencies": {
     "@types/core-js": "0.9.36",

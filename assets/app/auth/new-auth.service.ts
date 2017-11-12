@@ -11,24 +11,28 @@ import { TokenTransferModel } from "./token.model";
 @Injectable()
 
 export class NewAuthService {
-
     userProfile: any;
+
     private auth0 = new auth0.WebAuth({
         clientID: 'RGHlxY9aYwq0DdMQEjXfz2XD7Z26KezJ',
         domain: 'freeraida.eu.auth0.com',
         responseType: 'token id_token',
-        audience: 'https://freeraida.eu.auth0.com/userinfo',
         redirectUri: 'http://localhost:3000/home',
         scope: 'openid profile email ',
-        container: 'null',
+        redirect: false
     });
 
     constructor(public router: Router, public http: Http) {}
 
     public login(): void {
-        this.auth0.authorize();
-        this.handleAuthentication();
+        this.auth0.authorize({
+            container: 'hiw-login-container',
+            auth: { // <--- mind this nesting
+                redirect: false
+            }
+        });
         console.log('login');
+        localStorage.setItem('login', 'true');
         this.router.navigate(['/home']);
     }
 
@@ -51,9 +55,8 @@ export class NewAuthService {
     public handleAuthentication(): void {
         this.auth0.parseHash((err, authResult) => {
             if (authResult && authResult.accessToken && authResult.idToken) {
-                window.location.hash = '';
                 this.setSession(authResult);
-                this.router.navigate(['/']);
+                this.router.navigate(['/home']);
             } else if (err) {
                 this.router.navigate(['/landing-page']);
                 console.log(err);
@@ -118,7 +121,9 @@ export class NewAuthService {
         const tokenObject = new TokenTransferModel(localStorage.getItem('id_token'));
         const body = JSON.stringify(tokenObject);
         return this.http.post('https://freeraida.eu.auth0.com/tokeninfo', body, {headers: headers})
-            .map((response: Response) => response.json())
+            .map((response: Response) => {
+                return response.json()
+            })
             .catch((error: Response) => {
                 return Observable.throw(error.json());
             });

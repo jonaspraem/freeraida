@@ -19,13 +19,11 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { AuthenticationComponent } from "./auth/authentication.component";
 import { HeaderComponent } from "./header/header.component";
 import { appRouting } from "./app.routing";
-import { AuthService } from "./auth/auth.service";
 import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
 import { PostModule } from "./posts/post.module";
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { AuthGuard } from "./auth-guard.service";
 import { WebAppComponent } from "./webapp.component";
 import { LandingPageModule } from "./landing-page/landing-page.module";
 import { NewAuthService } from "./auth/new-auth.service";
@@ -49,7 +47,7 @@ import { RouterModule } from "@angular/router";
         MDBBootstrapModule.forRoot(),
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [AuthService, AuthGuardService, NewAuthService, ErrorService, AuthGuard],
+    providers: [AuthGuardService, NewAuthService, ErrorService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
