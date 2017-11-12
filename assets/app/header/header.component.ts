@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
 
     }
 
+    // On click outside component
     onClick(event) {
         if (!this._eref.nativeElement.contains(event.target)) // or some similar check
             this.onClose();
@@ -58,6 +59,10 @@ export class HeaderComponent implements OnInit {
 
     onClose() {
         this.isOpen = false;
+    }
+
+    onToggle() {
+        this.isOpen = !this.isOpen;
     }
 
 

@@ -10,4 +10,18 @@
         <h5>{{ profile?.email}}</h5>
         <h4>{{ profile?.given_name }} {{ profile?.family_name}}</h4>
     </div>
+    <div class="dropdown-menu-container">
+        <ul class="menu-container">
+            <li class="menu-item">
+                <p>Edit profile</p>
+            </li>
+            <li class="menu-item">
+                <p>Profile</p>
+            </li>
+            <li class="menu-item" (click)="onLogout()">
+                <p>Sign Out</p>
+            </li>
+        </ul>
+
+    </div>
 </div>

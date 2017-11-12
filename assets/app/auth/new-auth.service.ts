@@ -18,9 +18,9 @@ export class NewAuthService {
         domain: 'freeraida.eu.auth0.com',
         responseType: 'token id_token',
         audience: 'https://freeraida.eu.auth0.com/userinfo',
-        redirectUri: 'http://localhost:3000/',
+        redirectUri: 'http://localhost:3000/home',
         scope: 'openid profile email ',
-        container: 'hiw-login-container'
+        container: 'null',
     });
 
     constructor(public router: Router, public http: Http) {}
@@ -29,7 +29,7 @@ export class NewAuthService {
         this.auth0.authorize();
         this.handleAuthentication();
         console.log('login');
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
     }
 
     public initUser(): void {

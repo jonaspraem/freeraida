@@ -14,17 +14,50 @@ h5, h4 {
     color: black;
 }
 
+ul {
+    list-style: none;
+}
+
+p {
+    margin: 0;
+}
+
 .container {
     margin-top: 20px;
     width: 200px;
-    height: 300px;
+    height: 250px;
     background-color: white;
     align-content: center;
     border-radius: 25px;
     border: 2px black solid;
+    padding: 0;
 }
 
 .dropdown-header {
     align-content: center;
     text-align: center;
 }
+
+.dropdown-menu-container {
+    width: 100%;
+    height: inherit;
+}
+
+.menu-item {
+    font-weight: bold;
+    border-top: 1px solid black;
+    padding-top: 5px;
+    padding-left: 10px;
+    height: 30px;
+}
+
+.menu-item:hover {
+    background-color: #6495ED;
+}
+
+.menu-container {
+    width: 100%;
+    padding: 0;
+    border-bottom: 1px solid black;
+}
+
