@@ -5,16 +5,13 @@ var Profile = require('../models/profile');
 
 // Create profile if none exists
 router.post('/', function(req, res, next) {
-    console.log('got request');
     Profile.findOne({user_id: req.body.user_id}, function(p_err, profile) {
-        console.log('profile:::');
         if (p_err) {
             return res.status(500).json({
                 title: 'An error occured',
                 error: err
             });
         }
-        if (profile) console.log('User already exists: '+profile.user_id);
         if (!profile) {
             var profile = new Profile({
                 user_id: req.body.user_id,
@@ -26,7 +23,6 @@ router.post('/', function(req, res, next) {
                 lines: [],
                 posts: []
             });
-            console.log('profile: '+profile.toString());
             profile.save(function (err, result) {
                 if (err) {
                     return res.status(500).json({

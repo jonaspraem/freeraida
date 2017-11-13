@@ -35,15 +35,13 @@ export class AuthService {
     }
 
     public initUser(): void {
-        console.log('initUser');
         this.getTokenInfo()
             .subscribe(
                 (jsonData) => {
-                    console.log('jsonData: '+jsonData.toString());
                     this.postLoginCheck(jsonData.user_id, jsonData.given_name, jsonData.family_name)
                         .subscribe(
                             (res) => {
-                                console.log('response: '+res.toString());
+
                             }
                         );
                 }
@@ -96,7 +94,6 @@ export class AuthService {
         const body = { id_token: idToken };
         return this.http.post('https://freeraida.eu.auth0.com/tokeninfo', body, {headers: headers})
             .map((response: Response) => {
-                console.log('profile recieved: '+JSON.stringify(response.json()));
                 return response.json();
             })
             .catch((error: Response) => {
@@ -129,7 +126,6 @@ export class AuthService {
         return this.http.post('http://localhost:3000/user-init/', profile_body, {headers: profile_headers})
             .map((response: Response) => {
                 const res = response.json();
-                console.log(res.toString());
                 return res;
             })
             .catch((error: Response) => {

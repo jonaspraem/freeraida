@@ -19,12 +19,11 @@ export class HeaderComponent implements OnInit {
     ngOnInit(): void {
         if (this.authService.userProfile) {
             this.profile = this.authService.userProfile;
-            console.log('profile '+this.profile);
+
         } else {
             this.authService.getProfile().subscribe(
                 (profile: any) => {
                     this.profile = profile;
-                    console.log('profile '+this.profile.toString());
                 }
             );
         }

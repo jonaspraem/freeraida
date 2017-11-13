@@ -22,8 +22,6 @@ function verifyGoogleToken(token, callback) {
 }
 
 router.post('/', function(req, res, next) {
-    console.log("auth received");
-    console.log(req.body.token);
     verifyGoogleToken(req.body.token, function(result) {
         return res.status(200).json({
             message: 'Auth successful',

@@ -75,9 +75,7 @@ router.get('/profile-feed/:username', function (req, res, next) {
             });
         }
         getUserFeed(user_profile, function(list) {
-            console.log(list);
             sortList(list, function(sortedList) {
-                console.log(sortedList);
                 return res.status(201).json({
                     message: 'User feed successfully generated',
                     obj: sortedList
@@ -99,7 +97,6 @@ router.use('/', function(req, res, next) {
         }
         next();
     });
-    console.log(jwtCheck.toString());
     next();
 });
 
