@@ -11,7 +11,7 @@ var schema = new Schema({
     tree_level: {type: String, required: true},
     rock_level: {type: String, required: true},
     cliff_level: {type: String, required: true},
-    username: {type: String, required: true}
+    user_id: {type: String, required: true}
 });
 
 module.exports = mongoose.model('Line', schema);

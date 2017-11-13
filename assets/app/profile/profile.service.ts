@@ -29,7 +29,6 @@ export class ProfileService {
                         result.lines[i].cliff_level
                         ));
                 }
-                console.log(result);
                 const profile = new Profile(
                     result.username,
                     result.bio,

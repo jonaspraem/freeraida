@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { Profile } from "./profile.model";
-import { AuthService } from "../auth/auth.service";
 import { ProfileService } from "./profile.service";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
     selector: 'app-profile-bio',
@@ -11,7 +11,7 @@ import { ProfileService } from "./profile.service";
 
 export class BioComponent{
     @Input() profile: Profile;
-    default_img : string = 'assets/resources/images/default-skier.jpg';
+    default_img : string = 'assets/images/images/default-skier.jpg';
 
     constructor(private authService: AuthService, private profileService: ProfileService) {}
 

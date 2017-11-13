@@ -1,31 +1,24 @@
 <mat-toolbar>
-    <span><h1>FREERAIDA</h1></span>
+    <h1>FREERAIDA</h1>
     <span class="spacer"></span>
-    <mat-icon class="example-icon">verified_user</mat-icon>
+    <div class="user-container" (click)="onToggle()">
+        <div class="dropdown">
+
+        <div *ngIf="hasImage(); then original_img else default_img"></div>
+        <ng-template #original_img>
+            <img src="{{profile?.picture}}" class="avatar" alt="avatar">
+        </ng-template>
+        <ng-template #default_img>
+            <i class="material-icons">account_circle</i>
+        </ng-template>
+
+        <h5 class="nickname">{{ profile?.given_name }} {{ profile?.family_name}}</h5>
+        <i class="material-icons">keyboard_arrow_down</i>
+
+            <div *ngIf="isOpen">
+                <app-user-options-dropdown [profile]="profile"></app-user-options-dropdown>
+            </div>
+        </div>
+    </div>
+
 </mat-toolbar>
-
-
-
-
-<!--<nav class="navbar navbar-default navbar-static-top">-->
-    <!--<div class="container">-->
-        <!--<div class="navbar-header">-->
-            <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">-->
-                <!--<span class="sr-only">Toggle navigation</span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-            <!--</button>-->
-            <!--<a class="navbar-brand" href="#"><h1>FREERAIDA</h1></a>-->
-        <!--</div>-->
-        <!--<div id="navbar" class="navbar-collapse collapse">-->
-            <!--<ul class="nav navbar-nav">-->
-                <!--<li routerLinkActive="active"><a [routerLink]="['/feed']">live feed</a></li>-->
-                <!--<li routerLinkActive="active" *ngIf="isLoggedIn()"><a [routerLink]="['/user']">Profile</a></li>-->
-            <!--</ul>-->
-            <!--<ul class="nav navbar-nav navbar-right">-->
-                <!--<li routerLinkActive="active"><a [routerLink]="['/auth']">Auth</a></li>-->
-            <!--</ul>-->
-        <!--</div>&lt;!&ndash;/.nav-collapse &ndash;&gt;-->
-    <!--</div>-->
-<!--</nav>-->

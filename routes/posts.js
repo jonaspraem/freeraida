@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var jwt = require('jsonwebtoken');
 
 var User = require('../models/user');
 var Post = require('../models/post');
@@ -76,9 +75,7 @@ router.get('/profile-feed/:username', function (req, res, next) {
             });
         }
         getUserFeed(user_profile, function(list) {
-            console.log(list);
             sortList(list, function(sortedList) {
-                console.log(sortedList);
                 return res.status(201).json({
                     message: 'User feed successfully generated',
                     obj: sortedList
@@ -89,7 +86,7 @@ router.get('/profile-feed/:username', function (req, res, next) {
 });
 
 // TODO: change secret variable
-// Verify token
+//Verify token
 router.use('/', function(req, res, next) {
     jwt.verify(req.query.token, 'secret', function(err, decoded) {
         if (err) {
@@ -100,6 +97,7 @@ router.use('/', function(req, res, next) {
         }
         next();
     });
+    next();
 });
 
 // Get user live-feed

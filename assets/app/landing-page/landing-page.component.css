@@ -1,0 +1,26 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signature-card {
+    width: 500px;
+    background-color: white;
+    align-content: center;
+    text-align: center;
+    height: 500px;
+    transform: translateY(-250px);
+}
+
+.background {
+    position: fixed;
+    padding: 400px;
+    height: 100%;
+    width: 100%;
+    background-image: url("js/app/assets/350214-mountain-view.0e19ad6496c20f342c1bc7f111a12be5.jpg");
+    background-size: cover;
+    align-content: center;
+    vertical-align: middle;
+    text-align: center;
+}

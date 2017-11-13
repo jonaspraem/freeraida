@@ -1,15 +1,13 @@
 import { RouterModule, Routes } from "@angular/router";
-import { AuthenticationComponent } from "./auth/authentication.component";
-import { ProfileComponent } from "./profile/profile.component";
-import { LiveFeedComponent } from "./posts/feed/live-feed.component";
-import { RegisterRideComponent } from "./lines/register-ride.component";
+import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
+import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { WebAppComponent } from "./webapp.component";
 
 const APP_ROUTES: Routes = [
-    { path: '', redirectTo: '/feed', pathMatch: 'full' },
-    { path: 'feed', component: LiveFeedComponent },
-    { path: 'ride-center', component: RegisterRideComponent },
-    { path: 'user', component: ProfileComponent, loadChildren: './profile/profile.module#ProfileModule'},
-    { path: 'auth', component: AuthenticationComponent, loadChildren: './auth/auth.module#AuthModule' },
+    { path: '', redirectTo: 'landing-page', pathMatch: 'full'},
+    { path: 'landing-page', component: LandingPageComponent },
+    { path: 'home', component: WebAppComponent, canActivate: [AuthGuard], loadChildren: './webapp.module#WebAppModule'},
+    { path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];
 
-export const routing = RouterModule.forRoot(APP_ROUTES);
+export const appRouting = RouterModule.forRoot(APP_ROUTES);

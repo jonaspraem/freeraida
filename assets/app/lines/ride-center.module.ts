@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { AgmCoreModule } from "@agm/core";
 import { FormsModule }   from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 
 // Material design
 import {
@@ -33,7 +32,6 @@ import { LineHistoryComponent } from "./line-history.component";
         CommonModule,
         ReactiveFormsModule,
         FormsModule,
-        BrowserModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM'
         }),

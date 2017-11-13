@@ -18,8 +18,12 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [{ loader: 'raw-loader' }]
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg|woff|woff2|tff|eot|ico)$/,
+                use: [{ loader: 'file-loader?name=assets/[name].[hash].[ext]' }]
             }
         ],
-        exprContextCritical: false
+    exprContextCritical: false
     }
 };
