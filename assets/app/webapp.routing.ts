@@ -2,8 +2,6 @@ import { RouterModule, Routes } from "@angular/router";
 import { LiveFeedComponent } from "./posts/feed/live-feed.component";
 import { RegisterRideComponent } from "./lines/register-ride.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { WebAppComponent } from "./webapp.component";
-import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 
 const WEBAPP_ROUTES: Routes = [
     // { path: '**', redirectTo: '', pathMatch: 'full'}

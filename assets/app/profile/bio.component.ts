@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { Profile } from "./profile.model";
-import { AuthService } from "../auth/auth.service";
 import { ProfileService } from "./profile.service";
+import { AuthService } from "../auth/auth.service";
 
 @Component({
     selector: 'app-profile-bio',

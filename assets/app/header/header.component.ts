@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit } from "@angular/core";
 import { AuthService } from "../auth/auth.service";
-import { NewAuthService } from "../auth/new-auth.service";
 
 @Component({
     host: {
@@ -15,7 +14,7 @@ export class HeaderComponent implements OnInit {
     profile: any;
     isOpen: boolean = false;
 
-    constructor(private authService: NewAuthService, private _eref: ElementRef) {}
+    constructor(private authService: AuthService, private _eref: ElementRef) {}
 
     ngOnInit(): void {
         if (this.authService.userProfile) {
