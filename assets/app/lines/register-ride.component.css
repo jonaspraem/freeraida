@@ -172,3 +172,9 @@ input.radio {
     vertical-align: bottom;
     width: 100%;
 }
+
+img {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+}

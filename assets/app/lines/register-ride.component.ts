@@ -4,6 +4,7 @@ import { PolylineCoords } from "./path.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { LineTransferModel } from "./lineTransfer.model";
 import { LineService } from "./line.service";
+import { FLAG_DICTIONARY } from "../dictionary/flagmap";
 
 @Component({
     selector: 'app-register-ride',
@@ -26,7 +27,7 @@ export class RegisterRideComponent implements OnInit{
     rock_level: string;
     cliff_level: string;
 
-    constructor(private cdRef: ChangeDetectorRef, private lineService: LineService) {}
+    constructor(private cdRef: ChangeDetectorRef, private lineService: LineService, private flagMap: FLAG_DICTIONARY) {}
 
     ngOnInit(): void {
         this.mapType = 'hybrid';

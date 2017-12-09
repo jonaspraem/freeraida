@@ -13,6 +13,7 @@ import { LandingPageModule } from "./landing-page/landing-page.module";
 import { AuthService } from "./auth/auth.service";
 import { AuthGuardService } from "./auth/auth-guard.service";
 import { WebAppModule } from "./webapp.module";
+import { FLAG_DICTIONARY } from "./dictionary/flagmap";
 
 @NgModule({
     declarations: [
@@ -29,7 +30,7 @@ import { WebAppModule } from "./webapp.module";
         MDBBootstrapModule.forRoot(),
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [AuthGuardService, AuthService, ErrorService],
+    providers: [AuthGuardService, AuthService, ErrorService, FLAG_DICTIONARY],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
