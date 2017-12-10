@@ -6,6 +6,7 @@ var Profile = require('../models/profile');
 var Marker = require('../models/marker');
 var Line = require('../models/line');
 
+// TODO
 function sortList(list, callback) {
     list.sort(function(a, b){
         var keyA = new Date(a.timestamp),

@@ -17,8 +17,8 @@ export class PostService {
     addPost(post: Post) {
         const body = JSON.stringify(post);
         const headers = new Headers({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('token')
-            ? '?token=' + localStorage.getItem('token')
+        const token = localStorage.getItem('id_token')
+            ? '?token=' + localStorage.getItem('id_token')
             : '';
         return this.http.post('http://localhost:3000/post' + token, body, {headers: headers})
             .map((response: Response) => {
@@ -61,8 +61,8 @@ export class PostService {
     }
 
     getFeed() {
-        const token = localStorage.getItem('token')
-            ? '?token=' + localStorage.getItem('token')
+        const token = localStorage.getItem('id_token')
+            ? '?token=' + localStorage.getItem('id_token')
             : '';
         return this.http.get('http://localhost:3000/post/feed' + token)
             .map((response: Response) => {
