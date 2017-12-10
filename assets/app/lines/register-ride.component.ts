@@ -4,7 +4,7 @@ import { PolylineCoords } from "./path.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { LineTransferModel } from "./lineTransfer.model";
 import { LineService } from "./line.service";
-import { FLAG_DICTIONARY } from "../dictionary/flagmap";
+import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
 
 @Component({
     selector: 'app-register-ride',

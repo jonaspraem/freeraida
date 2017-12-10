@@ -16,6 +16,7 @@ import {
 import { PostModule } from "./posts/post.module";
 import { WebAppComponent } from "./webapp.component";
 import { UserOptionsDropdownComponent } from "./header/user-options/user-options-dropdown.component";
+import { TrackPageModule } from "./tracker/track-page.module";
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { UserOptionsDropdownComponent } from "./header/user-options/user-options
         webappRouting,
         ProfileModule,
         RideCenterModule,
+        TrackPageModule,
         PostModule,
         // Material design modules:
         MatSidenavModule,

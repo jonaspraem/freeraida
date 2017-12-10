@@ -13,7 +13,7 @@ import { LandingPageModule } from "./landing-page/landing-page.module";
 import { AuthService } from "./auth/auth.service";
 import { AuthGuardService } from "./auth/auth-guard.service";
 import { WebAppModule } from "./webapp.module";
-import { FLAG_DICTIONARY } from "./dictionary/flagmap";
+import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 
 @NgModule({
     declarations: [
