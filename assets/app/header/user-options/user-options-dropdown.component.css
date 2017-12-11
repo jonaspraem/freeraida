@@ -28,9 +28,19 @@ p {
     height: 250px;
     background-color: white;
     align-content: center;
-    border-radius: 25px;
-    border: 2px black solid;
+    /*border-radius: 25px;*/
+    /*border: 2px black solid;*/
     padding: 0;
+    z-index: 3;
+    position: relative;
+}
+
+.card-container {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #F5F5F6;
 }
 
 .dropdown-header {

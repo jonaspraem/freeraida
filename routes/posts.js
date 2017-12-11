@@ -161,7 +161,6 @@ router.post('/', function(req, res, next) {
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
         function (error, response, body) {
-            console.log('made it here1');
             Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
                 if (profile_err) {
                     return res.status(500).json({
@@ -181,7 +180,6 @@ router.post('/', function(req, res, next) {
                     display_name: user_profile.firstName + ' ' + user_profile.lastName,
                     timestamp: new Date()
                 });
-                console.log('made it here3'+user_profile);
                 post.save(function (err, result) {
                     if (err) {
                         return res.status(500).json({
