@@ -10,6 +10,7 @@ import { PostService } from "./post.service";
 
 export class PostComponent {
     @Input() post: Post;
+    isExpanded: boolean = false;
 
     constructor(private postService : PostService) {}
 
@@ -60,5 +61,17 @@ export class PostComponent {
 
     belongsToUser() {
         return localStorage.getItem('username') == this.post.display_name;
+    }
+
+    hasMoreContent() : boolean {
+        return (this.post.expanded_content != null);
+    }
+
+    showMore() {
+        this.isExpanded = true;
+    }
+
+    showLess() {
+        this.isExpanded = false;
     }
 }

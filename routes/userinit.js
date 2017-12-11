@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) {
                 followers: [],
                 following: [],
                 lines: [],
-                posts: []
+                posts: [],
             });
             profile.save(function (err, result) {
                 if (err) {

@@ -1,13 +1,28 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title><h3 class="author"> {{ post.username }} </h3> <p class="date"> {{ getFormattedDate() }}</p></mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <p>{{ post.content }}</p>
-    </mat-card-content>
-    <mat-card-footer>
-    </mat-card-footer>
-    <mat-card-actions *ngIf="belongsToUser()" class="post-actions">
-        <a (click)="onDelete()">Delete</a>
-    </mat-card-actions>
+<mat-card class="post">
+    <div class="left">
+        <i class="material-icons">account_circle</i>
+    </div>
+    <div class="content">
+        <div class="author-info">
+            <h3 class="author"> {{ post.display_name }} </h3>
+            <p class="date"> {{ getFormattedDate() }}</p>
+        </div>
+        <div *ngIf="isExpanded; then expanded_content else normal_content"></div>
+        <ng-template #normal_content>
+            <div class="post-content">
+                <p>{{ post.content }}</p>
+            </div>
+            <div class="right">
+                <p *ngIf="hasMoreContent()"><a (click)="showMore()">show more</a></p>
+            </div>
+        </ng-template>
+        <ng-template #expanded_content>
+            <div class="post-content-expanded">
+                <p>{{ post.expanded_content }}</p>
+            </div>
+            <div class="right">
+                <p *ngIf="hasMoreContent()"><a (click)="showLess()">show less</a></p>
+            </div>
+        </ng-template>
+    </div>
 </mat-card>
