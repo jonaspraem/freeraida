@@ -5,6 +5,4 @@ import { Component } from "@angular/core";
     templateUrl: './live-feed.component.html'
 })
 
-export class LiveFeedComponent{
-
-}
+export class LiveFeedComponent {}

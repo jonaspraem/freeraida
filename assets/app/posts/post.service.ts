@@ -25,7 +25,7 @@ export class PostService {
                 const result = response.json().obj;
                 const post_obj = new Post(
                     result.content,
-                    result.timestamp,
+                    new Date(result.timestamp),
                     result.username,
                     result._id
                 );
@@ -61,18 +61,20 @@ export class PostService {
     }
 
     getFeed() {
+        console.log('getting user feed');
         const token = localStorage.getItem('id_token')
             ? '?token=' + localStorage.getItem('id_token')
             : '';
         return this.http.get('http://localhost:3000/post/feed' + token)
             .map((response: Response) => {
+                console.log('feed received: ');
                 const posts = response.json().obj;
                 let transformedPosts: Post[] = [];
                 for (let post of posts) {
                     transformedPosts.push(new Post(
                         post.content,
                         new Date(post.timestamp),
-                        post.username,
+                        post.display_name,
                         post._id,
                     ));
                 }

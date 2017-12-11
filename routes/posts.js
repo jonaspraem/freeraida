@@ -40,15 +40,22 @@ function sortList(list, callback) {
 }
 
 function getTransformedList(profile, callback) {
-    var transformedPosts = [];
+    console.log('transformed list 0');
+    var transformedPosts = profile.posts;
     var counter = 0;
-    profile.following.forEach(function(product, index){
-        getUserPosts(product, function(user_posts) {
-            counter++;
-            if (user_posts) transformedPosts.push.apply(transformedPosts, user_posts);
-            if (profile.following.length == counter) callback(transformedPosts);
+    //transformedPosts.push.apply(transformedPosts, profile.posts);
+    if (profile.following != null && profile.following.length !== 0) {
+        console.log('transformed list 01: '+profile.following.length);
+        profile.following.forEach(function(product, index){
+            console.log('transformed list');
+            getUserPosts(product, function(user_posts) {
+                console.log('transformed list loop: '+counter);
+                if (profile.following.length === counter) callback(transformedPosts);
+                counter++;
+                if (user_posts) transformedPosts.push.apply(transformedPosts, user_posts);
+            });
         });
-    });
+    } else callback(transformedPosts);
 }
 
 function getUserFeed(profile, callback) {
@@ -96,9 +103,10 @@ router.use('/', function(req, res, next) {
             if (!error && response.statusCode == 200) {
                 next();
             } else {
+                console.log(response);
                 return res.status(401).json({
                     title: 'Not Authenticated',
-                    error: {message: 'jwt must be provided'}
+                    error: {message: 'Not a valid token'}
                 });
             }
         }
@@ -112,40 +120,32 @@ router.get('/feed', function (req, res, next) {
         { json: { id_token: req.query.token } },
         function (error, response, body) {
             if (!error) {
-                User.findById(body.user_id, function (err, user) {
-                    if (err) {
+                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                    if (profile_err) {
                         return res.status(500).json({
-                            title: 'Error finding user',
-                            error: err
+                            title: 'Error finding user profile',
+                            error: profile_err
                         });
                     }
-                    if (!user) {
+                    if (!user_profile) {
                         return res.status(500).json({
                             title: 'An error occurred',
-                            error: {message: 'An error occurred regarding user'}
+                            error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    Profile.findOne({username: user.username}, function(profile_err, user_profile) {
-                        if (profile_err) {
-                            return res.status(500).json({
-                                title: 'Error finding user profile',
-                                error: profile_err
-                            });
-                        }
-                        if (!user_profile) {
-                            return res.status(500).json({
-                                title: 'An error occurred',
-                                error: {message: 'An error occurred regarding profile'}
-                            });
-                        }
-                        getTransformedList(user_profile, function(list) {
-                            getUserFeed(user_profile, function(user_list){
-                                list.push.apply(list, user_list);
-                                sortList(list, function(sortedList) {
-                                    return res.status(201).json({
-                                        message: 'User feed successfully generated',
-                                        obj: sortedList
-                                    });
+                    console.log('made it here 0');
+                    getTransformedList(user_profile, function(list) {
+                        console.log('made it here 1');
+                        getUserFeed(user_profile, function(user_list){
+                            console.log('made it here 2');
+                            list.push.apply(list, user_list);
+                            console.log('made it here 3');
+                            sortList(list, function(sortedList) {
+                                console.log('made it here 4');
+                                console.log('list: '+sortedList);
+                                return res.status(201).json({
+                                    message: 'User feed successfully generated',
+                                    obj: sortedList
                                 });
                             });
                         });
