@@ -180,6 +180,7 @@ router.post('/', function(req, res, next) {
                 var post = new Post({
                     content: req.body.content,
                     user_id: user_profile.user_id,
+                    user_address: user_profile.user_address,
                     display_name: user_profile.firstName + ' ' + user_profile.lastName,
                     timestamp: new Date()
                 });

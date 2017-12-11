@@ -2,8 +2,26 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 
-var User = require('../models/user');
 var Profile = require('../models/profile');
+
+// Check availability of user address
+router.post('/user_address', function (req, res, next) {
+    Profile.findOne({user_address: req.user_address}, function(p_err, profile) {
+       if (p_err) {
+           return res.status(500).json({
+               title: 'An error occured',
+               error: p_err
+           });
+       }
+       if (!profile) {
+           // The address is unused
+           return res.status(200).json({
+               message: 'User address is unused',
+               obj: 'true'
+           });
+       }
+    });
+});
 
 // Get user profile
 router.get('/:username', function (req, res, next) {
@@ -11,7 +29,7 @@ router.get('/:username', function (req, res, next) {
         if (p_err) {
             return res.status(500).json({
                 title: 'An error occured',
-                error: err
+                error: p_err
             });
         }
         if (!profile) {

@@ -5,6 +5,7 @@
     <div class="content">
         <div class="author-info">
             <h3 class="author"> {{ post.display_name }} </h3>
+            <a> @{{ post.user_address }}</a>
             <p class="date"> {{ getFormattedDate() }}</p>
         </div>
         <div *ngIf="isExpanded; then expanded_content else normal_content"></div>

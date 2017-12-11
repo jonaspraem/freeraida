@@ -6,6 +6,7 @@ var Profile = require('./profile');
 var schema = new Schema({
     content: {type: String, required: true},
     user_id: {type: String},
+    user_address: {type: String},
     display_name: {type: String},
     timestamp: {type: Date}
 });

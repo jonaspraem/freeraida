@@ -75,6 +75,7 @@ export class PostService {
                         post.content,
                         new Date(post.timestamp),
                         post.display_name,
+                        post.user_address,
                         post._id,
                     ));
                 }
