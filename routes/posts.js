@@ -144,7 +144,7 @@ router.get('/feed', function (req, res, next) {
                                 console.log('made it here 4');
                                 console.log('list: '+sortedList);
                                 return res.status(201).json({
-                                    message: 'User feed successfully generated',
+                                    message: 'User feed received',
                                     obj: sortedList
                                 });
                             });
