@@ -14,10 +14,10 @@ export class PostComponent {
     constructor(private postService : PostService) {}
 
     getFormattedDate() {
-        var timestamp: Date = this.post.timestamp;
-        var date = timestamp.getDate();
-        var month_index = timestamp.getMonth();
-        var month;
+        let timestamp: Date = this.post.timestamp;
+        let date = timestamp.getDate();
+        let month_index = timestamp.getMonth();
+        let month;
         switch (month_index) {
             case 0:
                 month = 'Jan'; break;
@@ -59,6 +59,6 @@ export class PostComponent {
     }
 
     belongsToUser() {
-        return localStorage.getItem('username') == this.post.username;
+        return localStorage.getItem('username') == this.post.display_name;
     }
 }

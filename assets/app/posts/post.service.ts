@@ -67,7 +67,7 @@ export class PostService {
             : '';
         return this.http.get('http://localhost:3000/post/feed' + token)
             .map((response: Response) => {
-                console.log('feed received: ');
+                console.log('feed received: '+response.json().obj);
                 const posts = response.json().obj;
                 let transformedPosts: Post[] = [];
                 for (let post of posts) {

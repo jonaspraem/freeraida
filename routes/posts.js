@@ -68,6 +68,16 @@ function getUserFeed(profile, callback) {
     });
 }
 
+function getPosts(post_list, callback) {
+    var postList = [];
+    Post.find({'_id': {$in: post_list}}, function (err, user_posts) {
+        if (err) return null;
+        if (!user_posts) return null;
+        postList.push.apply(postList, user_posts);
+        callback(postList);
+    });
+}
+
 // Get all user posts
 router.get('/profile-feed/:username', function (req, res, next) {
     Profile.findOne({username: req.params.username}, function (err, user_profile) {
@@ -133,16 +143,9 @@ router.get('/feed', function (req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    console.log('made it here 0');
-                    getTransformedList(user_profile, function(list) {
-                        console.log('made it here 1');
-                        getUserFeed(user_profile, function(user_list){
-                            console.log('made it here 2');
-                            list.push.apply(list, user_list);
-                            console.log('made it here 3');
-                            sortList(list, function(sortedList) {
-                                console.log('made it here 4');
-                                console.log('list: '+sortedList);
+                    getTransformedList(user_profile, function(post_ids) {
+                        getPosts(post_ids, function(post_list){
+                            sortList(post_list, function(sortedList) {
                                 return res.status(201).json({
                                     message: 'User feed received',
                                     obj: sortedList
