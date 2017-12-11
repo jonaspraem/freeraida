@@ -178,7 +178,7 @@ router.post('/', function(req, res, next) {
                 var post = new Post({
                     content: req.body.content,
                     user_id: user_profile.user_id,
-                    username: user_profile.firstName + ' ' + user_profile.lastName,
+                    display_name: user_profile.firstName + ' ' + user_profile.lastName,
                     timestamp: new Date()
                 });
                 console.log('made it here3'+user_profile);
