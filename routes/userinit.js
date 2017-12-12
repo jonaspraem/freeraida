@@ -1,7 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-var lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+var lorem_ipsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+    'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
+    'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ' +
+    'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ' +
+    'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 var Profile = require('../models/profile');
 
 function findAvailableUserAddress(name, callback) {
@@ -15,7 +19,10 @@ function findAvailableUserAddress(name, callback) {
        else if (profile) {
            for (var i = 0; i<100; i++) {
                Profile.findOne({user_address: name+i}, function(p_err, profile) {
-                  if (!profile) callback(name+i);
+                  if (!profile) {
+                      callback(name+i);
+                      break;
+                  }
                });
            }
        }
@@ -43,7 +50,7 @@ router.post('/', function(req, res, next) {
                     followers: [],
                     following: [],
                     lines: [],
-                    posts: [],
+                    posts: []
                 });
                 profile_model.save(function (err, result) {
                     if (err) {
