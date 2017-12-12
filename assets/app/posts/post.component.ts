@@ -78,6 +78,6 @@ export class PostComponent {
     }
 
     onAddressClick() {
-        this.router.navigate(['home/profile/'+this.post.user_address]);
+        this.router.navigate(['home/user/'+this.post.user_address]);
     }
 }
