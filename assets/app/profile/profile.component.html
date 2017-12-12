@@ -11,7 +11,26 @@
             <a [ngStyle]="{'color': color_dictionary.get('address')}" (click)="onAddressClick()"> @{{ profile?.user_address }}</a>
             <p> {{ profile?.bio }} </p>
         </div>
-        <mat-card class="image-card-container"></mat-card>
+        <mat-card class="image-card-container">
+            <div class="image-card-stat-container">
+                <div class="image-card-stat">
+                    <p class="image-card-paragraph">Lines</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">0</p>
+                </div>
+                <div class="image-card-stat">
+                    <p class="image-card-paragraph">Followers</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">0</p>
+                </div>
+                <div class="image-card-stat">
+                    <p class="image-card-paragraph">Following</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">0</p>
+                </div>
+                <div class="image-card-stat">
+                    <p class="image-card-paragraph">Posts</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">0</p>
+                </div>
+            </div>
+        </mat-card>
     </div>
     <div class="right">
 
