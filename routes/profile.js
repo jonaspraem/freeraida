@@ -24,8 +24,8 @@ router.post('/user_address', function (req, res, next) {
 });
 
 // Get user profile
-router.get('/:username', function (req, res, next) {
-    Profile.findOne({username: req.params.username}, function(p_err, profile) {
+router.get('/:address', function (req, res, next) {
+    Profile.findOne({user_address: req.params.address}, function(p_err, profile) {
         if (p_err) {
             return res.status(500).json({
                 title: 'An error occured',
