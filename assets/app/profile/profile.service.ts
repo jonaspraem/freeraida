@@ -30,7 +30,7 @@ export class ProfileService {
                         ));
                 }
                 this.profile = new Profile(
-                    result.username,
+                    result.firstName + ' ' + result.lastName,
                     result.user_address,
                     result.bio,
                     result.firstName,

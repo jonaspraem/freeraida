@@ -1,3 +1,20 @@
 <div class="container">
-    <img [src]="background_image" class="cover">
+    <mat-card class="image-container">
+        <img [src]="background_image" class="cover">
+    </mat-card>
+    <img [src]="profile_picture" class="profile-picture">
+    <img [src]="flag_dictionary.get('United Nations')" class="flag">
+    <div class="left">
+        <div class="profile-info">
+            <h2 [ngStyle]="{'color': color_dictionary.get('primary')}"> {{ profile?.display_name }} </h2>
+            <br>
+            <a [ngStyle]="{'color': color_dictionary.get('address')}" (click)="onAddressClick()"> @{{ profile?.user_address }}</a>
+            <p> {{ profile?.bio }} </p>
+        </div>
+        <mat-card class="image-card-container"></mat-card>
+    </div>
+    <div class="right">
+
+    </div>
+
 </div>

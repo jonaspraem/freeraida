@@ -2,7 +2,7 @@ import { Post } from "../posts/post.model";
 import { LineTransferModel } from "../lines/lineTransfer.model";
 
 export class Profile {
-    username: string;
+    display_name: string;
     user_address?: string;
     bio?: string;
     firstName?: string;
@@ -13,8 +13,8 @@ export class Profile {
     posts?: Post[];
     lines?: LineTransferModel[];
 
-    constructor(username: string, user_address?: string, bio?: string, firstName?: string, lastName?: string, followers?: string[], following?: string[], lines?: LineTransferModel[], posts?: Post[], img?: Buffer) {
-        this.username = username;
+    constructor(display_name: string, user_address?: string, bio?: string, firstName?: string, lastName?: string, followers?: string[], following?: string[], lines?: LineTransferModel[], posts?: Post[], img?: Buffer) {
+        this.display_name = display_name;
         this.user_address = user_address;
         this.bio = bio;
         this.firstName = firstName;

@@ -10,11 +10,66 @@
     height: 450px;
 }
 
-.left {
-    width:20%;
-    float:left;
+.image-container {
+    width: 100%;
+    height: auto;
+    padding: 0;
 }
+
+.profile-picture {
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    transform: translateY(-100px) translateX(+300px);
+    border: 1px solid white;
+    display: inline;
+    position: absolute;
+    z-index: 3;
+}
+
+.flag {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    transform: translateY(-50px) translateX(+520px);
+    border: 1px solid white;
+    display: inline;
+    position: absolute;
+    z-index: 3;
+}
+
+.left {
+    float: left;
+}
+
 .right {
-    width:80%;
-    float:right;
+    width: auto;
+    float: right;
+}
+
+.profile-info {
+    width: 250px;
+    margin: 10px;
+    padding: 5px;
+    display: inline-block;
+    float: left;
+}
+
+a {
+    display: block;
+    transform: translateX(+50px);
+}
+
+h2 {
+    font-weight: bolder;
+    display: inline;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.image-card-container {
+    display: inline-block;
+    width: 400px;
+    height: 200px;
+    background-color: #141D2F;
+    float: left;
 }
