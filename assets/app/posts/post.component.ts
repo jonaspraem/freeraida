@@ -1,6 +1,8 @@
 import { Component, Input } from "@angular/core";
 import { Post } from "./post.model";
 import { PostService } from "./post.service";
+import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-post',
@@ -12,7 +14,7 @@ export class PostComponent {
     @Input() post: Post;
     isExpanded: boolean = false;
 
-    constructor(private postService : PostService) {}
+    constructor(private postService : PostService, private colorDictionary : COLOR_DICTIONARY, private router : Router) {}
 
     getFormattedDate() {
         let timestamp: Date = this.post.timestamp;
@@ -73,5 +75,9 @@ export class PostComponent {
 
     showLess() {
         this.isExpanded = false;
+    }
+
+    onAddressClick() {
+        this.router.navigate(['home/profile/'+this.post.user_address]);
     }
 }
