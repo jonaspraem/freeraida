@@ -6,6 +6,8 @@ import { Profile } from "./profile.model";
 import { LineService } from "../lines/line.service";
 import { LineTransferModel } from "../lines/lineTransfer.model";
 
+const background_image = require('../../images/licensed/iStock-01.jpg');
+
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
@@ -13,6 +15,7 @@ import { LineTransferModel } from "../lines/lineTransfer.model";
 })
 
 export class ProfileComponent implements OnInit{
+    private background_image = background_image;
     profile: Profile;
     lines: LineTransferModel[];
 

@@ -14,8 +14,8 @@ export class ProfileService {
 
     constructor(private http: Http, private errorService: ErrorService) {}
 
-    getProfile(username: string) {
-        return this.http.get('http://localhost:3000/profile/'+username)
+    getProfile(user_address: string) {
+        return this.http.get('http://localhost:3000/profile/'+user_address)
             .map((response: Response) => {
                 const result = response.json().obj;
                 const lines = [];
@@ -29,8 +29,9 @@ export class ProfileService {
                         result.lines[i].cliff_level
                         ));
                 }
-                const profile = new Profile(
+                this.profile = new Profile(
                     result.username,
+                    result.user_address,
                     result.bio,
                     result.firstName,
                     result.lastName,
@@ -38,7 +39,6 @@ export class ProfileService {
                     result.following,
                     lines
                 );
-                this.profile = profile;
                 return this.profile;
             })
             .catch((error: Response) => {

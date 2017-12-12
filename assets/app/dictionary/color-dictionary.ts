@@ -8,9 +8,9 @@ export class COLOR_DICTIONARY {
     constructor() {
         COLOR_DICTIONARY.COLOR_MAP.set('primary', '#141D2F');
         COLOR_DICTIONARY.COLOR_MAP.set('secondary', '#6495ED');
-        COLOR_DICTIONARY.COLOR_MAP.set('ascent', '#166FD5');
-        COLOR_DICTIONARY.COLOR_MAP.set('ascent', '#D33C5B');
-        COLOR_DICTIONARY.COLOR_MAP.set('tour', '#E4BD00');
+        COLOR_DICTIONARY.COLOR_MAP.set('ascent', '#448BDD');
+        COLOR_DICTIONARY.COLOR_MAP.set('ascent', '#560000');
+        COLOR_DICTIONARY.COLOR_MAP.set('tour', '#E1BC21');
         COLOR_DICTIONARY.COLOR_MAP.set('address', '#42BCF1');
     }
 
