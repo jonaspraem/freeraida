@@ -1,0 +1,39 @@
+.container {
+    height: 100%;
+    width: 100%;
+}
+
+.left {
+    width: 50%;
+}
+
+.btn {
+    float: right;
+}
+
+labal {
+    display: inline-block;
+}
+
+.form-control {
+    display: inline-block;
+    width: 50%;
+    float: right;
+}
+
+.footer {
+    margin-top: 50px;
+    width: 100%;
+}
+
+.form-group-large {
+    min-height: 100px;
+}
+
+mat-form-field {
+    height: 100%;
+}
+
+textarea {
+    height: 100%;
+}

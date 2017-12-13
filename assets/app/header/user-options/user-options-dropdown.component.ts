@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { AuthService } from "../../auth/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'app-user-options-dropdown',
@@ -10,7 +11,7 @@ import { AuthService } from "../../auth/auth.service";
 export class UserOptionsDropdownComponent {
     @Input() profile: any;
 
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService, private router: Router) {}
 
     hasImage(): boolean {
         if (this.profile) {
@@ -21,5 +22,9 @@ export class UserOptionsDropdownComponent {
 
     onLogout() {
         this.authService.logout();
+    }
+
+    onSettingsClick() {
+        this.router.navigate(['home/settings']);
     }
 }

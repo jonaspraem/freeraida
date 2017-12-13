@@ -98,4 +98,8 @@ export class ProfileService {
                 return Observable.throw(error.json());
             });
     }
+
+    isAddressAvailable(user_address: string) {
+        return true;
+    }
 }
