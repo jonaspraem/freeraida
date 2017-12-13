@@ -5,7 +5,7 @@ import { Post } from "../post.model";
 import { PostService } from "../post.service";
 
 @Component({
-    selector: 'app-post-list',
+    selector: 'app-user-activity-list',
     templateUrl: './user-activity-list.component.html',
     styleUrls: ['./user-activity-list.component.css']
 })

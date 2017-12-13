@@ -45,7 +45,7 @@
 
 .right {
     margin-left: 680px;
-    width: 100%;
+    width: auto;
 }
 
 .profile-info {
@@ -104,4 +104,5 @@ h2 {
 
 .user-activity {
     padding: 0;
+    overflow: hidden;
 }

@@ -12,12 +12,14 @@ import { PostInputComponent } from "./post-input.component";
 import { PostComponent } from "./post.component";
 import { LiveFeedComponent } from "./feed/live-feed.component";
 import { FeedListComponent } from "./feed/feed-list.component";
+import { UserActivityInputComponent } from "./user-activity/user-activity-input.component";
 
 
 @NgModule({
     declarations: [
         UserActivityComponent,
         UserActivityListComponent,
+        UserActivityInputComponent,
         PostComponent,
         PostInputComponent,
         LiveFeedComponent,

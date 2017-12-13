@@ -3,6 +3,7 @@ body {
 }
 
 .container {
+    display: block;
     width: 100%;
-    color: white;
+    padding: 0;
 }
