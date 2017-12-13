@@ -4,7 +4,7 @@
     </div>
     <div class="content">
         <div class="author-info">
-            <h3 class="author"> {{ post.display_name }} </h3>
+            <h3 class="author" [ngStyle]="{'color': colorDictionary.get('secondary')}"> {{ post.display_name }} </h3>
             <a [ngStyle]="{'color': colorDictionary.get('address')}" (click)="onAddressClick()"> @{{ post.user_address }}</a>
             <p class="date"> {{ getFormattedDate() }}</p>
         </div>

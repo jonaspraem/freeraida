@@ -3,7 +3,7 @@
         <img [src]="background_image" class="cover">
     </mat-card>
     <img [src]="profile_picture" class="profile-picture">
-    <img [src]="flag_dictionary.get('United Nations')" class="flag">
+    <img [src]="flag_dictionary.get('United States of America')" class="flag">
     <div class="left">
         <div class="profile-info">
             <h2 [ngStyle]="{'color': color_dictionary.get('primary')}"> {{ profile?.display_name }} </h2>
@@ -33,7 +33,9 @@
         </mat-card>
     </div>
     <div class="right">
-
+        <mat-card [ngStyle]="{'background-color': color_dictionary.get('primary')}" class="user-activity">
+            <app-profile-feed [ngStyle]="{'width': '100%'}" [ngStyle]="{'color': 'white'}"></app-profile-feed>
+        </mat-card>
     </div>
 
 </div>

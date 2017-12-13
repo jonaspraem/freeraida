@@ -6,8 +6,8 @@ import { FormsModule } from "@angular/forms";
 import { MatCardModule, MatButtonModule, MatInputModule } from "@angular/material";
 
 import { PostService } from "./post.service";
-import { ProfileFeedComponent } from "./profile-feed.component";
-import { PostListComponent } from "./post-list.component";
+import { UserActivityComponent } from "./user-activity/user-activity.component";
+import { UserActivityListComponent } from "./user-activity/user-activity-list.component";
 import { PostInputComponent } from "./post-input.component";
 import { PostComponent } from "./post.component";
 import { LiveFeedComponent } from "./feed/live-feed.component";
@@ -16,8 +16,8 @@ import { FeedListComponent } from "./feed/feed-list.component";
 
 @NgModule({
     declarations: [
-        ProfileFeedComponent,
-        PostListComponent,
+        UserActivityComponent,
+        UserActivityListComponent,
         PostComponent,
         PostInputComponent,
         LiveFeedComponent,
@@ -31,8 +31,8 @@ import { FeedListComponent } from "./feed/feed-list.component";
         MatInputModule
     ],
     exports: [
-        ProfileFeedComponent,
-        PostListComponent,
+        UserActivityComponent,
+        UserActivityListComponent,
         PostComponent,
         PostInputComponent,
         LiveFeedComponent,

@@ -47,7 +47,8 @@ export class PostService {
                     transformedPosts.push(new Post(
                         post.content,
                         new Date(post.timestamp),
-                        post.username,
+                        post.display_name,
+                        post.user_address,
                         post._id,
                     ));
                 }

@@ -39,12 +39,13 @@
 }
 
 .left {
+    width: fit-content;
     float: left;
 }
 
 .right {
-    width: auto;
-    float: right;
+    margin-left: 680px;
+    width: 100%;
 }
 
 .profile-info {
@@ -99,4 +100,8 @@ h2 {
     font-size: large;
     text-align: left;
     transform: translateX(+10%);
+}
+
+.user-activity {
+    padding: 0;
 }
