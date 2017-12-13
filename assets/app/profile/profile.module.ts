@@ -7,14 +7,12 @@ import { MatCardModule } from "@angular/material";
 
 import { ProfileService } from "./profile.service";
 import { ProfileComponent } from "./profile.component";
-import { BioComponent } from "./bio.component";
 import { profileRouting } from "./profile.routing";
 import { PostModule } from "../posts/post.module";
 import { RideCenterModule } from "../lines/ride-center.module";
 
 @NgModule({
     declarations: [
-        BioComponent,
         ProfileComponent
     ],
     imports: [
