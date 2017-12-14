@@ -8,6 +8,8 @@ export class Profile {
     firstName?: string;
     lastName?: string;
     representation?: string;
+    social_twitter?: string;
+    social_instagram?: string;
     img?: Buffer;
     followers? : string[];
     following? : string[];
@@ -20,6 +22,8 @@ export class Profile {
                 firstName?: string,
                 lastName?: string,
                 representation?: string,
+                social_twitter?: string,
+                social_instagram?: string,
                 followers?: string[],
                 following?: string[],
                 lines?: LineTransferModel[],
@@ -32,6 +36,8 @@ export class Profile {
         this.firstName = firstName;
         this.lastName = lastName;
         this.representation = representation;
+        this.social_twitter = social_twitter;
+        this.social_instagram = social_instagram;
         this.followers = followers;
         this.following = following;
         this.posts = posts;
