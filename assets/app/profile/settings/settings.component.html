@@ -5,7 +5,7 @@
         <form [formGroup]="form">
             <div class="form-group">
                 <label for="address">Address</label>
-                <input type="text" class="form-control" formControlName="address" id="address" name="address" [(ngModel)]="form_address" required>
+                <input type="text" class="form-control" formControlName="address" id="address" name="address" [attr.disabled]="form_address?'':null" [(ngModel)]="form_address" required>
             </div>
 
             <hr>

@@ -38,6 +38,9 @@ export class ProfileService {
                     result.lastName,
                     result.followers,
                     result.following,
+                    result.representation,
+                    result.social_twitter,
+                    result.social_instagram,
                     lines
                 );
                 return this.profile;
@@ -75,6 +78,9 @@ export class ProfileService {
                     result.lastName,
                     result.followers,
                     result.following,
+                    result.representation,
+                    result.social_twitter,
+                    result.social_instagram,
                     lines
                 );
                 return this.profile;

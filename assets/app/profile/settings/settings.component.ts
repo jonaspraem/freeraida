@@ -42,10 +42,14 @@ export class SettingsComponent implements OnInit {
         this.profile_service.getProfileWithToken()
             .subscribe(
                 (profile: Profile) => {
+                    if (profile.user_address) {
+
+                    }
                     this.profile = profile;
                     this.form_firstname = profile.firstName;
                     this.form_surname = profile.lastName;
                     this.form_bio = profile.bio;
+                    this.form_address = profile.user_address;
                 }
         );
         this.form = new FormGroup({
