@@ -45,7 +45,28 @@
             </div>
 
         </form>
+    </div>
+    <div class="right">
+        <form>
+            <h3>Social</h3>
 
+            <hr>
+
+            <div class="form-group">
+                <label for="firstname"><img [src]="twitter">    Twitter https://twitter.com/    </label>
+                <input type="text" class="form-control" id="twitter" name="twitter">
+            </div>
+
+            <hr>
+
+            <div class="form-group">
+                <label for="firstname"><img [src]="instagram">    Instagram https://www.instagram.com/    </label>
+                <input type="text" class="form-control" id="instagram" name="instagram">
+            </div>
+
+            <hr>
+
+        </form>
     </div>
     <div class="footer">
         <button type="submit" class="btn btn-success" (click)="onSubmit()" [disabled]="!form.valid">Save</button>

@@ -5,6 +5,9 @@ import { ActivatedRoute } from "@angular/router";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
 
+let twitter = require('../../../images/social/twitter.png');
+let instagram = require('../../../images/social/instagram.png');
+
 @Component({
     selector: 'app-settings',
     templateUrl: './settings.component.html',
@@ -12,7 +15,7 @@ import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
 })
 
 export class SettingsComponent implements OnInit {
-    profile: Profile;
+        profile: Profile;
     flag_list: string[];
 
     // form
@@ -21,6 +24,10 @@ export class SettingsComponent implements OnInit {
     form_firstname: string;
     form_surname: string;
     form_bio: string;
+
+    // images
+    twitter = twitter;
+    instagram = instagram;
 
 
     constructor(private profile_service: ProfileService,
