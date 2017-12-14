@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-var User = require('../models/user');
 var Post = require('../models/post');
 var Profile = require('../models/profile');
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ProfileService } from "../profile.service";
 import { Profile } from "../profile.model";
-import { ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
 import { AuthService } from "../../auth/auth.service";
@@ -19,6 +19,7 @@ let instagram = require('../../../images/social/instagram.png');
 export class SettingsComponent implements OnInit {
     profile: Profile;
     flag_list: string[];
+    isWelcome: boolean = false;
 
     // form
     form: FormGroup;
@@ -38,7 +39,7 @@ export class SettingsComponent implements OnInit {
 
     constructor(private profile_service: ProfileService,
                 private auth_service: AuthService,
-                private route: ActivatedRoute,
+                private router: Router,
                 private flag_dictionary: FLAG_DICTIONARY,
                 private color_dictionary: COLOR_DICTIONARY) {}
 
@@ -47,14 +48,18 @@ export class SettingsComponent implements OnInit {
         this.profile_service.getProfileWithToken()
             .subscribe(
                 (profile: Profile) => {
-                    if (!profile.user_address) {
-                        this.form_canActivate = false;
-                    }
+                    if (!profile) {
+                        this.isWelcome = true;
+                    } else this.isWelcome = false;
+                    console.log(JSON.stringify(profile));
                     this.profile = profile;
                     this.form_firstname = profile.firstName;
                     this.form_surname = profile.lastName;
                     this.form_bio = profile.bio;
                     this.form_address = profile.user_address;
+                    this.form_representation = profile.representation;
+                    this.form_twitter = profile.social_twitter;
+                    this.form_instagram = profile.social_instagram;
                 }
             );
         this.form = new FormGroup({
@@ -62,12 +67,15 @@ export class SettingsComponent implements OnInit {
             firstname: new FormControl(null, Validators.required),
             surname: new FormControl(null, Validators.required)
         });
+        console.log('isWelcome: '+this.auth_service.isWelcome);
+        if (this.isWelcome) this.form_canActivate = false;
+        else this.form_canActivate = true;
         this.form.valueChanges.subscribe(data => {
-            console.log('Form changes', data);
-            if (data == null) this.form_canActivate = false;
-            else this.profile_service.checkIfAddressIsAvailable(data)
+            console.log('Form changes '+ data.address);
+            if (data.address == '') this.form_canActivate = false;
+            else this.profile_service.checkIfAddressIsAvailable(data.address)
                 .subscribe((result: boolean) => {
-                    this.form_canActivate = result;
+                    if (this.isWelcome) this.form_canActivate = result;
                 });
         });
     }
@@ -83,7 +91,11 @@ export class SettingsComponent implements OnInit {
             this.form_twitter,
             this.form_instagram
         );
-        if (this.auth_service.isWelcome) this.profile_service.createNewProfile(profile).subscribe((profile: Profile) => this.profile = profile);
-        else this.profile_service.submitSettings(profile);
+        if (this.auth_service.isWelcome) {
+            this.profile_service.createNewProfile(profile).subscribe((profile: Profile) => this.profile = profile);
+            this.auth_service.isWelcome = false;
+            this.router.navigate(['home/feed']);
+        }
+        else this.profile_service.submitSettings(profile).subscribe((profile: Profile) => this.profile = profile);
     }
 }

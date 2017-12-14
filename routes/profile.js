@@ -79,14 +79,14 @@ router.post('/new', function (req, res, next) {
                         });
                     }
                     if (!profile) {
-                        console.log('profile created: '+req.body.firstName);
+                        console.log('profile created: '+req.body.social_twitter);
                         // If none exists, create new
                         var profile_schema = new Profile({
                             user_id: body.user_id,
                             user_address: req.body.user_address,
-                            bio: req.body.bio,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
+                            bio: req.body.bio,
                             representation: req.body.representation,
                             social_twitter: req.body.social_twitter,
                             social_instagram: req.body.social_instagram,
@@ -95,7 +95,6 @@ router.post('/new', function (req, res, next) {
                             lines: [],
                             posts: []
                         });
-
 
                         profile_schema.save(function (err, result) {
                             if (err) {
@@ -144,36 +143,49 @@ router.get('/user-info', function (req, res, next) {
         });
 });
 
-// Edit bio TODO: fix
-router.patch('/:bio', function(req, res, next) {
-    var decoded = jwt.decode(req.query.token);
-    Profile.findOne({user: req.body.user._id}, function(err, profile) {
-        if (err) {
-            return res.status(500).json({
-                title: 'An error occured',
-                error: err
-            });
-        }
-        if (!profile) {
-            return res.status(400).json({
-                title: 'No profile found',
-                error: {message: 'No profile matching the id'}
-            });
-        }
-        profile.bio = req.body.bio;
-        profile.save(function(err, result) {
-            if (err) {
-                return res.status(500).json({
-                    title: 'An error occured',
-                    error: err
+// Edit profile
+router.patch('/edit-profile', function(req, res, next) {
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        {json: {id_token: req.query.token}},
+        function (error, response, body) {
+            if (!error) {
+                Profile.findOne({user_id: body.user_id}, function(err, profile) {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: err
+                        });
+                    }
+                    if (!profile) {
+                        return res.status(400).json({
+                            title: 'No profile found',
+                            error: {message: 'No profile matching the id'}
+                        });
+                    }
+                    // Edit variables
+                    profile.firstName = req.body.firstName;
+                    profile.lastName = req.body.lastName;
+                    profile.representation = req.body.representation;
+                    profile.bio = req.body.bio;
+                    profile.social_twitter = req.body.social_twitter;
+                    profile.social_instagram = req.body.social_instagram;
+
+                    profile.save(function (err, result) {
+                        if (err) {
+                            return res.status(500).json({
+                                title: 'An error occured',
+                                error: err
+                            });
+                        }
+                        return res.status(201).json({
+                            message: 'User created',
+                            obj: result
+                        });
+                    });
                 });
             }
-            res.status(200).json({
-                message: 'bio updated',
-                obj: result
-            });
         });
-    });
 });
 
 module.exports = router;

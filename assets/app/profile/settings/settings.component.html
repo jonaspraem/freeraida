@@ -12,8 +12,8 @@
             <div class="form-group">
 
                 <label for="address">Address</label>
-                <input type="text" class="form-control" formControlName="address" id="address" name="address" [attr.disabled]="is_welcome?false:null" [(ngModel)]="form_address" required>
-                <div id="address-div" *ngIf="auth_service?.isWelcome">
+                <input type="text" class="form-control" formControlName="address" id="address" name="address" [attr.disabled]="!isWelcome" [(ngModel)]="form_address" required>
+                <div id="address-div">
                     <div *ngIf="form_canActivate; then available else not_available"></div>
                     <ng-template #available>
                         <i class="material-icons" [ngStyle]="{'color': color_dictionary.get('available')}">check_circle</i>
@@ -26,12 +26,12 @@
             </div>
             <hr>
             <div class="form-group">
-                <label for="firstname">First name</label>
+                <label for="firstname">First name *required</label>
                 <input type="text" class="form-control" formControlName="firstname" id="firstname" name="firstname" [(ngModel)]="form_firstname" required>
             </div>
             <hr>
             <div class="form-group">
-                <label for="surname">Surname</label>
+                <label for="surname">Surname *required</label>
                 <input type="text" class="form-control" formControlName="surname" id="surname" name="surname" [(ngModel)]="form_surname" required>
             </div>
             <hr>
@@ -39,7 +39,7 @@
         <form>
             <div class="form-group">
                 <label for="representation">Represent country</label>
-                <select id="representation" name="representation" class="form-control">
+                <select id="representation" name="representation" class="form-control" [(ngModel)]="form_representation">
                     <option *ngFor="let flag of flag_list" [value]="flag">{{flag}}</option>
                 </select>
             </div>
@@ -62,14 +62,14 @@
 
             <div class="form-group">
                 <label for="firstname"><img [src]="twitter">    Twitter https://twitter.com/    </label>
-                <input type="text" class="form-control" id="twitter" name="twitter">
+                <input type="text" class="form-control" id="twitter" name="twitter" [(ngModel)]="form_twitter">
             </div>
 
             <hr>
 
             <div class="form-group">
                 <label for="firstname"><img [src]="instagram">    Instagram https://www.instagram.com/    </label>
-                <input type="text" class="form-control" id="instagram" name="instagram">
+                <input type="text" class="form-control" id="instagram" name="instagram" [(ngModel)]="form_instagram">
             </div>
 
             <hr>

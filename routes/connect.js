@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 
-var User = require('../models/user');
 var Profile = require('../models/profile');
 
 // TODO: change secret variable

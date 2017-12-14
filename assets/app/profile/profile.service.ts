@@ -75,11 +75,11 @@ export class ProfileService {
                     result.bio,
                     result.firstName,
                     result.lastName,
-                    result.followers,
-                    result.following,
                     result.representation,
                     result.social_twitter,
                     result.social_instagram,
+                    result.followers,
+                    result.following,
                     lines
                 );
                 return this.profile;
@@ -122,14 +122,14 @@ export class ProfileService {
                     result.bio,
                     result.firstName,
                     result.lastName,
-                    result.followers,
-                    result.following,
                     result.representation,
                     result.social_twitter,
                     result.social_instagram,
+                    result.followers,
+                    result.following,
                     lines
                 );
-                this.profile = profile;
+                this.profile = profile_model;
                 return this.profile;
             })
             .catch((error: Response) => {
@@ -140,6 +140,45 @@ export class ProfileService {
 
     submitSettings(profile: Profile) {
         console.log('Submitting settings... '+profile.toString());
+        const body = JSON.stringify(profile);
+        const headers = new Headers({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('id_token')
+            ? '?token=' + localStorage.getItem('id_token')
+            : '';
+        return this.http.patch('http://localhost:3000/profile/edit-profile'+token, body, {headers: headers})
+            .map((response: Response) => {
+                const result = response.json().obj;
+                const lines = [];
+                for (let i = 0; i < result.lines; i++) {
+                    lines.push(new LineTransferModel(
+                        result.lines[i].lineName,
+                        result.lines[i].markers,
+                        result.lines[i].danger_level,
+                        result.lines[i].tree_level,
+                        result.lines[i].rock_level,
+                        result.lines[i].cliff_level
+                    ));
+                }
+                const profile_model = new Profile(
+                    result.firstName + ' ' + result.lastName,
+                    result.user_address,
+                    result.bio,
+                    result.firstName,
+                    result.lastName,
+                    result.followers,
+                    result.following,
+                    result.representation,
+                    result.social_twitter,
+                    result.social_instagram,
+                    lines
+                );
+                this.profile = profile_model;
+                return this.profile;
+            })
+            .catch((error: Response) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
     }
 
     followUser(username: string) {
