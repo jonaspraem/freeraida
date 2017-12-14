@@ -11,6 +11,7 @@ import { ProfileService } from "../profile/profile.service";
 @Injectable()
 
 export class AuthService {
+    public isWelcome = false;
     userProfile: any;
 
     private auth0 = new auth0.WebAuth({
@@ -44,7 +45,7 @@ export class AuthService {
                         .subscribe(
                             data => console.log(data),
                             err => {
-                                console.log(err)
+                                this.isWelcome = true;
                                 this.router.navigate(['home/settings']);
                             }
                         );

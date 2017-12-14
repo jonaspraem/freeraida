@@ -60,3 +60,12 @@ img {
 #instagram {
     width: auto;
 }
+
+.material-icons {
+    display: inline-block;
+    transform: translateY(-20px) translateX(+230px);
+}
+
+#address-div {
+    max-width: 400px;
+}

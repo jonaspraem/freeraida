@@ -1,18 +1,40 @@
 <div class="container">
+    <div *ngIf="auth_service?.isWelcome">
+        <mat-card class="welcome">
+            <h2>Welcome</h2>
+            <p>This is your first time visiting freeraida.com. You need to provide some details to continue to the site. Every user needs to have a unique address</p>
+        </mat-card>
+    </div>
     <h1>Settings</h1>
     <hr>
     <div class="left">
         <form [formGroup]="form">
             <div class="form-group">
+
                 <label for="address">Address</label>
-                <input type="text" class="form-control" formControlName="address" id="address" name="address" [attr.disabled]="form_address?'':null" [(ngModel)]="form_address" required>
+                <input type="text" class="form-control" formControlName="address" id="address" name="address" [attr.disabled]="is_welcome?false:null" [(ngModel)]="form_address" required>
+                <div id="address-div" *ngIf="auth_service?.isWelcome">
+                    <div *ngIf="form_canActivate; then available else not_available"></div>
+                    <ng-template #available>
+                        <i class="material-icons" [ngStyle]="{'color': color_dictionary.get('available')}">check_circle</i>
+                    </ng-template>
+                    <ng-template #not_available>
+                        <i class="material-icons" [ngStyle]="{'color': color_dictionary.get('not-available')}">not_interested</i>
+                    </ng-template>
+                    <p>* Is required, and must be unique.</p>
+                </div>
             </div>
-
             <hr>
-
-
-
-
+            <div class="form-group">
+                <label for="firstname">First name</label>
+                <input type="text" class="form-control" formControlName="firstname" id="firstname" name="firstname" [(ngModel)]="form_firstname" required>
+            </div>
+            <hr>
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control" formControlName="surname" id="surname" name="surname" [(ngModel)]="form_surname" required>
+            </div>
+            <hr>
         </form>
         <form>
             <div class="form-group">
@@ -20,20 +42,6 @@
                 <select id="representation" name="representation" class="form-control">
                     <option *ngFor="let flag of flag_list" [value]="flag">{{flag}}</option>
                 </select>
-            </div>
-
-            <hr>
-
-            <div class="form-group">
-                <label for="firstname">First name</label>
-                <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="form_firstname">
-            </div>
-
-            <hr>
-
-            <div class="form-group">
-                <label for="surname">Surname</label>
-                <input type="text" class="form-control" id="surname" name="surname" [(ngModel)]="form_surname">
             </div>
 
             <hr>
@@ -69,7 +77,7 @@
         </form>
     </div>
     <div class="footer">
-        <button type="submit" class="btn btn-success" (click)="onSubmit(form)" [disabled]="!form.valid">Save</button>
+        <button type="submit" class="btn btn-success" (click)="onSubmit(form)" [disabled]="!form_canActivate">Save</button>
     </div>
 
 

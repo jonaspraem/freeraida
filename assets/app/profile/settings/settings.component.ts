@@ -4,6 +4,8 @@ import { Profile } from "../profile.model";
 import { ActivatedRoute } from "@angular/router";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
+import { AuthService } from "../../auth/auth.service";
+import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 
 let twitter = require('../../../images/social/twitter.png');
 let instagram = require('../../../images/social/instagram.png');
@@ -15,7 +17,7 @@ let instagram = require('../../../images/social/instagram.png');
 })
 
 export class SettingsComponent implements OnInit {
-        profile: Profile;
+    profile: Profile;
     flag_list: string[];
 
     // form
@@ -27,6 +29,7 @@ export class SettingsComponent implements OnInit {
     form_representation: string;
     form_twitter: string;
     form_instagram: string;
+    form_canActivate: boolean;
 
     // images
     twitter = twitter;
@@ -34,16 +37,18 @@ export class SettingsComponent implements OnInit {
 
 
     constructor(private profile_service: ProfileService,
+                private auth_service: AuthService,
                 private route: ActivatedRoute,
-                private flag_dictionary: FLAG_DICTIONARY) {}
+                private flag_dictionary: FLAG_DICTIONARY,
+                private color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
         this.flag_list = this.flag_dictionary.toList();
         this.profile_service.getProfileWithToken()
             .subscribe(
                 (profile: Profile) => {
-                    if (profile.user_address) {
-
+                    if (!profile.user_address) {
+                        this.form_canActivate = false;
                     }
                     this.profile = profile;
                     this.form_firstname = profile.firstName;
@@ -51,9 +56,19 @@ export class SettingsComponent implements OnInit {
                     this.form_bio = profile.bio;
                     this.form_address = profile.user_address;
                 }
-        );
+            );
         this.form = new FormGroup({
-            address: new FormControl(null, Validators.required)
+            address: new FormControl(null, Validators.required),
+            firstname: new FormControl(null, Validators.required),
+            surname: new FormControl(null, Validators.required)
+        });
+        this.form.valueChanges.subscribe(data => {
+            console.log('Form changes', data);
+            if (data == null) this.form_canActivate = false;
+            else this.profile_service.checkIfAddressIsAvailable(data)
+                .subscribe((result: boolean) => {
+                    this.form_canActivate = result;
+                });
         });
     }
 
@@ -68,6 +83,7 @@ export class SettingsComponent implements OnInit {
             this.form_twitter,
             this.form_instagram
         );
-        this.profile_service.submitSettings(profile);
+        if (this.auth_service.isWelcome) this.profile_service.createNewProfile(profile).subscribe((profile: Profile) => this.profile = profile);
+        else this.profile_service.submitSettings(profile);
     }
 }

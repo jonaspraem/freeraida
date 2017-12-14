@@ -12,6 +12,8 @@ export class COLOR_DICTIONARY {
         COLOR_DICTIONARY.COLOR_MAP.set('ascent', '#560000');
         COLOR_DICTIONARY.COLOR_MAP.set('tour', '#E1BC21');
         COLOR_DICTIONARY.COLOR_MAP.set('address', '#42BCF1');
+        COLOR_DICTIONARY.COLOR_MAP.set('available', '#12E112');
+        COLOR_DICTIONARY.COLOR_MAP.set('not-available', '#F60C00');
     }
 
     get(key: string) {
