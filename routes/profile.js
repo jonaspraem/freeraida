@@ -47,7 +47,6 @@ router.get('/user/:address', function (req, res, next) {
 
 // Verify token
 router.use('/', function(req, res, next) {
-    console.log("made it here-0");
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
@@ -65,16 +64,62 @@ router.use('/', function(req, res, next) {
     );
 });
 
-// Get user profile with token
-router.get('/user-info', function (req, res, next) {
-    console.log("made it here0");
+// Create new profile
+router.post('/new', function (req, res, next) {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         {json: {id_token: req.query.token}},
         function (error, response, body) {
-            console.log("made it here");
             if (!error) {
-                console.log("id: "+body.user_id);
+                Profile.findOne({user_id: body.user_id}, function(p_err, profile) {
+                    if (p_err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: p_err
+                        });
+                    }
+                    if (!profile) {
+                        // If none exists, create new
+                        var profile_schema = new Profile({
+                            user_id: req.body.user_id,
+                            user_address: req.body.user_address,
+                            bio: req.body.bio,
+                            firstName: req.body.firstname,
+                            lastName: req.body.surname,
+                            representation: req.body.representation,
+                            social_twitter: req.body.social_twitter,
+                            social_instagram: req.body.social_instagram,
+                            followers: [],
+                            following: [],
+                            lines: [],
+                            posts: []
+                        });
+
+                        profile_schema.save(function (err, result) {
+                            if (err) {
+                                return res.status(500).json({
+                                    title: 'An error occured',
+                                    error: err
+                                });
+                            }
+                            return res.status(201).json({
+                                message: 'User created',
+                                obj: result
+                            });
+                        });
+                    }
+                });
+            }
+        });
+});
+
+// Get user profile with token
+router.get('/user-info', function (req, res, next) {
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        {json: {id_token: req.query.token}},
+        function (error, response, body) {
+            if (!error) {
                 Profile.findOne({user_id: body.user_id}, function(p_err, profile) {
                     if (p_err) {
                         return res.status(500).json({

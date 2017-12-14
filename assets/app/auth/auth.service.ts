@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { User } from "./user.model";
 import { Observable } from "rxjs/Observable";
 import { Http, Headers, Response } from "@angular/http";
 import { TokenTransferModel } from "./token.model";
+import { ProfileService } from "../profile/profile.service";
 
 @Injectable()
 
@@ -22,7 +22,9 @@ export class AuthService {
         redirect: false
     });
 
-    constructor(public router: Router, public http: Http) {}
+    constructor(public router: Router,
+                public http: Http,
+                private profile_service: ProfileService) {}
 
     public login(): void {
         this.auth0.authorize({
@@ -38,10 +40,12 @@ export class AuthService {
         this.getTokenInfo()
             .subscribe(
                 (jsonData) => {
-                    this.postLoginCheck(jsonData.user_id, jsonData.given_name, jsonData.family_name)
+                    this.profile_service.getProfileWithToken()
                         .subscribe(
-                            (res) => {
-
+                            data => console.log(data),
+                            err => {
+                                console.log(err)
+                                this.router.navigate(['home/settings']);
                             }
                         );
                 }

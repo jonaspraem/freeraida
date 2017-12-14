@@ -7,7 +7,6 @@ var mongoose = require('mongoose');
 
 var index = require('./routes/app');
 var postRoutes = require('./routes/posts');
-var userRoutes = require('./routes/userinit');
 var connectRoutes = require('./routes/connect');
 var profileRoutes = require('./routes/profile');
 var lineRoutes = require('./routes/lines');
@@ -34,7 +33,6 @@ app.use(function(req, res, next){
 });
 
 app.use('/post', postRoutes);
-app.use('/user-init', userRoutes);
 app.use('/connect', connectRoutes);
 app.use('/profile', profileRoutes);
 app.use('/lineservice', lineRoutes);
