@@ -24,6 +24,9 @@ export class SettingsComponent implements OnInit {
     form_firstname: string;
     form_surname: string;
     form_bio: string;
+    form_representation: string;
+    form_twitter: string;
+    form_instagram: string;
 
     // images
     twitter = twitter;
@@ -52,12 +55,14 @@ export class SettingsComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         let profile = new Profile(
-            form.value.firstname + form.value.surname,
+            this.form_firstname + this.form_surname,
             form.value.address,
-            form.value.bio,
-            form.value.firstname,
-            form.value.surname,
-            form.value.representation
+            this.form_bio,
+            this.form_firstname,
+            this.form_surname,
+            this.form_representation,
+            this.form_twitter,
+            this.form_instagram
         );
         this.profile_service.submitSettings(profile);
     }

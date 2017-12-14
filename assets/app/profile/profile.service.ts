@@ -87,7 +87,7 @@ export class ProfileService {
     }
 
     submitSettings(profile: Profile) {
-        console.log('Submitting settings... '+profile);
+        console.log('Submitting settings... '+profile.toString());
     }
 
     followUser(username: string) {
