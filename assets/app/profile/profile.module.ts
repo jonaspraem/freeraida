@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 // Material design
-import { MatCardModule } from "@angular/material";
+import { MatCardModule, MatFormFieldModule } from "@angular/material";
 
 import { ProfileService } from "./profile.service";
 import { ProfileComponent } from "./profile.component";
@@ -24,7 +24,8 @@ import { SettingsComponent } from "./settings/settings.component";
         profileRouting,
         PostModule,
         MatCardModule,
-        RideCenterModule
+        RideCenterModule,
+        MatFormFieldModule
     ],
     providers: [ ProfileService ]
 })

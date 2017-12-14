@@ -27,7 +27,7 @@ labal {
 }
 
 .form-group-large {
-    min-height: 100px;
+    min-height: 300px;
 }
 
 mat-form-field {
@@ -35,5 +35,5 @@ mat-form-field {
 }
 
 textarea {
-    height: 100%;
+    min-height: 200px;
 }

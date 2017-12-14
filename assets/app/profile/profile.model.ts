@@ -7,18 +7,31 @@ export class Profile {
     bio?: string;
     firstName?: string;
     lastName?: string;
+    representation?: string;
     img?: Buffer;
     followers? : string[];
     following? : string[];
     posts?: Post[];
     lines?: LineTransferModel[];
 
-    constructor(display_name: string, user_address?: string, bio?: string, firstName?: string, lastName?: string, followers?: string[], following?: string[], lines?: LineTransferModel[], posts?: Post[], img?: Buffer) {
+    constructor(display_name: string,
+                user_address?: string,
+                bio?: string,
+                firstName?: string,
+                lastName?: string,
+                representation?: string,
+                followers?: string[],
+                following?: string[],
+                lines?: LineTransferModel[],
+                posts?: Post[],
+                img?: Buffer)
+    {
         this.display_name = display_name;
         this.user_address = user_address;
         this.bio = bio;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.representation = representation;
         this.followers = followers;
         this.following = following;
         this.posts = posts;
