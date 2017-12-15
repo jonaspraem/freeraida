@@ -12,6 +12,7 @@
             <p> {{ profile?.bio }} </p>
         </div>
         <mat-card class="image-card-container">
+            <button mat-raised-button type="button" (click)="follow()" [ngStyle]="{'background-color': color_dictionary.get('secondary')}">follow</button>
             <div class="image-card-stat-container">
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Lines</p>
