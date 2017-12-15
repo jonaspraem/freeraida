@@ -19,7 +19,7 @@ export class AuthService {
         domain: 'freeraida.eu.auth0.com',
         responseType: 'token id_token',
         redirectUri: 'http://localhost:3000/home',
-        scope: 'openid profile email ',
+        scope: 'openid userProfile email ',
         redirect: false
     });
 
@@ -92,7 +92,7 @@ export class AuthService {
     public getProfile() {
         const idToken = localStorage.getItem('id_token');
         if (!idToken) {
-            throw new Error('Access token must exist to fetch profile');
+            throw new Error('Access token must exist to fetch userProfile');
         }
 
         const headers = new Headers({'Content-Type': 'application/json'});

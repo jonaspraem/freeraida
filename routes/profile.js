@@ -4,7 +4,7 @@ var request = require('request');
 
 var Profile = require('../models/profile');
 
-// Get user profile
+// Get user userProfile
 router.get('/user/:address', function (req, res, next) {
     Profile.findOne({user_address: req.params.address}, function(p_err, profile) {
         if (p_err) {
@@ -15,8 +15,8 @@ router.get('/user/:address', function (req, res, next) {
         }
         if (!profile) {
             return res.status(400).json({
-                title: 'No profile found',
-                error: {message: 'No profile matching the id'}
+                title: 'No userProfile found',
+                error: {message: 'No userProfile matching the id'}
             });
         }
         return res.status(200).json({
@@ -69,7 +69,7 @@ router.get('/user-address/:address', function (req, res, next) {
     });
 });
 
-// Create new profile
+// Create new userProfile
 router.post('/new', function (req, res, next) {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
@@ -84,7 +84,7 @@ router.post('/new', function (req, res, next) {
                         });
                     }
                     if (!profile) {
-                        console.log('profile created: '+req.body.social_twitter);
+                        console.log('userProfile created: '+req.body.social_twitter);
                         // If none exists, create new
                         var profile_schema = new Profile({
                             user_id: body.user_id,
@@ -119,7 +119,7 @@ router.post('/new', function (req, res, next) {
         });
 });
 
-// Get user profile with token
+// Get user userProfile with token
 router.get('/user-info', function (req, res, next) {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
@@ -135,8 +135,8 @@ router.get('/user-info', function (req, res, next) {
                     }
                     if (!profile) {
                         return res.status(400).json({
-                            title: 'No profile found',
-                            error: {message: 'No profile matching the id'}
+                            title: 'No userProfile found',
+                            error: {message: 'No userProfile matching the id'}
                         });
                     }
                     return res.status(200).json({
@@ -148,8 +148,8 @@ router.get('/user-info', function (req, res, next) {
         });
 });
 
-// Edit profile
-router.patch('/edit-profile', function(req, res, next) {
+// Edit userProfile
+router.patch('/edit-userProfile', function(req, res, next) {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         {json: {id_token: req.query.token}},
@@ -164,8 +164,8 @@ router.patch('/edit-profile', function(req, res, next) {
                     }
                     if (!profile) {
                         return res.status(400).json({
-                            title: 'No profile found',
-                            error: {message: 'No profile matching the id'}
+                            title: 'No userProfile found',
+                            error: {message: 'No userProfile matching the id'}
                         });
                     }
                     // Edit variables

@@ -1,5 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit } from "@angular/core";
 import { AuthService } from "../auth/auth.service";
+import { Profile } from "../profile/profile.model";
+import { ProfileService } from "../profile/profile.service";
 
 @Component({
     host: {
@@ -11,22 +13,30 @@ import { AuthService } from "../auth/auth.service";
 })
 
 export class HeaderComponent implements OnInit {
-    profile: any;
+    userProfile: any;
+    profile: Profile;
     isOpen: boolean = false;
 
-    constructor(private authService: AuthService, private _eref: ElementRef) {}
+    constructor(private profile_service: ProfileService,
+                private authService: AuthService,
+                private _eref: ElementRef) {}
 
     ngOnInit(): void {
         if (this.authService.userProfile) {
-            this.profile = this.authService.userProfile;
+            this.userProfile = this.authService.userProfile;
 
         } else {
             this.authService.getProfile().subscribe(
                 (profile: any) => {
-                    this.profile = profile;
+                    this.userProfile = profile;
                 }
             );
         }
+        this.profile_service.getProfileWithToken().subscribe(
+            (profile: Profile) => {
+                this.profile = profile;
+            }
+        );
 
     }
 
@@ -37,8 +47,8 @@ export class HeaderComponent implements OnInit {
     }
 
     hasImage(): boolean {
-        if (this.profile) {
-            return (this.profile.picture);
+        if (this.userProfile) {
+            return (this.userProfile.picture);
         }
         return false;
     }

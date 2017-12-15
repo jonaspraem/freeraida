@@ -12,6 +12,7 @@ import { Post } from "../posts/post.model";
 
 export class ProfileService {
     public profile: Profile;
+    public profile_self: Profile;
 
     constructor(private http: Http, private errorService: ErrorService) {}
 
@@ -70,7 +71,7 @@ export class ProfileService {
                         result.lines[i].cliff_level
                     ));
                 }
-                this.profile = new Profile(
+                this.profile_self = new Profile(
                     result.firstName + ' ' + result.lastName,
                     result.user_address,
                     result.bio,
@@ -81,9 +82,10 @@ export class ProfileService {
                     result.social_instagram,
                     result.followers,
                     result.following,
-                    lines
+                    lines,
+                    result.posts
                 );
-                return this.profile;
+                return this.profile_self;
             })
             .catch((error: Response) => {
                 return Observable.throw(error.json());
@@ -154,7 +156,7 @@ export class ProfileService {
         const token = localStorage.getItem('id_token')
             ? '?token=' + localStorage.getItem('id_token')
             : '';
-        return this.http.patch('http://localhost:3000/profile/edit-profile'+token, body, {headers: headers})
+        return this.http.patch('http://localhost:3000/profile/edit-userProfile'+token, body, {headers: headers})
             .map((response: Response) => {
                 const result = response.json().obj;
                 const lines = [];

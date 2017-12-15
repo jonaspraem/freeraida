@@ -42,7 +42,7 @@ function getTransformedList(profile, callback) {
     console.log('transformed list 0');
     var transformedPosts = profile.posts;
     var counter = 0;
-    //transformedPosts.push.apply(transformedPosts, profile.posts);
+    //transformedPosts.push.apply(transformedPosts, userProfile.posts);
     if (profile.following != null && profile.following.length !== 0) {
         console.log('transformed list 01: '+profile.following.length);
         profile.following.forEach(function(product, index){
@@ -78,7 +78,7 @@ function getPosts(post_list, callback) {
 }
 
 // Get all user posts
-router.get('/profile-feed/:user_address', function (req, res, next) {
+router.get('/userProfile-feed/:user_address', function (req, res, next) {
     Profile.findOne({user_address: req.params.user_address}, function (err, user_profile) {
         if (err) {
             return res.status(500).json({
@@ -132,14 +132,14 @@ router.get('/feed', function (req, res, next) {
                 Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
                     if (profile_err) {
                         return res.status(500).json({
-                            title: 'Error finding user profile',
+                            title: 'Error finding user userProfile',
                             error: profile_err
                         });
                     }
                     if (!user_profile) {
                         return res.status(500).json({
                             title: 'An error occurred',
-                            error: {message: 'An error occurred regarding profile'}
+                            error: {message: 'An error occurred regarding userProfile'}
                         });
                     }
                     getTransformedList(user_profile, function(post_ids) {

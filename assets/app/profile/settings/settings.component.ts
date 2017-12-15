@@ -59,7 +59,7 @@ export class SettingsComponent implements OnInit {
                     console.log(JSON.stringify(profile));
                     console.log('isWelcome: '+this.isWelcome);
                     this.control.disable();
-                    //this.form.setControl('address', new FormControl({value: profile.user_address, disabled: true}, Validators.required));
+                    //this.form.setControl('address', new FormControl({value: userProfile.user_address, disabled: true}, Validators.required));
                     this.profile = profile;
                     this.form_firstname = profile.firstName;
                     this.form_surname = profile.lastName;
@@ -71,7 +71,7 @@ export class SettingsComponent implements OnInit {
 
 
                     // this.form = new FormGroup({
-                    //     address: new FormControl({value: profile.user_address, disabled: true}, Validators.required),
+                    //     address: new FormControl({value: userProfile.user_address, disabled: true}, Validators.required),
                     //     firstname: new FormControl(null, Validators.required),
                     //     surname: new FormControl(null, Validators.required)
                     // });
