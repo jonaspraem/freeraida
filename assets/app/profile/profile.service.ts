@@ -92,7 +92,7 @@ export class ProfileService {
             });
     }
 
-    checkIfAddressIsAvailable(address: string) {
+    addressIsAvailable(address: string) {
         const token = localStorage.getItem('id_token')
             ? '?token=' + localStorage.getItem('id_token')
             : '';
@@ -242,9 +242,5 @@ export class ProfileService {
                 this.errorService.handleError(error.json());
                 return Observable.throw(error.json());
             });
-    }
-
-    isAddressAvailable(user_address: string) {
-        return true;
     }
 }

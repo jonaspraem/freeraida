@@ -88,7 +88,7 @@ export class SettingsComponent implements OnInit {
                     this.form.valueChanges.subscribe(data => {
                         console.log('Form changes '+ data.address);
                         if (data.address == '') this.form_canActivate = false;
-                        else this.profile_service.checkIfAddressIsAvailable(data.address)
+                        else this.profile_service.addressIsAvailable(data.address)
                             .subscribe((result: boolean) => {
                                     console.log('result '+ result);
                                     this.form_canActivate = result;
