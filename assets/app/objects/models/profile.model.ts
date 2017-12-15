@@ -1,5 +1,6 @@
-import { Post } from "../posts/post.model";
-import { LineTransferModel } from "../lines/lineTransfer.model";
+import { Post } from "./post.model";
+import { LineTransferModel } from "../../lines/lineTransfer.model";
+import { ProfileObject } from "../interfaces/profile-object.interface";
 
 export class Profile {
     display_name: string;
@@ -40,8 +41,23 @@ export class Profile {
         this.social_instagram = social_instagram;
         this.followers = followers;
         this.following = following;
+        this.lines = lines;
         this.posts = posts;
         this.img = img;
-        this.lines = lines;
+    }
+
+    public static fabricate(object: ProfileObject): Profile {
+        return new Profile(
+            object.firstName + ' ' + object.lastName,
+            object.user_address,
+            object.bio,
+            object.firstName,
+            object.lastName,
+            object.representation,
+            object.social_twitter,
+            object.social_instagram,
+            object.followers,
+            object.following,
+            object.lines);
     }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from "./profile.service";
-import { Profile } from "./profile.model";
+import { Profile } from "../objects/models/profile.model";
 import { LineService } from "../lines/line.service";
 import { LineTransferModel } from "../lines/lineTransfer.model";
 import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
@@ -20,10 +20,12 @@ const profile_picture = require('../../images/default-skier.jpg');
 export class ProfileComponent implements OnInit{
     private background_image = background_image;
     private profile_picture = profile_picture;
+    isOwnProfile: boolean;
+    isFollowing: boolean;
     profile: Profile;
     lines: LineTransferModel[];
 
-    constructor(private profileService: ProfileService,
+    constructor(private profile_service: ProfileService,
                 private lineService: LineService,
                 private route: ActivatedRoute,
                 private flag_dictionary: FLAG_DICTIONARY,
@@ -32,18 +34,24 @@ export class ProfileComponent implements OnInit{
     ngOnInit(): void {
         this.route.params.subscribe(params => {
             let user_address = params['user'];
-            this.profileService.getProfile(user_address.toString())
+            this.profile_service.getProfile(user_address.toString())
                 .subscribe(
-                    (profile: Profile) => {
-                        this.profile = profile;
+                    data => {
+                        this.profile = Profile.fabricate(data.obj);
+                        this.profile_service.getProfileWithToken()
+                            .subscribe(data => {
+                                let self = Profile.fabricate(data.obj);
+                                this.isFollowing = (this.profile.followers.includes(self.user_address));
+                                this.isOwnProfile = (self.user_address == user_address);
+                            });
                     }
                 );
-            this.lineService.getLines(user_address.toString())
-                .subscribe(
-                    (lines: LineTransferModel[]) => {
-                        this.lines = lines;
-                    }
-                );
+            // this.lineService.getLines(user_address.toString())
+            //     .subscribe(
+            //         (lines: LineTransferModel[]) => {
+            //             this.lines = lines;
+            //         }
+            //     );
         });
     }
 

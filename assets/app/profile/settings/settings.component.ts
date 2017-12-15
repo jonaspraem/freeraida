@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ProfileService } from "../profile.service";
-import { Profile } from "../profile.model";
+import { Profile } from "../../objects/models/profile.model";
 import { Router } from "@angular/router";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
@@ -20,7 +20,9 @@ export class SettingsComponent implements OnInit {
     profile: Profile;
     flag_list: string[];
     isWelcome: boolean;
-    control: FormControl = new FormControl(null , Validators.required);
+    control_address: FormControl = new FormControl(null , Validators.required);
+    control_firstname: FormControl = new FormControl(null , Validators.required);
+    control_surname: FormControl = new FormControl(null , Validators.required);
 
     // form
     form: FormGroup;
@@ -46,21 +48,23 @@ export class SettingsComponent implements OnInit {
 
     ngOnInit(): void {
         this.form = new FormGroup({
-            address: this.control,
-            firstname: new FormControl(null, Validators.required),
-            surname: new FormControl(null, Validators.required)
+            address: this.control_address,
+            firstname: this.control_firstname,
+            surname: this.control_surname
         });
         this.flag_list = this.flag_dictionary.toList();
         this.profile_service.getProfileWithToken()
             .subscribe(
-                (profile: Profile) => {
+                (data) => {
+                    const profile = data.obj;
+                    this.profile = Profile.fabricate(profile);
                     this.isWelcome = false;
                     this.form_canActivate = true;
-                    console.log(JSON.stringify(profile));
                     console.log('isWelcome: '+this.isWelcome);
-                    this.control.disable();
-                    //this.form.setControl('address', new FormControl({value: userProfile.user_address, disabled: true}, Validators.required));
-                    this.profile = profile;
+                    this.control_address.disable();
+                    this.control_firstname.disable();
+                    this.control_surname.disable();
+
                     this.form_firstname = profile.firstName;
                     this.form_surname = profile.lastName;
                     this.form_bio = profile.bio;
@@ -68,30 +72,19 @@ export class SettingsComponent implements OnInit {
                     this.form_representation = profile.representation;
                     this.form_twitter = profile.social_twitter;
                     this.form_instagram = profile.social_instagram;
-
-
-                    // this.form = new FormGroup({
-                    //     address: new FormControl({value: userProfile.user_address, disabled: true}, Validators.required),
-                    //     firstname: new FormControl(null, Validators.required),
-                    //     surname: new FormControl(null, Validators.required)
-                    // });
                 },
                 err => {
+                    console.log(err);
                     this.isWelcome = true;
                     console.log('isWelcome: '+this.isWelcome);
-                    // this.form = new FormGroup({
-                    //     address: new FormControl(null, Validators.required),
-                    //     firstname: new FormControl(null, Validators.required),
-                    //     surname: new FormControl(null, Validators.required)
-                    // });
 
                     this.form.valueChanges.subscribe(data => {
                         console.log('Form changes '+ data.address);
                         if (data.address == '') this.form_canActivate = false;
                         else this.profile_service.addressIsAvailable(data.address)
-                            .subscribe((result: boolean) => {
-                                    console.log('result '+ result);
-                                    this.form_canActivate = result;
+                            .subscribe(data => {
+                                    console.log('result '+ data);
+                                    this.form_canActivate = data.obj;
                                 },
                                 (err) =>{
                                     console.log('err '+ err);

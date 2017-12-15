@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
-import { Post } from "../post.model";
+import { Post } from "../../objects/models/post.model";
 import { PostService } from "../post.service";
 
 @Component({
@@ -21,8 +21,8 @@ export class UserActivityListComponent implements OnInit {
             let user_address = params['user'];
             this.postService.getPosts(user_address.toString())
                 .subscribe(
-                    (activities: Post[]) => {
-                        this.posts = activities;
+                    data => {
+                        this.posts = Post.fabricateList(data.obj);
                     }
                 );
         });

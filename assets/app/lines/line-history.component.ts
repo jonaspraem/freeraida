@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { LineTransferModel } from "./lineTransfer.model";
 import { PolylineCoords } from "./path.model";
-import { Profile } from "../profile/profile.model";
+import { Profile } from "../objects/models/profile.model";
 import { LineService } from "./line.service";
 import { MapMarker } from "./mapmarker.model";
 

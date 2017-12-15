@@ -12,23 +12,33 @@
             <p> {{ profile?.bio }} </p>
         </div>
         <mat-card class="image-card-container">
-            <button mat-raised-button type="button" (click)="follow()" [ngStyle]="{'background-color': color_dictionary.get('secondary')}">follow</button>
+            <div *ngIf="isOwnProfile">
+                <div *ngIf="isFollowing; then follow_button else unfollow_button"></div>
+                <ng-template #follow_button>
+                    <button mat-raised-button type="button" (click)="follow()" [ngStyle]="{'background-color': color_dictionary.get('secondary')}">follow</button>
+                </ng-template>
+                <ng-template #unfollow_button>
+                    <button mat-raised-button type="button" (click)="unfollow()" [ngStyle]="{'background-color': color_dictionary.get('secondary_light')}">unfollow</button>
+                </ng-template>
+
+            </div>
+
             <div class="image-card-stat-container">
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Lines</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.lines.length}}</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.lines.length || 0}}</p>
                 </div>
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Followers</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.followers.length}}</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.followers.length || 0}}</p>
                 </div>
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Following</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.following.length}}</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.following?.length || 0}}</p>
                 </div>
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Posts</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.posts.length}}</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.posts?.length || 0}}</p>
                 </div>
             </div>
         </mat-card>

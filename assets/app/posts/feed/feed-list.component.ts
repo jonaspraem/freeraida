@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Post } from "../post.model";
+import { Post } from "../../objects/models/post.model";
 import { PostService } from "../post.service";
 
 @Component({
@@ -15,8 +15,9 @@ export class FeedListComponent implements OnInit{
     ngOnInit(): void {
         this.postService.getFeed()
             .subscribe(
-                (posts: Post[]) => {
-                    this.posts = posts;
+                data => {
+                    console.log(data);
+                    this.posts = Post.fabricateList(data.obj);
                 }
             );
     }

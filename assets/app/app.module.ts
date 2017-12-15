@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { HttpModule } from "@angular/http";
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -25,7 +25,7 @@ import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
         BrowserModule,
         BrowserAnimationsModule,
         appRouting,
-        HttpModule,
+        HttpClientModule,
         LandingPageModule,
         WebAppModule,
         MDBBootstrapModule.forRoot(),

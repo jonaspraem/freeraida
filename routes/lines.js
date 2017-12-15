@@ -92,7 +92,7 @@ router.get('/:username', function (req, res, next) {
             console.log("list:"+list);
             sortList(list, function(sortedList) {
                 return res.status(201).json({
-                    message: 'User feed successfully generated',
+                    message: 'User lines successfully generated',
                     obj: sortedList
                 });
             });

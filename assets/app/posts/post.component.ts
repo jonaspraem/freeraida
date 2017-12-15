@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { Post } from "./post.model";
+import { Post } from "../objects/models/post.model";
 import { PostService } from "./post.service";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
 import { Router } from "@angular/router";

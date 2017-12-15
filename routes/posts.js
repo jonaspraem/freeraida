@@ -78,7 +78,7 @@ function getPosts(post_list, callback) {
 }
 
 // Get all user posts
-router.get('/userProfile-feed/:user_address', function (req, res, next) {
+router.get('/profile-feed/:user_address', function (req, res, next) {
     Profile.findOne({user_address: req.params.user_address}, function (err, user_profile) {
         if (err) {
             return res.status(500).json({

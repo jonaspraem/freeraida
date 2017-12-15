@@ -34,7 +34,7 @@ app.use(function(req, res, next){
 
 app.use('/post', postRoutes);
 app.use('/connect', connectRoutes);
-app.use('/userProfile', profileRoutes);
+app.use('/profile', profileRoutes);
 app.use('/lineservice', lineRoutes);
 app.use('/verify-user', googleAuthRoutes);
 app.use('/', index);

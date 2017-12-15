@@ -4,7 +4,7 @@ import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 import { User } from "./user.model";
 import { Observable } from "rxjs/Observable";
-import { Http, Headers, Response } from "@angular/http";
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { TokenTransferModel } from "./token.model";
 import { ProfileService } from "../profile/profile.service";
 
@@ -24,7 +24,7 @@ export class AuthService {
     });
 
     constructor(public router: Router,
-                public http: Http,
+                public http: HttpClient,
                 private profile_service: ProfileService) {}
 
     public login(): void {
@@ -95,47 +95,16 @@ export class AuthService {
             throw new Error('Access token must exist to fetch userProfile');
         }
 
-        const headers = new Headers({'Content-Type': 'application/json'});
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const body = { id_token: idToken };
-        return this.http.post('https://freeraida.eu.auth0.com/tokeninfo', body, {headers: headers})
-            .map((response: Response) => {
-                return response.json();
-            })
-            .catch((error: Response) => {
-                return Observable.throw(error.json());
-            });
+        return this.http.post('https://freeraida.eu.auth0.com/tokeninfo', body, {headers: headers});
     }
 
     private getTokenInfo() {
-        const headers = new Headers({'Content-Type': 'application/json'});
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const tokenObject = new TokenTransferModel(localStorage.getItem('id_token'));
         const body = JSON.stringify(tokenObject);
-        return this.http.post('https://freeraida.eu.auth0.com/tokeninfo', body, {headers: headers})
-            .map((response: Response) => {
-                return response.json()
-            })
-            .catch((error: Response) => {
-                return Observable.throw(error.json());
-            });
-    }
-
-    private postLoginCheck(user_id, given_name, family_name) {
-        const profile_headers = new Headers({'Content-Type': 'application/json'});
-        const user = new User(
-            user_id,
-            given_name,
-            family_name,
-        );
-        const profile_body = JSON.stringify(user);
-
-        return this.http.post('http://localhost:3000/user-init/', profile_body, {headers: profile_headers})
-            .map((response: Response) => {
-                const res = response.json();
-                return res;
-            })
-            .catch((error: Response) => {
-                return Observable.throw(error.json());
-            });
+        return this.http.post('https://freeraida.eu.auth0.com/tokeninfo', body, {headers: headers});
     }
 
 }

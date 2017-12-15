@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers, Response } from "@angular/http";
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
 
 import { ErrorService } from "../errors/error.service";
@@ -11,7 +11,7 @@ import { MapMarker } from "./mapmarker.model";
 
 export class LineService {
 
-    constructor(private http: Http, private errorService: ErrorService) {}
+    constructor(private http: HttpClient, private errorService: ErrorService) {}
 
     addLine(line: LineTransferModel) {
         const body = JSON.stringify(line);

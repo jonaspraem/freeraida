@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit } from "@angular/core";
 import { AuthService } from "../auth/auth.service";
-import { Profile } from "../profile/profile.model";
+import { Profile } from "../objects/models/profile.model";
 import { ProfileService } from "../profile/profile.service";
 
 @Component({
@@ -32,9 +32,11 @@ export class HeaderComponent implements OnInit {
                 }
             );
         }
-        this.profile_service.getProfileWithToken().subscribe(
-            (profile: Profile) => {
-                this.profile = profile;
+        this.profile_service.getProfileWithToken()
+            .subscribe(
+            (data) => {
+                this.profile = Profile.fabricate(data.obj);
+
             }
         );
 

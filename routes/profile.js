@@ -32,7 +32,7 @@ router.use('/', function(req, res, next) {
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
         function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode >= 200) {
                 next();
             } else {
                 console.log(response);
@@ -121,6 +121,7 @@ router.post('/new', function (req, res, next) {
 
 // Get user userProfile with token
 router.get('/user-info', function (req, res, next) {
+    console.log('user request at user-info');
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         {json: {id_token: req.query.token}},
@@ -139,7 +140,7 @@ router.get('/user-info', function (req, res, next) {
                             error: {message: 'No userProfile matching the id'}
                         });
                     }
-                    return res.status(200).json({
+                    return res.status(201).json({
                         message: 'Profile successfully received',
                         obj: profile
                     });
@@ -169,8 +170,6 @@ router.patch('/edit-userProfile', function(req, res, next) {
                         });
                     }
                     // Edit variables
-                    profile.firstName = req.body.firstName;
-                    profile.lastName = req.body.lastName;
                     profile.representation = req.body.representation;
                     profile.bio = req.body.bio;
                     profile.social_twitter = req.body.social_twitter;
