@@ -60,6 +60,11 @@ router.get('/user-address/:address', function (req, res, next) {
                 message: 'User address is unused',
                 obj: 'true'
             });
+        } else {
+            return res.status(400).json({
+                title: 'Address is taken',
+                error: new Error('Address is in use')
+            });
         }
     });
 });

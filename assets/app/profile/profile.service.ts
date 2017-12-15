@@ -83,6 +83,9 @@ export class ProfileService {
                     lines
                 );
                 return this.profile;
+            })
+            .catch((error: Response) => {
+                return Observable.throw(error.json());
             });
     }
 
@@ -92,7 +95,12 @@ export class ProfileService {
             : '';
         return this.http.get('http://localhost:3000/profile/user-address/'+address+token)
             .map((response: Response) => {
+                console.log('success: '+response);
                 return (response.status == 200);
+            })
+            .catch((error: Response) => {
+                console.log('error');
+                return Observable.throw(error.json());
             });
     }
 

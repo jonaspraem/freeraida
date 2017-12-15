@@ -1,8 +1,10 @@
 <div class="container">
     <div *ngIf="auth_service?.isWelcome">
         <mat-card class="welcome">
-            <h2>Welcome</h2>
-            <p>This is your first time visiting freeraida.com. You need to provide some details to continue to the site. Every user needs to have a unique address</p>
+            <h2>Welcome to Freeraida</h2>
+            <p>Hello and welcome to freeraida.com. This is an early version of the site, but feel free to take a look around.
+                To continue, please choose a username and provide your name. Please note that the username can't be changed once it is set.
+            </p>
         </mat-card>
     </div>
     <h1>Settings</h1>
@@ -11,28 +13,32 @@
         <form [formGroup]="form">
             <div class="form-group">
 
-                <label for="address">Address</label>
-                <input type="text" class="form-control" formControlName="address" id="address" name="address" [attr.disabled]="!isWelcome" [(ngModel)]="form_address" required>
+                <label for="address">Username</label>
+                <input type="text" class="form-control" formControlName="address" id="address" name="address" [(ngModel)]="form_address" required>
                 <div id="address-div">
-                    <div *ngIf="form_canActivate; then available else not_available"></div>
-                    <ng-template #available>
-                        <i class="material-icons" [ngStyle]="{'color': color_dictionary.get('available')}">check_circle</i>
-                    </ng-template>
-                    <ng-template #not_available>
-                        <i class="material-icons" [ngStyle]="{'color': color_dictionary.get('not-available')}">not_interested</i>
-                    </ng-template>
-                    <p>* Is required, and must be unique.</p>
+                    <div *ngIf="isWelcome">
+                        <div *ngIf="form_canActivate; then available else not_available"></div>
+                        <ng-template #available>
+                            <i class="material-icons" [ngStyle]="{'color': color_dictionary.get('available')}">check_circle</i>
+                        </ng-template>
+                        <ng-template #not_available>
+                            <i class="material-icons" [ngStyle]="{'color': color_dictionary.get('not-available')}">not_interested</i>
+                        </ng-template>
+                        <p>* Is required, and can't be changed</p>
+                    </div>
                 </div>
             </div>
             <hr>
             <div class="form-group">
-                <label for="firstname">First name *required</label>
+                <label for="firstname">First name</label>
                 <input type="text" class="form-control" formControlName="firstname" id="firstname" name="firstname" [(ngModel)]="form_firstname" required>
+                <p>* Is required</p>
             </div>
             <hr>
             <div class="form-group">
-                <label for="surname">Surname *required</label>
+                <label for="surname">Surname</label>
                 <input type="text" class="form-control" formControlName="surname" id="surname" name="surname" [(ngModel)]="form_surname" required>
+                <p>* Is required</p>
             </div>
             <hr>
         </form>
@@ -57,6 +63,7 @@
     <div class="right">
         <form>
             <h3>Social</h3>
+            <p>Promote your social accounts - Will be visible for everyone visiting your profile</p>
 
             <hr>
 

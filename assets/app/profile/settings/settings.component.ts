@@ -19,7 +19,8 @@ let instagram = require('../../../images/social/instagram.png');
 export class SettingsComponent implements OnInit {
     profile: Profile;
     flag_list: string[];
-    isWelcome: boolean = false;
+    isWelcome: boolean;
+    control: FormControl = new FormControl(null , Validators.required);
 
     // form
     form: FormGroup;
@@ -44,14 +45,21 @@ export class SettingsComponent implements OnInit {
                 private color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
+        this.form = new FormGroup({
+            address: this.control,
+            firstname: new FormControl(null, Validators.required),
+            surname: new FormControl(null, Validators.required)
+        });
         this.flag_list = this.flag_dictionary.toList();
         this.profile_service.getProfileWithToken()
             .subscribe(
                 (profile: Profile) => {
-                    if (!profile) {
-                        this.isWelcome = true;
-                    } else this.isWelcome = false;
+                    this.isWelcome = false;
+                    this.form_canActivate = true;
                     console.log(JSON.stringify(profile));
+                    console.log('isWelcome: '+this.isWelcome);
+                    this.control.disable();
+                    //this.form.setControl('address', new FormControl({value: profile.user_address, disabled: true}, Validators.required));
                     this.profile = profile;
                     this.form_firstname = profile.firstName;
                     this.form_surname = profile.lastName;
@@ -60,24 +68,39 @@ export class SettingsComponent implements OnInit {
                     this.form_representation = profile.representation;
                     this.form_twitter = profile.social_twitter;
                     this.form_instagram = profile.social_instagram;
+
+
+                    // this.form = new FormGroup({
+                    //     address: new FormControl({value: profile.user_address, disabled: true}, Validators.required),
+                    //     firstname: new FormControl(null, Validators.required),
+                    //     surname: new FormControl(null, Validators.required)
+                    // });
+                },
+                err => {
+                    this.isWelcome = true;
+                    console.log('isWelcome: '+this.isWelcome);
+                    // this.form = new FormGroup({
+                    //     address: new FormControl(null, Validators.required),
+                    //     firstname: new FormControl(null, Validators.required),
+                    //     surname: new FormControl(null, Validators.required)
+                    // });
+
+                    this.form.valueChanges.subscribe(data => {
+                        console.log('Form changes '+ data.address);
+                        if (data.address == '') this.form_canActivate = false;
+                        else this.profile_service.checkIfAddressIsAvailable(data.address)
+                            .subscribe((result: boolean) => {
+                                    console.log('result '+ result);
+                                    this.form_canActivate = result;
+                                },
+                                (err) =>{
+                                    console.log('err '+ err);
+                                    this.form_canActivate = false;
+                                }
+                            );
+                    });
                 }
             );
-        this.form = new FormGroup({
-            address: new FormControl(null, Validators.required),
-            firstname: new FormControl(null, Validators.required),
-            surname: new FormControl(null, Validators.required)
-        });
-        console.log('isWelcome: '+this.auth_service.isWelcome);
-        if (this.isWelcome) this.form_canActivate = false;
-        else this.form_canActivate = true;
-        this.form.valueChanges.subscribe(data => {
-            console.log('Form changes '+ data.address);
-            if (data.address == '') this.form_canActivate = false;
-            else this.profile_service.checkIfAddressIsAvailable(data.address)
-                .subscribe((result: boolean) => {
-                    if (this.isWelcome) this.form_canActivate = result;
-                });
-        });
     }
 
     onSubmit(form: NgForm) {
