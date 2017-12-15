@@ -3,7 +3,7 @@
         <img [src]="background_image" class="cover">
     </mat-card>
     <img [src]="profile_picture" class="profile-picture">
-    <img [src]="flag_dictionary.get('United States of America')" class="flag">
+    <img [src]="flag_dictionary.get(profile?.representation)" class="flag">
     <div class="left">
         <div class="profile-info">
             <h2 [ngStyle]="{'color': color_dictionary.get('primary')}"> {{ profile?.display_name }} </h2>
@@ -16,19 +16,19 @@
             <div class="image-card-stat-container">
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Lines</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">0</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.lines.length}}</p>
                 </div>
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Followers</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">0</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.followers.length}}</p>
                 </div>
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Following</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">0</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.following.length}}</p>
                 </div>
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Posts</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">0</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.posts.length}}</p>
                 </div>
             </div>
         </mat-card>

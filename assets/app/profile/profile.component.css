@@ -99,7 +99,6 @@ h2 {
 .image-card-stat-number {
     font-size: large;
     text-align: left;
-    transform: translateX(+10%);
 }
 
 .user-activity {

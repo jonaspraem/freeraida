@@ -36,12 +36,13 @@ export class ProfileService {
                     result.bio,
                     result.firstName,
                     result.lastName,
-                    result.followers,
-                    result.following,
                     result.representation,
                     result.social_twitter,
                     result.social_instagram,
-                    lines
+                    result.followers,
+                    result.following,
+                    lines,
+                    result.posts
                 );
                 return this.profile;
             })
