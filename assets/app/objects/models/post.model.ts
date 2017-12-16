@@ -1,5 +1,4 @@
 import { PostObject } from "../interfaces/post-object";
-import { PostListObject } from "../interfaces/post-list-object";
 
 export class Post {
     content: string;
@@ -7,9 +6,10 @@ export class Post {
     display_name?: string;
     user_address: string;
     postId?: string;
+    gnarly: string[];
     expanded_content?: string;
 
-    constructor(content: string, timestamp?: Date, display_name?: string, user_address?: string, postId?: string) {
+    constructor(content: string, timestamp?: Date, display_name?: string, user_address?: string, postId?: string, gnarly?: string[]) {
         this.content = content;
         this.timestamp = timestamp;
         this.display_name = display_name;
@@ -27,12 +27,12 @@ export class Post {
             new Date(object.timestamp),
             object.display_name,
             object.user_address,
-            object._id
+            object._id,
+            object.gnarly
             );
     }
 
     public static fabricateList(object: PostObject[]) : Post[] {
-        console.log(object);
         let posts: Post[] = [];
         for (let i = 0; i < object.length; i++) {
             posts.push(this.fabricate(object[i]));

@@ -4,4 +4,5 @@ export interface PostObject {
     timestamp: string;
     user_address: string;
     display_name: string;
+    gnarly: string[];
 }

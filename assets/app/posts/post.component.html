@@ -25,5 +25,10 @@
                 <p *ngIf="hasMoreContent()"><a (click)="showLess()">show less</a></p>
             </div>
         </ng-template>
+        <div class="footer-container">
+            <img class="gnarly" [src]="gnarly_secondary_light" onmouseover="hover(this);">
+            <p class="gnarly-amount" [ngStyle]="{'color': colorDictionary.get('secondary')}">{{post.gnarly?.length || 0}}</p>
+        </div>
     </div>
+
 </mat-card>

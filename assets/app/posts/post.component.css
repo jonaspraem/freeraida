@@ -25,6 +25,7 @@
     width: 100%;
     display: block;
     overflow: hidden;
+    padding-bottom: 10px;
 }
 
 .date {
@@ -53,5 +54,26 @@
 .right {
     float: right;
     width: 100px;
+}
+
+.gnarly {
+    height: 30px;
+    width: 30px;
+    float: right;
+}
+
+.gnarly-amount {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    float: right;
+    font-weight: bold;
+    margin-right: 5px;
+    transform: translateY(+10px);
+}
+
+.footer-container {
+    width: 100%;
+    height: 30px;
+    display: block;
+    float: right;
 }
 
