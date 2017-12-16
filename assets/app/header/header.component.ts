@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit {
             .subscribe(
             (data) => {
                 this.profile = Profile.fabricate(data.obj);
-
             }
         );
 

@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { AuthService } from "../../auth/auth.service";
 import { Router } from "@angular/router";
+import { Profile } from "../../objects/models/profile.model";
 
 @Component({
     selector: 'app-user-options-dropdown',
@@ -9,13 +10,14 @@ import { Router } from "@angular/router";
 })
 
 export class UserOptionsDropdownComponent {
-    @Input() profile: any;
+    @Input() userProfile: any;
+    @Input() profile: Profile;
 
     constructor(private authService: AuthService, private router: Router) {}
 
     hasImage(): boolean {
-        if (this.profile) {
-            return (this.profile.picture);
+        if (this.userProfile) {
+            return (this.userProfile.picture);
         }
         return false;
     }
@@ -26,5 +28,9 @@ export class UserOptionsDropdownComponent {
 
     onSettingsClick() {
         this.router.navigate(['home/settings']);
+    }
+
+    onProfileClick() {
+        this.router.navigate(['home/user/'+this.profile.user_address]);
     }
 }
