@@ -26,7 +26,7 @@
             </div>
         </ng-template>
         <div class="footer-container">
-            <img class="gnarly" [src]="gnarly_secondary_light" onmouseover="hover(this);">
+            <img class="gnarly" [src]="activeImage" (mouseenter)="hover()" (mouseleave)="unhover()">
             <p class="gnarly-amount" [ngStyle]="{'color': colorDictionary.get('secondary')}">{{post.gnarly?.length || 0}}</p>
         </div>
     </div>

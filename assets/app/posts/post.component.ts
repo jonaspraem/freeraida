@@ -73,6 +73,14 @@ export class PostComponent implements OnInit{
         return date + ' ' + month;
     }
 
+    hover() {
+        if (!this.isGnarly) this.activeImage = this.gnarly_secondary;
+    }
+
+    unhover() {
+        if (!this.isGnarly) this.activeImage = this.gnarly_secondary_light;
+    }
+
     // onEdit() {
     //     this.postService.editPost(this.post);
     // }
