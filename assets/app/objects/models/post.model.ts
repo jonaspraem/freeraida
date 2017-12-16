@@ -15,6 +15,7 @@ export class Post {
         this.display_name = display_name;
         this.user_address = user_address;
         this.postId = postId;
+        this.gnarly = gnarly;
         if (content.length > 500) {
             this.content = content.substring(0, 499) + '...';
             this.expanded_content = content;

@@ -36,7 +36,7 @@ export class PostComponent implements OnInit{
 
         if (this.isGnarly) this.activeImage = this.gnarly_secondary;
         else this.activeImage = this.gnarly_secondary_light;
-
+        console.log(this.isGnarly);
     }
 
     getFormattedDate() {
@@ -79,6 +79,23 @@ export class PostComponent implements OnInit{
 
     unhover() {
         if (!this.isGnarly) this.activeImage = this.gnarly_secondary_light;
+    }
+
+    gnarly() {
+        this.isGnarly = true;
+        if (!this.post.gnarly) this.post.gnarly = [this.profile.user_address];
+        else this.post.gnarly.push(this.profile.user_address);
+        this.post_service.gnarlyPost(this.post.postId).subscribe(data => {
+           this.post = Post.fabricate(data.obj);
+        });
+    }
+
+    unGnarly() {
+        this.isGnarly = false;
+        this.post.gnarly.splice(this.post.gnarly.indexOf(this.profile.user_address), 1);
+        this.post_service.unGnarlyPost(this.post.postId).subscribe(data => {
+           this.post = Post.fabricate(data.obj);
+        });
     }
 
     // onEdit() {

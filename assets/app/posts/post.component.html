@@ -26,7 +26,13 @@
             </div>
         </ng-template>
         <div class="footer-container">
-            <img class="gnarly" [src]="activeImage" (mouseenter)="hover()" (mouseleave)="unhover()">
+            <div *ngIf="isGnarly; then static else dynamic"></div>
+            <ng-template #dynamic>
+                <img class="gnarly" [src]="activeImage" (mouseenter)="hover()" (mouseleave)="unhover()" (click)="gnarly()">
+            </ng-template>
+            <ng-template #static>
+                <img class="gnarly" [src]="gnarly_secondary" (click)="unGnarly()">
+            </ng-template>
             <p class="gnarly-amount" [ngStyle]="{'color': colorDictionary.get('secondary')}">{{post.gnarly?.length || 0}}</p>
         </div>
     </div>

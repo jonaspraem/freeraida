@@ -237,6 +237,13 @@ router.post('/gnarly/:post_id', function(req, res, next) {
                                 error: {message: 'No post found matching the id'}
                             });
                         }
+                        // If user already gnarly post
+                        if (post.gnarly.indexOf(user_profile.user_address) > -1) {
+                            return res.status(500).json({
+                                title: 'User already gnarly post',
+                                error: {message: 'user can\'t gnarly post more than once'}
+                            });
+                        }
                         post.gnarly.push(user_profile.user_address);
                         post.save(function (err, result) {
                             if (err) {
@@ -289,13 +296,13 @@ router.post('/un-gnarly/:post_id', function(req, res, next) {
                                 error: {message: 'No post found matching the id'}
                             });
                         }
-                        if (!post.gnarly.contains(user_profile.user_address)) {
+                        if (!(post.gnarly.indexOf(user_profile.user_address) > -1)) {
                             return res.status(500).json({
                                 title: 'Post is not gnarly by the user',
                                 error: {message: 'The user is not in the list of gnarly'}
                             });
                         }
-                        post.gnarly.slice(post.gnarly.indexOf(user_profile.user_address), 1);
+                        post.gnarly.splice(post.gnarly.indexOf(user_profile.user_address), 1);
                         post.save(function (err, result) {
                             if (err) {
                                 return res.status(500).json({
