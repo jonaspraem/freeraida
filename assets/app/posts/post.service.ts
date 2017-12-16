@@ -41,6 +41,20 @@ export class PostService {
         return this.http.get<PostListResponse>('http://localhost:3000/post/feed', {params: new HttpParams().set('token', token)});
     }
 
+    gnarlyPost(post_id: string) {
+        const body = '';
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('id_token');
+        return this.http.post<SinglePostResponse>('http://localhost:3000/post/gnarly/'+post_id, body, {headers: headers, params: new HttpParams().set('token', token)});
+    }
+
+    unGnarlyPost(post_id: string) {
+        const body = '';
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('id_token');
+        return this.http.post<SinglePostResponse>('http://localhost:3000/post/un-gnarly/'+post_id, body, {headers: headers, params: new HttpParams().set('token', token)});
+    }
+
     // editPost(post: Post) {
     //     this.postIsEdit.emit(post);
     // }

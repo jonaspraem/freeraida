@@ -174,10 +174,10 @@ router.post('/', function(req, res, next) {
                 }
                 var post = new Post({
                     content: req.body.content,
-                    user_id: user_profile.user_id,
                     user_address: user_profile.user_address,
                     display_name: user_profile.firstName + ' ' + user_profile.lastName,
-                    timestamp: new Date()
+                    timestamp: new Date(),
+                    gnarly: []
                 });
                 post.save(function (err, result) {
                     if (err) {
@@ -201,6 +201,116 @@ router.post('/', function(req, res, next) {
                     });
                 });
             });
+        });
+});
+
+// gnarly post
+router.post('/gnarly/:post_id', function(req, res, next) {
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        { json: { id_token: req.query.token } },
+        function (error, response, body) {
+            if (!error) {
+                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                    if (profile_err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: {message: 'An error occured'}
+                        });
+                    }
+                    if (!user_profile) {
+                        return res.status(500).json({
+                            title: 'No user found',
+                            error: {message: 'No user found'}
+                        });
+                    }
+                    Post.findOne({_id: req.params.post_id}, function(post_err, post) {
+                        if (profile_err) {
+                            return res.status(500).json({
+                                title: 'An error occured',
+                                error: {message: 'An error occured'}
+                            });
+                        }
+                        if (!post) {
+                            return res.status(500).json({
+                                title: 'No post found',
+                                error: {message: 'No post found matching the id'}
+                            });
+                        }
+                        post.gnarly.push(user_profile.user_address);
+                        post.save(function (err, result) {
+                            if (err) {
+                                return res.status(500).json({
+                                    title: 'An error occured',
+                                    error: err
+                                });
+                            }
+                            return res.status(201).json({
+                                message: 'Successfully gnarly post '+req.params.post_id,
+                                obj: result
+                            });
+                        });
+                    });
+                });
+            }
+        });
+});
+
+//un-gnarly post
+router.post('/un-gnarly/:post_id', function(req, res, next) {
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        {json: {id_token: req.query.token}},
+        function (error, response, body) {
+            if (!error) {
+                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                    if (profile_err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: {message: 'An error occured'}
+                        });
+                    }
+                    if (!user_profile) {
+                        return res.status(500).json({
+                            title: 'No user found',
+                            error: {message: 'No user found'}
+                        });
+                    }
+                    Post.findOne({_id: req.params.post_id}, function(post_err, post) {
+                        if (profile_err) {
+                            return res.status(500).json({
+                                title: 'An error occured',
+                                error: {message: 'An error occured'}
+                            });
+                        }
+                        if (!post) {
+                            return res.status(500).json({
+                                title: 'No post found',
+                                error: {message: 'No post found matching the id'}
+                            });
+                        }
+                        if (!post.gnarly.contains(user_profile.user_address)) {
+                            return res.status(500).json({
+                                title: 'Post is not gnarly by the user',
+                                error: {message: 'The user is not in the list of gnarly'}
+                            });
+                        }
+                        post.gnarly.slice(post.gnarly.indexOf(user_profile.user_address), 1);
+                        post.save(function (err, result) {
+                            if (err) {
+                                return res.status(500).json({
+                                    title: 'An error occured',
+                                    error: err
+                                });
+                            }
+                            return res.status(201).json({
+                                message: 'Successfully un-gnarly post '+req.params.post_id,
+                                obj: result
+                            });
+                        });
+                    });
+                });
+            }
         });
 });
 
