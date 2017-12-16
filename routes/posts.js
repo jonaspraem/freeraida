@@ -6,7 +6,7 @@ var Post = require('../models/post');
 var Profile = require('../models/profile');
 
 function getUserPosts(username, callback) {
-    Profile.findOne({username: username}, function (err, user_profile) {
+    Profile.findOne({user_address: username}, function (err, user_profile) {
         if (err) {
             return null;
         }
@@ -39,19 +39,15 @@ function sortList(list, callback) {
 }
 
 function getTransformedList(profile, callback) {
-    console.log('transformed list 0');
     var transformedPosts = profile.posts;
     var counter = 0;
-    //transformedPosts.push.apply(transformedPosts, userProfile.posts);
+    transformedPosts.push.apply(transformedPosts, profile.posts);
     if (profile.following != null && profile.following.length !== 0) {
-        console.log('transformed list 01: '+profile.following.length);
         profile.following.forEach(function(product, index){
-            console.log('transformed list');
             getUserPosts(product, function(user_posts) {
-                console.log('transformed list loop: '+counter);
-                if (profile.following.length === counter) callback(transformedPosts);
                 counter++;
                 if (user_posts) transformedPosts.push.apply(transformedPosts, user_posts);
+                if (profile.following.length === counter) callback(transformedPosts);
             });
         });
     } else callback(transformedPosts);
@@ -132,14 +128,14 @@ router.get('/feed', function (req, res, next) {
                 Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
                     if (profile_err) {
                         return res.status(500).json({
-                            title: 'Error finding user userProfile',
+                            title: 'Error finding user profile',
                             error: profile_err
                         });
                     }
                     if (!user_profile) {
                         return res.status(500).json({
                             title: 'An error occurred',
-                            error: {message: 'An error occurred regarding userProfile'}
+                            error: {message: 'An error occurred regarding profile'}
                         });
                     }
                     getTransformedList(user_profile, function(post_ids) {

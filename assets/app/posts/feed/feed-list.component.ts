@@ -18,6 +18,8 @@ export class FeedListComponent implements OnInit{
                 data => {
                     console.log(data);
                     this.posts = Post.fabricateList(data.obj);
+                }, err => {
+                    console.log(err);
                 }
             );
     }

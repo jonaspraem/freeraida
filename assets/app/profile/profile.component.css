@@ -116,3 +116,7 @@ button {
     font-size: larger;
     transform: translateX(+250px) translateY(-20px);
 }
+
+#spacer {
+    /*height: 50px;*/
+}

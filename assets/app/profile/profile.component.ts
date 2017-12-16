@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit{
     private background_image = background_image;
     private profile_picture = profile_picture;
     isOwnProfile: boolean;
-    isFollowing: boolean;
+    self: Profile;
     profile: Profile;
     lines: LineTransferModel[];
 
@@ -40,9 +40,8 @@ export class ProfileComponent implements OnInit{
                         this.profile = Profile.fabricate(data.obj);
                         this.profile_service.getProfileWithToken()
                             .subscribe(data => {
-                                let self = Profile.fabricate(data.obj);
-                                this.isFollowing = (this.profile.followers.includes(self.user_address));
-                                this.isOwnProfile = (self.user_address == user_address);
+                                this.self = Profile.fabricate(data.obj);
+                                this.isOwnProfile = (this.self.user_address == user_address);
                             });
                     }
                 );
@@ -53,6 +52,20 @@ export class ProfileComponent implements OnInit{
             //         }
             //     );
         });
+    }
+
+    isFollowing(): boolean {
+        if (this.profile && this.self) {
+            return (this.profile.followers.includes(this.self.user_address));
+        } else return false;
+    }
+
+    follow() {
+        this.profile_service.followUser(this.profile.user_address).subscribe(data => this.profile = Profile.fabricate(data.obj));
+    }
+
+    unfollow() {
+        this.profile_service.unfollowUser(this.profile.user_address).subscribe(data => this.profile = Profile.fabricate(data.obj));
     }
 
 }

@@ -12,25 +12,27 @@
             <p> {{ profile?.bio }} </p>
         </div>
         <mat-card class="image-card-container">
-            <div *ngIf="isOwnProfile">
-                <div *ngIf="isFollowing; then follow_button else unfollow_button"></div>
+            <div *ngIf="!isOwnProfile; else spacer">
+                <div *ngIf="isFollowing(); then unfollow_button else follow_button"></div>
                 <ng-template #follow_button>
                     <button mat-raised-button type="button" (click)="follow()" [ngStyle]="{'background-color': color_dictionary.get('secondary')}">follow</button>
                 </ng-template>
                 <ng-template #unfollow_button>
                     <button mat-raised-button type="button" (click)="unfollow()" [ngStyle]="{'background-color': color_dictionary.get('secondary_light')}">unfollow</button>
                 </ng-template>
-
             </div>
+            <ng-template #spacer>
+                <div id="spacer"></div>
+            </ng-template>
 
             <div class="image-card-stat-container">
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Lines</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.lines.length || 0}}</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.lines?.length || 0}}</p>
                 </div>
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Followers</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.followers.length || 0}}</p>
+                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{profile?.followers?.length || 0}}</p>
                 </div>
                 <div class="image-card-stat">
                     <p class="image-card-paragraph">Following</p>

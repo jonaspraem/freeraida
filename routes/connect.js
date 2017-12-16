@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var jwt = require('jsonwebtoken');
+var request = require('request');
 
 var Profile = require('../models/profile');
 
@@ -112,7 +112,7 @@ router.post('/unfollow/:user_address', function(req, res, next) {
                             error: {message: 'No user found'}
                         });
                     }
-                    var isAlreadyFollowing = (own_profile.following.indexOf(req.params.username) > -1);
+                    var isAlreadyFollowing = (own_profile.following.indexOf(req.params.user_address) > -1);
                     if (!isAlreadyFollowing) {
                         return res.status(500).json({
                             title: 'User not followed',

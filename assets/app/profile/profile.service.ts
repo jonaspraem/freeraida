@@ -49,20 +49,20 @@ export class ProfileService {
         const body = JSON.stringify(profile);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
-        return this.http.patch('http://localhost:3000/profile/edit-userProfile'+token, body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.patch('http://localhost:3000/profile/edit-profile'+token, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
-    followUser(username: string) {
+    followUser(user_address: string) {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('token');
-        return this.http.post('http://localhost:3000/connect/follow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)});
+        const token = localStorage.getItem('id_token');
+        return this.http.post<ProfileResponse>('http://localhost:3000/connect/follow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
-    unfollowUser(username: string) {
+    unfollowUser(user_address: string) {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('token');
-        return this.http.post('http://localhost:3000/connect/unfollow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)})
+        const token = localStorage.getItem('id_token');
+        return this.http.post<ProfileResponse>('http://localhost:3000/connect/unfollow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)})
     }
 }

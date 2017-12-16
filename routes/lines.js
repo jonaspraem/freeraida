@@ -129,14 +129,14 @@ router.post('/newline/', function(req, res, next) {
                     console.log('PROFILE FOUND');
                     if (profile_err) {
                         return res.status(500).json({
-                            title: 'Error finding user userProfile',
+                            title: 'Error finding user profile',
                             error: profile_err
                         });
                     }
                     if (!user_profile) {
                         return res.status(500).json({
-                            title: 'Error finding user userProfile',
-                            error: {message: 'An error occurred regarding userProfile'}
+                            title: 'Error finding user profile',
+                            error: {message: 'An error occurred regarding profile'}
                         });
                     }
                     var markerlist = [];
