@@ -8,7 +8,7 @@ import { MatCardModule, MatButtonModule, MatInputModule } from "@angular/materia
 import { PostService } from "./post.service";
 import { UserActivityComponent } from "./user-activity/user-activity.component";
 import { UserActivityListComponent } from "./user-activity/user-activity-list.component";
-import { PostInputComponent } from "./post-input.component";
+import { PostInputComponent } from "./feed/feed-input.component";
 import { PostComponent } from "./post.component";
 import { LiveFeedComponent } from "./feed/live-feed.component";
 import { FeedListComponent } from "./feed/feed-list.component";

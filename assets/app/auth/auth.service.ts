@@ -7,11 +7,13 @@ import { Observable } from "rxjs/Observable";
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { TokenTransferModel } from "./token.model";
 import { ProfileService } from "../profile/profile.service";
+import { Profile } from "../objects/models/profile.model";
 
 @Injectable()
 
 export class AuthService {
     public isWelcome = false;
+    public profile: Profile;
     userProfile: any;
 
     private auth0 = new auth0.WebAuth({
@@ -43,7 +45,7 @@ export class AuthService {
                 (jsonData) => {
                     this.profile_service.getProfileWithToken()
                         .subscribe(
-                            data => console.log(data),
+                            data => this.profile = Profile.fabricate(data.obj),
                             err => {
                                 this.isWelcome = true;
                                 this.router.navigate(['home/settings']);

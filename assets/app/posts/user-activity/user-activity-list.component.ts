@@ -1,8 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, Input, OnInit } from "@angular/core";
 
 import { Post } from "../../objects/models/post.model";
-import { PostService } from "../post.service";
+import { Profile } from "../../objects/models/profile.model";
 
 @Component({
     selector: 'app-user-activity-list',
@@ -10,21 +9,7 @@ import { PostService } from "../post.service";
     styleUrls: ['./user-activity-list.component.css']
 })
 
-export class UserActivityListComponent implements OnInit {
-    posts: Post[];
-
-    constructor(private postService: PostService,
-                private route: ActivatedRoute) {}
-
-    ngOnInit(): void {
-        this.route.params.subscribe(params => {
-            let user_address = params['user'];
-            this.postService.getPosts(user_address.toString())
-                .subscribe(
-                    data => {
-                        this.posts = Post.fabricateList(data.obj);
-                    }
-                );
-        });
-    }
+export class UserActivityListComponent {
+    @Input() profile: Profile;
+    @Input() posts: Post[];
 }

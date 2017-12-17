@@ -4,6 +4,7 @@ import { PostService } from "./post.service";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
 import { Router } from "@angular/router";
 import { Profile } from "../objects/models/profile.model";
+import { AuthService } from "../auth/auth.service";
 
 const gnarly_primary = require('../../images/gnarly/gnarly_primary.png');
 const gnarly_secondary = require('../../images/gnarly/gnarly_secondary.png');
@@ -25,9 +26,10 @@ export class PostComponent implements OnInit{
     isGnarly: boolean;
     isExpanded: boolean = false;
 
-    constructor(private post_service : PostService, private colorDictionary : COLOR_DICTIONARY, private router : Router) {
-
-    }
+    constructor(private post_service : PostService,
+                private auth_service: AuthService,
+                private colorDictionary : COLOR_DICTIONARY,
+                private router : Router) {}
 
     ngOnInit(): void {
         if (this.post.gnarly) {
@@ -36,7 +38,6 @@ export class PostComponent implements OnInit{
 
         if (this.isGnarly) this.activeImage = this.gnarly_secondary;
         else this.activeImage = this.gnarly_secondary_light;
-        console.log(this.isGnarly);
     }
 
     getFormattedDate() {
