@@ -4,6 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var favicon = require('serve-favicon');
 
 var index = require('./routes/app');
 var postRoutes = require('./routes/posts');
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname,'images','favicon.ico')));
 
 app.use(function(req, res, next){
     res.setHeader('Acces-Control-Allow-Origin', '*');
