@@ -6,12 +6,12 @@ import { TrackPageComponent } from "./tracker/track-page.component";
 import { SettingsComponent } from "./profile/settings/settings.component";
 var ɵ0 = { requiresLogin: true };
 var WEBAPP_ROUTES = [
-    // { path: '**', redirectTo: '', pathMatch: 'full'}
+    // { path: '**', redirectTo: 'feed', pathMatch: 'full'},
     { path: 'feed', component: LiveFeedComponent },
     { path: 'ride-center', component: RegisterRideComponent },
     { path: 'track', component: TrackPageComponent },
     { path: 'settings', component: SettingsComponent },
-    { path: 'user', component: ProfileComponent, data: ɵ0, loadChildren: './profile/profile.module#ProfileModule' },
+    { path: 'user', component: ProfileComponent, data: ɵ0 },
 ];
 export var webappRouting = RouterModule.forChild(WEBAPP_ROUTES);
 export { ɵ0 };

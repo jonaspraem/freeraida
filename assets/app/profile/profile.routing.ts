@@ -4,7 +4,7 @@ import { ProfileComponent } from "./profile.component";
 
 
 const PROFILE_ROUTES: Routes = [
-    { path: 'user', redirectTo: 'user/' + localStorage.getItem('username'), pathMatch: 'full' },
+    { path: '', redirectTo: localStorage.getItem('username'), pathMatch: 'full' },
     { path: 'user/:user', component: ProfileComponent },
 ];
 

@@ -21,7 +21,7 @@ import { SettingsComponent } from "./settings/settings.component";
         CommonModule,
         ReactiveFormsModule,
         FormsModule,
-        profileRouting,
+        // profileRouting,
         PostModule,
         MatCardModule,
         RideCenterModule,
