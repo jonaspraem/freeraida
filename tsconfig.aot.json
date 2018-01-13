@@ -1,23 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "sourceMap": false,
+    "target": "es5",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "mapRoot": "",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "outDir": "./public/js/app"
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "outDir": "aot",
+    "skipLibCheck": true,
+    "rootDir": "."
   },
-  "typeRoots": [
-    "node_modules/@types"
-  ],
-  "lib": [
-    "es5",
-    "dom"
-  ],
   "angularCompilerOptions": {
-    "skipMetadataEmit": true
+    "genDir": "aot"
   }
 }

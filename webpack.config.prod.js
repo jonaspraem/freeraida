@@ -1,3 +1,5 @@
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
+
 var path = require('path');
 
 var webpack = require('webpack');
@@ -6,11 +8,11 @@ var commonConfig = require('./webpack.config.common.js');
 
 module.exports = webpackMerge.smart(commonConfig, {
     entry: {
-        'app': './assets/app/main.aot.ts'
+        'app': './assets/app/main.ts'
     },
 
     output: {
-        path: path.resolve(__dirname + '/public/js/app'),
+        path: path.join(__dirname + '/public/js/app'),
         filename: 'bundle.js',
         publicPath: '/js/app/',
         chunkFilename: '[id].[hash].chunk.js'
@@ -18,6 +20,10 @@ module.exports = webpackMerge.smart(commonConfig, {
 
     module: {
         rules: [
+            {
+                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+                loader: '@ngtools/webpack'
+            },
             {
                 test: /\.ts$/,
                 use: [
@@ -32,6 +38,11 @@ module.exports = webpackMerge.smart(commonConfig, {
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
             sourceMap: false
+        }),
+        new AngularCompilerPlugin({
+            tsConfigPath: './tsconfig.json',
+            entryModule: './assets/app/app.module#AppModule',
+            sourceMap: true
         })
     ]
 });

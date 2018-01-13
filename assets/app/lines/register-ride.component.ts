@@ -109,10 +109,10 @@ export class RegisterRideComponent implements OnInit{
             lineTransfer.rock_level &&
             lineTransfer.cliff_level) {
             // submit
-            this.lineService.addLine(lineTransfer).subscribe(
-                (line: LineTransferModel) => {
-                    console.log(line);
-                });
+            // this.lineService.addLine(lineTransfer).subscribe(
+            //     (line: LineTransferModel) => {
+            //         console.log(line);
+            //     });
         }
         // TODO: make better error message
         else {

@@ -28,7 +28,7 @@ export class PostComponent implements OnInit{
 
     constructor(private post_service : PostService,
                 private auth_service: AuthService,
-                private colorDictionary : COLOR_DICTIONARY,
+                public colorDictionary : COLOR_DICTIONARY,
                 private router : Router) {}
 
     ngOnInit(): void {

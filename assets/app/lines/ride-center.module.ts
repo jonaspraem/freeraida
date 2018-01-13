@@ -14,8 +14,6 @@ import {
     MatInputModule
 } from '@angular/material';
 
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-
 import { RegisterRideComponent } from "./register-ride.component";
 import { MapContentComponent } from "./map-content";
 import { LineService } from "./line.service";
@@ -35,7 +33,6 @@ import { LineHistoryComponent } from "./line-history.component";
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM'
         }),
-        MDBBootstrapModule.forRoot(),
         MatCardModule,
         MatButtonModule,
         MatButtonToggleModule,

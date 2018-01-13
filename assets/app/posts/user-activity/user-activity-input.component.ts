@@ -27,8 +27,8 @@ export class UserActivityInputComponent {
             );
     }
 
-    onClear(form: NgForm) {
-        form.resetForm();
+    onClear() {
+        this.content = '';
     }
 
 }

@@ -18,8 +18,8 @@ const profile_picture = require('../../images/default-skier.jpg');
 })
 
 export class ProfileComponent implements OnInit{
-    private background_image = background_image;
-    private profile_picture = profile_picture;
+    public background_image = background_image;
+    public profile_picture = profile_picture;
     isOwnProfile: boolean;
     self: Profile;
     profile: Profile;
@@ -28,8 +28,8 @@ export class ProfileComponent implements OnInit{
     constructor(private profile_service: ProfileService,
                 private lineService: LineService,
                 private route: ActivatedRoute,
-                private flag_dictionary: FLAG_DICTIONARY,
-                private color_dictionary: COLOR_DICTIONARY) {}
+                public flag_dictionary: FLAG_DICTIONARY,
+                public color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
@@ -66,6 +66,10 @@ export class ProfileComponent implements OnInit{
 
     unfollow() {
         this.profile_service.unfollowUser(this.profile.user_address).subscribe(data => this.profile = Profile.fabricate(data.obj));
+    }
+
+    onAddressClick() {
+
     }
 
 }

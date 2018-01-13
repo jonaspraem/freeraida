@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{"ExploreComponent":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Component","line":2,"character":1},"arguments":[{"selector":"app-explore","templateUrl":"./explore.component.html","styleUrls":["./explore.component.css"]}]}]}}}]

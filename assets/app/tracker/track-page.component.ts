@@ -12,9 +12,8 @@ const tour = require('../../images/track-interface/tour.jpg');
 })
 
 export class TrackPageComponent {
-    private ascent = ascent;
-    private descent = descent;
-    private tour = tour;
-
+    public ascent = ascent;
+    public descent = descent;
+    public tour = tour;
 
 }

@@ -41,10 +41,10 @@ export class SettingsComponent implements OnInit {
 
 
     constructor(private profile_service: ProfileService,
-                private auth_service: AuthService,
+                public auth_service: AuthService,
                 private router: Router,
-                private flag_dictionary: FLAG_DICTIONARY,
-                private color_dictionary: COLOR_DICTIONARY) {}
+                public flag_dictionary: FLAG_DICTIONARY,
+                public color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
         this.form = new FormGroup({
@@ -96,10 +96,10 @@ export class SettingsComponent implements OnInit {
             );
     }
 
-    onSubmit(form: NgForm) {
+    onSubmit() {
         let profile = new Profile(
             this.form_firstname + this.form_surname,
-            form.value.address,
+            this.form_address,
             this.form_bio,
             this.form_firstname,
             this.form_surname,

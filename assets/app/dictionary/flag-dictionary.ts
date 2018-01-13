@@ -1,3 +1,6 @@
+import 'rxjs/Rx';
+import 'rxjs/add/operator/map'
+
 import { Injectable } from "@angular/core";
 
 // Requires all flag images A to Z

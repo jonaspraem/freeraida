@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { GoogleSignInComponent } from "angular-google-signin";
 import { LandingPageComponent } from "./landing-page.component";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -7,8 +6,7 @@ import { MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatCardModule, MatFormFieldModule, MatI
 
 @NgModule({
     declarations: [
-        LandingPageComponent,
-        GoogleSignInComponent,
+        LandingPageComponent
     ],
     imports: [
         CommonModule,

@@ -1,3 +1,4 @@
+import 'rxjs/add/operator/map'
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,7 +9,6 @@ import { appRouting } from "./app.routing";
 import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
 
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { LandingPageModule } from "./landing-page/landing-page.module";
 import { AuthService } from "./auth/auth.service";
 import { AuthGuardService } from "./auth/auth-guard.service";
@@ -28,7 +28,6 @@ import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
         HttpClientModule,
         LandingPageModule,
         WebAppModule,
-        MDBBootstrapModule.forRoot(),
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
     providers: [AuthGuardService, AuthService, ErrorService, FLAG_DICTIONARY, COLOR_DICTIONARY],
