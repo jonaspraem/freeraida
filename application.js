@@ -11,7 +11,6 @@ var postRoutes = require('./routes/posts');
 var connectRoutes = require('./routes/connect');
 var profileRoutes = require('./routes/profile');
 var lineRoutes = require('./routes/lines');
-var googleAuthRoutes = require('./routes/googleauth');
 
 var app = express();
 mongoose.connect('test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database');
@@ -38,7 +37,6 @@ app.use('/post', postRoutes);
 app.use('/connect', connectRoutes);
 app.use('/profile', profileRoutes);
 app.use('/lineservice', lineRoutes);
-app.use('/verify-user', googleAuthRoutes);
 app.use('/', index);
 
 // catch 404 and forward to error handler
