@@ -6,6 +6,7 @@ import { ErrorService } from "../errors/error.service";
 import { Profile } from "../objects/models/profile.model";
 
 import { ProfileObject } from "../objects/interfaces/profile-object.interface";
+import { CONFIG } from "../dictionary/config";
 
 interface ProfileResponse {
     message: string;
@@ -21,27 +22,30 @@ interface AddressResponse {
 
 export class ProfileService {
 
-    constructor(private http: HttpClient, private errorService: ErrorService) {}
+    constructor(private http: HttpClient,
+                private errorService: ErrorService,
+                private config: CONFIG
+    ) {}
 
     getProfile(user_address: string) {
-        return this.http.get<ProfileResponse>('http://localhost:3000/profile/user/'+user_address);
+        return this.http.get<ProfileResponse>(this.config.getEndpoint() + '/profile/user/'+user_address);
     }
 
     getProfileWithToken() {
         const token = localStorage.getItem('id_token');
-        return this.http.get<ProfileResponse>('http://localhost:3000/profile/user-info', {params: new HttpParams().set('token', token)});
+        return this.http.get<ProfileResponse>(this.config.getEndpoint() + '/profile/user-info', {params: new HttpParams().set('token', token)});
     }
 
     addressIsAvailable(address: string) {
         const token = localStorage.getItem('id_token');
-        return this.http.get<AddressResponse>('http://localhost:3000/profile/user-address/'+address, {params: new HttpParams().set('token', token)});
+        return this.http.get<AddressResponse>(this.config.getEndpoint() + '/profile/user-address/'+address, {params: new HttpParams().set('token', token)});
     }
 
     createNewProfile(profile: Profile) {
         const body = JSON.stringify(profile);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
-        return this.http.post('http://localhost:3000/profile/new', body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.post(this.config.getEndpoint() + '/profile/new', body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     submitSettings(profile: Profile) {
@@ -49,20 +53,20 @@ export class ProfileService {
         const body = JSON.stringify(profile);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
-        return this.http.patch('http://localhost:3000/profile/edit-profile'+token, body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.patch(this.config.getEndpoint() + '/profile/edit-profile'+token, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     followUser(user_address: string) {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
-        return this.http.post<ProfileResponse>('http://localhost:3000/connect/follow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.post<ProfileResponse>(this.config.getEndpoint() + '/connect/follow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     unfollowUser(user_address: string) {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
-        return this.http.post<ProfileResponse>('http://localhost:3000/connect/unfollow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)})
+        return this.http.post<ProfileResponse>(this.config.getEndpoint() + '/connect/unfollow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)})
     }
 }

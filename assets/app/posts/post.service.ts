@@ -6,6 +6,7 @@ import { Post } from "../objects/models/post.model";
 import { ErrorService } from "../errors/error.service";
 
 import { PostObject } from "../objects/interfaces/post-object";
+import { CONFIG } from "../dictionary/config";
 
 interface SinglePostResponse {
     message: string;
@@ -23,36 +24,39 @@ export class PostService {
     posts: Post[] = [];
     postIsEdit = new EventEmitter<Post>();
 
-    constructor(private http: HttpClient, private errorService: ErrorService) {}
+    constructor(private http: HttpClient,
+                private errorService: ErrorService,
+                private config: CONFIG
+    ) {}
 
     addPost(post: Post) {
         const body = JSON.stringify(post);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
-        return this.http.post<SinglePostResponse>('http://localhost:3000/post', body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.post<SinglePostResponse>(this.config.getEndpoint() + '/post', body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     getPosts(username: string) {
-        return this.http.get<PostListResponse>('http://localhost:3000/post/profile-feed/'+username);
+        return this.http.get<PostListResponse>(this.config.getEndpoint() + '/post/profile-feed/'+username);
     }
 
     getFeed() {
         const token = localStorage.getItem('id_token');
-        return this.http.get<PostListResponse>('http://localhost:3000/post/feed', {params: new HttpParams().set('token', token)});
+        return this.http.get<PostListResponse>(this.config.getEndpoint() + '/post/feed', {params: new HttpParams().set('token', token)});
     }
 
     gnarlyPost(post_id: string) {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
-        return this.http.post<SinglePostResponse>('http://localhost:3000/post/gnarly/'+post_id, body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.post<SinglePostResponse>(this.config.getEndpoint() + '/post/gnarly/'+post_id, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     unGnarlyPost(post_id: string) {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
-        return this.http.post<SinglePostResponse>('http://localhost:3000/post/un-gnarly/'+post_id, body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.post<SinglePostResponse>(this.config.getEndpoint() + '/post/un-gnarly/'+post_id, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     // editPost(post: Post) {

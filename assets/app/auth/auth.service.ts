@@ -8,6 +8,7 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { TokenTransferModel } from "./token.model";
 import { ProfileService } from "../profile/profile.service";
 import { Profile } from "../objects/models/profile.model";
+import { CONFIG } from "../dictionary/config";
 
 @Injectable()
 
@@ -20,14 +21,16 @@ export class AuthService {
         clientID: 'RGHlxY9aYwq0DdMQEjXfz2XD7Z26KezJ',
         domain: 'freeraida.eu.auth0.com',
         responseType: 'token id_token',
-        redirectUri: 'http://localhost:3000/home',
+        redirectUri: this.config.getEndpoint() + '/home',
         scope: 'openid userProfile email ',
         redirect: false
     });
 
     constructor(public router: Router,
                 public http: HttpClient,
-                private profile_service: ProfileService) {}
+                private profile_service: ProfileService,
+                private config: CONFIG
+    ) {}
 
     public login(): void {
         this.auth0.authorize({
