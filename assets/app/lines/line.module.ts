@@ -18,13 +18,15 @@ import { RegisterRideComponent } from "./register-ride.component";
 import { MapContentComponent } from "./map-content";
 import { LineService } from "./line.service";
 import { LineHistoryComponent } from "./line-history.component";
+import { RegisterLineComponent } from "./register-line.component";
 
 
 @NgModule({
     declarations: [
         RegisterRideComponent,
         MapContentComponent,
-        LineHistoryComponent
+        LineHistoryComponent,
+        RegisterLineComponent
     ],
     imports: [
         CommonModule,
@@ -41,11 +43,11 @@ import { LineHistoryComponent } from "./line-history.component";
         MatInputModule
     ],
     exports: [
-        LineHistoryComponent
+        LineHistoryComponent, RegisterLineComponent
     ],
     providers: [LineService]
 })
 
-export class RideCenterModule {
+export class LineModule {
 
 }

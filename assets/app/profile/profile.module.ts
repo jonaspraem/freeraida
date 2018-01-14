@@ -9,7 +9,7 @@ import { ProfileService } from "./profile.service";
 import { ProfileComponent } from "./profile.component";
 import { profileRouting } from "./profile.routing";
 import { PostModule } from "../posts/post.module";
-import { RideCenterModule } from "../lines/ride-center.module";
+import { LineModule } from "../lines/line.module";
 import { SettingsComponent } from "./settings/settings.component";
 
 @NgModule({
@@ -24,7 +24,7 @@ import { SettingsComponent } from "./settings/settings.component";
         // profileRouting,
         PostModule,
         MatCardModule,
-        RideCenterModule,
+        LineModule,
         MatFormFieldModule,
         MatButtonModule,
     ],

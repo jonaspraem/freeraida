@@ -1,0 +1,17 @@
+agm-map {
+    height: inherit;
+}
+
+.map-container {
+    height: 700px;
+    margin: 0 15px;
+    width: 80%;
+    padding: 0;
+    float: left;
+}
+
+.container {
+    margin: 20px;
+    height: 100%;
+    width: 100%;
+}

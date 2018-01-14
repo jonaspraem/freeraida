@@ -1,0 +1,38 @@
+<div class="container">
+    <!-- TODO: Add polylines and heightmap -->
+    <mat-card class="map-container">
+        <agm-map [mapTypeId]="mapType"
+                 [latitude]="lat"
+                 [longitude]="lng"
+                 [disableDefaultUI]="false"
+                 [backgroundColor]="'#6495ED'"
+                 (mapClick)="mapClicked($event)"
+        >
+            <agm-marker
+                    *ngFor="let m of markers;let i = index"
+                    (markerClick)="clickedMarker(m, i)"
+                    [latitude]="m.lat"
+                    [longitude]="m.lng"
+                    [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd(m, $event)"
+            >
+                <agm-info-window>
+                    <strong>{{m.name}}</strong>
+                    <br>
+                    <a class="delete" (click)="removeMarker(m)">delete</a>
+                </agm-info-window>
+            </agm-marker>
+
+            <agm-polyline *ngFor="let item of polyCords"
+                          [editable]="false"
+                          strokeColor="#6495ED"
+                          strokeWeight="5"
+                          [geodesic]="true"
+            >
+                <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
+                <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
+            </agm-polyline>
+
+        </agm-map>
+    </mat-card>
+</div>

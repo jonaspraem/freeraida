@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 import { webappRouting } from "./webapp.routing";
 import { ProfileModule } from "./profile/profile.module";
-import { RideCenterModule } from "./lines/ride-center.module";
+import { LineModule } from "./lines/line.module";
 import { SidenavComponent } from "./sidenav/sidenav.component";
 import { HeaderComponent } from "./header/header.component";
 import {
@@ -30,7 +30,7 @@ import { TrackPageModule } from "./tracker/track-page.module";
         ReactiveFormsModule,
         webappRouting,
         ProfileModule,
-        RideCenterModule,
+        LineModule,
         TrackPageModule,
         PostModule,
         // Material design modules:
