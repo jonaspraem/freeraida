@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/Rx';
 import { ErrorService } from "../errors/error.service";
+
 var LineService = /** @class */ (function () {
     function LineService(http, errorService) {
         this.http = http;
@@ -25,7 +26,7 @@ var LineService = /** @class */ (function () {
         //                 result.markers[i].lng
         //             ));
         //         }
-        //         const line = new LineTransferModel(
+        //         const line = new Line(
         //             result.lineName,
         //             markers,
         //             result.danger_level,
@@ -45,7 +46,7 @@ var LineService = /** @class */ (function () {
         // return this.http.get('http://localhost:3000/lineservice/'+username)
         //     .map((response: Response) => {
         //         const lines = response.json().obj;
-        //         let transformedLines: LineTransferModel[] = [];
+        //         let transformedLines: Line[] = [];
         //         for (let line of lines) {
         //             let route: MapMarker[] = [];
         //             for (let marker of line.markers) {
@@ -55,7 +56,7 @@ var LineService = /** @class */ (function () {
         //                    marker.lng
         //                 ));
         //             }
-        //             transformedLines.push(new LineTransferModel(
+        //             transformedLines.push(new Line(
         //                 line.lineName,
         //                 route,
         //                 line.danger_level,

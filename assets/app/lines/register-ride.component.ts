@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { MapMarker } from "./mapmarker.model";
+import { MapMarker } from "../objects/models/mapmarker.model";
 import { PolylineCoords } from "./path.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { LineTransferModel } from "./lineTransfer.model";
+import { Line } from "../objects/models/line.model";
 import { LineService } from "./line.service";
 import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
 
@@ -100,7 +100,7 @@ export class RegisterRideComponent implements OnInit{
     }
 
     onSubmit() {
-        const lineTransfer = new LineTransferModel(this.lineForm.value.lineName, this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
+        const lineTransfer = new Line(this.lineForm.value.lineName, new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
         // check for data
         if (lineTransfer.lineName &&
             lineTransfer.markers.length > 1 &&
@@ -109,10 +109,10 @@ export class RegisterRideComponent implements OnInit{
             lineTransfer.rock_level &&
             lineTransfer.cliff_level) {
             // submit
-            // this.lineService.addLine(lineTransfer).subscribe(
-            //     (line: LineTransferModel) => {
-            //         console.log(line);
-            //     });
+            this.lineService.addLine(lineTransfer).subscribe(
+                (line: Line) => {
+                    console.log(line);
+                });
         }
         // TODO: make better error message
         else {

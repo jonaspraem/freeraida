@@ -32,7 +32,7 @@ var ProfileComponent = /** @class */ (function () {
             });
             // this.lineService.getLines(user_address.toString())
             //     .subscribe(
-            //         (lines: LineTransferModel[]) => {
+            //         (lines: Line[]) => {
             //             this.lines = lines;
             //         }
             //     );

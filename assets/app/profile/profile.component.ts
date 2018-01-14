@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from "./profile.service";
 import { Profile } from "../objects/models/profile.model";
 import { LineService } from "../lines/line.service";
-import { LineTransferModel } from "../lines/lineTransfer.model";
+import { Line } from "../objects/models/line.model";
 import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
 
@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit{
     isOwnProfile: boolean;
     self: Profile;
     profile: Profile;
-    lines: LineTransferModel[];
+    lines: Line[];
 
     constructor(private profile_service: ProfileService,
                 private lineService: LineService,
@@ -45,12 +45,12 @@ export class ProfileComponent implements OnInit{
                             });
                     }
                 );
-            // this.lineService.getLines(user_address.toString())
-            //     .subscribe(
-            //         (lines: LineTransferModel[]) => {
-            //             this.lines = lines;
-            //         }
-            //     );
+            this.lineService.getLines(user_address.toString())
+                .subscribe(
+                    data => {
+                        this.lines = Line.fabricateList(data.obj);
+                    }
+                );
         });
     }
 

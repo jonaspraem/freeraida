@@ -1,9 +1,9 @@
 import { Component, Input } from "@angular/core";
-import { LineTransferModel } from "./lineTransfer.model";
+import { Line } from "../objects/models/line.model";
 import { PolylineCoords } from "./path.model";
 import { Profile } from "../objects/models/profile.model";
 import { LineService } from "./line.service";
-import { MapMarker } from "./mapmarker.model";
+import { MapMarker } from "../objects/models/mapmarker.model";
 
 @Component({
     selector: 'app-user-line-history',
@@ -12,7 +12,7 @@ import { MapMarker } from "./mapmarker.model";
 })
 
 export class LineHistoryComponent {
-    @Input() lines: LineTransferModel[];
+    @Input() lines: Line[];
 
     constructor(private lineService: LineService) {}
 
@@ -20,7 +20,7 @@ export class LineHistoryComponent {
     //     if (localStorage.getItem('username')) {
     //         this.lineService.getLines(localStorage.getItem('username'))
     //             .subscribe(
-    //                 (lines: LineTransferModel[]) => {
+    //                 (lines: Line[]) => {
     //                     this.lines = lines;
     //                     console.log('component info: '+JSON.stringify(this.lines));
     //                 }

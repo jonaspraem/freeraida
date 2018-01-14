@@ -33,10 +33,10 @@ export class Post {
             );
     }
 
-    public static fabricateList(object: PostObject[]) : Post[] {
+    public static fabricateList(objects: PostObject[]) : Post[] {
         let posts: Post[] = [];
-        for (let i = 0; i < object.length; i++) {
-            posts.push(this.fabricate(object[i]));
+        for (let i = 0; i < objects.length; i++) {
+            posts.push(this.fabricate(objects[i]));
         }
         return posts;
     }

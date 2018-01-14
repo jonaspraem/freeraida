@@ -1,5 +1,5 @@
 import { Post } from "./post.model";
-import { LineTransferModel } from "../../lines/lineTransfer.model";
+import { Line } from "./line.model";
 import { ProfileObject } from "../interfaces/profile-object.interface";
 
 export class Profile {
@@ -15,7 +15,7 @@ export class Profile {
     followers? : string[];
     following? : string[];
     posts?: Post[];
-    lines?: LineTransferModel[];
+    lines?: Line[];
 
     constructor(display_name: string,
                 user_address?: string,
@@ -27,7 +27,7 @@ export class Profile {
                 social_instagram?: string,
                 followers?: string[],
                 following?: string[],
-                lines?: LineTransferModel[],
+                lines?: Line[],
                 posts?: Post[],
                 img?: Buffer)
     {

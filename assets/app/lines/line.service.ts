@@ -3,17 +3,32 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs/Rx';
 
 import { ErrorService } from "../errors/error.service";
-import { LineTransferModel } from "./lineTransfer.model";
+import { Line } from "../objects/models/line.model";
 import { Observable } from "rxjs/Observable";
-import { MapMarker } from "./mapmarker.model";
+import { MapMarker } from "../objects/models/mapmarker.model";
+import { CONFIG } from "../dictionary/config";
+
+import { LineObject } from "../objects/interfaces/line-object.interface";
+
+interface LineListResponse {
+    message: string;
+    obj: LineObject[];
+}
 
 @Injectable()
 
 export class LineService {
 
-    constructor(private http: HttpClient, private errorService: ErrorService) {}
+    constructor(private http: HttpClient,
+                private errorService: ErrorService,
+                private config: CONFIG
+    ) {}
 
-    addLine(line: LineTransferModel) {
+    addLine(line: Line) {
+        const body = JSON.stringify(line);
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('id_token');
+        return this.http.post(this.config.getEndpoint() + '/lineservice/newline/', body, {headers: headers, params: new HttpParams().set('token', token)})
         // const body = JSON.stringify(line);
         // const headers = new Headers({'Content-Type': 'application/json'});
         // const token = localStorage.getItem('id_token')
@@ -31,7 +46,7 @@ export class LineService {
         //                 result.markers[i].lng
         //             ));
         //         }
-        //         const line = new LineTransferModel(
+        //         const line = new Line(
         //             result.lineName,
         //             markers,
         //             result.danger_level,
@@ -49,10 +64,12 @@ export class LineService {
     }
 
     getLines(username: string) {
+        const token = localStorage.getItem('id_token');
+        return this.http.get<LineListResponse>(this.config.getEndpoint() + '/lineservice/' + username, {params: new HttpParams().set('token', token)});
         // return this.http.get('http://localhost:3000/lineservice/'+username)
         //     .map((response: Response) => {
         //         const lines = response.json().obj;
-        //         let transformedLines: LineTransferModel[] = [];
+        //         let transformedLines: Line[] = [];
         //         for (let line of lines) {
         //             let route: MapMarker[] = [];
         //             for (let marker of line.markers) {
@@ -62,7 +79,7 @@ export class LineService {
         //                    marker.lng
         //                 ));
         //             }
-        //             transformedLines.push(new LineTransferModel(
+        //             transformedLines.push(new Line(
         //                 line.lineName,
         //                 route,
         //                 line.danger_level,

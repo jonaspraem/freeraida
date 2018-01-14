@@ -87,7 +87,7 @@ var RegisterRideComponent = /** @class */ (function () {
             lineTransfer.cliff_level) {
             // submit
             // this.lineService.addLine(lineTransfer).subscribe(
-            //     (line: LineTransferModel) => {
+            //     (line: Line) => {
             //         console.log(line);
             //     });
         }
