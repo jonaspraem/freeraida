@@ -6,17 +6,19 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { TokenTransferModel } from "./token.model";
 import { ProfileService } from "../profile/profile.service";
 import { Profile } from "../objects/models/profile.model";
+import { CONFIG } from "../dictionary/config";
 var AuthService = /** @class */ (function () {
-    function AuthService(router, http, profile_service) {
+    function AuthService(router, http, profile_service, config) {
         this.router = router;
         this.http = http;
         this.profile_service = profile_service;
+        this.config = config;
         this.isWelcome = false;
         this.auth0 = new auth0.WebAuth({
             clientID: 'RGHlxY9aYwq0DdMQEjXfz2XD7Z26KezJ',
             domain: 'freeraida.eu.auth0.com',
             responseType: 'token id_token',
-            redirectUri: 'http://localhost:3000/home',
+            redirectUri: this.config.getEndpoint() + '/home',
             scope: 'openid userProfile email ',
             redirect: false
         });
@@ -98,6 +100,7 @@ var AuthService = /** @class */ (function () {
         { type: Router, },
         { type: HttpClient, },
         { type: ProfileService, },
+        { type: CONFIG, },
     ]; };
     return AuthService;
 }());

@@ -15,6 +15,7 @@ import { AuthGuardService } from "./auth/auth-guard.service";
 import { WebAppModule } from "./webapp.module";
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
+import { CONFIG } from "./dictionary/config";
 
 @NgModule({
     declarations: [
@@ -30,7 +31,7 @@ import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
         WebAppModule,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [AuthGuardService, AuthService, ErrorService, FLAG_DICTIONARY, COLOR_DICTIONARY],
+    providers: [AuthGuardService, AuthService, ErrorService, CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

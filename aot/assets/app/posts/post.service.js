@@ -2,10 +2,12 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from "@angular/core";
 import 'rxjs/Rx';
 import { ErrorService } from "../errors/error.service";
+import { CONFIG } from "../dictionary/config";
 var PostService = /** @class */ (function () {
-    function PostService(http, errorService) {
+    function PostService(http, errorService, config) {
         this.http = http;
         this.errorService = errorService;
+        this.config = config;
         this.posts = [];
         this.postIsEdit = new EventEmitter();
     }
@@ -13,26 +15,26 @@ var PostService = /** @class */ (function () {
         var body = JSON.stringify(post);
         var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         var token = localStorage.getItem('id_token');
-        return this.http.post('http://localhost:3000/post', body, { headers: headers, params: new HttpParams().set('token', token) });
+        return this.http.post(this.config.getEndpoint() + '/post', body, { headers: headers, params: new HttpParams().set('token', token) });
     };
     PostService.prototype.getPosts = function (username) {
-        return this.http.get('http://localhost:3000/post/profile-feed/' + username);
+        return this.http.get(this.config.getEndpoint() + '/post/profile-feed/' + username);
     };
     PostService.prototype.getFeed = function () {
         var token = localStorage.getItem('id_token');
-        return this.http.get('http://localhost:3000/post/feed', { params: new HttpParams().set('token', token) });
+        return this.http.get(this.config.getEndpoint() + '/post/feed', { params: new HttpParams().set('token', token) });
     };
     PostService.prototype.gnarlyPost = function (post_id) {
         var body = '';
         var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         var token = localStorage.getItem('id_token');
-        return this.http.post('http://localhost:3000/post/gnarly/' + post_id, body, { headers: headers, params: new HttpParams().set('token', token) });
+        return this.http.post(this.config.getEndpoint() + '/post/gnarly/' + post_id, body, { headers: headers, params: new HttpParams().set('token', token) });
     };
     PostService.prototype.unGnarlyPost = function (post_id) {
         var body = '';
         var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         var token = localStorage.getItem('id_token');
-        return this.http.post('http://localhost:3000/post/un-gnarly/' + post_id, body, { headers: headers, params: new HttpParams().set('token', token) });
+        return this.http.post(this.config.getEndpoint() + '/post/un-gnarly/' + post_id, body, { headers: headers, params: new HttpParams().set('token', token) });
     };
     PostService.decorators = [
         { type: Injectable },
@@ -69,6 +71,7 @@ var PostService = /** @class */ (function () {
     PostService.ctorParameters = function () { return [
         { type: HttpClient, },
         { type: ErrorService, },
+        { type: CONFIG, },
     ]; };
     return PostService;
 }());
