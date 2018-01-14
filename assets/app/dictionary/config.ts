@@ -6,6 +6,7 @@ export class CONFIG {
     private static ENDPOINTS = ['http://localhost:3000', 'http://www.freeraida.com'];
 
     getEndpoint() {
-        return CONFIG.ENDPOINTS[1];
+        if (isDevMode()) return CONFIG.ENDPOINTS[0];
+        else return CONFIG.ENDPOINTS[1];
     }
 }

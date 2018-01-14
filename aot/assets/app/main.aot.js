@@ -1,8 +1,10 @@
-import './polyfills';
-import 'core-js/es7/reflect';
-import { platformBrowser } from '@angular/platform-browser';
-import { AppModuleNgFactory } from './app.module.ngfactory';
+import './polyfills.ts';
+import 'zone.js';
+import 'reflect-metadata';
+import 'hammerjs';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from "@angular/core";
+import { AppModule } from './app.module';
 enableProdMode();
-platformBrowser().bootstrapModuleFactory(AppModuleNgFactory);
+platformBrowserDynamic().bootstrapModule(AppModule);
 //# sourceMappingURL=D:/Projects/freeraida/assets/app/main.aot.js.map
