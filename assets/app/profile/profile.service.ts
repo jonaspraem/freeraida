@@ -53,7 +53,7 @@ export class ProfileService {
         const body = JSON.stringify(profile);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
-        return this.http.patch(this.config.getEndpoint() + '/profile/edit-profile'+token, body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.patch(this.config.getEndpoint() + '/profile/edit-profile', body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     followUser(user_address: string) {
