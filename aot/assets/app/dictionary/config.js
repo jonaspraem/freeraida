@@ -1,13 +1,9 @@
-import { Injectable, isDevMode } from "@angular/core";
+import { Injectable } from "@angular/core";
 var CONFIG = /** @class */ (function () {
     function CONFIG() {
     }
     CONFIG.prototype.getEndpoint = function () {
-        if (isDevMode()) {
-            return CONFIG.ENDPOINTS[0];
-        }
-        else
-            return CONFIG.ENDPOINTS[1];
+        return CONFIG.ENDPOINTS[1];
     };
     CONFIG.ENDPOINTS = ['http://localhost:3000', 'http://www.freeraida.com'];
     CONFIG.decorators = [
