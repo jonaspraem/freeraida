@@ -44,6 +44,9 @@ export class TrackPageComponent {
 
     startTracking() {
         this.isTracking = true;
+        this.duration = '0:00';
+        this.ticks = 0;
+        this.tracked_line = new TrackedLine([]);
 
         let ticker = TimerObservable.create(5000, 5000);
         this.subscription_ticker = ticker.subscribe((t) => this.onTimeOut(t));
