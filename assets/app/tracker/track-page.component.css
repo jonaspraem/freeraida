@@ -12,6 +12,14 @@ button {
     font-size: larger;
 }
 
+p {
+    display: inline;
+}
+
+.information {
+    margin: 10px;
+}
+
 .signature-card {
     z-index: 2;
     width: 500px;

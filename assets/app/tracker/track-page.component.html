@@ -11,5 +11,13 @@
             <button type="button" class="btn btn-primary" (click)="startTracking()">START TRACKING</button>
         </ng-template>
 
+        <div class="information">
+            <label for="duration">Duration</label>
+            <p id="duration">{{duration}}</p>
+        </div>
+        <div class="information">
+            <label for="track_results">Tracked locations</label>
+            <p id="track_results">{{tracked_line.locations.length}}</p>
+        </div>
     </mat-card>
 </header>
