@@ -1,20 +1,15 @@
-<div class="container">
-    <div id="left">
-        <mat-card class="track-card-left">
-            <div class="card-header-div"><h2>Ascent</h2></div>
-            <img [src]="ascent">
-        </mat-card>
-    </div>
-    <div id="middle">
-        <mat-card class="track-card-middle">
-            <div class="card-header-div"><h2>Descent</h2></div>
-            <img [src]="descent">
-        </mat-card>
-    </div>
-    <div id="right">
-        <mat-card class="track-card-right">
-            <div class="card-header-div"><h2>Tour</h2></div>
-            <img [src]="tour">
-        </mat-card>
-    </div>
-</div>
+<img class="background" src="{{descent}}">
+<header>
+    <mat-card class="signature-card">
+        <img class="header-img" src="{{track_header}}">
+        <hr>
+        <div *ngIf="isTracking; then tracking_content else normal_content"></div>
+        <ng-template #tracking_content>
+            <button type="button" class="btn btn-danger" (click)="stopTracking()">STOP</button>
+        </ng-template>
+        <ng-template #normal_content>
+            <button type="button" class="btn btn-primary" (click)="startTracking()">START TRACKING</button>
+        </ng-template>
+
+    </mat-card>
+</header>

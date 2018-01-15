@@ -14,10 +14,12 @@ export class COLOR_DICTIONARY {
         COLOR_DICTIONARY.COLOR_MAP.set('black', '#000000');
         COLOR_DICTIONARY.COLOR_MAP.set('white', '#FFFFFF');
         COLOR_DICTIONARY.COLOR_MAP.set('secondary_light', '#C1D4F7');
+        COLOR_DICTIONARY.COLOR_MAP.set('sky-blue', '#0275D8');
         COLOR_DICTIONARY.COLOR_MAP.set('ascent', '#448BDD');
         COLOR_DICTIONARY.COLOR_MAP.set('descent', '#560000');
         COLOR_DICTIONARY.COLOR_MAP.set('tour', '#E1BC21');
         COLOR_DICTIONARY.COLOR_MAP.set('address', '#42BCF1');
+        // UTILITIES
         COLOR_DICTIONARY.COLOR_MAP.set('available', '#12E112');
         COLOR_DICTIONARY.COLOR_MAP.set('not-available', '#F60C00');
         // DANGER LEVELS
