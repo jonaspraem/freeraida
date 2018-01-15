@@ -1,5 +1,6 @@
 body {
     color: white;
+    position: relative;
 }
 
 h1 {
@@ -7,6 +8,7 @@ h1 {
     text-shadow: 1px 0 #6495ED, 0 1px #6495ED, 1px 0 #6495ED, 0 -1px #6495ED;
     margin: 0;
     vertical-align: center;
+    z-index: 5;
 }
 
 h3 {
