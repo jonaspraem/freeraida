@@ -16,6 +16,7 @@ var schema = new Schema({
     social_instagram: {type: String},
     posts: [{type: Schema.Types.ObjectId, ref: 'Post'}],
     lines: [{type: Schema.Types.ObjectId, ref: 'Line'}],
+    tracked_lines: [{type: Schema.Types.ObjectId, ref: 'TrackedLine'}],
     following: [{type: String}],
     followers: [{type: String}],
     img: {data: Buffer, contentType: String},

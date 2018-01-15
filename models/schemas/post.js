@@ -8,7 +8,7 @@ var schema = new Schema({
     user_address: {type: String},
     display_name: {type: String},
     timestamp: {type: Date},
-    gnarly: [{type: String}],
+    gnarly: [{type: String}]
 });
 
 schema.post('remove', function(post) {

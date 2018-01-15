@@ -16,7 +16,7 @@ import {
 import { PostModule } from "./posts/post.module";
 import { WebAppComponent } from "./webapp.component";
 import { UserOptionsDropdownComponent } from "./header/user-options/user-options-dropdown.component";
-import { TrackPageModule } from "./tracker/track-page.module";
+import { TrackPageModule } from "./tracker/track.module";
 
 @NgModule({
     declarations: [

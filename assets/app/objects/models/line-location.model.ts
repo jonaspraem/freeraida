@@ -1,10 +1,10 @@
 export class LineLocation {
-    time_from_start: number;
+    time_at: number;
     lat: number;
     lng: number;
 
-    constructor(time_from_start: number, lat: number, lng: number) {
-        this.time_from_start = time_from_start;
+    constructor(time_at: number, lat: number, lng: number) {
+        this.time_at = time_at;
         this.lat = lat;
         this.lng = lng;
     }

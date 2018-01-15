@@ -5,6 +5,8 @@ var request = require('request');
 var Profile = require('../models/schemas/profile');
 var Marker = require('../models/schemas/marker');
 var Line = require('../models/schemas/line');
+var TrackedLine = require('../models/schemas/tracked-line');
+var Location = require('../models/schemas/location');
 
 // TODO
 function sortList(list, callback) {
@@ -70,6 +72,18 @@ function saveMarkerList(marker_list, callback) {
             counter++;
             console.log('marker save: '+result);
             if (counter == marker_list.length) callback(true);
+        });
+    }
+}
+
+function saveLocationList(location_list, callback) {
+    var counter = 0;
+    console.log('location list to save: '+location_list);
+    for (var i = 0; i < location_list.length; i++) {
+        location_list[i].save(function (err, result) {
+            counter++;
+            console.log('marker save: '+result);
+            if (counter == location_list.length) callback(true);
         });
     }
 }
@@ -169,6 +183,77 @@ router.post('/newline/', function(req, res, next) {
                         }
                         user_profile.lines.push(result);
                         saveMarkerList(markerlist, function(save_success) {
+                            if (!save_success) {
+                                return res.status(500).json({
+                                    title: 'An error occured',
+                                    error: err
+                                });
+                            }
+                            user_profile.save(function (err, profile_result) {
+                                if (err) {
+                                    return res.status(500).json({
+                                        title: 'An error occured',
+                                        error: err
+                                    });
+                                }
+                                console.log('EVERYTHING SAVED');
+                                return res.status(201).json({
+                                    message: 'Line saved',
+                                    obj: result
+                                });
+                            });
+                        });
+                    });
+                });
+            }
+        }
+    );
+});
+
+router.post('/new-tracked-line/', function(req, res, next) {
+    console.log('tracked line');
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        { json: { id_token: req.query.token } },
+        function (error, response, body) {
+            if (!error) {
+                Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
+                    console.log('PROFILE FOUND');
+                    if (profile_err) {
+                        return res.status(500).json({
+                            title: 'Error finding user profile',
+                            error: profile_err
+                        });
+                    }
+                    if (!user_profile) {
+                        return res.status(500).json({
+                            title: 'Error finding user profile',
+                            error: {message: 'An error occurred regarding profile'}
+                        });
+                    }
+                    var locations = [];
+                    for (var i = 0; i<req.body.locations.length; i++) {
+                        var location = new Location({
+                            time_at: req.body.locations[i].time_at,
+                            lat: req.body.locations[i].lat,
+                            lng: req.body.locations[i].lng
+                        });
+                        locations.push(location);
+                    }
+
+                    var tracked_line = new TrackedLine({
+                        locations: locations
+                    });
+
+                    tracked_line.save(function (err, result) {
+                        if (err) {
+                            return res.status(500).json({
+                                title: 'Couldn\'t save line',
+                                error: err
+                            });
+                        }
+                        user_profile.tracked_lines.push(result);
+                        saveLocationList(locations, function(save_success) {
                             if (!save_success) {
                                 return res.status(500).json({
                                     title: 'An error occured',

@@ -1,6 +1,6 @@
 import { LineLocation } from "./line-location.model";
 
-export class UnregisteredLine {
+export class TrackedLine {
     locations: LineLocation[];
 
     constructor(locations: LineLocation[]) {

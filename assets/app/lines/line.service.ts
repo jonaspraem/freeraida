@@ -4,7 +4,6 @@ import 'rxjs/Rx';
 
 import { ErrorService } from "../errors/error.service";
 import { Line } from "../objects/models/line.model";
-import { Observable } from "rxjs/Observable";
 import { MapMarker } from "../objects/models/mapmarker.model";
 import { CONFIG } from "../dictionary/config";
 

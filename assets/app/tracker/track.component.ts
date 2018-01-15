@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
-import { UnregisteredLine } from "../objects/models/unregistered-line.model";
+import { TrackedLine } from "../objects/models/tracked-line.model";
 import { LineLocation } from "../objects/models/line-location.model";
 import { Observable } from "rxjs/Observable";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { Subscription } from "rxjs/Subscription";
+import { TrackService } from "./track.service";
 
 // Images
 const ascent = require('../../images/track-interface/mountaineering.jpg');
@@ -14,25 +15,32 @@ const track_header = require('../../images/track-interface/trackicon.png');
 
 @Component({
     selector: 'app-track-page',
-    templateUrl: './track-page.component.html',
-    styleUrls: ['./track-page.component.css']
+    templateUrl: './track.component.html',
+    styleUrls: ['./track.component.css']
 })
 
 export class TrackPageComponent {
+    // Images
     public ascent = ascent;
     public descent = descent;
     public tour = tour;
     public track_header = track_header;
 
+    // Information
+    public isTracking;
+    public duration: string = '0:00';
+    public tracked_line: TrackedLine = new TrackedLine([]);
+
+    // Time Calculation
     private location = {};
     private subscription_ticker: Subscription;
     private subscription_timer: Subscription;
-    private isTracking;
-    private tracked_line: UnregisteredLine = new UnregisteredLine([]);
     private ticks = 0;
-    private duration: string = '0:00';
 
-    constructor(public color_dictionary: COLOR_DICTIONARY) {}
+
+    constructor(public color_dictionary: COLOR_DICTIONARY,
+                private track_service: TrackService
+    ) {}
 
     startTracking() {
         this.isTracking = true;
@@ -51,6 +59,7 @@ export class TrackPageComponent {
         this.isTracking = false;
         this.subscription_ticker.unsubscribe();
         this.subscription_timer.unsubscribe();
+        this.track_service.postTrackedLine(this.tracked_line).subscribe(d => console.log(d));
     }
 
     onTimeOut(data) {

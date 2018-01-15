@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { LiveFeedComponent } from "./posts/feed/live-feed.component";
 import { RegisterRideComponent } from "./lines/register-ride.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { TrackPageComponent } from "./tracker/track-page.component";
+import { TrackPageComponent } from "./tracker/track.component";
 import { SettingsComponent } from "./profile/settings/settings.component";
 import { RegisterLineComponent } from "./lines/register-line.component";
 

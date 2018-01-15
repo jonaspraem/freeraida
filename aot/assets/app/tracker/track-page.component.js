@@ -12,7 +12,7 @@ var TrackPageComponent = /** @class */ (function () {
     TrackPageComponent.decorators = [
         { type: Component, args: [{
                     selector: 'app-track-page',
-                    templateUrl: './track-page.component.html',
+                    templateUrl: './track.component.html',
                     styleUrls: ['./track-page.component.css']
                 },] },
     ];
