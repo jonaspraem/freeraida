@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-var Profile = require('../models/profile');
-var Marker = require('../models/marker');
-var Line = require('../models/line');
+var Profile = require('../models/schemas/profile');
+var Marker = require('../models/schemas/marker');
+var Line = require('../models/schemas/line');
 
 // TODO
 function sortList(list, callback) {

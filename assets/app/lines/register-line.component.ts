@@ -93,6 +93,8 @@ export class RegisterLineComponent implements OnInit {
         };
         this.markers.push(marker);
         this.updatePolyCords();
+        this.lineService.getHeightMap(this.markers).subscribe(data => console.log(data));
+        this.lineService.getDistance(this.markers).subscribe(data => console.log(data));
     }
 
     clickedMarker(marker:MapMarker, index:number) {

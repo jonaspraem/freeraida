@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-var Post = require('../models/post');
-var Profile = require('../models/profile');
+var Post = require('../models/schemas/post');
+var Profile = require('../models/schemas/profile');
 
 function getUserPosts(username, callback) {
     Profile.findOne({user_address: username}, function (err, user_profile) {

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-var Profile = require('../models/profile');
+var Profile = require('../models/schemas/profile');
 
 // Get user profile
 router.get('/user/:address', function (req, res, next) {
