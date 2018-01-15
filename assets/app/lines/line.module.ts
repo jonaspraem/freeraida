@@ -4,6 +4,10 @@ import { CommonModule } from "@angular/common";
 import { AgmCoreModule } from "@agm/core";
 import { FormsModule }   from '@angular/forms';
 
+import { NvD3Module } from 'ng2-nvd3';
+import 'd3';
+import 'nvd3';
+
 // Material design
 import {
     MatCardModule,
@@ -35,6 +39,7 @@ import { RegisterLineComponent } from "./register-line.component";
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM'
         }),
+        NvD3Module,
         MatCardModule,
         MatButtonModule,
         MatButtonToggleModule,

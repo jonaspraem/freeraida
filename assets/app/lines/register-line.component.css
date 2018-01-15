@@ -2,15 +2,19 @@ agm-map {
     height: inherit;
 }
 
+.mat-card {
+    padding: 0 !important;
+}
+
 .map-container {
+    vertical-align: middle;
+    margin: auto;
+    width: 65%;
     height: 400px;
-    width: 50%;
     padding: 0;
-    display: block;
 }
 
 .container {
-    margin: 20px;
     height: 100%;
     width: 100%;
 }
@@ -32,22 +36,34 @@ agm-map {
 
 .form-control-lg {
     display: inline;
-    width: 60%;
+    width: 80%;
     float: left;
 }
 
 .line-type {
+    margin: auto;
+    width: 50%;
     height: inherit;
     margin-bottom: 50px;
 }
 
 .marker-list {
+    margin: auto;
+    width: 50%;
     display: block;
-    width: 30%;
+    min-height: 250px;
 }
 
 .marker-list-p {
     display: inline;
     float: right;
     font-size: smaller;
+}
+
+.line-profile {
+    height: inherit;
+    margin: auto;
+    padding: 0;
+    display: block;
+    width: 80%;
 }

@@ -47,6 +47,7 @@
     "mongoose": "^4.13.9",
     "mongoose-unique-validator": "^1.0.6",
     "morgan": "~1.9.0",
+    "ng2-nvd3": "^2.0.0",
     "portfinder": "^1.0.13",
     "reflect-metadata": "^0.1.10",
     "rxjs": "^5.5.6",
