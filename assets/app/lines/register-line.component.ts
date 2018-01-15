@@ -1,18 +1,25 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { MapMarker } from "../objects/models/mapmarker.model";
 import { PolylineCoords } from "./path.model";
 import { LineService } from "./line.service";
 import { Line } from "../objects/models/line.model";
+import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-register-line',
+    providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
     templateUrl: './register-line.component.html',
     styleUrls: ['./register-line.component.css']
 })
 
 export class RegisterLineComponent implements OnInit {
+    // User Inputs
+    selectedLineType: string;
+
+    location = {};
     lat: number = 51.678418;
     lng: number = 7.809007;
     mapType: string;
@@ -27,7 +34,14 @@ export class RegisterLineComponent implements OnInit {
     rock_level: string;
     cliff_level: string;
 
-    constructor(private cdRef: ChangeDetectorRef, private lineService: LineService) {}
+
+    constructor(public color_dictionary: COLOR_DICTIONARY,
+                private cdRef: ChangeDetectorRef,
+                private lineService: LineService,
+                location: Location
+    ) {
+        this.location = location;
+    }
 
     ngOnInit(): void {
         this.mapType = 'hybrid';
@@ -41,6 +55,21 @@ export class RegisterLineComponent implements OnInit {
             cliff_level: new FormControl(null, Validators.required),
             markers: new FormControl(null, Validators.min(2))
         });
+
+        navigator.geolocation.getCurrentPosition(position => {
+            console.log(position);
+            // in your case
+            this.location = position.coords;
+            this.lat = position.coords.latitude;
+            this.lng = position.coords.longitude;
+        });
+    }
+
+    getLineType() {
+        if (this.selectedLineType == 'Climb') return 'ascent';
+        else if (this.selectedLineType == 'Backcountry') return 'descent';
+        else if (this.selectedLineType == 'Tour') return 'tour';
+        else return 'black';
     }
 
     updatePolyCords() {

@@ -1,11 +1,22 @@
 <div class="container">
+
+    <div class="line-type">
+        <h3>Select type of line</h3>
+        <select class="form-control form-control-lg" [(ngModel)]="selectedLineType">
+            <option>Climb</option>
+            <option>Backcountry</option>
+            <option>Tour</option>
+        </select>
+        <div class="line-type-indicator" [ngStyle]="{'background-color': color_dictionary.get(getLineType())}"></div>
+    </div>
+    <hr>
     <!-- TODO: Add polylines and heightmap -->
     <mat-card class="map-container">
         <agm-map [mapTypeId]="mapType"
                  [latitude]="lat"
                  [longitude]="lng"
                  [disableDefaultUI]="false"
-                 [backgroundColor]="'#6495ED'"
+                 [backgroundColor]="color_dictionary.get(getLineType())"
                  (mapClick)="mapClicked($event)"
         >
             <agm-marker
@@ -25,8 +36,8 @@
 
             <agm-polyline *ngFor="let item of polyCords"
                           [editable]="false"
-                          strokeColor="#6495ED"
-                          strokeWeight="5"
+                          strokeColor="color_dictionary.get(getLineType())"
+                          strokeWeight="3"
                           [geodesic]="true"
             >
                 <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
@@ -35,4 +46,13 @@
 
         </agm-map>
     </mat-card>
+    <hr>
+    <div class="marker-list">
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let m of markers">
+                {{m.name}}
+                <p class="marker-list-p" [ngStyle]="{'color': color_dictionary.get(getLineType())}">{{m.lat.toFixed(2)}}, {{m.lng.toFixed(2)}}</p>
+            </li>
+        </ul>
+    </div>
 </div>
