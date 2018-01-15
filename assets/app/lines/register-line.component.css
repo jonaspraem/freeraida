@@ -2,16 +2,12 @@ agm-map {
     height: inherit;
 }
 
-.mat-card {
-    padding: 0 !important;
-}
-
 .map-container {
     vertical-align: middle;
     margin: auto;
     width: 65%;
     height: 400px;
-    padding: 0;
+    padding: 0 !important;
 }
 
 .container {
@@ -32,6 +28,7 @@ agm-map {
     display: inline;
     height: 100px;
     width: 5px;
+    border-radius: 50%;
 }
 
 .form-control-lg {
@@ -40,11 +37,22 @@ agm-map {
     float: left;
 }
 
+.form-control {
+    width: 70%;
+}
+
 .line-type {
     margin: auto;
     width: 50%;
     height: inherit;
     margin-bottom: 50px;
+}
+
+.line-information {
+    margin: auto;
+    width: 60%;
+    padding: 20px;
+    height: 400px;
 }
 
 .marker-list {
@@ -66,4 +74,15 @@ agm-map {
     padding: 0;
     display: block;
     width: 80%;
+}
+
+.circle {
+    display: inline;
+    float: right;
+    width: 25px;
+    height: 25px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    transform: translateY(-30px) translateX(-150px);
 }

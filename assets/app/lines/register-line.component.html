@@ -1,14 +1,17 @@
 <div class="container">
 
-    <div class="line-type">
+    <div>
         <h3>Select type of line</h3>
-        <select class="form-control form-control-lg" [(ngModel)]="selectedLineType">
-            <option>Climb</option>
-            <option>Backcountry</option>
-            <option>Tour</option>
-        </select>
-        <div class="line-type-indicator" [ngStyle]="{'background-color': color_dictionary.get(getLineType())}"></div>
+        <div class="line-type">
+            <select class="form-control form-control-lg" [(ngModel)]="selectedLineType">
+                <option>Climb</option>
+                <option>Backcountry</option>
+                <option>Tour</option>
+            </select>
+            <div class="line-type-indicator" [ngStyle]="{'background-color': color_dictionary.get(getLineType())}"></div>
+        </div>
     </div>
+
     <hr>
     <!-- TODO: Add polylines and heightmap -->
     <mat-card class="map-container">
@@ -47,19 +50,26 @@
         </agm-map>
     </mat-card>
     <hr>
-    <div class="marker-list">
-        <ul class="list-group">
-            <li class="list-group-item" *ngFor="let m of markers">
-                {{m.name}}
-                <p class="marker-list-p" [ngStyle]="{'color': color_dictionary.get(getLineType())}">{{m.lat.toFixed(2)}}, {{m.lng.toFixed(2)}}</p>
-            </li>
-        </ul>
+
+    <div>
+        <h4>Checkpoints</h4>
+        <div class="marker-list">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let m of markers">
+                    {{m.name}}
+                    <p class="marker-list-p" [ngStyle]="{'color': color_dictionary.get(getLineType())}">{{m.lat.toFixed(2)}}, {{m.lng.toFixed(2)}}</p>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <hr>
 
-    <div class="line-profile">
-        <nvd3 [options]="options" [data]="data"></nvd3>
+    <div>
+        <h4>Height map</h4>
+        <div class="line-profile">
+            <nvd3 [options]="options" [data]="data"></nvd3>
+        </div>
     </div>
 
     <hr>
@@ -72,5 +82,53 @@
 
     <div>
         <h4>Line Information</h4>
+        <div class="line-information">
+            <label for="name">Name of line</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="selectedLineName" placeholder="Tour de Mont Blanc">
+
+            <br>
+
+            <label for="name">Overall danger level</label>
+            <select class="form-control" id="danger" [(ngModel)]="selectedDangerLevel">
+                <option>Safe</option>
+                <option>Caution</option>
+                <option>Danger</option>
+                <option>Extreme</option>
+            </select>
+            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedDangerLevel)}"></div>
+
+            <br>
+
+            <label for="tree">Level of trees</label>
+            <select class="form-control"  id="tree" [(ngModel)]="selectedTreeLevel">
+                <option>Safe</option>
+                <option>Caution</option>
+                <option>Danger</option>
+                <option>Extreme</option>
+            </select>
+            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedTreeLevel)}"></div>
+
+            <br>
+
+            <label for="rock">Level of trees</label>
+            <select class="form-control"  id="rock" [(ngModel)]="selectedRockLevel">
+                <option>Safe</option>
+                <option>Caution</option>
+                <option>Danger</option>
+                <option>Extreme</option>
+            </select>
+            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedRockLevel)}"></div>
+
+            <br>
+
+            <label for="cliff">Level of trees</label>
+            <select class="form-control"  id="cliff" [(ngModel)]="selectedCliffLevel">
+                <option>Safe</option>
+                <option>Caution</option>
+                <option>Danger</option>
+                <option>Extreme</option>
+            </select>
+            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedCliffLevel)}"></div>
+        </div>
     </div>
 </div>
