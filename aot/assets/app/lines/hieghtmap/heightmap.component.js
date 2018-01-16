@@ -38,11 +38,12 @@ var HeightMapComponent = /** @class */ (function () {
             "trendLines": [],
             "graphs": [
                 {
-                    "balloonText": "[[title]] of [[category]]:[[value]]",
+                    "balloonText": "[[title]] of [[height]]:[[value]]",
                     "fillAlphas": 0.7,
                     "id": "AmGraph-1",
                     "lineAlpha": 0,
                     "title": "height map",
+                    "lineColor": "#560000",
                     "valueField": "height"
                 }
             ],
@@ -72,7 +73,7 @@ var HeightMapComponent = /** @class */ (function () {
         var distances = DistancePoint.getScalingDistances(this.distance_list);
         console.log(distances);
         for (var i = 0; i < distances.length; i++) {
-            data.push({ "distance": distances[i].toFixed(2).toString(), "height": this.height_map[i].elevation.toFixed(2) });
+            data.push({ "distance": distances[i].toFixed(2).toString() + " km", "height": this.height_map[i].elevation.toFixed(2) });
         }
         console.log(data);
         return data;

@@ -14,5 +14,10 @@
         </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <app-height-map [line]="line"></app-height-map>
+    <div class="left">
+        <app-height-map [line]="line"></app-height-map>
+    </div>
+    <div class="right">
+        <app-line-map [line]="line"></app-line-map>
+    </div>
 </mat-expansion-panel>

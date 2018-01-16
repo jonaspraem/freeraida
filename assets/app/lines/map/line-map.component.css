@@ -1,0 +1,15 @@
+agm-map {
+    height: 300px;
+    width: 100%;
+}
+
+.map-container {
+    padding: 0 !important;
+    height: 300px;
+    width: 100%;
+}
+
+mat-card {
+    padding: 0 !important;
+}
+
