@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from "./profile.service";
 import { Profile } from "../objects/models/profile.model";
 import { LineService } from "../lines/line.service";
+import { Line } from "../objects/models/line.model";
 import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
 var background_image = require('../../images/licensed/iStock-01.jpg');
@@ -30,12 +31,10 @@ var ProfileComponent = /** @class */ (function () {
                     _this.isOwnProfile = (_this.self.user_address == user_address);
                 });
             });
-            // this.lineService.getLines(user_address.toString())
-            //     .subscribe(
-            //         (lines: Line[]) => {
-            //             this.lines = lines;
-            //         }
-            //     );
+            _this.lineService.getLines(user_address.toString())
+                .subscribe(function (data) {
+                _this.lines = Line.fabricateList(data.obj);
+            });
         });
     };
     ProfileComponent.prototype.isFollowing = function () {

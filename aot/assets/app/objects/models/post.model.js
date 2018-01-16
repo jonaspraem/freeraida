@@ -14,10 +14,10 @@ var Post = /** @class */ (function () {
     Post.fabricate = function (object) {
         return new Post(object.content, new Date(object.timestamp), object.display_name, object.user_address, object._id, object.gnarly);
     };
-    Post.fabricateList = function (object) {
+    Post.fabricateList = function (objects) {
         var posts = [];
-        for (var i = 0; i < object.length; i++) {
-            posts.push(this.fabricate(object[i]));
+        for (var i = 0; i < objects.length; i++) {
+            posts.push(this.fabricate(objects[i]));
         }
         return posts;
     };

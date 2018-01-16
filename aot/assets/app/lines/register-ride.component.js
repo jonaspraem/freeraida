@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from "@angular/core";
 import { PolylineCoords } from "./path.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { LineTransferModel } from "./lineTransfer.model";
+import { Line } from "../objects/models/line.model";
 import { LineService } from "./line.service";
 import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
 var RegisterRideComponent = /** @class */ (function () {
@@ -77,7 +77,7 @@ var RegisterRideComponent = /** @class */ (function () {
         this.updatePolyCords();
     };
     RegisterRideComponent.prototype.onSubmit = function () {
-        var lineTransfer = new LineTransferModel(this.lineForm.value.lineName, this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
+        var lineTransfer = new Line(this.lineForm.value.lineName, new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
         // check for data
         if (lineTransfer.lineName &&
             lineTransfer.markers.length > 1 &&
@@ -86,10 +86,9 @@ var RegisterRideComponent = /** @class */ (function () {
             lineTransfer.rock_level &&
             lineTransfer.cliff_level) {
             // submit
-            // this.lineService.addLine(lineTransfer).subscribe(
-            //     (line: Line) => {
-            //         console.log(line);
-            //     });
+            this.lineService.addLine(lineTransfer).subscribe(function (line) {
+                console.log(line);
+            });
         }
         else {
             console.log('cant submit');

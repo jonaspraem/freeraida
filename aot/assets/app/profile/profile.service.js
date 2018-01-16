@@ -31,7 +31,7 @@ var ProfileService = /** @class */ (function () {
         var body = JSON.stringify(profile);
         var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         var token = localStorage.getItem('id_token');
-        return this.http.patch(this.config.getEndpoint() + '/profile/edit-profile' + token, body, { headers: headers, params: new HttpParams().set('token', token) });
+        return this.http.patch(this.config.getEndpoint() + '/profile/edit-profile', body, { headers: headers, params: new HttpParams().set('token', token) });
     };
     ProfileService.prototype.followUser = function (user_address) {
         var body = '';

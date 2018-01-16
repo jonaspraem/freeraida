@@ -5,7 +5,7 @@ import { MatButtonModule, MatCardModule, MatFormFieldModule } from "@angular/mat
 import { ProfileService } from "./profile.service";
 import { ProfileComponent } from "./profile.component";
 import { PostModule } from "../posts/post.module";
-import { RideCenterModule } from "../lines/ride-center.module";
+import { LineModule } from "../lines/line.module";
 import { SettingsComponent } from "./settings/settings.component";
 var ProfileModule = /** @class */ (function () {
     function ProfileModule() {
@@ -22,7 +22,7 @@ var ProfileModule = /** @class */ (function () {
                         FormsModule,
                         PostModule,
                         MatCardModule,
-                        RideCenterModule,
+                        LineModule,
                         MatFormFieldModule,
                         MatButtonModule,
                     ],

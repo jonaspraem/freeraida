@@ -9,7 +9,7 @@ var LineHistoryComponent = /** @class */ (function () {
     //     if (localStorage.getItem('username')) {
     //         this.lineService.getLines(localStorage.getItem('username'))
     //             .subscribe(
-    //                 (lines: LineTransferModel[]) => {
+    //                 (lines: Line[]) => {
     //                     this.lines = lines;
     //                     console.log('component info: '+JSON.stringify(this.lines));
     //                 }
@@ -20,7 +20,7 @@ var LineHistoryComponent = /** @class */ (function () {
     //     if (localStorage.getItem('username')) {
     //         this.lineService.getLines(localStorage.getItem('username'))
     //             .subscribe(
-    //                 (lines: LineTransferModel[]) => {
+    //                 (lines: Line[]) => {
     //                     this.lines = lines;
     //                     console.log('component info: '+JSON.stringify(this.lines));
     //                 }
@@ -32,7 +32,7 @@ var LineHistoryComponent = /** @class */ (function () {
     //     if (localStorage.getItem('username')) {
     //         this.lineService.getLines(localStorage.getItem('username'))
     //             .subscribe(
-    //                 (lines: LineTransferModel[]) => {
+    //                 (lines: Line[]) => {
     //                     this.lines = lines;
     //                     console.log('component info: '+JSON.stringify(this.lines));
     //                 }
