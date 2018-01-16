@@ -1,7 +1,9 @@
 import { Component, Input } from "@angular/core";
 import { Line } from "../../../objects/models/line.model";
+import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 var LineItemComponent = /** @class */ (function () {
-    function LineItemComponent() {
+    function LineItemComponent(color_dictionary) {
+        this.color_dictionary = color_dictionary;
     }
     LineItemComponent.decorators = [
         { type: Component, args: [{
@@ -11,7 +13,9 @@ var LineItemComponent = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    LineItemComponent.ctorParameters = function () { return []; };
+    LineItemComponent.ctorParameters = function () { return [
+        { type: COLOR_DICTIONARY, },
+    ]; };
     LineItemComponent.propDecorators = {
         "line": [{ type: Input },],
     };

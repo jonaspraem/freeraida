@@ -14,6 +14,10 @@ var TrackedLine = /** @class */ (function () {
     TrackedLine.fabricateList = function (objects) {
         var lines = [];
         for (var i = 0; i < objects.length; i++) {
+            for (var j = 0; j < objects[i].locations.length; j++) {
+                var locations = [];
+                locations.push(new LineLocation(objects[i].locations[j].time_at, objects[i].locations[j].lat, objects[i].locations[j].lng));
+            }
             lines.push(this.fabricate(objects[i]));
         }
         return lines;

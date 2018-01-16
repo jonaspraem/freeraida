@@ -100,7 +100,7 @@ export class RegisterRideComponent implements OnInit{
     }
 
     onSubmit() {
-        const lineTransfer = new Line(this.lineForm.value.lineName, new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
+        const lineTransfer = new Line(this.lineForm.value.lineName, '', new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
         // check for data
         if (lineTransfer.lineName &&
             lineTransfer.markers.length > 1 &&

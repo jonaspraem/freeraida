@@ -4,6 +4,6 @@
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
  */ 
-var styles = ["h5[_ngcontent-%COMP%], h4[_ngcontent-%COMP%], p[_ngcontent-%COMP%] {\r\n    display: inline;\r\n}"];
+var styles = ["h5[_ngcontent-%COMP%], h4[_ngcontent-%COMP%], p[_ngcontent-%COMP%] {\r\n    display: inline;\r\n}\r\n\r\ni[_ngcontent-%COMP%] {\r\n    transform: translateY(+5px);\r\n    margin-right: 10px;\r\n}\r\n\r\nbutton[_ngcontent-%COMP%] {\r\n    float: right;\r\n    position: relative;\r\n    display: inline-block;\r\n    margin-left: 100px;\r\n}"];
 export { styles as styles };
 //# sourceMappingURL=D:/Projects/freeraida/assets/app/rides/list-items/tracked/tracked-line.component.css.shim.ngstyle.js.map

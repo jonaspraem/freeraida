@@ -4,6 +4,6 @@
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
  */ 
-var styles = [""];
+var styles = ["mat-expansion-panel[_ngcontent-%COMP%] {\r\n    border-left: solid 5px;\r\n}\r\n\r\nh5[_ngcontent-%COMP%] {\r\n    font-weight: bold;\r\n}\r\n\r\n.attribute-indicator[_ngcontent-%COMP%] {\r\n    height: 100%;\r\n    width: 10px;\r\n    float: left;\r\n    margin-right: 10px;\r\n}\r\n\r\n#indicators[_ngcontent-%COMP%] {\r\n    margin-left: 50px;\r\n}"];
 export { styles as styles };
 //# sourceMappingURL=D:/Projects/freeraida/assets/app/rides/list-items/lines/line-item.component.css.shim.ngstyle.js.map

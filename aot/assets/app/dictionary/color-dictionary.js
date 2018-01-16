@@ -17,10 +17,10 @@ var COLOR_DICTIONARY = /** @class */ (function () {
         COLOR_DICTIONARY.COLOR_MAP.set('available', '#12E112');
         COLOR_DICTIONARY.COLOR_MAP.set('not-available', '#F60C00');
         // DANGER LEVELS
-        COLOR_DICTIONARY.COLOR_MAP.set('Safe', '#08DB72');
-        COLOR_DICTIONARY.COLOR_MAP.set('Caution', '#F6EC01');
-        COLOR_DICTIONARY.COLOR_MAP.set('Danger', '#D00202');
-        COLOR_DICTIONARY.COLOR_MAP.set('Extreme', '#F69D3A');
+        COLOR_DICTIONARY.COLOR_MAP.set('safe', '#08DB72');
+        COLOR_DICTIONARY.COLOR_MAP.set('caution', '#F6EC01');
+        COLOR_DICTIONARY.COLOR_MAP.set('danger', '#F69D3A');
+        COLOR_DICTIONARY.COLOR_MAP.set('extreme', '#D00202');
     }
     COLOR_DICTIONARY.prototype.get = function (key) {
         return COLOR_DICTIONARY.COLOR_MAP.get(key);

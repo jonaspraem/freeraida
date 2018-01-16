@@ -141,7 +141,7 @@ var RegisterLineComponent = /** @class */ (function () {
         this.updatePolyCords();
     };
     RegisterLineComponent.prototype.onSubmit = function () {
-        var lineTransfer = new Line(this.lineForm.value.lineName, new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
+        var lineTransfer = new Line(this.lineForm.value.lineName, '', new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
         // check for data
         if (lineTransfer.lineName &&
             lineTransfer.markers.length > 1 &&
