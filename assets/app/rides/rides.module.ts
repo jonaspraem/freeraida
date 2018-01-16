@@ -9,11 +9,13 @@ import { RidesService } from "./rides.service";
 import { MatExpansionModule } from '@angular/material';
 import { MatListModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
+import { LineItemComponent } from "./list-items/lines/line-item.component";
 
 @NgModule({
     declarations: [
         RidesComponent,
-        TrackedLineItemComponent
+        TrackedLineItemComponent,
+        LineItemComponent
     ],
     imports: [
         CommonModule,

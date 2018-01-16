@@ -5,4 +5,7 @@
             *ngFor="let line of unregistered_line_list"></app-tracked-line-item>
     <hr>
     <h3>Lines</h3>
+    <app-line-item
+            [line]="line"
+            *ngFor="let line of line_list"></app-line-item>
 </div>

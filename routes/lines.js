@@ -143,6 +143,38 @@ router.use('/', function(req, res, next) {
     );
 });
 
+router.get('/user-lines/', function(req, res, next) {
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        { json: { id_token: req.query.token } },
+        function (error, response, body) {
+            if (!error) {
+                Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
+                    if (profile_err) {
+                        return res.status(500).json({
+                            title: 'Error finding user profile',
+                            error: profile_err
+                        });
+                    }
+                    if (!user_profile) {
+                        return res.status(500).json({
+                            title: 'Error finding user profile',
+                            error: {message: 'An error occurred regarding profile'}
+                        });
+                    }
+                    getUserLines(user_profile, function(list) {
+                        sortList(list, function(sortedList) {
+                            return res.status(201).json({
+                                message: 'User unregistered lines received',
+                                obj: sortedList
+                            });
+                        });
+                    });
+                });
+            }
+        });
+});
+
 router.get('/unregistered-lines/', function(req, res, next) {
     console.log('made it here0');
     request.post(

@@ -20,5 +20,10 @@ export class RidesComponent implements OnInit {
             console.log(JSON.stringify(data));
             this.unregistered_line_list = TrackedLine.fabricateList(data.obj);
         });
+
+        this.rides_service.getUserLines().subscribe(data => {
+            console.log(JSON.stringify(data));
+            this.line_list = Line.fabricateList(data.obj);
+        });
     }
 }
