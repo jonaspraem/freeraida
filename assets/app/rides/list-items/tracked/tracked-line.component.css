@@ -13,3 +13,22 @@ button {
     display: inline-block;
     margin-left: 100px;
 }
+
+.left {
+    display: inline-block;
+    margin: 0;
+    width: 50%;
+}
+
+.right {
+    display: inline-block;
+    margin: 0;
+    width: 48%;
+    height: 300px;
+    float: right;
+}
+
+app-line-map-unregistered {
+    min-height: 100%;
+    min-width: 100%;
+}

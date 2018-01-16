@@ -26,4 +26,14 @@ export class RidesComponent implements OnInit {
             this.line_list = Line.fabricateList(data.obj);
         });
     }
+
+    deleteUnregistered(_id: string) {
+        console.log('event happening');
+        for (let i = 0; i < this.unregistered_line_list.length; i++) {
+            if (this.unregistered_line_list[i]._id == _id) this.unregistered_line_list.splice(i, 1);
+        }
+        this.rides_service.deleteTrackedLine(_id).subscribe(data => {
+            console.log(data);
+        });
+    }
 }

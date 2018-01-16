@@ -1,9 +1,12 @@
 <div class="container">
-    <h3>Unregistered Lines</h3>
-    <app-tracked-line-item
-            [line]="line"
-            *ngFor="let line of unregistered_line_list"></app-tracked-line-item>
-    <hr>
+    <div *ngIf="unregistered_line_list">
+        <h3>Unregistered Lines</h3>
+        <app-tracked-line-item
+                (deleteEvent)="deleteUnregistered($event)"
+                [line]="line"
+                *ngFor="let line of unregistered_line_list"></app-tracked-line-item>
+        <hr>
+    </div>
     <h3>Lines</h3>
     <app-line-item
             [line]="line"

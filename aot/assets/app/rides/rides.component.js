@@ -17,6 +17,16 @@ var RidesComponent = /** @class */ (function () {
             _this.line_list = Line.fabricateList(data.obj);
         });
     };
+    RidesComponent.prototype.deleteUnregistered = function (_id) {
+        console.log('event happening');
+        for (var i = 0; i < this.unregistered_line_list.length; i++) {
+            if (this.unregistered_line_list[i]._id == _id)
+                this.unregistered_line_list.splice(i, 1);
+        }
+        this.rides_service.deleteTrackedLine(_id).subscribe(function (data) {
+            console.log(data);
+        });
+    };
     RidesComponent.decorators = [
         { type: Component, args: [{
                     selector: 'app-rides',

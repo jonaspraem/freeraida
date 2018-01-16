@@ -9,6 +9,7 @@ import { CONFIG } from "../dictionary/config";
 import { LineObject } from "../objects/interfaces/line-object.interface";
 import { HeightMapObject } from "../objects/interfaces/height-map-object.interface";
 import { DistancePoint } from "../objects/models/distance/distance-point.model";
+import { TrackedLine } from "../objects/models/tracked-line.model";
 
 interface LineListResponse {
     message: string;
@@ -52,10 +53,22 @@ export class LineService {
         return this.http.get<HeightMapResponse>(this.config.getEndpoint() + '/line-info/height-map/'+line._id, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
+    getHeightMapUnregistered(line: TrackedLine) {
+        const token = localStorage.getItem('id_token');
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        return this.http.get<HeightMapResponse>(this.config.getEndpoint() + '/line-info/height-map-unregistered/'+line._id, {headers: headers, params: new HttpParams().set('token', token)});
+    }
+
     getDistance(line: Line) {
         const token = localStorage.getItem('id_token');
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         return this.http.get<DistanceResponse>(this.config.getEndpoint() + '/line-info/distance/' + line._id, {headers: headers, params: new HttpParams().set('token', token)});
+    }
+
+    getDistanceUnregistered(line: TrackedLine) {
+        const token = localStorage.getItem('id_token');
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        return this.http.get<DistanceResponse>(this.config.getEndpoint() + '/line-info/distance-unregistered/' + line._id, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
 }

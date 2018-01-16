@@ -1,17 +1,15 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from "@angular/core";
-import { Line } from "../../objects/models/line.model";
-import { PolylineCoords } from "../path.model";
-
-import { AgmMap } from '@agm/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
+import { PolylineCoords } from "../../path.model";
+import { TrackedLine } from "../../../objects/models/tracked-line.model";
 
 @Component({
-    selector: 'app-line-map',
-    templateUrl: './line-map.component.html',
-    styleUrls: ['./line-map.component.css']
+    selector: 'app-line-map-unregistered',
+    templateUrl: './line-map-unregistered.component.html',
+    styleUrls: ['./line-map-unregistered.component.css']
 })
 
-export class LineMapComponent implements OnInit {
-    @Input() line: Line;
+export class LineMapUnregisteredComponent implements OnInit {
+    @Input() line: TrackedLine;
     public polyCords: PolylineCoords[];
     mapType: string;
     lat: number = 51.678418;
@@ -30,7 +28,7 @@ export class LineMapComponent implements OnInit {
         let cords: PolylineCoords[] = [];
         let prev_lat;
         let prev_lng;
-        for (let m of this.line.markers) {
+        for (let m of this.line.locations) {
             if (prev_lat && prev_lng) cords.push(new PolylineCoords(prev_lat, prev_lng, m.lat, m.lng));
             prev_lat = m.lat;
             prev_lng = m.lng;
@@ -41,18 +39,18 @@ export class LineMapComponent implements OnInit {
 
     getAverageLat() {
         let lat = 0;
-        for (let i = 0; i < this.line.markers.length; i++) {
-            lat += this.line.markers[i].lat;
+        for (let i = 0; i < this.line.locations.length; i++) {
+            lat += this.line.locations[i].lat;
         }
-        return lat / this.line.markers.length;
+        return lat / this.line.locations.length;
     }
 
     getAverageLng() {
         let lng = 0;
-        for (let i = 0; i < this.line.markers.length; i++) {
-            lng += this.line.markers[i].lng;
+        for (let i = 0; i < this.line.locations.length; i++) {
+            lng += this.line.locations[i].lng;
         }
-        return lng / this.line.markers.length;
+        return lng / this.line.locations.length;
     }
 
 

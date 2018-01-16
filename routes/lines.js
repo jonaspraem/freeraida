@@ -302,6 +302,7 @@ router.post('/new-tracked-line/', function(req, res, next) {
                     }
 
                     var tracked_line = new TrackedLine({
+                        user_id: body.user_id,
                         locations: locations
                     });
 
@@ -338,6 +339,49 @@ router.post('/new-tracked-line/', function(req, res, next) {
             }
         }
     );
+});
+
+router.delete('/remove-tracked-line/:id', function(req, res, next) {
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        {json: {id_token: req.query.token}},
+        function (error, response, body) {
+            if (!error) {
+                TrackedLine.findById(req.params.id, function(err, line) {
+                    console.log('made it here '+line);
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: err
+                        });
+                    }
+                    if (!line) {
+                        return res.status(500).json({
+                            title: 'No tracked line found',
+                            error: { message: 'Post not found'}
+                        });
+                    }
+                    if (line.user_id != body.user_id) {
+                        return res.status(401).json({
+                            title: 'Not Authenticated',
+                            error: {message: 'Not the user\'s tracked line'}
+                        });
+                    }
+                    line.remove(function(err, result) {
+                        if (err) {
+                            return res.status(500).json({
+                                title: 'An error occured',
+                                error: err
+                            });
+                        }
+                        res.status(200).json({
+                            message: 'tracked line deleted',
+                            obj: result
+                        });
+                    });
+                });
+            }
+        })
 });
 
 module.exports = router;

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { AmChart, AmChartsService } from "@amcharts/amcharts3-angular";
-import { Line } from "../../objects/models/line.model";
-import { LineService } from "../line.service";
-import { HeightMap } from "../../objects/models/height-map.model";
-import { DistancePoint } from "../../objects/models/distance/distance-point.model";
+import { Line } from "../../../objects/models/line.model";
+import { LineService } from "../../line.service";
+import { HeightMap } from "../../../objects/models/height-map.model";
+import { DistancePoint } from "../../../objects/models/distance/distance-point.model";
 
 @Component({
     selector: 'app-height-map',

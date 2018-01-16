@@ -1,0 +1,27 @@
+<agm-map [mapTypeId]="mapType"
+         [latitude]="lat"
+         [longitude]="lng"
+         [disableDefaultUI]="true"
+         [backgroundColor]="'#141D2F'"
+>
+    <agm-marker
+            *ngFor="let m of line.locations;let i = index"
+            [latitude]="m.lat"
+            [longitude]="m.lng"
+    >
+        <agm-info-window>
+            <strong>{{m.name}}</strong>
+        </agm-info-window>
+    </agm-marker>
+
+    <agm-polyline *ngFor="let item of polyCords"
+                  [editable]="false"
+                  strokeColor="#560000"
+                  strokeWeight="2"
+                  [geodesic]="false"
+    >
+        <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
+        <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
+    </agm-polyline>
+
+</agm-map>

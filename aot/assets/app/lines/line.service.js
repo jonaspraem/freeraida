@@ -24,10 +24,20 @@ var LineService = /** @class */ (function () {
         var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.get(this.config.getEndpoint() + '/line-info/height-map/' + line._id, { headers: headers, params: new HttpParams().set('token', token) });
     };
+    LineService.prototype.getHeightMapUnregistered = function (line) {
+        var token = localStorage.getItem('id_token');
+        var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.get(this.config.getEndpoint() + '/line-info/height-map-unregistered/' + line._id, { headers: headers, params: new HttpParams().set('token', token) });
+    };
     LineService.prototype.getDistance = function (line) {
         var token = localStorage.getItem('id_token');
         var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.get(this.config.getEndpoint() + '/line-info/distance/' + line._id, { headers: headers, params: new HttpParams().set('token', token) });
+    };
+    LineService.prototype.getDistanceUnregistered = function (line) {
+        var token = localStorage.getItem('id_token');
+        var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.get(this.config.getEndpoint() + '/line-info/distance-unregistered/' + line._id, { headers: headers, params: new HttpParams().set('token', token) });
     };
     LineService.decorators = [
         { type: Injectable },

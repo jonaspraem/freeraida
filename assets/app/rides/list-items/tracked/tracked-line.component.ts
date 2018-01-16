@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TrackedLine } from "../../../objects/models/tracked-line.model";
 
 @Component({
@@ -8,5 +8,10 @@ import { TrackedLine } from "../../../objects/models/tracked-line.model";
 })
 
 export class TrackedLineItemComponent {
+    @Output() deleteEvent: EventEmitter<string> = new EventEmitter<string>();
     @Input() line: TrackedLine;
+
+    onDelete() {
+        this.deleteEvent.emit(this.line._id);
+    }
 }

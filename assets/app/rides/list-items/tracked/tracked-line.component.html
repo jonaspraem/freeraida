@@ -6,10 +6,17 @@
         <mat-panel-description>
             <p>{{line?.locations[line?.locations.length-1].time_at}}&#9;</p>
 
-            <button class="list-delete-item" mat-icon-button>
+            <button class="list-delete-item" mat-icon-button (click)="onDelete()">
                 <mat-icon>delete</mat-icon>
             </button>
         </mat-panel-description>
     </mat-expansion-panel-header>
+
+    <div class="left">
+        <app-height-map-unregistered [line]="line"></app-height-map-unregistered>
+    </div>
+    <div class="right">
+        <app-line-map-unregistered [line]="line"></app-line-map-unregistered>
+    </div>
 </mat-expansion-panel>
 

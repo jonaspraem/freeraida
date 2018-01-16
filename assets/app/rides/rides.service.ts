@@ -4,6 +4,12 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { CONFIG } from "../dictionary/config";
 import { ErrorService } from "../errors/error.service";
 import { LineObject } from "../objects/interfaces/line-object.interface";
+import { TrackedLine } from "../objects/models/tracked-line.model";
+
+interface TrackedLineResponse{
+    message: string;
+    obj: TrackedLineObject;
+}
 
 interface TrackedLineListResponse {
     message: string;
@@ -32,6 +38,11 @@ export class RidesService {
     getUserLines() {
         const token = localStorage.getItem('id_token');
         return this.http.get<LineListResponse>(this.config.getEndpoint() + '/lineservice/user-lines/', {params: new HttpParams().set('token', token)});
+    }
+
+    deleteTrackedLine(_id: string) {
+        const token = localStorage.getItem('id_token');
+        return this.http.delete<TrackedLineResponse>(this.config.getEndpoint() + '/lineservice/remove-tracked-line/' + _id, {params: new HttpParams().set('token', token)});
     }
 
 }
