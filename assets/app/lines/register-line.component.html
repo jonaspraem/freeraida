@@ -95,7 +95,7 @@
                 <option>Danger</option>
                 <option>Extreme</option>
             </select>
-            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedDangerLevel)}"></div>
+            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedDangerLevel?.toLowerCase())}"></div>
 
             <br>
 
@@ -106,7 +106,7 @@
                 <option>Danger</option>
                 <option>Extreme</option>
             </select>
-            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedTreeLevel)}"></div>
+            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedTreeLevel?.toLowerCase())}"></div>
 
             <br>
 
@@ -117,7 +117,7 @@
                 <option>Danger</option>
                 <option>Extreme</option>
             </select>
-            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedRockLevel)}"></div>
+            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedRockLevel?.toLowerCase())}"></div>
 
             <br>
 
@@ -128,7 +128,7 @@
                 <option>Danger</option>
                 <option>Extreme</option>
             </select>
-            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedCliffLevel)}"></div>
+            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedCliffLevel?.toLowerCase())}"></div>
         </div>
     </div>
 </div>

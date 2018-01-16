@@ -27,6 +27,14 @@ export class TrackedLine {
     public static fabricateList(objects: TrackedLineObject[]) : TrackedLine[] {
         let lines: TrackedLine[] = [];
         for (let i = 0; i < objects.length; i++) {
+            for (let j = 0; j < objects[i].locations.length; j++) {
+                let locations: LineLocation[] = [];
+                locations.push(new LineLocation(
+                    objects[i].locations[j].time_at,
+                    objects[i].locations[j].lat,
+                    objects[i].locations[j].lng,
+                ));
+            }
             lines.push(this.fabricate(objects[i]));
         }
         return lines;

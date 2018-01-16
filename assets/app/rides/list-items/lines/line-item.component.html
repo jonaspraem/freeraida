@@ -1,7 +1,13 @@
-<mat-expansion-panel>
+<mat-expansion-panel [ngStyle]="{'border-left': color_dictionary.get(line?.line_type)}">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <h5>{{line?.lineName}}</h5>
+            <div id="indicators">
+                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.danger_level)}"></div>
+                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.tree_level)}"></div>
+                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.rock_level)}"></div>
+                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.cliff_level)}"></div>
+            </div>
         </mat-panel-title>
         <mat-panel-description>
             {{line?.timestamp}} {{line?.danger_level}}

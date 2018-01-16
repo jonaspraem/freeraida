@@ -245,6 +245,7 @@ router.post('/newline/', function(req, res, next) {
                     var line = new Line({
                         user_id: body.user_id,
                         lineName: req.body.lineName,
+                        line_type: req.body.line_type,
                         markers: markerlist,
                         timestamp: new Date(),
                         danger_level: req.body.danger_level,

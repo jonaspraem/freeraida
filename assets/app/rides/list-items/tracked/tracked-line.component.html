@@ -1,10 +1,14 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>
-            <h5>{{line?._id}}</h5>
+            <i class="material-icons">location_on</i><h5>{{line?._id}}</h5>
         </mat-panel-title>
         <mat-panel-description>
-            {{line?.locations[line?.locations.length-1].time_at}}
+            <p>{{line?.locations[line?.locations.length-1].time_at}}&#9;</p>
+
+            <button class="list-delete-item" mat-icon-button (click)="markerDeleteLast()">
+                <mat-icon>delete</mat-icon>
+            </button>
         </mat-panel-description>
     </mat-expansion-panel-header>
 </mat-expansion-panel>
