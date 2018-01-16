@@ -32,7 +32,7 @@ export class LineService {
 
     getLines(username: string) {
         const token = localStorage.getItem('id_token');
-        return this.http.get<LineListResponse>(this.config.getEndpoint() + '/lineservice/' + username, {params: new HttpParams().set('token', token)});
+        return this.http.get<LineListResponse>(this.config.getEndpoint() + '/lineservice/user/' + username, {params: new HttpParams().set('token', token)});
     }
 
     getHeightMap(markers: MapMarker[]) {

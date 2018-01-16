@@ -31,6 +31,4 @@ import { SettingsComponent } from "./settings/settings.component";
     providers: [ ProfileService ]
 })
 
-export class ProfileModule {
-
-}
+export class ProfileModule {}

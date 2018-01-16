@@ -6,12 +6,14 @@ import { ProfileComponent } from "./profile/profile.component";
 import { TrackPageComponent } from "./tracker/track.component";
 import { SettingsComponent } from "./profile/settings/settings.component";
 import { RegisterLineComponent } from "./lines/register-line.component";
+import { RidesComponent } from "./rides/rides.component";
 
 const WEBAPP_ROUTES: Routes = [
     // { path: '**', redirectTo: 'feed', pathMatch: 'full'},
     { path: 'feed', component: LiveFeedComponent},
     { path: 'register-line', component: RegisterLineComponent},
     { path: 'ride-center', component: RegisterRideComponent},
+    { path: 'rides', component: RidesComponent},
     { path: 'track', component: TrackPageComponent},
     { path: 'settings', component: SettingsComponent},
 

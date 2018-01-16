@@ -1,6 +1,7 @@
 import { Post } from "./post.model";
 import { Line } from "./line.model";
 import { ProfileObject } from "../interfaces/profile-object.interface";
+import { TrackedLine } from "./tracked-line.model";
 
 export class Profile {
     display_name: string;
@@ -14,6 +15,7 @@ export class Profile {
     img?: Buffer;
     followers? : string[];
     following? : string[];
+    tracked_lines?: TrackedLine[];
     posts?: Post[];
     lines?: Line[];
 
@@ -28,6 +30,7 @@ export class Profile {
                 followers?: string[],
                 following?: string[],
                 lines?: Line[],
+                tracked_lines?: TrackedLine[],
                 posts?: Post[],
                 img?: Buffer)
     {
@@ -42,6 +45,7 @@ export class Profile {
         this.followers = followers;
         this.following = following;
         this.lines = lines;
+        this.tracked_lines = tracked_lines;
         this.posts = posts;
         this.img = img;
     }
@@ -58,6 +62,7 @@ export class Profile {
             object.social_instagram,
             object.followers,
             object.following,
-            object.lines);
+            object.lines,
+            object.tracked_lines);
     }
 }

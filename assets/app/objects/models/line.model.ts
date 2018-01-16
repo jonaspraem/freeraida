@@ -1,6 +1,4 @@
 import { MapMarker } from "./mapmarker.model";
-import { PostObject } from "../interfaces/post-object";
-import { Post } from "./post.model";
 import { LineObject } from "../interfaces/line-object.interface";
 
 export class Line {

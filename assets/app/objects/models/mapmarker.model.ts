@@ -9,7 +9,7 @@ export class MapMarker {
         this.lng = lng;
     }
 
-    static fabricatePolyline(markers: MapMarker[]) {
+    public static fabricatePolyline(markers: MapMarker[]) {
         let polyline = '';
         for (let m of markers) {
             polyline+=m.lat+','+m.lng+'|';

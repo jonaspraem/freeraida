@@ -64,6 +64,17 @@ function getUserLines(profile, callback) {
     });
 }
 
+function getUserTrackedLines(profile, callback) {
+    TrackedLine.find({'_id': {$in: profile.tracked_lines}}, function (err, user_lines) {
+        if (err) return null;
+        if (!user_lines) return null;
+        getTransformedLineList(user_lines, function(transformedLineList) {
+            console.log('transformedLineList: '+transformedLineList);
+            callback(transformedLineList);
+        });
+    });
+}
+
 function saveMarkerList(marker_list, callback) {
     var counter = 0;
     console.log('marker list to save: '+marker_list);
@@ -88,7 +99,7 @@ function saveLocationList(location_list, callback) {
     }
 }
 
-router.get('/:username', function (req, res, next) {
+router.get('/user/:username', function (req, res, next) {
     Profile.findOne({username: req.params.username}, function (err, user_profile) {
         if (err) {
             return res.status(500).json({
@@ -130,6 +141,42 @@ router.use('/', function(req, res, next) {
             }
         }
     );
+});
+
+router.get('/unregistered-lines/', function(req, res, next) {
+    console.log('made it here0');
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        { json: { id_token: req.query.token } },
+        function (error, response, body) {
+            if (!error) {
+                Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
+                    if (profile_err) {
+                        return res.status(500).json({
+                            title: 'Error finding user profile',
+                            error: profile_err
+                        });
+                    }
+                    if (!user_profile) {
+                        return res.status(500).json({
+                            title: 'Error finding user profile',
+                            error: {message: 'An error occurred regarding profile'}
+                        });
+                    }
+                    console.log('made it here');
+                    getUserTrackedLines(user_profile, function(list) {
+                        console.log('made it here2');
+                        sortList(list, function(sortedList) {
+                            console.log('made it here3');
+                            return res.status(201).json({
+                                message: 'User unregistered lines received',
+                                obj: sortedList
+                            });
+                        });
+                    });
+                });
+            }
+        });
 });
 
 router.post('/newline/', function(req, res, next) {

@@ -1,4 +1,5 @@
 import { LineObject } from "./line-object.interface";
+import { TrackedLineObject } from "./tracked-line-object.interface";
 
 export interface ProfileObject {
     user_id: string;
@@ -12,4 +13,5 @@ export interface ProfileObject {
     followers: string[];
     following: string[];
     lines: LineObject[];
+    tracked_lines: TrackedLineObject[];
 }
