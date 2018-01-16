@@ -12,6 +12,9 @@ import { MapContentComponent } from "./map-content";
 import { LineService } from "./line.service";
 import { LineHistoryComponent } from "./line-history.component";
 import { RegisterLineComponent } from "./register-line.component";
+import { AmChartsModule } from "@amcharts/amcharts3-angular";
+import { HeightMapComponent } from "./hieghtmap/heightmap.component";
+import { LineMapComponent } from "./map/line-map.component";
 var LineModule = /** @class */ (function () {
     function LineModule() {
     }
@@ -21,7 +24,9 @@ var LineModule = /** @class */ (function () {
                         RegisterRideComponent,
                         MapContentComponent,
                         LineHistoryComponent,
-                        RegisterLineComponent
+                        RegisterLineComponent,
+                        HeightMapComponent,
+                        LineMapComponent
                     ],
                     imports: [
                         CommonModule,
@@ -30,6 +35,7 @@ var LineModule = /** @class */ (function () {
                         AgmCoreModule.forRoot({
                             apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM'
                         }),
+                        AmChartsModule,
                         NvD3Module,
                         MatCardModule,
                         MatButtonModule,
@@ -39,7 +45,10 @@ var LineModule = /** @class */ (function () {
                         MatInputModule
                     ],
                     exports: [
-                        LineHistoryComponent, RegisterLineComponent
+                        LineHistoryComponent,
+                        RegisterLineComponent,
+                        HeightMapComponent,
+                        LineMapComponent
                     ],
                     providers: [LineService]
                 },] },

@@ -33,7 +33,8 @@ export class ProfileService {
 
     getProfileWithToken() {
         const token = localStorage.getItem('id_token');
-        return this.http.get<ProfileResponse>(this.config.getEndpoint() + '/profile/user-info', {params: new HttpParams().set('token', token)});
+        const headers = new HttpHeaders({'Acces-Control-Allow-Origin': '*'});
+        return this.http.get<ProfileResponse>(this.config.getEndpoint() + '/profile/user-info', {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     addressIsAvailable(address: string) {

@@ -1,5 +1,6 @@
 var Line = /** @class */ (function () {
-    function Line(lineName, line_type, timestamp, markers, danger_level, tree_level, rock_level, cliff_level) {
+    function Line(_id, lineName, line_type, timestamp, markers, danger_level, tree_level, rock_level, cliff_level) {
+        this._id = _id;
         this.lineName = lineName;
         this.line_type = line_type;
         this.timestamp = timestamp;
@@ -10,7 +11,7 @@ var Line = /** @class */ (function () {
         this.cliff_level = cliff_level;
     }
     Line.fabricate = function (object) {
-        return new Line(object.lineName, object.line_type, new Date(object.timestamp), object.markers, object.danger_level, object.tree_level, object.rock_level, object.cliff_level);
+        return new Line(object._id, object.lineName, object.line_type, new Date(object.timestamp), object.markers, object.danger_level, object.tree_level, object.rock_level, object.cliff_level);
     };
     Line.fabricateList = function (objects) {
         var lines = [];

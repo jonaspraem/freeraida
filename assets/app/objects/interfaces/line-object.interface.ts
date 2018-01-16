@@ -1,6 +1,7 @@
 import { MarkerObject } from "./marker-object.interface";
 
 export interface LineObject {
+    _id: string;
     lineName: string;
     line_type: string;
     timestamp: Date;

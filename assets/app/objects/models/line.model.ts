@@ -2,6 +2,7 @@ import { MapMarker } from "./mapmarker.model";
 import { LineObject } from "../interfaces/line-object.interface";
 
 export class Line {
+    _id: string;
     lineName: string;
     timestamp: Date;
     line_type: string;
@@ -12,15 +13,18 @@ export class Line {
     cliff_level: string;
 
 
-    constructor(lineName: string,
-    line_type: string,
-    timestamp: Date,
-    markers: MapMarker[],
-    danger_level: string,
-    tree_level: string,
-    rock_level: string,
-    cliff_level: string,
-                ) {
+    constructor(
+        _id: string,
+        lineName: string,
+        line_type: string,
+        timestamp: Date,
+        markers: MapMarker[],
+        danger_level: string,
+        tree_level: string,
+        rock_level: string,
+        cliff_level: string,
+    ) {
+        this._id = _id;
         this.lineName = lineName;
         this.line_type = line_type;
         this.timestamp = timestamp;
@@ -33,6 +37,7 @@ export class Line {
 
     public static fabricate(object: LineObject): Line {
         return new Line(
+            object._id,
             object.lineName,
             object.line_type,
             new Date(object.timestamp),

@@ -14,7 +14,8 @@ var ProfileService = /** @class */ (function () {
     };
     ProfileService.prototype.getProfileWithToken = function () {
         var token = localStorage.getItem('id_token');
-        return this.http.get(this.config.getEndpoint() + '/profile/user-info', { params: new HttpParams().set('token', token) });
+        var headers = new HttpHeaders({ 'Acces-Control-Allow-Origin': '*' });
+        return this.http.get(this.config.getEndpoint() + '/profile/user-info', { headers: headers, params: new HttpParams().set('token', token) });
     };
     ProfileService.prototype.addressIsAvailable = function (address) {
         var token = localStorage.getItem('id_token');

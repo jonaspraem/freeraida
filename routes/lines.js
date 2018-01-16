@@ -23,7 +23,6 @@ function sortList(list, callback) {
 
 function getLineMarkers(id_list, callback) {
     Marker.find({'_id': {$in: id_list}}, function (err, markers) {
-        console.log('markers from db: '+markers);
         if (err) return null;
         if (!markers) return null;
         callback(markers);
@@ -32,9 +31,7 @@ function getLineMarkers(id_list, callback) {
 
 function getTransformedLine(line, callback) {
     var newLine = line;
-    console.log('line.markers: '+line.markers);
     getLineMarkers(line.markers, function (marker_list) {
-        console.log('marker_list: '+marker_list);
         newLine.markers = marker_list;
         callback(newLine);
     });
@@ -45,7 +42,6 @@ function getTransformedLineList(lines, callback) {
     var counter = 0;
     for (var i = 0; i < lines.length; i++) {
         getTransformedLine(lines[i], function (line) {
-            console.log('getTransformedLine: '+line);
             counter++;
             if (line) transformedLines.push(line);
             if (lines.length == counter) callback(transformedLines);
@@ -58,7 +54,6 @@ function getUserLines(profile, callback) {
         if (err) return null;
         if (!user_lines) return null;
         getTransformedLineList(user_lines, function(transformedLineList) {
-            console.log('transformedLineList: '+transformedLineList);
             callback(transformedLineList);
         });
     });
@@ -69,7 +64,6 @@ function getUserTrackedLines(profile, callback) {
         if (err) return null;
         if (!user_lines) return null;
         getTransformedLineList(user_lines, function(transformedLineList) {
-            console.log('transformedLineList: '+transformedLineList);
             callback(transformedLineList);
         });
     });
@@ -77,11 +71,9 @@ function getUserTrackedLines(profile, callback) {
 
 function saveMarkerList(marker_list, callback) {
     var counter = 0;
-    console.log('marker list to save: '+marker_list);
     for (var i = 0; i < marker_list.length; i++) {
         marker_list[i].save(function (err, result) {
             counter++;
-            console.log('marker save: '+result);
             if (counter == marker_list.length) callback(true);
         });
     }
@@ -89,11 +81,9 @@ function saveMarkerList(marker_list, callback) {
 
 function saveLocationList(location_list, callback) {
     var counter = 0;
-    console.log('location list to save: '+location_list);
     for (var i = 0; i < location_list.length; i++) {
         location_list[i].save(function (err, result) {
             counter++;
-            console.log('marker save: '+result);
             if (counter == location_list.length) callback(true);
         });
     }
@@ -114,7 +104,6 @@ router.get('/user/:username', function (req, res, next) {
             });
         }
         getUserLines(user_profile, function(list) {
-            console.log("list:"+list);
             sortList(list, function(sortedList) {
                 return res.status(201).json({
                     message: 'User lines successfully generated',
@@ -176,7 +165,6 @@ router.get('/user-lines/', function(req, res, next) {
 });
 
 router.get('/unregistered-lines/', function(req, res, next) {
-    console.log('made it here0');
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
@@ -195,11 +183,8 @@ router.get('/unregistered-lines/', function(req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    console.log('made it here');
                     getUserTrackedLines(user_profile, function(list) {
-                        console.log('made it here2');
                         sortList(list, function(sortedList) {
-                            console.log('made it here3');
                             return res.status(201).json({
                                 message: 'User unregistered lines received',
                                 obj: sortedList
@@ -212,14 +197,12 @@ router.get('/unregistered-lines/', function(req, res, next) {
 });
 
 router.post('/newline/', function(req, res, next) {
-    console.log('newline post');
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
         function (error, response, body) {
             if (!error) {
                 Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
-                    console.log('PROFILE FOUND');
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'Error finding user profile',
@@ -276,7 +259,6 @@ router.post('/newline/', function(req, res, next) {
                                         error: err
                                     });
                                 }
-                                console.log('EVERYTHING SAVED');
                                 return res.status(201).json({
                                     message: 'Line saved',
                                     obj: result
@@ -291,14 +273,12 @@ router.post('/newline/', function(req, res, next) {
 });
 
 router.post('/new-tracked-line/', function(req, res, next) {
-    console.log('tracked line');
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
         function (error, response, body) {
             if (!error) {
                 Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
-                    console.log('PROFILE FOUND');
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'Error finding user profile',
@@ -347,7 +327,6 @@ router.post('/new-tracked-line/', function(req, res, next) {
                                         error: err
                                     });
                                 }
-                                console.log('EVERYTHING SAVED');
                                 return res.status(201).json({
                                     message: 'Line saved',
                                     obj: result

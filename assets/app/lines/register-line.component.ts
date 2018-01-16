@@ -142,8 +142,8 @@ export class RegisterLineComponent implements OnInit {
         };
         this.markers.push(marker);
         this.updatePolyCords();
-        this.lineService.getHeightMap(this.markers).subscribe(data => console.log(data));
-        this.lineService.getDistance(this.markers).subscribe(data => console.log(data));
+        // this.lineService.getHeightMap(this.markers).subscribe(data => console.log(data));
+        // this.lineService.getDistance(this.markers).subscribe(data => console.log(data));
     }
 
     clickedMarker(marker:MapMarker, index:number) {
@@ -180,7 +180,7 @@ export class RegisterLineComponent implements OnInit {
     }
 
     onSubmit() {
-        const lineTransfer = new Line(this.lineForm.value.lineName, '', new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
+        const lineTransfer = new Line('', this.lineForm.value.lineName, '', new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
         // check for data
         if (lineTransfer.lineName &&
             lineTransfer.markers.length > 1 &&

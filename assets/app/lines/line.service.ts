@@ -4,14 +4,25 @@ import 'rxjs/Rx';
 
 import { ErrorService } from "../errors/error.service";
 import { Line } from "../objects/models/line.model";
-import { MapMarker } from "../objects/models/mapmarker.model";
 import { CONFIG } from "../dictionary/config";
 
 import { LineObject } from "../objects/interfaces/line-object.interface";
+import { HeightMapObject } from "../objects/interfaces/height-map-object.interface";
+import { DistancePoint } from "../objects/models/distance/distance-point.model";
 
 interface LineListResponse {
     message: string;
     obj: LineObject[];
+}
+
+interface HeightMapResponse {
+    message: string;
+    obj: HeightMapObject[];
+}
+
+interface DistanceResponse {
+    message: string;
+    obj: DistancePoint[];
 }
 
 @Injectable()
@@ -35,24 +46,16 @@ export class LineService {
         return this.http.get<LineListResponse>(this.config.getEndpoint() + '/lineservice/user/' + username, {params: new HttpParams().set('token', token)});
     }
 
-    getHeightMap(markers: MapMarker[]) {
-        const polyline = MapMarker.fabricatePolyline(markers);
+    getHeightMap(line: Line) {
         const token = localStorage.getItem('id_token');
-        const body = JSON.stringify(markers);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        let parameters = new HttpParams()
-            .set('key', this.config.getElevationKey())
-            .set('locations', polyline)
-            .set('path', polyline)
-            .set('samples', markers.length.toString());
-        return this.http.post(this.config.getEndpoint() + '/line-info/height-map/', body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.get<HeightMapResponse>(this.config.getEndpoint() + '/line-info/height-map/'+line._id, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
-    getDistance(markers: MapMarker[]) {
+    getDistance(line: Line) {
         const token = localStorage.getItem('id_token');
-        const body = JSON.stringify(markers);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        return this.http.post(this.config.getEndpoint() + '/line-info/distance/', body, {headers: headers, params: new HttpParams().set('token', token)});
+        return this.http.get<DistanceResponse>(this.config.getEndpoint() + '/line-info/distance/' + line._id, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
 }

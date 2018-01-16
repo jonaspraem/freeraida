@@ -108,8 +108,8 @@ var RegisterLineComponent = /** @class */ (function () {
         };
         this.markers.push(marker);
         this.updatePolyCords();
-        this.lineService.getHeightMap(this.markers).subscribe(function (data) { return console.log(data); });
-        this.lineService.getDistance(this.markers).subscribe(function (data) { return console.log(data); });
+        // this.lineService.getHeightMap(this.markers).subscribe(data => console.log(data));
+        // this.lineService.getDistance(this.markers).subscribe(data => console.log(data));
     };
     RegisterLineComponent.prototype.clickedMarker = function (marker, index) {
         console.log('Clicked marker ' + marker.name + ' at index ' + index);
@@ -141,7 +141,7 @@ var RegisterLineComponent = /** @class */ (function () {
         this.updatePolyCords();
     };
     RegisterLineComponent.prototype.onSubmit = function () {
-        var lineTransfer = new Line(this.lineForm.value.lineName, '', new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
+        var lineTransfer = new Line('', this.lineForm.value.lineName, '', new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
         // check for data
         if (lineTransfer.lineName &&
             lineTransfer.markers.length > 1 &&

@@ -4,6 +4,7 @@ import { TrackedLineItemComponent } from "./list-items/tracked/tracked-line.comp
 import { CommonModule } from "@angular/common";
 import { RidesService } from "./rides.service";
 import { LineItemComponent } from "./list-items/lines/line-item.component";
+import { LineModule } from "../lines/line.module";
 import { MatExpansionModule } from '@angular/material';
 import { MatListModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
@@ -16,11 +17,12 @@ var RidesModule = /** @class */ (function () {
                     declarations: [
                         RidesComponent,
                         TrackedLineItemComponent,
-                        LineItemComponent
+                        LineItemComponent,
                     ],
                     imports: [
                         CommonModule,
                         MatExpansionModule,
+                        LineModule,
                         MatListModule,
                         MatFormFieldModule,
                         MatIconModule
