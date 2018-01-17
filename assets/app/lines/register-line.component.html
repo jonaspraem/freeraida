@@ -53,11 +53,26 @@
 
     <div>
         <h4>Checkpoints</h4>
+        <div class="list-delete">
+            <button class="list-delete-item" mat-icon-button (click)="markerDeleteAll()" [ngStyle]="{'background-color': color_dictionary.get('primary')}">
+                <mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete_sweep</mat-icon>
+            </button>
+        </div>
+        <div class="list-delete2">
+            <button class="list-delete-item" mat-icon-button (click)="markerDeleteLast()" [ngStyle]="{'background-color': color_dictionary.get('primary')}">
+                <mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete</mat-icon>
+            </button>
+        </div>
         <div class="marker-list">
             <ul class="list-group">
                 <li class="list-group-item" *ngFor="let m of markers">
                     {{m.name}}
                     <p class="marker-list-p" [ngStyle]="{'color': color_dictionary.get(getLineType())}">{{m.lat.toFixed(2)}}, {{m.lng.toFixed(2)}}</p>
+                    <div class="list-delete2">
+                        <button class="list-item-delete-single" mat-icon-button (click)="markerDeleteSingle(m)" [ngStyle]="{'background-color': color_dictionary.get('primary')}">
+                            <mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete</mat-icon>
+                        </button>
+                    </div>
                 </li>
             </ul>
         </div>

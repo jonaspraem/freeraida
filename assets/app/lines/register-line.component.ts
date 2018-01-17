@@ -187,6 +187,11 @@ export class RegisterLineComponent implements OnInit {
         this.notifyChange();
     }
 
+    markerDeleteSingle(marker: MapMarker) {
+        this.markers.splice(this.markers.indexOf(marker), 1);
+        this.notifyChange();
+    }
+
     /*
             Chart methods
 
