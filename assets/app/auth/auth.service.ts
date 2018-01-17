@@ -48,14 +48,15 @@ export class AuthService {
                 (jsonData) => {
                     this.profile_service.getProfileWithToken()
                         .subscribe(
-                            data => this.profile = Profile.fabricate(data.obj),
+                            data => {
+                                this.profile = Profile.fabricate(data.obj);
+                                localStorage.setItem('username', this.profile.user_address);
+                            },
                             err => {
                                 this.isWelcome = true;
                                 this.router.navigate(['home/settings']);
-                            }
-                        );
-                }
-            );
+                            });
+                });
     }
 
     public handleAuthentication(): void {

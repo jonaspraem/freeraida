@@ -7,6 +7,13 @@ import { TrackPageComponent } from "./tracker/track.component";
 import { SettingsComponent } from "./profile/settings/settings.component";
 import { RegisterLineComponent } from "./lines/register-line.component";
 import { RidesComponent } from "./rides/rides.component";
+import { ProfileModule } from "./profile/profile.module";
+
+// Do not delete. Used to ensure ProfileModule is loaded in the same bundle.
+// Referencing the function directly in `loadChildren` breaks AoT compiler.
+// export function loadProfileModule() {
+//     return ProfileModule;
+// }
 
 const WEBAPP_ROUTES: Routes = [
     // { path: '**', redirectTo: 'feed', pathMatch: 'full'},
@@ -16,8 +23,10 @@ const WEBAPP_ROUTES: Routes = [
     { path: 'rides', component: RidesComponent},
     { path: 'track', component: TrackPageComponent},
     { path: 'settings', component: SettingsComponent},
-
-    { path: 'user', component: ProfileComponent, data:{requiresLogin: true}},
+    { path: 'user', component: ProfileComponent, children: [
+            { path: '', redirectTo: localStorage.getItem('username'), pathMatch: 'full' },
+            { path: ':user', component: ProfileComponent }
+        ]}
 ];
 
 export const webappRouting = RouterModule.forChild(WEBAPP_ROUTES);
