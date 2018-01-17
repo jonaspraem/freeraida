@@ -21,11 +21,21 @@ var COLOR_DICTIONARY = /** @class */ (function () {
         COLOR_DICTIONARY.COLOR_MAP.set('caution', '#F6EC01');
         COLOR_DICTIONARY.COLOR_MAP.set('danger', '#F69D3A');
         COLOR_DICTIONARY.COLOR_MAP.set('extreme', '#D00202');
+        this.setAlias();
     }
+    COLOR_DICTIONARY.prototype.setAlias = function () {
+        COLOR_DICTIONARY.ALIAS.set('backcountry', 'descent');
+        COLOR_DICTIONARY.ALIAS.set('tour', 'tour');
+        COLOR_DICTIONARY.ALIAS.set('climb', 'ascent');
+    };
     COLOR_DICTIONARY.prototype.get = function (key) {
         return COLOR_DICTIONARY.COLOR_MAP.get(key);
     };
+    COLOR_DICTIONARY.prototype.getAlias = function (key) {
+        return COLOR_DICTIONARY.ALIAS.get(key);
+    };
     COLOR_DICTIONARY.COLOR_MAP = new Map();
+    COLOR_DICTIONARY.ALIAS = new Map();
     COLOR_DICTIONARY.decorators = [
         { type: Injectable },
     ];

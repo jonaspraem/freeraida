@@ -7,6 +7,7 @@ import { Injectable } from "@angular/core";
 
 export class COLOR_DICTIONARY {
     private static COLOR_MAP: Map<string, string> = new Map<string, string>();
+    private static ALIAS: Map<string, string> = new Map<string, string>();
 
     constructor() {
         COLOR_DICTIONARY.COLOR_MAP.set('primary', '#141D2F');
@@ -28,9 +29,20 @@ export class COLOR_DICTIONARY {
         COLOR_DICTIONARY.COLOR_MAP.set('danger', '#F69D3A');
         COLOR_DICTIONARY.COLOR_MAP.set('extreme', '#D00202');
 
+        this.setAlias();
+    }
+
+    private setAlias() {
+        COLOR_DICTIONARY.ALIAS.set('backcountry', 'descent');
+        COLOR_DICTIONARY.ALIAS.set('tour', 'tour');
+        COLOR_DICTIONARY.ALIAS.set('climb', 'ascent');
     }
 
     get(key: string) {
         return COLOR_DICTIONARY.COLOR_MAP.get(key);
+    }
+
+    getAlias(key: string) {
+        return COLOR_DICTIONARY.ALIAS.get(key);
     }
 }

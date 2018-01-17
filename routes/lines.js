@@ -217,17 +217,32 @@ router.post('/newline/', function(req, res, next) {
                     }
                     var markerlist = [];
                     for (var i = 0; i<req.body.markers.length; i++) {
+                        var location = new Location({
+                            lat: req.body.markers[i].location.lat,
+                            lng: req.body.markers[i].location.lng,
+                            elevation: req.body.markers[i].location.elevation,
+                            resolution: req.body.markers[i].location.resolution
+                        });
                         var marker = new Marker({
-                            markerName: req.body.markers[i].name,
-                            lat: req.body.markers[i].lat,
-                            lng: req.body.markers[i].lng
+                            name: req.body.markers[i].name,
+                            index: req.body.markers[i].index,
+                            location: location,
+                            distance_from_start: req.body.markers[i].distance_from_start
                         });
                         markerlist.push(marker);
+                        location.save(function (err, profile_result) {
+                           if (err) {
+                               return res.status(500).json({
+                                   title: 'An error occurred',
+                                   error: err
+                               });
+                           }
+                        });
                     }
 
                     var line = new Line({
                         user_id: body.user_id,
-                        lineName: req.body.lineName,
+                        name: req.body.lineName,
                         line_type: req.body.line_type,
                         markers: markerlist,
                         timestamp: new Date(),
@@ -248,14 +263,14 @@ router.post('/newline/', function(req, res, next) {
                         saveMarkerList(markerlist, function(save_success) {
                             if (!save_success) {
                                 return res.status(500).json({
-                                    title: 'An error occured',
-                                    error: err
+                                    title: 'An error occurred',
+                                    error: {message: 'An error occurred saving the map markers'}
                                 });
                             }
                             user_profile.save(function (err, profile_result) {
                                 if (err) {
                                     return res.status(500).json({
-                                        title: 'An error occured',
+                                        title: 'An error occurred',
                                         error: err
                                     });
                                 }
@@ -348,6 +363,49 @@ router.delete('/remove-tracked-line/:id', function(req, res, next) {
         function (error, response, body) {
             if (!error) {
                 TrackedLine.findById(req.params.id, function(err, line) {
+                    console.log('made it here '+line);
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: err
+                        });
+                    }
+                    if (!line) {
+                        return res.status(500).json({
+                            title: 'No tracked line found',
+                            error: { message: 'Post not found'}
+                        });
+                    }
+                    if (line.user_id != body.user_id) {
+                        return res.status(401).json({
+                            title: 'Not Authenticated',
+                            error: {message: 'Not the user\'s tracked line'}
+                        });
+                    }
+                    line.remove(function(err, result) {
+                        if (err) {
+                            return res.status(500).json({
+                                title: 'An error occured',
+                                error: err
+                            });
+                        }
+                        res.status(200).json({
+                            message: 'tracked line deleted',
+                            obj: result
+                        });
+                    });
+                });
+            }
+        })
+});
+
+router.delete('/remove-line/:id', function(req, res, next) {
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        {json: {id_token: req.query.token}},
+        function (error, response, body) {
+            if (!error) {
+                Line.findById(req.params.id, function(err, line) {
                     console.log('made it here '+line);
                     if (err) {
                         return res.status(500).json({

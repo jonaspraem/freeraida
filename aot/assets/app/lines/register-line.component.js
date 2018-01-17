@@ -144,6 +144,10 @@ var RegisterLineComponent = /** @class */ (function () {
         this.markers = [];
         this.notifyChange();
     };
+    RegisterLineComponent.prototype.markerDeleteSingle = function (marker) {
+        this.markers.splice(this.markers.indexOf(marker), 1);
+        this.notifyChange();
+    };
     /*
             Chart methods
 
@@ -201,9 +205,10 @@ var RegisterLineComponent = /** @class */ (function () {
         this.updateChart();
     };
     RegisterLineComponent.prototype.onSubmit = function () {
-        var lineTransfer = new Line('', this.lineForm.value.lineName, '', new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
+        var lineTransfer = new Line('', this.selectedLineName, this.selectedLineType, new Date(), this.markers, this.selectedDangerLevel, this.selectedTreeLevel, this.selectedRockLevel, this.selectedCliffLevel);
         // check for data
         if (lineTransfer.lineName &&
+            lineTransfer.line_type &&
             lineTransfer.markers.length > 1 &&
             lineTransfer.danger_level &&
             lineTransfer.tree_level &&

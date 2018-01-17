@@ -3,14 +3,20 @@
         <mat-panel-title>
             <h5>{{line?.lineName}}</h5>
             <div id="indicators">
-                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.danger_level)}"></div>
-                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.tree_level)}"></div>
-                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.rock_level)}"></div>
-                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.cliff_level)}"></div>
+                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.danger_level.toLowerCase())}"></div>
+                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.tree_level.toLowerCase())}"></div>
+                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.rock_level.toLowerCase())}"></div>
+                <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.cliff_level.toLowerCase())}"></div>
             </div>
         </mat-panel-title>
         <mat-panel-description>
-            {{line?.timestamp}} {{line?.danger_level}}
+            <p [ngStyle]="{'color': color_dictionary.get(line?.line_type?.toLowerCase())}">{{line?.line_type}}</p>
+            <div class="right-desc">
+                <button class="list-delete-item" mat-icon-button (click)="onDelete()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <p>{{line?.timestamp}}</p>
+            </div>
         </mat-panel-description>
     </mat-expansion-panel-header>
 

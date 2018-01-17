@@ -1,20 +1,19 @@
-import { Location } from "./location.model";
+import { LineLocation } from "./line-location.model";
 import { HeightMapObject } from "../interfaces/height-map-object.interface";
 
 export class HeightMap {
     elevation: number;
-    location: Location;
+    location: LineLocation;
     resolution: number;
 
-    constructor(elevation: number, location: Location, resolution: number) {
+    constructor(elevation: number, location: LineLocation, resolution: number) {
         this.elevation = elevation;
         this.location = location;
         this.resolution = resolution;
     }
 
     public static fabricate(object: HeightMapObject) {
-        console.log('fabrication of Heightmap'+ JSON.stringify(object));
-        return new HeightMap(object.elevation, new Location(object.location.lat, object.location.lng), object.resolution);
+        return new HeightMap(object.elevation, new LineLocation(object.location.lat, object.location.lng), object.resolution);
     }
 
     public static fabricateList(objects: HeightMapObject[]) {

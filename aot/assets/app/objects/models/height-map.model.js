@@ -6,7 +6,6 @@ var HeightMap = /** @class */ (function () {
         this.resolution = resolution;
     }
     HeightMap.fabricate = function (object) {
-        console.log('fabrication of Heightmap' + JSON.stringify(object));
         return new HeightMap(object.elevation, new Location(object.location.lat, object.location.lng), object.resolution);
     };
     HeightMap.fabricateList = function (objects) {

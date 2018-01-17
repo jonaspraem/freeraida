@@ -45,4 +45,9 @@ export class RidesService {
         return this.http.delete<TrackedLineResponse>(this.config.getEndpoint() + '/lineservice/remove-tracked-line/' + _id, {params: new HttpParams().set('token', token)});
     }
 
+    deleteLine(_id: string) {
+        const token = localStorage.getItem('id_token');
+        return this.http.delete<TrackedLineResponse>(this.config.getEndpoint() + '/lineservice/remove-line/' + _id, {params: new HttpParams().set('token', token)});
+    }
+
 }

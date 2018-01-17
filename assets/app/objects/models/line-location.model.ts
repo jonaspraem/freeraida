@@ -1,11 +1,13 @@
 export class LineLocation {
-    time_at: string;
     lat: number;
     lng: number;
+    elevation?: number;
+    resolution?: number;
 
-    constructor(time_at: string, lat: number, lng: number) {
-        this.time_at = time_at;
+    constructor(lat: number, lng: number, elevation?: number, resolution?: number) {
         this.lat = lat;
         this.lng = lng;
+        this.elevation = elevation;
+        this.resolution = resolution;
     }
 }

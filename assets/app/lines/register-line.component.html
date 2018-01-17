@@ -24,8 +24,8 @@
             <agm-marker
                     *ngFor="let m of markers;let i = index"
                     (markerClick)="clickedMarker(m, i)"
-                    [latitude]="m.lat"
-                    [longitude]="m.lng"
+                    [latitude]="m.location.lat"
+                    [longitude]="m.location.lng"
                     [markerDraggable]="true"
                     (dragEnd)="markerDragEnd(m, $event)"
             >
@@ -66,7 +66,7 @@
             <ul class="list-group">
                 <li class="list-group-item" *ngFor="let m of markers">
                     {{m.name}}
-                    <p class="marker-list-p" [ngStyle]="{'color': color_dictionary.get(getLineType())}">{{m.lat.toFixed(2)}}, {{m.lng.toFixed(2)}}</p>
+                    <p class="marker-list-p" [ngStyle]="{'color': color_dictionary.get(getLineType())}">{{m.location.lat.toFixed(2)}}, {{m.location.lng.toFixed(2)}}</p>
                     <div class="list-delete2">
                         <button class="list-item-delete-single" mat-icon-button (click)="markerDeleteSingle(m)" [ngStyle]="{'background-color': color_dictionary.get('primary')}">
                             <mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete</mat-icon>

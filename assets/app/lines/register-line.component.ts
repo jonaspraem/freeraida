@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import { MapMarker } from "../objects/models/mapmarker.model";
 import { PolylineCoords } from "./path.model";
@@ -10,10 +9,10 @@ import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
 import { AmChart, AmChartsService } from "@amcharts/amcharts3-angular";
 import { HeightMap } from "../objects/models/height-map.model";
 import { DistancePoint } from "../objects/models/distance/distance-point.model";
+import { LineLocation } from "../objects/models/line-location.model";
 
 @Component({
     selector: 'app-register-line',
-    providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
     templateUrl: './register-line.component.html',
     styleUrls: ['./register-line.component.css', '../../../node_modules/nvd3/build/nv.d3.css'],
     encapsulation: ViewEncapsulation.None
@@ -30,8 +29,8 @@ export class RegisterLineComponent implements OnInit {
 
     // Map variables
     location = {};
-    lat: number = 51.678418;
-    lng: number = 7.809007;
+    lat: number = 45.92375;
+    lng: number = 6.86933;
     mapType: string;
     polyCords: PolylineCoords[];
 
@@ -53,9 +52,7 @@ export class RegisterLineComponent implements OnInit {
                 private cdRef: ChangeDetectorRef,
                 private line_service: LineService,
                 private AmCharts: AmChartsService,
-                location: Location
     ) {
-        this.location = location;
     }
 
     ngOnInit(): void {
@@ -117,8 +114,7 @@ export class RegisterLineComponent implements OnInit {
             "allLabels": [],
             "balloon": {
                 "fadeOutDuration": 0
-            },
-            "dataProvider": this.data
+            }
         });
     }
 
@@ -134,9 +130,9 @@ export class RegisterLineComponent implements OnInit {
         let prev_lat;
         let prev_lng;
         for (let m of this.markers) {
-            if (prev_lat && prev_lng) cords.push(new PolylineCoords(prev_lat, prev_lng, m.lat, m.lng));
-            prev_lat = m.lat;
-            prev_lng = m.lng;
+            if (prev_lat && prev_lng) cords.push(new PolylineCoords(prev_lat, prev_lng, m.location.lat, m.location.lng));
+            prev_lat = m.location.lat;
+            prev_lng = m.location.lng;
         }
         this.polyCords =  cords;
         this.cdRef.detectChanges();
@@ -144,9 +140,9 @@ export class RegisterLineComponent implements OnInit {
 
     mapClicked($event:any){
         const marker: MapMarker = {
+            index: this.markers.length,
             name: 'Point '+(this.markers.length + 1),
-            lat: $event.coords.lat,
-            lng: $event.coords.lng
+            location: new LineLocation($event.coords.lat, $event.coords.lng)
         };
         this.markers.push(marker);
         this.notifyChange();
@@ -161,8 +157,8 @@ export class RegisterLineComponent implements OnInit {
     markerDragEnd(marker:any, $event:any) {
         for (let m of this.markers) {
             if (m.name == marker.name) {
-                m.lat = $event.coords.lat;
-                m.lng = $event.coords.lng;
+                m.location.lat = $event.coords.lat;
+                m.location.lng = $event.coords.lng;
             }
         }
         this.notifyChange();
@@ -170,7 +166,7 @@ export class RegisterLineComponent implements OnInit {
 
     removeMarker(marker) {
         for (let i = 0; i < this.markers.length; i++) {
-            if (this.markers[i].lat == marker.lat && this.markers[i].lng == marker.lng) {
+            if (this.markers[i].location.lat == marker.lat && this.markers[i].location.lng == marker.lng) {
                 this.markers.splice(i, 1);
             }
         }
@@ -201,33 +197,45 @@ export class RegisterLineComponent implements OnInit {
 
     getDataProvider() {
         let data = [];
-        let distances: number[] = [];
+        console.log('DATAPROVIDER: '+JSON.stringify(this.markers));
         if (!(this.markers.length < 2)) {
-            distances = DistancePoint.getScalingDistances(this.distance_list);
-            for (let i = 0; i < distances.length; i++) {
-                data.push({"distance": distances[i].toFixed(2).toString()+" km", "height": this.height_map[i].elevation.toFixed(2)});
+            for (let i = 0; i < this.markers.length; i++) {
+                data.push({
+                    "distance": this.markers[i].distance_from_start.toFixed(2).toString()+" km",
+                    "height": this.markers[i].location.elevation.toFixed(2)
+                });
             }
             console.log(data);
             this.data = data;
         }
-        this.cdRef.detectChanges();
         return data;
     }
 
     updateChart() {
-        this.line_service.getDynamicHeightMap(this.markers).subscribe(data => {
-            this.height_map = HeightMap.fabricateList(data.obj);
-            this.line_service.getDynamicDistance(this.markers).subscribe(data => {
-                this.distance_list = DistancePoint.fabricateList(data.obj);
-                this.data = this.getDataProvider();
+        this.line_service.getDynamicHeightMap(this.markers).subscribe(height_data => {
+            this.line_service.getDynamicDistance(this.markers).subscribe(distance_data => {
+
+                for (let i = 0; i < this.markers.length; i++) {
+                    let name = this.markers[i].name;
+                    let lat = this.markers[i].location.lat;
+                    let lng = this.markers[i].location.lng;
+                    this.markers[i]= new MapMarker(
+                        i,
+                        name,
+                        new LineLocation(
+                            lat,
+                            lng,
+                            height_data.obj[i].elevation,
+                            height_data.obj[i].resolution),
+                        distance_data.obj[i].distance);
+                }
+
+                // This must be called when making any changes to the chart
+                this.AmCharts.updateChart(this.chart, () => {
+                    // Change whatever properties you want
+                    this.chart.dataProvider = this.getDataProvider();
+                });
             });
-        });
-
-
-        // This must be called when making any changes to the chart
-        this.AmCharts.updateChart(this.chart, () => {
-            // Change whatever properties you want
-            this.chart.dataProvider = this.getDataProvider();
         });
     }
 

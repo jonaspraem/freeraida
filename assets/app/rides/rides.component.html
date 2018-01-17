@@ -9,6 +9,7 @@
     </div>
     <h3>Lines</h3>
     <app-line-item
+            (deleteEvent)="deleteRegistered($event)"
             [line]="line"
             *ngFor="let line of line_list"></app-line-item>
 </div>

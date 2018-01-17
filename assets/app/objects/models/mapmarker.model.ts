@@ -1,19 +1,17 @@
+import { LineLocation } from "./line-location.model";
+
 export class MapMarker {
+    index: number;
     name: string;
-    lat: number;
-    lng: number;
+    location: LineLocation;
+    distance_from_start?: number;
+    time_from_start?: string;
 
-    constructor(name: string, lat: number, lng: number) {
+    constructor(index: number, name: string, location: LineLocation, distance_from_start?: number, time_from_start?: string) {
+        this.index = index;
         this.name = name;
-        this.lat = lat;
-        this.lng = lng;
-    }
-
-    public static fabricatePolyline(markers: MapMarker[]) {
-        let polyline = '';
-        for (let m of markers) {
-            polyline+=m.lat+','+m.lng+'|';
-        }
-        return polyline.substring(0, polyline.length-2);
+        this.location = location;
+        this.distance_from_start = distance_from_start;
+        this.time_from_start = time_from_start;
     }
 }

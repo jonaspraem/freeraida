@@ -20,6 +20,10 @@ var RidesService = /** @class */ (function () {
         var token = localStorage.getItem('id_token');
         return this.http.delete(this.config.getEndpoint() + '/lineservice/remove-tracked-line/' + _id, { params: new HttpParams().set('token', token) });
     };
+    RidesService.prototype.deleteLine = function (_id) {
+        var token = localStorage.getItem('id_token');
+        return this.http.delete(this.config.getEndpoint() + '/lineservice/remove-line/' + _id, { params: new HttpParams().set('token', token) });
+    };
     RidesService.decorators = [
         { type: Injectable },
     ];

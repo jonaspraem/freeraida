@@ -26,6 +26,15 @@ var RidesComponent = /** @class */ (function () {
             console.log(data);
         });
     };
+    RidesComponent.prototype.deleteRegistered = function (_id) {
+        for (var i = 0; i < this.line_list.length; i++) {
+            if (this.line_list[i]._id == _id)
+                this.line_list.splice(i, 1);
+        }
+        this.rides_service.deleteLine(_id).subscribe(function (data) {
+            console.log(data);
+        });
+    };
     RidesComponent.decorators = [
         { type: Component, args: [{
                     selector: 'app-rides',

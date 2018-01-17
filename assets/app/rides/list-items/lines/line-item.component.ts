@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Line } from "../../../objects/models/line.model";
 import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 
@@ -9,7 +9,12 @@ import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 })
 
 export class LineItemComponent {
+    @Output() deleteEvent: EventEmitter<string> = new EventEmitter<string>();
     @Input() line: Line;
 
     constructor(public color_dictionary: COLOR_DICTIONARY) {}
+
+    onDelete() {
+        this.deleteEvent.emit(this.line._id);
+    }
 }

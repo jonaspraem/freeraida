@@ -86,8 +86,8 @@ router.post('/calculate-distance/', function(req, res, next) {
         for (var i = 1; i < req.body.length; i++) {
             line_profile.push({
                 name: req.body[i].name, distance: calculateDistance(
-                    {lat: req.body[i - 1].lat, lng: req.body[i - 1].lng},
-                    {lat: req.body[i].lat, lng: req.body[i].lng})
+                    {lat: req.body[i - 1].location.lat, lng: req.body[i - 1].location.lng},
+                    {lat: req.body[i].location.lat, lng: req.body[i].location.lng})
             });
         }
     }
@@ -122,11 +122,15 @@ router.post('/height-map/', function(req, res, next) {
         { json: { id_token: req.query.token } },
         function (error, response, body) {
             if (!error) {
+                var locations = [];
+                for (var i = 0; i < req.body.length; i++) {
+                    locations.push({lat: req.body[i].location.lat, lng: req.body[i].location.lat});
+                }
                 const googleMapsClient = require('@google/maps').createClient({
                     key: 'AIzaSyABj_T1wCMVSfQgskqWFwzHJQKaBFjepko'
                 });
                 googleMapsClient.elevation({
-                    locations: req.body
+                    locations: locations
                 }, function(err, response) {
                     if (!err) {
                         console.log(response.json.results);
@@ -141,6 +145,10 @@ router.post('/height-map/', function(req, res, next) {
             }
         });
 });
+
+/*
+        Deprecated methods
+ */
 
 router.get('/height-map/:_id', function(req, res, next) {
     request.post(

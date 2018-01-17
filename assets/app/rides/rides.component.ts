@@ -35,4 +35,13 @@ export class RidesComponent implements OnInit {
             console.log(data);
         });
     }
+
+    deleteRegistered(_id: string) {
+        for (let i = 0; i < this.line_list.length; i++) {
+            if (this.line_list[i]._id == _id) this.line_list.splice(i, 1);
+        }
+        this.rides_service.deleteLine(_id).subscribe(data => {
+            console.log(data);
+        });
+    }
 }
