@@ -39,6 +39,17 @@ var LineService = /** @class */ (function () {
         var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.get(this.config.getEndpoint() + '/line-info/distance-unregistered/' + line._id, { headers: headers, params: new HttpParams().set('token', token) });
     };
+    LineService.prototype.getDynamicDistance = function (markers) {
+        var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        var body = JSON.stringify(markers);
+        return this.http.post(this.config.getEndpoint() + '/line-info/calculate-distance/', body, { headers: headers });
+    };
+    LineService.prototype.getDynamicHeightMap = function (markers) {
+        var token = localStorage.getItem('id_token');
+        var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        var body = JSON.stringify(markers);
+        return this.http.post(this.config.getEndpoint() + '/line-info/height-map/', body, { headers: headers, params: new HttpParams().set('token', token) });
+    };
     LineService.decorators = [
         { type: Injectable },
     ];

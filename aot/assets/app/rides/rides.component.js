@@ -18,7 +18,6 @@ var RidesComponent = /** @class */ (function () {
         });
     };
     RidesComponent.prototype.deleteUnregistered = function (_id) {
-        console.log('event happening');
         for (var i = 0; i < this.unregistered_line_list.length; i++) {
             if (this.unregistered_line_list[i]._id == _id)
                 this.unregistered_line_list.splice(i, 1);

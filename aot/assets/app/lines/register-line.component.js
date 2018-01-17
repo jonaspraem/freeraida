@@ -5,11 +5,16 @@ import { PolylineCoords } from "./path.model";
 import { LineService } from "./line.service";
 import { Line } from "../objects/models/line.model";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
+import { AmChartsService } from "@amcharts/amcharts3-angular";
+import { HeightMap } from "../objects/models/height-map.model";
+import { DistancePoint } from "../objects/models/distance/distance-point.model";
 var RegisterLineComponent = /** @class */ (function () {
-    function RegisterLineComponent(color_dictionary, cdRef, lineService, location) {
+    function RegisterLineComponent(color_dictionary, cdRef, line_service, AmCharts, location) {
         this.color_dictionary = color_dictionary;
         this.cdRef = cdRef;
-        this.lineService = lineService;
+        this.line_service = line_service;
+        this.AmCharts = AmCharts;
+        // Map variables
         this.location = {};
         this.lat = 51.678418;
         this.lng = 7.809007;
@@ -35,46 +40,45 @@ var RegisterLineComponent = /** @class */ (function () {
             _this.lat = position.coords.latitude;
             _this.lng = position.coords.longitude;
         });
-        this.options = {
-            chart: {
-                type: "stackedAreaChart",
-                height: 300,
-                margin: {
-                    top: 20,
-                    right: 20,
-                    bottom: 20,
-                    left: 40
-                },
-                useVoronoi: false,
-                clipEdge: true,
-                duration: 100,
-                useInteractiveGuideline: true,
-                xAxis: {
-                    axisLabel: 'Distance (km)',
-                },
-                yAxis: {
-                    axisLabel: 'Height (m above water surface)'
-                },
-                zoom: {
-                    enabled: true,
-                    scaleExtent: [
-                        1,
-                        10
-                    ],
-                    useFixedDomain: false,
-                    useNiceScale: false,
-                    horizontalOff: false,
-                    verticalOff: true,
-                    unzoomEventType: "dblclick.zoom"
+    };
+    RegisterLineComponent.prototype.ngOnDestroy = function () {
+        if (this.chart) {
+            this.AmCharts.destroyChart(this.chart);
+        }
+    };
+    RegisterLineComponent.prototype.ngAfterViewInit = function () {
+        this.chart = this.AmCharts.makeChart("chartdiv", {
+            "type": "serial",
+            "categoryField": "distance",
+            "startDuration": 1,
+            "categoryAxis": {
+                "gridPosition": "start"
+            },
+            "trendLines": [],
+            "graphs": [
+                {
+                    "balloonText": "[[title]] of [[height]]:[[value]]",
+                    "fillAlphas": 0.7,
+                    "id": "AmGraph-1",
+                    "lineAlpha": 0,
+                    "title": "height map",
+                    "lineColor": "#560000",
+                    "valueField": "height"
                 }
-            }
-        };
-        this.data = [
-            {
-                key: "North America",
-                values: [[0, 23.04], [30, 19.85], [49, 26.98]]
-            }
-        ];
+            ],
+            "guides": [],
+            "valueAxes": [
+                {
+                    "id": "ValueAxis-1",
+                    "title": "Height (m)"
+                }
+            ],
+            "allLabels": [],
+            "balloon": {
+                "fadeOutDuration": 0
+            },
+            "dataProvider": this.data
+        });
     };
     RegisterLineComponent.prototype.getLineType = function () {
         if (this.selectedLineType == 'Climb')
@@ -107,7 +111,7 @@ var RegisterLineComponent = /** @class */ (function () {
             lng: $event.coords.lng
         };
         this.markers.push(marker);
-        this.updatePolyCords();
+        this.notifyChange();
         // this.lineService.getHeightMap(this.markers).subscribe(data => console.log(data));
         // this.lineService.getDistance(this.markers).subscribe(data => console.log(data));
     };
@@ -122,7 +126,7 @@ var RegisterLineComponent = /** @class */ (function () {
                 m.lng = $event.coords.lng;
             }
         }
-        this.updatePolyCords();
+        this.notifyChange();
     };
     RegisterLineComponent.prototype.removeMarker = function (marker) {
         for (var i = 0; i < this.markers.length; i++) {
@@ -130,15 +134,71 @@ var RegisterLineComponent = /** @class */ (function () {
                 this.markers.splice(i, 1);
             }
         }
-        this.updatePolyCords();
+        this.notifyChange();
     };
     RegisterLineComponent.prototype.markerDeleteLast = function () {
         this.markers.splice(this.markers.length - 1, 1);
-        this.updatePolyCords();
+        this.notifyChange();
     };
     RegisterLineComponent.prototype.markerDeleteAll = function () {
         this.markers = [];
+        this.notifyChange();
+    };
+    /*
+            Chart methods
+
+            getDataProvider()
+            updateChart()
+     */
+    /*
+                Chart methods
+    
+                getDataProvider()
+                updateChart()
+         */
+    RegisterLineComponent.prototype.getDataProvider = /*
+                Chart methods
+    
+                getDataProvider()
+                updateChart()
+         */
+    function () {
+        var data = [];
+        var distances = [];
+        if (!(this.markers.length < 2)) {
+            distances = DistancePoint.getScalingDistances(this.distance_list);
+            for (var i = 0; i < distances.length; i++) {
+                data.push({ "distance": distances[i].toFixed(2).toString() + " km", "height": this.height_map[i].elevation.toFixed(2) });
+            }
+            console.log(data);
+            this.data = data;
+        }
+        this.cdRef.detectChanges();
+        return data;
+    };
+    RegisterLineComponent.prototype.updateChart = function () {
+        var _this = this;
+        this.line_service.getDynamicHeightMap(this.markers).subscribe(function (data) {
+            _this.height_map = HeightMap.fabricateList(data.obj);
+            _this.line_service.getDynamicDistance(_this.markers).subscribe(function (data) {
+                _this.distance_list = DistancePoint.fabricateList(data.obj);
+                _this.data = _this.getDataProvider();
+            });
+        });
+        // This must be called when making any changes to the chart
+        this.AmCharts.updateChart(this.chart, function () {
+            // Change whatever properties you want
+            // Change whatever properties you want
+            _this.chart.dataProvider = _this.getDataProvider();
+        });
+    };
+    // Update visual data
+    // Update visual data
+    RegisterLineComponent.prototype.notifyChange = 
+    // Update visual data
+    function () {
         this.updatePolyCords();
+        this.updateChart();
     };
     RegisterLineComponent.prototype.onSubmit = function () {
         var lineTransfer = new Line('', this.lineForm.value.lineName, '', new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
@@ -150,7 +210,7 @@ var RegisterLineComponent = /** @class */ (function () {
             lineTransfer.rock_level &&
             lineTransfer.cliff_level) {
             // submit
-            this.lineService.addLine(lineTransfer).subscribe(function (line) {
+            this.line_service.addLine(lineTransfer).subscribe(function (line) {
                 console.log(line);
             });
         }
@@ -172,6 +232,7 @@ var RegisterLineComponent = /** @class */ (function () {
         { type: COLOR_DICTIONARY, },
         { type: ChangeDetectorRef, },
         { type: LineService, },
+        { type: AmChartsService, },
         { type: Location, },
     ]; };
     return RegisterLineComponent;
