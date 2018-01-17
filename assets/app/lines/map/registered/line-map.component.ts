@@ -14,8 +14,8 @@ export class LineMapComponent implements OnInit {
     @Input() line: Line;
     public polyCords: PolylineCoords[];
     mapType: string;
-    lat: number = 51.678418;
-    lng: number = 7.809007;
+    lat: number = 45.92375;
+    lng: number = 6.86933;
 
     constructor(private cdRef: ChangeDetectorRef) {}
 
@@ -31,9 +31,9 @@ export class LineMapComponent implements OnInit {
         let prev_lat;
         let prev_lng;
         for (let m of this.line.markers) {
-            if (prev_lat && prev_lng) cords.push(new PolylineCoords(prev_lat, prev_lng, m.lat, m.lng));
-            prev_lat = m.lat;
-            prev_lng = m.lng;
+            if (prev_lat && prev_lng) cords.push(new PolylineCoords(prev_lat, prev_lng, m.location.lat, m.location.lng));
+            prev_lat = m.location.lat;
+            prev_lng = m.location.lng;
         }
         this.polyCords =  cords;
         this.cdRef.detectChanges();
@@ -42,7 +42,7 @@ export class LineMapComponent implements OnInit {
     getAverageLat() {
         let lat = 0;
         for (let i = 0; i < this.line.markers.length; i++) {
-            lat += this.line.markers[i].lat;
+            lat += this.line.markers[i].location.lat;
         }
         return lat / this.line.markers.length;
     }
@@ -50,7 +50,7 @@ export class LineMapComponent implements OnInit {
     getAverageLng() {
         let lng = 0;
         for (let i = 0; i < this.line.markers.length; i++) {
-            lng += this.line.markers[i].lng;
+            lng += this.line.markers[i].location.lng;
         }
         return lng / this.line.markers.length;
     }

@@ -21,11 +21,35 @@ function sortList(list, callback) {
     callback(list);
 }
 
+function getMarkerLocation(marker, callback) {
+    var newMarker = marker;
+    Location.findOne({'_id': marker.location}, function(err, location) {
+        newMarker.location = location;
+        callback(newMarker);
+    });
+}
+
+function getTransformedMarkersList(marker_list, callback) {
+    var transformedMarkers = [];
+    var counter = 0;
+    for (var i = 0; i < marker_list.length; i++) {
+        getMarkerLocation(marker_list[i], function (marker) {
+            counter++;
+            if (marker) transformedMarkers.push(marker);
+            if (marker_list.length == counter) callback(transformedMarkers);
+        });
+    }
+}
+
 function getLineMarkers(id_list, callback) {
     Marker.find({'_id': {$in: id_list}}, function (err, markers) {
         if (err) return null;
         if (!markers) return null;
-        callback(markers);
+        console.log(markers);
+
+        getTransformedMarkersList(markers, function (marker_list) {
+            callback(marker_list);
+        })
     });
 }
 

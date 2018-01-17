@@ -13,36 +13,13 @@ import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 
 export class HeightMapComponent implements OnInit {
     @Input() line: Line;
-    public height_map: HeightMap[];
-    public distance_list: DistancePoint[];
-    private data;
     private chart: AmChart;
 
     constructor(private AmCharts: AmChartsService,
-                private line_service: LineService,
                 private color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
-        this.line_service.getHeightMap(this.line).subscribe(data => {
-            this.height_map = HeightMap.fabricateList(data.obj);
-            this.data = this.getDataProvider();
-            console.log(this.data);
-            // This must be called when making any changes to the chart
-            this.AmCharts.updateChart(this.chart, () => {
-                // Change whatever properties you want
-                this.chart.dataProvider = this.getDataProvider();
-            });
-        });
 
-        this.line_service.getDistance(this.line).subscribe(data => {
-            console.log('data from distance '+data);
-            this.distance_list = DistancePoint.fabricateList(data.obj);
-            // This must be called when making any changes to the chart
-            this.AmCharts.updateChart(this.chart, () => {
-                // Change whatever properties you want
-                this.chart.dataProvider = this.getDataProvider();
-            });
-        });
     }
 
     ngAfterViewInit() {
@@ -82,20 +59,24 @@ export class HeightMapComponent implements OnInit {
                     "size": 15,
                     "text": "Height Map"
                 }
-            ],
-            "dataProvider": this.data
+            ]
+        });
+        // This must be called when making any changes to the chart
+        this.AmCharts.updateChart(this.chart, () => {
+            // Change whatever properties you want
+            this.chart.dataProvider = this.getDataProvider();
         });
     }
 
     getDataProvider() {
         let data = [];
-        let distances: number[] = DistancePoint.getScalingDistances(this.distance_list);
-        console.log(distances);
-        for (let i = 0; i < distances.length; i++) {
-            data.push({"distance": distances[i].toFixed(2).toString()+" km", "height": this.height_map[i].elevation.toFixed(2)});
+        console.log('line: '+JSON.stringify(this.line));
+        for (let i = 0; i < this.line.markers.length; i++) {
+            data.push({
+                "distance": this.line.markers[i].distance_from_start.toFixed(2).toString()+" km",
+                "height": this.line.markers[i].location.elevation.toFixed(2)
+            });
         }
-        console.log(data);
-        this.data = data;
         return data;
     }
 
