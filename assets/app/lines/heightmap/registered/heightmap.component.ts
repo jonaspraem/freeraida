@@ -26,7 +26,6 @@ export class HeightMapComponent implements OnInit {
         this.chart = this.AmCharts.makeChart("chartdiv", {
             "type": "serial",
             "categoryField": "distance",
-            "startDuration": 1,
             "categoryAxis": {
                 "gridPosition": "start"
             },

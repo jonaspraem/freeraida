@@ -1,4 +1,4 @@
-<mat-expansion-panel [ngStyle]="{'border-left': color_dictionary.get(line?.line_type)}">
+<mat-expansion-panel (closed)="onCollapse()" (opened)="onExpand()" [ngStyle]="{'border-left': color_dictionary.get(line?.line_type)}">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <h5>{{line?.name}}</h5>
@@ -20,10 +20,13 @@
         </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div class="left">
-        <app-height-map [line]="line"></app-height-map>
+    <div *ngIf="isExpanded">
+        <div class="left">
+            <app-height-map [line]="line"></app-height-map>
+        </div>
+        <div class="right">
+            <app-line-map [line]="line"></app-line-map>
+        </div>
     </div>
-    <div class="right">
-        <app-line-map [line]="line"></app-line-map>
-    </div>
+
 </mat-expansion-panel>

@@ -23,7 +23,7 @@ export class RidesComponent implements OnInit {
         });
 
         this.rides_service.getUserLines().subscribe(data => {
-            console.log(JSON.stringify('userlines '+data));
+            console.log('userlines '+ JSON.stringify(data));
             this.line_list = Line.fabricateList(data.obj);
         });
     }
