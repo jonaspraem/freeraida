@@ -214,12 +214,14 @@ export class RegisterLineComponent implements OnInit {
     updateChart() {
         this.line_service.getDynamicHeightMap(this.markers).subscribe(height_data => {
             this.line_service.getDynamicDistance(this.markers).subscribe(distance_data => {
-
+                console.log('distance data'+ JSON.stringify(distance_data));
+                let distances = DistancePoint.getScalingDistances(distance_data.obj);
+                let markers = [];
                 for (let i = 0; i < this.markers.length; i++) {
                     let name = this.markers[i].name;
                     let lat = this.markers[i].location.lat;
                     let lng = this.markers[i].location.lng;
-                    this.markers[i]= new MapMarker(
+                    markers.push(new MapMarker(
                         i,
                         name,
                         new LineLocation(
@@ -227,8 +229,9 @@ export class RegisterLineComponent implements OnInit {
                             lng,
                             height_data.obj[i].elevation,
                             height_data.obj[i].resolution),
-                        distance_data.obj[i].distance);
+                        distances[i]));
                 }
+                this.markers = markers;
 
                 // This must be called when making any changes to the chart
                 this.AmCharts.updateChart(this.chart, () => {
@@ -246,6 +249,7 @@ export class RegisterLineComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log(this.selectedLineName);
         const lineTransfer = new Line(
             '',
             this.selectedLineName,
@@ -256,8 +260,9 @@ export class RegisterLineComponent implements OnInit {
             this.selectedTreeLevel,
             this.selectedRockLevel,
             this.selectedCliffLevel);
+        console.log(lineTransfer);
         // check for data
-        if (lineTransfer.lineName &&
+        if (lineTransfer.name &&
             lineTransfer.line_type &&
             lineTransfer.markers.length > 1 &&
             lineTransfer.danger_level &&
@@ -273,6 +278,20 @@ export class RegisterLineComponent implements OnInit {
         // TODO: make better error message
         else {
             console.log('cant submit');
+            console.log(lineTransfer.name);
+            console.log(lineTransfer.line_type);
+            console.log(lineTransfer.markers.length);
+            console.log(lineTransfer.danger_level);
+            console.log(lineTransfer.tree_level);
+
+            console.log('cant submit ' + lineTransfer);
+            console.log(lineTransfer.name + ' \n' +
+                lineTransfer.line_type + ' \n' +
+                lineTransfer.markers.length > 1 + ' \n' +
+                lineTransfer.danger_level + ' \n' +
+                lineTransfer.tree_level + ' \n' +
+                lineTransfer.rock_level + ' \n' +
+                lineTransfer.cliff_level);
         }
     }
 }

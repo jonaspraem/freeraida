@@ -3,7 +3,7 @@ import { LineObject } from "../interfaces/line-object.interface";
 
 export class Line {
     _id: string;
-    lineName: string;
+    name: string;
     timestamp: Date;
     line_type: string;
     markers: MapMarker[];
@@ -15,7 +15,7 @@ export class Line {
 
     constructor(
         _id: string,
-        lineName: string,
+        name: string,
         line_type: string,
         timestamp: Date,
         markers: MapMarker[],
@@ -25,7 +25,7 @@ export class Line {
         cliff_level: string,
     ) {
         this._id = _id;
-        this.lineName = lineName;
+        this.name = name;
         this.line_type = line_type;
         this.timestamp = timestamp;
         this.markers = markers;
@@ -38,7 +38,7 @@ export class Line {
     public static fabricate(object: LineObject): Line {
         return new Line(
             object._id,
-            object.lineName,
+            object.name,
             object.line_type,
             new Date(object.timestamp),
             object.markers,

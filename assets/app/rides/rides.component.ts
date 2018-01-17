@@ -16,13 +16,14 @@ export class RidesComponent implements OnInit {
     constructor(private rides_service: RidesService) {}
 
     ngOnInit(): void {
+        console.log(this.line_list);
         this.rides_service.getTrackedLines().subscribe(data => {
             console.log(JSON.stringify(data));
             this.unregistered_line_list = TrackedLine.fabricateList(data.obj);
         });
 
         this.rides_service.getUserLines().subscribe(data => {
-            console.log(JSON.stringify(data));
+            console.log(JSON.stringify('userlines '+data));
             this.line_list = Line.fabricateList(data.obj);
         });
     }

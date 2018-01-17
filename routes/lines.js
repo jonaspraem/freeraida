@@ -176,11 +176,10 @@ router.get('/user-lines/', function(req, res, next) {
                         });
                     }
                     getUserLines(user_profile, function(list) {
-                        sortList(list, function(sortedList) {
-                            return res.status(201).json({
-                                message: 'User unregistered lines received',
-                                obj: sortedList
-                            });
+                        console.log('list ' + list);
+                        return res.status(201).json({
+                            message: 'User unregistered lines received',
+                            obj: list
                         });
                     });
                 });
@@ -240,6 +239,7 @@ router.post('/newline/', function(req, res, next) {
                         });
                     }
                     var markerlist = [];
+                    console.log("** NEW LINE ** body: "+JSON.stringify(req.body));
                     for (var i = 0; i<req.body.markers.length; i++) {
                         var location = new Location({
                             lat: req.body.markers[i].location.lat,
@@ -254,7 +254,7 @@ router.post('/newline/', function(req, res, next) {
                             distance_from_start: req.body.markers[i].distance_from_start
                         });
                         markerlist.push(marker);
-                        location.save(function (err, profile_result) {
+                        location.save(function (err, location) {
                            if (err) {
                                return res.status(500).json({
                                    title: 'An error occurred',
@@ -263,10 +263,11 @@ router.post('/newline/', function(req, res, next) {
                            }
                         });
                     }
+                    console.log('dark side1');
 
                     var line = new Line({
                         user_id: body.user_id,
-                        name: req.body.lineName,
+                        name: req.body.name,
                         line_type: req.body.line_type,
                         markers: markerlist,
                         timestamp: new Date(),
@@ -284,8 +285,10 @@ router.post('/newline/', function(req, res, next) {
                             });
                         }
                         user_profile.lines.push(result);
+                        console.log('dark side2');
                         saveMarkerList(markerlist, function(save_success) {
                             if (!save_success) {
+                                console.log('dark side3');
                                 return res.status(500).json({
                                     title: 'An error occurred',
                                     error: {message: 'An error occurred saving the map markers'}

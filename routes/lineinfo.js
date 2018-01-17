@@ -18,15 +18,17 @@ var rad = function(x) {
 };
 
 var calculateDistance = function(p1, p2) {
-    var R = 6378137; // Earth’s mean radius in meter
+    var R = 6371; // km
     var dLat = rad(p2.lat - p1.lat);
-    var dLong = rad(p2.lng - p1.lng);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(rad(p1.lat)) * Math.cos(rad(p2.lat)) *
-        Math.sin(dLong / 2) * Math.sin(dLong / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var dLon = rad(p2.lng-p1.lng);
+    var lat1 = rad(p1.lat);
+    var lat2 = rad(p2.lat);
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c;
-    return d/1000;
+    return d;
 };
 
 /*
@@ -81,7 +83,7 @@ router.post('/calculate-distance/', function(req, res, next) {
     var line_profile = [];
     console.log('body0 '+req.body[0].name);
     line_profile.push({name: req.body[0].name, distance: 0});
-    console.log('line profile '+line_profile);
+    console.log('line profile '+JSON.stringify(line_profile));
     if (req.body.length > 1) {
         for (var i = 1; i < req.body.length; i++) {
             line_profile.push({

@@ -1,7 +1,7 @@
 <mat-expansion-panel [ngStyle]="{'border-left': color_dictionary.get(line?.line_type)}">
     <mat-expansion-panel-header>
         <mat-panel-title>
-            <h5>{{line?.lineName}}</h5>
+            <h5>{{line?.name}}</h5>
             <div id="indicators">
                 <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.danger_level.toLowerCase())}"></div>
                 <div class="attribute-indicator" [ngStyle]="{'background-color': color_dictionary.get(line?.tree_level.toLowerCase())}"></div>
