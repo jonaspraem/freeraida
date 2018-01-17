@@ -238,9 +238,19 @@ export class RegisterLineComponent implements OnInit {
     }
 
     onSubmit() {
-        const lineTransfer = new Line('', this.lineForm.value.lineName, '', new Date(), this.markers, this.danger_level, this.tree_level, this.rock_level, this.cliff_level);
+        const lineTransfer = new Line(
+            '',
+            this.selectedLineName,
+            this.selectedLineType,
+            new Date(),
+            this.markers,
+            this.selectedDangerLevel,
+            this.selectedTreeLevel,
+            this.selectedRockLevel,
+            this.selectedCliffLevel);
         // check for data
         if (lineTransfer.lineName &&
+            lineTransfer.line_type &&
             lineTransfer.markers.length > 1 &&
             lineTransfer.danger_level &&
             lineTransfer.tree_level &&

@@ -1,5 +1,4 @@
 <div class="container">
-
     <div>
         <h3>Select type of line</h3>
         <div class="line-type">
@@ -125,7 +124,7 @@
 
             <br>
 
-            <label for="rock">Level of trees</label>
+            <label for="rock">Level of rocks</label>
             <select class="form-control"  id="rock" [(ngModel)]="selectedRockLevel">
                 <option>Safe</option>
                 <option>Caution</option>
@@ -136,7 +135,7 @@
 
             <br>
 
-            <label for="cliff">Level of trees</label>
+            <label for="cliff">Level of cliffs</label>
             <select class="form-control"  id="cliff" [(ngModel)]="selectedCliffLevel">
                 <option>Safe</option>
                 <option>Caution</option>
@@ -146,4 +145,12 @@
             <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedCliffLevel?.toLowerCase())}"></div>
         </div>
     </div>
+
+    <hr>
+
+    <div id="submit">
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">SUBMIT</button>
+    </div>
+
+    <hr>
 </div>
