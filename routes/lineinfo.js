@@ -7,11 +7,17 @@ var Marker = require('../models/schemas/marker');
 var TrackedLine = require('../models/schemas/tracked-line');
 var Location = require('../models/schemas/location');
 
+/*
+        Mathematical functions for distance calculations
+
+        rad
+        getDistance
+ */
 var rad = function(x) {
     return x * Math.PI / 180;
 };
 
-var getDistance = function(p1, p2) {
+var calculateDistance = function(p1, p2) {
     var R = 6378137; // Earth’s mean radius in meter
     var dLat = rad(p2.lat - p1.lat);
     var dLong = rad(p2.lng - p1.lng);
@@ -22,6 +28,10 @@ var getDistance = function(p1, p2) {
     var d = R * c;
     return d/1000;
 };
+
+/*
+        Database lookup methods
+ */
 
 function getLineMarkers(id_list, callback) {
     var object = [];
@@ -60,6 +70,34 @@ function getLineLocationsWithTime(id_list, callback) {
     });
 }
 
+router.post('/calculate-distance/', function(req, res, next) {
+    console.log(req.body);
+    if (req.body.length < 1) {
+        return res.status(500).json({
+            title: 'An error occurred',
+            error: {message: 'An error occurred'}
+        });
+    }
+    var line_profile = [];
+    console.log('body0 '+req.body[0].name);
+    line_profile.push({name: req.body[0].name, distance: 0});
+    console.log('line profile '+line_profile);
+    if (req.body.length > 1) {
+        for (var i = 1; i < req.body.length; i++) {
+            line_profile.push({
+                name: req.body[i].name, distance: calculateDistance(
+                    {lat: req.body[i - 1].lat, lng: req.body[i - 1].lng},
+                    {lat: req.body[i].lat, lng: req.body[i].lng})
+            });
+        }
+    }
+    console.log(JSON.stringify(line_profile));
+    return res.status(200).json({
+        message: 'Distance calculated',
+        obj: line_profile
+    });
+});
+
 // Verify token
 router.use('/', function(req, res, next) {
     request.post(
@@ -78,6 +116,32 @@ router.use('/', function(req, res, next) {
     );
 });
 
+router.post('/height-map/', function(req, res, next) {
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        { json: { id_token: req.query.token } },
+        function (error, response, body) {
+            if (!error) {
+                const googleMapsClient = require('@google/maps').createClient({
+                    key: 'AIzaSyABj_T1wCMVSfQgskqWFwzHJQKaBFjepko'
+                });
+                googleMapsClient.elevation({
+                    locations: req.body
+                }, function(err, response) {
+                    if (!err) {
+                        console.log(response.json.results);
+                        return res.status(200).json({
+                            message: 'Height map generated',
+                            obj: response.json.results
+                        });
+                    } else {
+                        console.log(err);
+                    }
+                });
+            }
+        });
+});
+
 router.get('/height-map/:_id', function(req, res, next) {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
@@ -87,10 +151,10 @@ router.get('/height-map/:_id', function(req, res, next) {
                 Line.findOne({_id: req.params._id}, function (err, line) {
                     if (err) {
                         return res.status(500).json({
-                            title: 'An error occurred',
-                            error: err
-                        });
-                    }
+                        title: 'An error occurred',
+                        error: err
+                    });
+                }
                     if (!line) {
                         return res.status(500).json({
                             title: 'An error occurred',
@@ -193,7 +257,7 @@ router.get('/distance/:_id', function(req, res, next) {
                         if (result.length > 1) {
                             for (var i = 1; i < result.length; i++) {
                                 line_profile.push({
-                                    name: result[i].name, distance: getDistance(
+                                    name: result[i].name, distance: calculateDistance(
                                         {lat: result[i - 1].lat, lng: result[i - 1].lng},
                                         {lat: result[i].lat, lng: result[i].lng})
                                 });
@@ -245,7 +309,7 @@ router.get('/distance-unregistered/:_id', function(req, res, next) {
                         if (result.length > 1) {
                             for (var i = 1; i < result.length; i++) {
                                 line_profile.push({
-                                    time_at: result[i].time_at, distance: getDistance(
+                                    time_at: result[i].time_at, distance: calculateDistance(
                                         {lat: result[i - 1].lat, lng: result[i - 1].lng},
                                         {lat: result[i].lat, lng: result[i].lng})
                                 });

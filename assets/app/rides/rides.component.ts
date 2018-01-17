@@ -28,7 +28,6 @@ export class RidesComponent implements OnInit {
     }
 
     deleteUnregistered(_id: string) {
-        console.log('event happening');
         for (let i = 0; i < this.unregistered_line_list.length; i++) {
             if (this.unregistered_line_list[i]._id == _id) this.unregistered_line_list.splice(i, 1);
         }

@@ -7,6 +7,9 @@ import { PolylineCoords } from "./path.model";
 import { LineService } from "./line.service";
 import { Line } from "../objects/models/line.model";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
+import { AmChart, AmChartsService } from "@amcharts/amcharts3-angular";
+import { HeightMap } from "../objects/models/height-map.model";
+import { DistancePoint } from "../objects/models/distance/distance-point.model";
 
 @Component({
     selector: 'app-register-line',
@@ -25,6 +28,7 @@ export class RegisterLineComponent implements OnInit {
     selectedRockLevel: string;
     selectedCliffLevel: string;
 
+    // Map variables
     location = {};
     lat: number = 51.678418;
     lng: number = 7.809007;
@@ -34,18 +38,21 @@ export class RegisterLineComponent implements OnInit {
     // Form values
     lineForm: FormGroup;
     markers: MapMarker[];
-
     danger_level: string;
     tree_level: string;
     rock_level: string;
     cliff_level: string;
 
-    options;
-    data;
+    // Chart variables
+    public height_map: HeightMap[];
+    public distance_list: DistancePoint[];
+    private chart: AmChart;
+    private data;
 
     constructor(public color_dictionary: COLOR_DICTIONARY,
                 private cdRef: ChangeDetectorRef,
-                private lineService: LineService,
+                private line_service: LineService,
+                private AmCharts: AmChartsService,
                 location: Location
     ) {
         this.location = location;
@@ -72,46 +79,47 @@ export class RegisterLineComponent implements OnInit {
             this.lng = position.coords.longitude;
         });
 
-        this.options = {
-            chart: {
-                type: "stackedAreaChart",
-                height: 300,
-                margin: {
-                    top: 20,
-                    right: 20,
-                    bottom: 20,
-                    left: 40
-                },
-                useVoronoi: false,
-                clipEdge: true,
-                duration: 100,
-                useInteractiveGuideline: true,
-                xAxis: {
-                    axisLabel: 'Distance (km)',
-                },
-                yAxis: {
-                    axisLabel: 'Height (m above water surface)'
-                },
-                zoom: {
-                    enabled: true,
-                    scaleExtent: [
-                        1,
-                        10
-                    ],
-                    useFixedDomain: false,
-                    useNiceScale: false,
-                    horizontalOff: false,
-                    verticalOff: true,
-                    unzoomEventType: "dblclick.zoom"
+    }
+
+    ngOnDestroy() {
+        if (this.chart) {
+            this.AmCharts.destroyChart(this.chart);
+        }
+    }
+
+    ngAfterViewInit() {
+        this.chart = this.AmCharts.makeChart("chartdiv", {
+            "type": "serial",
+            "categoryField": "distance",
+            "startDuration": 1,
+            "categoryAxis": {
+                "gridPosition": "start"
+            },
+            "trendLines": [],
+            "graphs": [
+                {
+                    "balloonText": "[[title]] of [[height]]:[[value]]",
+                    "fillAlphas": 0.7,
+                    "id": "AmGraph-1",
+                    "lineAlpha": 0,
+                    "title": "height map",
+                    "lineColor": "#560000",
+                    "valueField": "height"
                 }
-            }
-        };
-        this.data = [
-            {
-                key : "North America" ,
-                values : [ [ 0 , 23.04] , [ 30, 19.85] , [ 49 , 26.98]]
-            }
-        ];
+            ],
+            "guides": [],
+            "valueAxes": [
+                {
+                    "id": "ValueAxis-1",
+                    "title": "Height (m)"
+                }
+            ],
+            "allLabels": [],
+            "balloon": {
+                "fadeOutDuration": 0
+            },
+            "dataProvider": this.data
+        });
     }
 
     getLineType() {
@@ -141,7 +149,7 @@ export class RegisterLineComponent implements OnInit {
             lng: $event.coords.lng
         };
         this.markers.push(marker);
-        this.updatePolyCords();
+        this.notifyChange();
         // this.lineService.getHeightMap(this.markers).subscribe(data => console.log(data));
         // this.lineService.getDistance(this.markers).subscribe(data => console.log(data));
     }
@@ -157,7 +165,7 @@ export class RegisterLineComponent implements OnInit {
                 m.lng = $event.coords.lng;
             }
         }
-        this.updatePolyCords();
+        this.notifyChange();
     }
 
     removeMarker(marker) {
@@ -166,17 +174,62 @@ export class RegisterLineComponent implements OnInit {
                 this.markers.splice(i, 1);
             }
         }
-        this.updatePolyCords();
+        this.notifyChange();
     }
 
     markerDeleteLast() {
         this.markers.splice(this.markers.length-1, 1);
-        this.updatePolyCords();
+        this.notifyChange();
     }
 
     markerDeleteAll() {
         this.markers = [];
+        this.notifyChange();
+    }
+
+    /*
+            Chart methods
+
+            getDataProvider()
+            updateChart()
+     */
+
+    getDataProvider() {
+        let data = [];
+        let distances: number[] = [];
+        if (!(this.markers.length < 2)) {
+            distances = DistancePoint.getScalingDistances(this.distance_list);
+            for (let i = 0; i < distances.length; i++) {
+                data.push({"distance": distances[i].toFixed(2).toString()+" km", "height": this.height_map[i].elevation.toFixed(2)});
+            }
+            console.log(data);
+            this.data = data;
+        }
+        this.cdRef.detectChanges();
+        return data;
+    }
+
+    updateChart() {
+        this.line_service.getDynamicHeightMap(this.markers).subscribe(data => {
+            this.height_map = HeightMap.fabricateList(data.obj);
+            this.line_service.getDynamicDistance(this.markers).subscribe(data => {
+                this.distance_list = DistancePoint.fabricateList(data.obj);
+                this.data = this.getDataProvider();
+            });
+        });
+
+
+        // This must be called when making any changes to the chart
+        this.AmCharts.updateChart(this.chart, () => {
+            // Change whatever properties you want
+            this.chart.dataProvider = this.getDataProvider();
+        });
+    }
+
+    // Update visual data
+    notifyChange() {
         this.updatePolyCords();
+        this.updateChart();
     }
 
     onSubmit() {
@@ -189,7 +242,7 @@ export class RegisterLineComponent implements OnInit {
             lineTransfer.rock_level &&
             lineTransfer.cliff_level) {
             // submit
-            this.lineService.addLine(lineTransfer).subscribe(
+            this.line_service.addLine(lineTransfer).subscribe(
                 (line: Line) => {
                     console.log(line);
                 });
