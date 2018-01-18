@@ -4,7 +4,6 @@ import { CommonModule } from "@angular/common";
 import { AgmCoreModule } from "@agm/core";
 import { FormsModule }   from '@angular/forms';
 
-import { NvD3Module } from 'ng2-nvd3';
 import 'd3';
 import 'nvd3';
 
@@ -18,7 +17,6 @@ import {
     MatInputModule
 } from '@angular/material';
 
-import { RegisterRideComponent } from "./register-ride.component";
 import { MapContentComponent } from "./map-content";
 import { LineService } from "./line.service";
 import { LineHistoryComponent } from "./line-history.component";
@@ -32,7 +30,6 @@ import { HeightmapUnregisteredComponent } from "./heightmap/un-registered/height
 
 @NgModule({
     declarations: [
-        RegisterRideComponent,
         MapContentComponent,
         LineHistoryComponent,
         RegisterLineComponent,
@@ -49,7 +46,6 @@ import { HeightmapUnregisteredComponent } from "./heightmap/un-registered/height
             apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM'
         }),
         AmChartsModule,
-        NvD3Module,
         MatCardModule,
         MatButtonModule,
         MatButtonToggleModule,

@@ -13,9 +13,9 @@ import { ProfileService } from "../profile/profile.service";
 })
 
 export class HeaderComponent implements OnInit {
-    userProfile: any;
-    profile: Profile;
-    isOpen: boolean = false;
+    public userProfile: any;
+    public profile: Profile;
+    public isOpen: boolean = false;
 
     constructor(private profile_service: ProfileService,
                 private authService: AuthService,
@@ -43,8 +43,7 @@ export class HeaderComponent implements OnInit {
 
     // On click outside component
     onClick(event) {
-        if (!this._eref.nativeElement.contains(event.target)) // or some similar check
-            this.onClose();
+        if (!this._eref.nativeElement.contains(event.target)) this.onClose();
     }
 
     hasImage(): boolean {

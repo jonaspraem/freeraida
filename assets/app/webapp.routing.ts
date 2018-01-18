@@ -1,13 +1,11 @@
 import { RouterModule, Routes } from "@angular/router";
 
 import { LiveFeedComponent } from "./posts/feed/live-feed.component";
-import { RegisterRideComponent } from "./lines/register-ride.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { TrackPageComponent } from "./tracker/track.component";
 import { SettingsComponent } from "./profile/settings/settings.component";
 import { RegisterLineComponent } from "./lines/register-line.component";
 import { RidesComponent } from "./rides/rides.component";
-import { ProfileModule } from "./profile/profile.module";
 
 // Do not delete. Used to ensure ProfileModule is loaded in the same bundle.
 // Referencing the function directly in `loadChildren` breaks AoT compiler.
@@ -19,13 +17,12 @@ const WEBAPP_ROUTES: Routes = [
     // { path: '**', redirectTo: 'feed', pathMatch: 'full'},
     { path: 'feed', component: LiveFeedComponent},
     { path: 'register-line', component: RegisterLineComponent},
-    { path: 'ride-center', component: RegisterRideComponent},
     { path: 'rides', component: RidesComponent},
     { path: 'track', component: TrackPageComponent},
     { path: 'settings', component: SettingsComponent},
     { path: 'user', component: ProfileComponent, children: [
             { path: '', redirectTo: localStorage.getItem('username'), pathMatch: 'full' },
-            { path: ':user', component: ProfileComponent }
+            { path: ':id', component: ProfileComponent }
         ]}
 ];
 

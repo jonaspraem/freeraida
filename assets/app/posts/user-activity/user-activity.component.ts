@@ -10,22 +10,12 @@ import { Profile } from "../../objects/models/profile.model";
     styleUrls: ['./user-activity.component.css']
 })
 
-export class UserActivityComponent implements OnInit {
-     @Input() profile: Profile;
-    posts: Post[];
+export class UserActivityComponent {
+    @Input() profile: Profile;
+    @Input() posts: Post[];
 
     constructor(private post_service: PostService,
                 private route: ActivatedRoute) {}
 
-    ngOnInit(): void {
-        this.route.params.subscribe(params => {
-            let user_address = params['user'];
-            this.post_service.getPosts(user_address.toString())
-                .subscribe(
-                    data => {
-                        this.posts = Post.fabricateList(data.obj);
-                    }
-                );
-        });
-    }
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProfileService } from "./profile.service";
 import { Profile } from "../objects/models/profile.model";
@@ -27,30 +27,39 @@ export class ProfileComponent implements OnInit{
 
     constructor(private profile_service: ProfileService,
                 private lineService: LineService,
+                private router: Router,
                 private route: ActivatedRoute,
                 public flag_dictionary: FLAG_DICTIONARY,
                 public color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
-        this.route.params.subscribe(params => {
-            let user_address = params['user'];
-            this.profile_service.getProfile(user_address.toString())
-                .subscribe(
-                    data => {
-                        this.profile = Profile.fabricate(data.obj);
-                        this.profile_service.getProfileWithToken()
-                            .subscribe(data => {
-                                this.self = Profile.fabricate(data.obj);
-                                this.isOwnProfile = (this.self.user_address == user_address);
-                            });
-                    }
-                );
-            this.lineService.getLines(user_address.toString())
-                .subscribe(
-                    data => {
-                        this.lines = Line.fabricateList(data.obj);
-                    }
-                );
+        this.router.events.subscribe(params => {
+            let r = this.route;
+            while (r.firstChild) {
+                r = r.firstChild
+            }
+            r.params.subscribe(params => {
+                let id = params['id'];
+                id = id.toString();
+                this.profile_service.getProfile(id)
+                    .subscribe(
+                        data => {
+                            this.profile = Profile.fabricate(data.obj);
+                            this.profile_service.getProfileWithToken()
+                                .subscribe(data => {
+                                    this.self = Profile.fabricate(data.obj);
+                                    this.isOwnProfile = (this.self.user_address == id);
+                                });
+                        }
+                    );
+                this.lineService.getLines(id)
+                    .subscribe(
+                        data => {
+                            this.lines = Line.fabricateList(data.obj);
+                        }
+                    );
+            });
+
         });
     }
 
