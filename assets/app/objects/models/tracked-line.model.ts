@@ -5,10 +5,12 @@ import { Post } from "./post.model";
 
 export class TrackedLine {
     _id: string;
+    user_id: string;
     locations: LineLocation[];
 
-    constructor(_id: string, locations: LineLocation[]) {
+    constructor(_id: string, user_id: string, locations: LineLocation[]) {
         this._id = _id;
+        this.user_id = user_id;
         this.locations = locations;
     }
 
@@ -16,27 +18,22 @@ export class TrackedLine {
         let locations: LineLocation[] = [];
         for (let i = 0; i < object.locations.length; i++) {
             locations.push(new LineLocation(
-                object.locations[i].time_at,
                 object.locations[i].lat,
                 object.locations[i].lng,
             ));
         }
-        return new TrackedLine(object._id, locations);
+        let trackedLine = new TrackedLine(object._id, object.user_id, locations);
+        console.log('fabrication single line: '+JSON.stringify(trackedLine));
+        return trackedLine;
     }
 
-    public static fabricateList(objects: TrackedLineObject[]) : TrackedLine[] {
+    public static fabricateList(objects: TrackedLineObject[]): TrackedLine[] {
+        console.log('fabrication: '+JSON.stringify(objects));
         let lines: TrackedLine[] = [];
         for (let i = 0; i < objects.length; i++) {
-            for (let j = 0; j < objects[i].locations.length; j++) {
-                let locations: LineLocation[] = [];
-                locations.push(new LineLocation(
-                    objects[i].locations[j].time_at,
-                    objects[i].locations[j].lat,
-                    objects[i].locations[j].lng,
-                ));
-            }
             lines.push(this.fabricate(objects[i]));
         }
+        console.log('fabrication lines: '+JSON.stringify(lines));
         return lines;
     }
 }

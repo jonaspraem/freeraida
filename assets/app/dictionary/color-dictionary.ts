@@ -20,6 +20,7 @@ export class COLOR_DICTIONARY {
         COLOR_DICTIONARY.COLOR_MAP.set('descent', '#560000');
         COLOR_DICTIONARY.COLOR_MAP.set('tour', '#E1BC21');
         COLOR_DICTIONARY.COLOR_MAP.set('address', '#42BCF1');
+        COLOR_DICTIONARY.COLOR_MAP.set('tracked', '#339988');
         // UTILITIES
         COLOR_DICTIONARY.COLOR_MAP.set('available', '#12E112');
         COLOR_DICTIONARY.COLOR_MAP.set('not-available', '#F60C00');

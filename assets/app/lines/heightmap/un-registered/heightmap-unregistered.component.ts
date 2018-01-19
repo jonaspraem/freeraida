@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { AmChart, AmChartsService } from "@amcharts/amcharts3-angular";
-import { Line } from "../../../objects/models/line.model";
 import { LineService } from "../../line.service";
 import { HeightMap } from "../../../objects/models/height-map.model";
 import { DistancePoint } from "../../../objects/models/distance/distance-point.model";
 import { TrackedLine } from "../../../objects/models/tracked-line.model";
+import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-height-map-unregistered',
@@ -19,18 +19,12 @@ export class HeightmapUnregisteredComponent implements OnInit {
     private chart: AmChart;
 
     constructor(private AmCharts: AmChartsService,
-                private line_service: LineService) {}
+                private line_service: LineService,
+                private color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
         this.line_service.getHeightMapUnregistered(this.line).subscribe(data => {
             this.height_map = HeightMap.fabricateList(data.obj);
-            this.data = this.getDataProvider();
-            console.log(this.data);
-            // This must be called when making any changes to the chart
-            this.AmCharts.updateChart(this.chart, () => {
-                // Change whatever properties you want
-                this.chart.dataProvider = this.getDataProvider();
-            });
         });
 
         this.line_service.getDistanceUnregistered(this.line).subscribe(data => {
@@ -43,7 +37,6 @@ export class HeightmapUnregisteredComponent implements OnInit {
         this.chart = this.AmCharts.makeChart("chartdiv", {
             "type": "serial",
             "categoryField": "distance",
-            "startDuration": 1,
             "categoryAxis": {
                 "gridPosition": "start"
             },
@@ -55,7 +48,7 @@ export class HeightmapUnregisteredComponent implements OnInit {
                     "id": "AmGraph-1",
                     "lineAlpha": 0,
                     "title": "height map",
-                    "lineColor": "#560000",
+                    "lineColor": this.color_dictionary.get(this.color_dictionary.getAlias('tracked')),
                     "valueField": "height"
                 }
             ],
@@ -76,8 +69,12 @@ export class HeightmapUnregisteredComponent implements OnInit {
                     "size": 15,
                     "text": "Height Map"
                 }
-            ],
-            "dataProvider": this.data
+            ]
+        });
+        // This must be called when making any changes to the chart
+        this.AmCharts.updateChart(this.chart, () => {
+            // Change whatever properties you want
+            this.chart.dataProvider = this.getDataProvider();
         });
     }
 

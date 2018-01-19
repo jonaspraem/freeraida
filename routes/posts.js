@@ -108,7 +108,6 @@ router.use('/', function(req, res, next) {
             if (!error && response.statusCode == 200) {
                 next();
             } else {
-                console.log(response);
                 return res.status(401).json({
                     title: 'Not Authenticated',
                     error: {message: 'Not a valid token'}

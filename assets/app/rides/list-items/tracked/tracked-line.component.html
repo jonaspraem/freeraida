@@ -1,4 +1,4 @@
-<mat-expansion-panel>
+<mat-expansion-panel (closed)="onCollapse()" (opened)="onExpand()">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <i class="material-icons">location_on</i><h5>{{line?._id}}</h5>
@@ -12,11 +12,14 @@
         </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div class="left">
-        <app-height-map-unregistered [line]="line"></app-height-map-unregistered>
+    <div *ngIf="isExpanded">
+        <div class="left">
+            <app-height-map-unregistered [line]="line"></app-height-map-unregistered>
+        </div>
+        <div class="right">
+            <app-line-map-unregistered [line]="line"></app-line-map-unregistered>
+        </div>
     </div>
-    <div class="right">
-        <app-line-map-unregistered [line]="line"></app-line-map-unregistered>
-    </div>
+
 </mat-expansion-panel>
 

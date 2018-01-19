@@ -70,7 +70,7 @@ export class TrackPageComponent {
             console.log(position);
             this.location = position.coords;
             // in your case
-            this.tracked_line.locations.push(new LineLocation(this.getTime(), position.coords.latitude, position.coords.longitude))
+            this.tracked_line.locations.push(new LineLocation(position.coords.latitude, position.coords.longitude))
         });
     }
 

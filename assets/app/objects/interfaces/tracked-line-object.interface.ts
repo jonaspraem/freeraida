@@ -1,6 +1,7 @@
-import { LineLocationObject } from "./line-location-object.interface";
+import { LocationObject } from "./location-object.interface";
 
 export interface TrackedLineObject {
     _id: string;
-    locations: LineLocationObject[];
+    user_id: string;
+    locations: LocationObject[];
 }

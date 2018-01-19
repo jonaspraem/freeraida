@@ -21,6 +21,28 @@ function sortList(list, callback) {
     callback(list);
 }
 
+function getTransformedTrackedLine(line, callback) {
+    var newTracked = line;
+    Location.find({'_id': {$in: line.locations}}, function(err, location_list) {
+        newTracked.locations = location_list;
+        console.log('FAREWELL3: '+location_list);
+        callback(newTracked);
+    });
+}
+
+function getTransformedTrackedLineList(lines, callback) {
+    console.log('HELLO3: '+lines);
+    var transformedTrackedLines = [];
+    var counter = 0;
+    for (var i = 0; i < lines.length; i++) {
+        getTransformedTrackedLine(lines[i], function (line) {
+            counter++;
+            if (line) transformedTrackedLines.push(line);
+            if (lines.length == counter) callback(transformedTrackedLines);
+        });
+    }
+}
+
 function getMarkerLocation(marker, callback) {
     var newMarker = marker;
     Location.findOne({'_id': marker.location}, function(err, location) {
@@ -87,7 +109,9 @@ function getUserTrackedLines(profile, callback) {
     TrackedLine.find({'_id': {$in: profile.tracked_lines}}, function (err, user_lines) {
         if (err) return null;
         if (!user_lines) return null;
-        getTransformedLineList(user_lines, function(transformedLineList) {
+        console.log('HELLO2: '+user_lines);
+        getTransformedTrackedLineList(user_lines, function(transformedLineList) {
+            console.log('FAREWELL2: '+transformedLineList);
             callback(transformedLineList);
         });
     });
@@ -178,7 +202,7 @@ router.get('/user-lines/', function(req, res, next) {
                     getUserLines(user_profile, function(list) {
                         console.log('list ' + list);
                         return res.status(201).json({
-                            message: 'User unregistered lines received',
+                            message: 'User registered lines received',
                             obj: list
                         });
                     });
@@ -207,11 +231,10 @@ router.get('/unregistered-lines/', function(req, res, next) {
                         });
                     }
                     getUserTrackedLines(user_profile, function(list) {
-                        sortList(list, function(sortedList) {
-                            return res.status(201).json({
-                                message: 'User unregistered lines received',
-                                obj: sortedList
-                            });
+                        console.log('HELLO list '+list);
+                        return res.status(201).json({
+                            message: 'User unregistered lines received',
+                            obj: list
                         });
                     });
                 });
@@ -336,11 +359,19 @@ router.post('/new-tracked-line/', function(req, res, next) {
                     var locations = [];
                     for (var i = 0; i<req.body.locations.length; i++) {
                         var location = new Location({
-                            time_at: req.body.locations[i].time_at,
                             lat: req.body.locations[i].lat,
                             lng: req.body.locations[i].lng
                         });
                         locations.push(location);
+                        location.save(function (err, location) {
+                            if (err) {
+                                console.log('error saving: '+err);
+                                return res.status(500).json({
+                                    title: 'An error occurred',
+                                    error: err
+                                });
+                            }
+                        });
                     }
 
                     var tracked_line = new TrackedLine({
@@ -390,7 +421,6 @@ router.delete('/remove-tracked-line/:id', function(req, res, next) {
         function (error, response, body) {
             if (!error) {
                 TrackedLine.findById(req.params.id, function(err, line) {
-                    console.log('made it here '+line);
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occured',
@@ -433,7 +463,6 @@ router.delete('/remove-line/:id', function(req, res, next) {
         function (error, response, body) {
             if (!error) {
                 Line.findById(req.params.id, function(err, line) {
-                    console.log('made it here '+line);
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occured',

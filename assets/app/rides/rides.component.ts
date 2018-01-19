@@ -16,9 +16,8 @@ export class RidesComponent implements OnInit {
     constructor(private rides_service: RidesService) {}
 
     ngOnInit(): void {
-        console.log(this.line_list);
         this.rides_service.getTrackedLines().subscribe(data => {
-            console.log(JSON.stringify(data));
+            console.log('tracked lines: '+JSON.stringify(data));
             this.unregistered_line_list = TrackedLine.fabricateList(data.obj);
         });
 

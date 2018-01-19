@@ -76,18 +76,14 @@ export class SettingsComponent implements OnInit {
                 err => {
                     console.log(err);
                     this.isWelcome = true;
-                    console.log('isWelcome: '+this.isWelcome);
 
                     this.form.valueChanges.subscribe(data => {
-                        console.log('Form changes '+ data.address);
                         if (data.address == '') this.form_canActivate = false;
                         else this.profile_service.addressIsAvailable(data.address)
                             .subscribe(data => {
-                                    console.log('result '+ data);
                                     this.form_canActivate = data.obj;
                                 },
                                 (err) =>{
-                                    console.log('err '+ err);
                                     this.form_canActivate = false;
                                 }
                             );

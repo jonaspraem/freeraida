@@ -10,8 +10,17 @@ import { TrackedLine } from "../../../objects/models/tracked-line.model";
 export class TrackedLineItemComponent {
     @Output() deleteEvent: EventEmitter<string> = new EventEmitter<string>();
     @Input() line: TrackedLine;
+    public isExpanded: boolean = false;
 
     onDelete() {
         this.deleteEvent.emit(this.line._id);
+    }
+
+    onCollapse() {
+        this.isExpanded = false;
+    }
+
+    onExpand() {
+        this.isExpanded = true;
     }
 }

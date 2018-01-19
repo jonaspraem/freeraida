@@ -84,7 +84,6 @@ router.post('/new', function (req, res, next) {
                         });
                     }
                     if (!profile) {
-                        console.log('profile created: '+req.body.social_twitter);
                         // If none exists, create new
                         var profile_schema = new Profile({
                             user_id: body.user_id,
@@ -121,7 +120,6 @@ router.post('/new', function (req, res, next) {
 
 // Get user profile with token
 router.get('/user-info', function (req, res, next) {
-    console.log('user request at user-info');
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         {json: {id_token: req.query.token}},
