@@ -29,7 +29,7 @@ export class TrackPageComponent {
     // Information
     public isTracking;
     public duration: string = '0:00';
-    public tracked_line: TrackedLine = new TrackedLine('0',[]);
+    public tracked_line: TrackedLine = new TrackedLine('0', '',[]);
 
     // Time Calculation
     private location = {};
@@ -46,7 +46,7 @@ export class TrackPageComponent {
         this.isTracking = true;
         this.duration = '0:00';
         this.ticks = 0;
-        this.tracked_line = new TrackedLine('0',[]);
+        this.tracked_line = new TrackedLine('0', '',[]);
 
         let ticker = TimerObservable.create(5000, 5000);
         this.subscription_ticker = ticker.subscribe((t) => this.onTimeOut(t));
