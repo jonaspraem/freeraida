@@ -24,19 +24,18 @@ export class HeightmapUnregisteredComponent implements OnInit {
 
     ngOnInit(): void {
         this.line_service.getHeightMapUnregistered(this.line).subscribe(data => {
+            console.log('data unregistered' +JSON.stringify(data));
             this.height_map = HeightMap.fabricateList(data.obj);
-        });
-
-        this.line_service.getDistanceUnregistered(this.line).subscribe(data => {
-            console.log('DISTANCE DATA: '+JSON.stringify(data));
-            this.distance_list = DistancePoint.fabricateList(data.obj);
-            // This must be called when making any changes to the chart
-            this.AmCharts.updateChart(this.chart, () => {
-                // Change whatever properties you want
-                this.chart.dataProvider = this.getDataProvider();
+            this.line_service.getDistanceUnregistered(this.line).subscribe(data => {
+                console.log('DISTANCE DATA: '+JSON.stringify(data));
+                this.distance_list = DistancePoint.fabricateList(data.obj);
+                // This must be called when making any changes to the chart
+                this.AmCharts.updateChart(this.chart, () => {
+                    // Change whatever properties you want
+                    this.chart.dataProvider = this.getDataProvider();
+                });
             });
         });
-
     }
 
     ngAfterViewInit() {
@@ -82,7 +81,7 @@ export class HeightmapUnregisteredComponent implements OnInit {
     getDataProvider() {
         let data = [];
         let distances: number[] = DistancePoint.getScalingDistances(this.distance_list);
-        console.log(distances);
+        console.log('defined or not '+distances+ ' height '+this.height_map);
         for (let i = 0; i < distances.length; i++) {
             data.push({"distance": distances[i].toFixed(2).toString()+" km", "height": this.height_map[i].elevation.toFixed(2)});
         }
