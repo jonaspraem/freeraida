@@ -46,7 +46,7 @@ export class TrackPageComponent {
         this.isTracking = true;
         this.duration = '0:00';
         this.ticks = 0;
-        this.tracked_line = new TrackedLine('0', '',[]);
+        this.tracked_line = new TrackedLine('0', '',[], this.duration);
 
         let ticker = TimerObservable.create(5000, 5000);
         this.subscription_ticker = ticker.subscribe((t) => this.onTimeOut(t));
@@ -62,7 +62,8 @@ export class TrackPageComponent {
         this.isTracking = false;
         this.subscription_ticker.unsubscribe();
         this.subscription_timer.unsubscribe();
-        this.track_service.postTrackedLine(this.tracked_line).subscribe(d => console.log(d));
+        let line = new TrackedLine('', '', this.tracked_line.locations, this.duration);
+        this.track_service.postTrackedLine(line).subscribe(d => console.log(d));
     }
 
     onTimeOut(data) {

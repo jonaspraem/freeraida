@@ -4,7 +4,7 @@
             <i class="material-icons">location_on</i><h5>{{line?._id}}</h5>
         </mat-panel-title>
         <mat-panel-description>
-            <p>{{line?.locations[line?.locations.length-1].time_at}}&#9;</p>
+            <p>{{line?.duration}}</p>
 
             <button class="list-delete-item" mat-icon-button (click)="onDelete()">
                 <mat-icon>delete</mat-icon>

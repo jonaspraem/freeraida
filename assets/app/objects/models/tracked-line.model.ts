@@ -7,11 +7,13 @@ export class TrackedLine {
     _id: string;
     user_id: string;
     locations: LineLocation[];
+    duration?: string;
 
-    constructor(_id: string, user_id: string, locations: LineLocation[]) {
+    constructor(_id: string, user_id: string, locations: LineLocation[], duration?: string) {
         this._id = _id;
         this.user_id = user_id;
         this.locations = locations;
+        this.duration = duration;
     }
 
     public static fabricate(object: TrackedLineObject): TrackedLine {
@@ -22,7 +24,7 @@ export class TrackedLine {
                 object.locations[i].lng,
             ));
         }
-        let trackedLine = new TrackedLine(object._id, object.user_id, locations);
+        let trackedLine = new TrackedLine(object._id, object.user_id, locations, object.duration);
         return trackedLine;
     }
 
