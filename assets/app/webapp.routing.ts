@@ -22,7 +22,8 @@ const WEBAPP_ROUTES: Routes = [
     { path: 'settings', component: SettingsComponent},
     { path: 'user', children: [
             { path: '', redirectTo: localStorage.getItem('username'), pathMatch: 'full' },
-            { path: ':id', component: ProfileComponent }
+            { path: ':id', component: ProfileComponent },
+            { path: '**', redirectTo: '', pathMatch: 'full'},
         ]}
 ];
 
