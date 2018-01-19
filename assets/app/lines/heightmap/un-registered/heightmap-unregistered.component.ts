@@ -28,7 +28,13 @@ export class HeightmapUnregisteredComponent implements OnInit {
         });
 
         this.line_service.getDistanceUnregistered(this.line).subscribe(data => {
+            console.log('DISTANCE DATA: '+JSON.stringify(data));
             this.distance_list = DistancePoint.fabricateList(data.obj);
+            // This must be called when making any changes to the chart
+            this.AmCharts.updateChart(this.chart, () => {
+                // Change whatever properties you want
+                this.chart.dataProvider = this.getDataProvider();
+            });
         });
 
     }
@@ -71,11 +77,6 @@ export class HeightmapUnregisteredComponent implements OnInit {
                 }
             ]
         });
-        // This must be called when making any changes to the chart
-        this.AmCharts.updateChart(this.chart, () => {
-            // Change whatever properties you want
-            this.chart.dataProvider = this.getDataProvider();
-        });
     }
 
     getDataProvider() {
@@ -85,7 +86,6 @@ export class HeightmapUnregisteredComponent implements OnInit {
         for (let i = 0; i < distances.length; i++) {
             data.push({"distance": distances[i].toFixed(2).toString()+" km", "height": this.height_map[i].elevation.toFixed(2)});
         }
-        console.log(data);
         return data;
     }
 
