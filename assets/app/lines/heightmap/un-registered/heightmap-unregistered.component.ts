@@ -20,9 +20,10 @@ export class HeightmapUnregisteredComponent implements OnInit {
 
     constructor(private AmCharts: AmChartsService,
                 private line_service: LineService,
-                private color_dictionary: COLOR_DICTIONARY) {}
+                public color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
+        console.log('color '+this.color_dictionary.get('tracked'));
         this.line_service.getHeightMapUnregistered(this.line).subscribe(data => {
             console.log('data unregistered' +JSON.stringify(data));
             this.height_map = HeightMap.fabricateList(data.obj);
@@ -53,7 +54,7 @@ export class HeightmapUnregisteredComponent implements OnInit {
                     "id": "AmGraph-1",
                     "lineAlpha": 0,
                     "title": "height map",
-                    "lineColor": this.color_dictionary.get(this.color_dictionary.getAlias('tracked')),
+                    "lineColor": this.color_dictionary.get('tracked'),
                     "valueField": "height"
                 }
             ],

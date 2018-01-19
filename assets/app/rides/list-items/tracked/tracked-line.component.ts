@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TrackedLine } from "../../../objects/models/tracked-line.model";
+import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-tracked-line-item',
@@ -11,6 +12,8 @@ export class TrackedLineItemComponent {
     @Output() deleteEvent: EventEmitter<string> = new EventEmitter<string>();
     @Input() line: TrackedLine;
     public isExpanded: boolean = false;
+
+    constructor(public color_dictionary: COLOR_DICTIONARY) {}
 
     onDelete() {
         this.deleteEvent.emit(this.line._id);

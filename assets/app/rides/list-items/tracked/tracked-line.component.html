@@ -1,4 +1,4 @@
-<mat-expansion-panel (closed)="onCollapse()" (opened)="onExpand()">
+<mat-expansion-panel (closed)="onCollapse()" (opened)="onExpand()" [ngStyle]="{'border-color': color_dictionary.get('tracked')}">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <i class="material-icons">location_on</i><h5>{{line?._id}}</h5>

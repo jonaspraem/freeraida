@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { TrackedLine } from "../objects/models/tracked-line.model";
 import { Line } from "../objects/models/line.model";
 import { RidesService } from "./rides.service";

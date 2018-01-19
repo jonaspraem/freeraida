@@ -14,6 +14,10 @@ button {
     margin-left: 100px;
 }
 
+mat-expansion-panel {
+    border-left: solid 8px;
+}
+
 .left {
     display: inline-block;
     margin: 0;

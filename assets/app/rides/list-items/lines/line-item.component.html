@@ -1,4 +1,4 @@
-<mat-expansion-panel (closed)="onCollapse()" (opened)="onExpand()" [ngStyle]="{'border-left': color_dictionary.get(line?.line_type)}">
+<mat-expansion-panel (closed)="onCollapse()" (opened)="onExpand()" [ngStyle]="{'border-color': color_dictionary.get(color_dictionary.getAlias(line?.line_type?.toLowerCase()))}">
     <mat-expansion-panel-header>
         <mat-panel-title>
             <h5>{{line?.name}}</h5>
@@ -10,7 +10,7 @@
             </div>
         </mat-panel-title>
         <mat-panel-description>
-            <p [ngStyle]="{'color': color_dictionary.get(line?.line_type?.toLowerCase())}">{{line?.line_type}}</p>
+            <p [ngStyle]="{'color': color_dictionary.get(color_dictionary.getAlias(line?.line_type?.toLowerCase())), 'font-weight': 'bold'}">{{line?.line_type}}</p>
             <div class="right-desc">
                 <button class="list-delete-item" mat-icon-button (click)="onDelete()">
                     <mat-icon>delete</mat-icon>
