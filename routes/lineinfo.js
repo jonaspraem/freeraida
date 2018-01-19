@@ -126,7 +126,7 @@ router.post('/height-map/', function(req, res, next) {
             if (!error) {
                 var locations = [];
                 for (var i = 0; i < req.body.length; i++) {
-                    locations.push({lat: req.body[i].location.lat, lng: req.body[i].location.lat});
+                    locations.push({lat: req.body[i].location.lat, lng: req.body[i].location.lng});
                 }
                 const googleMapsClient = require('@google/maps').createClient({
                     key: 'AIzaSyABj_T1wCMVSfQgskqWFwzHJQKaBFjepko'
