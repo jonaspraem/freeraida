@@ -20,11 +20,8 @@ const WEBAPP_ROUTES: Routes = [
     { path: 'rides', component: RidesComponent},
     { path: 'track', component: TrackPageComponent},
     { path: 'settings', component: SettingsComponent},
-    { path: 'user', children: [
-            { path: '', redirectTo: localStorage.getItem('username'), pathMatch: 'full' },
-            { path: ':id', component: ProfileComponent },
-            { path: '**', redirectTo: '', pathMatch: 'full'},
-        ]}
+    { path: 'user/:id', component: ProfileComponent},
+    { path: 'user', redirectTo: 'user/'+localStorage.getItem('username'), pathMatch: 'full'}
 ];
 
 export const webappRouting = RouterModule.forChild(WEBAPP_ROUTES);
