@@ -70,6 +70,7 @@ export class HeaderComponent implements OnInit {
     }
 
     onToggle() {
+        console.log('toggle');
         this.isOpen = !this.isOpen;
     }
 

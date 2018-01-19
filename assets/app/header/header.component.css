@@ -48,6 +48,7 @@ i {
 }
 
 .mat-toolbar {
+    position: relative;
     background-color: black;
 }
 
@@ -59,12 +60,14 @@ i {
 }
 
 .user-container {
+    position: relative;
     vertical-align: middle;
     margin-right: 30px;
     width: 200px;
     height: 40px;
     text-align: left;
     cursor: pointer;
+    z-index: 10;
 }
 
 .dropdown-container {
