@@ -23,12 +23,9 @@ export class HeightmapUnregisteredComponent implements OnInit {
                 public color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
-        console.log('color '+this.color_dictionary.get('tracked'));
         this.line_service.getHeightMapUnregistered(this.line).subscribe(data => {
-            console.log('data unregistered' +JSON.stringify(data));
             this.height_map = HeightMap.fabricateList(data.obj);
             this.line_service.getDistanceUnregistered(this.line).subscribe(data => {
-                console.log('DISTANCE DATA: '+JSON.stringify(data));
                 this.distance_list = DistancePoint.fabricateList(data.obj);
                 // This must be called when making any changes to the chart
                 this.AmCharts.updateChart(this.chart, () => {
@@ -82,7 +79,6 @@ export class HeightmapUnregisteredComponent implements OnInit {
     getDataProvider() {
         let data = [];
         let distances: number[] = DistancePoint.getScalingDistances(this.distance_list);
-        console.log('defined or not '+distances+ ' height '+this.height_map);
         for (let i = 0; i < distances.length; i++) {
             data.push({"distance": distances[i].toFixed(2).toString()+" km", "height": this.height_map[i].elevation.toFixed(2)});
         }

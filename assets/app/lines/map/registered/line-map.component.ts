@@ -20,7 +20,6 @@ export class LineMapComponent implements OnInit {
     constructor(private cdRef: ChangeDetectorRef) {}
 
     ngOnInit(): void {
-        console.log('markers index sort ' + +JSON.stringify(this.line));
         this.lat = this.getAverageLat();
         this.lng = this.getAverageLng();
         this.mapType = 'hybrid';
@@ -29,8 +28,6 @@ export class LineMapComponent implements OnInit {
             if (n1.index < n2.index) return -1;
             return 0;
         });
-
-        console.log('markers index sort ' + +JSON.stringify(this.line));
         this.updatePolyCords();
     }
 

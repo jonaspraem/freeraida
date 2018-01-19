@@ -21,7 +21,6 @@ export class HeightMap {
         for (let i = 0; i < objects.length; i++) {
             list.push(HeightMap.fabricate(objects[i]));
         }
-        console.log('height line fabrication: '+JSON.stringify(list));
         return list;
     }
 }

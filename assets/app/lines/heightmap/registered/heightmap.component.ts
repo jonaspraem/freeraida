@@ -69,7 +69,6 @@ export class HeightMapComponent implements OnInit {
 
     getDataProvider() {
         let data = [];
-        console.log('line: '+JSON.stringify(this.line));
         for (let i = 0; i < this.line.markers.length; i++) {
             data.push({
                 "distance": this.line.markers[i].distance_from_start.toFixed(2).toString()+" km",

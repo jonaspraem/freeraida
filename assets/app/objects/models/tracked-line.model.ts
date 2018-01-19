@@ -23,17 +23,14 @@ export class TrackedLine {
             ));
         }
         let trackedLine = new TrackedLine(object._id, object.user_id, locations);
-        console.log('fabrication single line: '+JSON.stringify(trackedLine));
         return trackedLine;
     }
 
     public static fabricateList(objects: TrackedLineObject[]): TrackedLine[] {
-        console.log('fabrication: '+JSON.stringify(objects));
         let lines: TrackedLine[] = [];
         for (let i = 0; i < objects.length; i++) {
             lines.push(this.fabricate(objects[i]));
         }
-        console.log('fabrication lines: '+JSON.stringify(lines));
         return lines;
     }
 }

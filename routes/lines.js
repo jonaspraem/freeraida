@@ -25,13 +25,11 @@ function getTransformedTrackedLine(line, callback) {
     var newTracked = line;
     Location.find({'_id': {$in: line.locations}}, function(err, location_list) {
         newTracked.locations = location_list;
-        console.log('FAREWELL3: '+location_list);
         callback(newTracked);
     });
 }
 
 function getTransformedTrackedLineList(lines, callback) {
-    console.log('HELLO3: '+lines);
     var transformedTrackedLines = [];
     var counter = 0;
     for (var i = 0; i < lines.length; i++) {
@@ -67,7 +65,6 @@ function getLineMarkers(id_list, callback) {
     Marker.find({'_id': {$in: id_list}}, function (err, markers) {
         if (err) return null;
         if (!markers) return null;
-        console.log(markers);
 
         getTransformedMarkersList(markers, function (marker_list) {
             callback(marker_list);
@@ -109,9 +106,7 @@ function getUserTrackedLines(profile, callback) {
     TrackedLine.find({'_id': {$in: profile.tracked_lines}}, function (err, user_lines) {
         if (err) return null;
         if (!user_lines) return null;
-        console.log('HELLO2: '+user_lines);
         getTransformedTrackedLineList(user_lines, function(transformedLineList) {
-            console.log('FAREWELL2: '+transformedLineList);
             callback(transformedLineList);
         });
     });
@@ -171,6 +166,7 @@ router.use('/', function(req, res, next) {
             if (!error && response.statusCode == 200) {
                 next();
             } else {
+                console.log(response);
                 return res.status(401).json({
                     title: 'Not Authenticated',
                     error: {message: 'jwt must be provided'}
@@ -200,7 +196,6 @@ router.get('/user-lines/', function(req, res, next) {
                         });
                     }
                     getUserLines(user_profile, function(list) {
-                        console.log('list ' + list);
                         return res.status(201).json({
                             message: 'User registered lines received',
                             obj: list
@@ -231,7 +226,6 @@ router.get('/unregistered-lines/', function(req, res, next) {
                         });
                     }
                     getUserTrackedLines(user_profile, function(list) {
-                        console.log('HELLO list '+list);
                         return res.status(201).json({
                             message: 'User unregistered lines received',
                             obj: list
@@ -262,7 +256,6 @@ router.post('/newline/', function(req, res, next) {
                         });
                     }
                     var markerlist = [];
-                    console.log("** NEW LINE ** body: "+JSON.stringify(req.body));
                     for (var i = 0; i<req.body.markers.length; i++) {
                         var location = new Location({
                             lat: req.body.markers[i].location.lat,
@@ -286,7 +279,6 @@ router.post('/newline/', function(req, res, next) {
                            }
                         });
                     }
-                    console.log('dark side1');
 
                     var line = new Line({
                         user_id: body.user_id,
@@ -308,10 +300,8 @@ router.post('/newline/', function(req, res, next) {
                             });
                         }
                         user_profile.lines.push(result);
-                        console.log('dark side2');
                         saveMarkerList(markerlist, function(save_success) {
                             if (!save_success) {
-                                console.log('dark side3');
                                 return res.status(500).json({
                                     title: 'An error occurred',
                                     error: {message: 'An error occurred saving the map markers'}
