@@ -20,7 +20,7 @@ const WEBAPP_ROUTES: Routes = [
     { path: 'rides', component: RidesComponent},
     { path: 'track', component: TrackPageComponent},
     { path: 'settings', component: SettingsComponent},
-    { path: 'user', component: ProfileComponent, children: [
+    { path: 'user', children: [
             { path: '', redirectTo: localStorage.getItem('username'), pathMatch: 'full' },
             { path: ':id', component: ProfileComponent }
         ]}
