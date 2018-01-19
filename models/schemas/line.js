@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Profile = require('./profile');
 var Marker = require('./marker');
 
 var schema = new Schema({
@@ -16,12 +15,18 @@ var schema = new Schema({
     user_id: {type: String, required: true}
 });
 
-schema.post('remove', function(line) {
-    console.log('after delete');
-    Profile.findOne({user_id: line.user_id}, function(err, profile) {
-        console.log('profile '+profile);
-        profile.lines.pull(line._id);
+schema.pre('remove', function(next) {
+    var model = this;
+    var profile = require('./profile');
+    Marker.find({_id: {$in: model.markers}}, function(err, result) {
+        result.forEach(function(marker) {
+            marker.remove(function(err) {});
+        });
+    });
+    profile.findOne({user_id: model.user_id}, function(err, profile) {
+        profile.lines.pull(model._id);
         profile.save();
+        next();
     });
 });
 

@@ -19,7 +19,7 @@ var schema = new Schema({
     tracked_lines: [{type: Schema.Types.ObjectId, ref: 'TrackedLine'}],
     following: [{type: String}],
     followers: [{type: String}],
-    img: {data: Buffer, contentType: String},
+    img: {data: Buffer, contentType: String}
 });
 
 schema.plugin(mongooseUniqueValidator);
