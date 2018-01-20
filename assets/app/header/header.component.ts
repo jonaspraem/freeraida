@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from "@angular/core";
+import { Component, ElementRef, HostListener, Input, OnInit } from "@angular/core";
 import { AuthService } from "../auth/auth.service";
 import { Profile } from "../objects/models/profile.model";
 import { ProfileService } from "../profile/profile.service";
@@ -12,34 +12,13 @@ import { ProfileService } from "../profile/profile.service";
     styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent implements OnInit {
-    public userProfile: any;
-    public profile: Profile;
+export class HeaderComponent {
+    @Input() userProfile: any;
+    @Input() profile: Profile;
     public isOpen: boolean = false;
 
-    constructor(private profile_service: ProfileService,
-                private authService: AuthService,
+    constructor(private authService: AuthService,
                 private _eref: ElementRef) {}
-
-    ngOnInit(): void {
-        if (this.authService.userProfile) {
-            this.userProfile = this.authService.userProfile;
-
-        } else {
-            this.authService.getProfile().subscribe(
-                (profile: any) => {
-                    this.userProfile = profile;
-                }
-            );
-        }
-        this.profile_service.getProfileWithToken()
-            .subscribe(
-            (data) => {
-                this.profile = Profile.fabricate(data.obj);
-            }
-        );
-
-    }
 
     // On click outside component
     onClick(event) {
@@ -70,7 +49,6 @@ export class HeaderComponent implements OnInit {
     }
 
     onToggle() {
-        console.log('toggle');
         this.isOpen = !this.isOpen;
     }
 

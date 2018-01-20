@@ -7,20 +7,12 @@ import { SettingsComponent } from "./profile/settings/settings.component";
 import { RegisterLineComponent } from "./lines/register-line.component";
 import { RidesComponent } from "./rides/rides.component";
 
-// Do not delete. Used to ensure ProfileModule is loaded in the same bundle.
-// Referencing the function directly in `loadChildren` breaks AoT compiler.
-// export function loadProfileModule() {
-//     return ProfileModule;
-// }
-
 const WEBAPP_ROUTES: Routes = [
-    // { path: '**', redirectTo: 'feed', pathMatch: 'full'},
     { path: 'feed', component: LiveFeedComponent},
     { path: 'register-line', component: RegisterLineComponent},
     { path: 'rides', component: RidesComponent},
     { path: 'track', component: TrackPageComponent},
     { path: 'settings', component: SettingsComponent},
-    { path: 'user', redirectTo: 'user/'+localStorage.getItem('username'), pathMatch: 'full'},
     { path: 'user/:id', component: ProfileComponent}
 ];
 

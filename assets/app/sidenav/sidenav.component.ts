@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Profile } from "../objects/models/profile.model";
 
 @Component({
     selector: 'app-sidebar',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
+    @Input() userProfile: any;
+    @Input() profile: Profile;
     expanded: Boolean = true;
 
     constructor() {}
