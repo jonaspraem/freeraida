@@ -33,33 +33,16 @@ export class ProfileComponent implements OnInit{
                 public color_dictionary: COLOR_DICTIONARY) {}
 
     ngOnInit(): void {
-        this.router.events.subscribe(params => {
-            let r = this.route;
-            while (r.firstChild) {
-                r = r.firstChild
-            }
-            r.params.subscribe(params => {
-                let id = params['id'];
-                id = id.toString();
-                this.profile_service.getProfile(id)
-                    .subscribe(
-                        data => {
-                            this.profile = Profile.fabricate(data.obj);
-                            this.profile_service.getProfileWithToken()
-                                .subscribe(data => {
-                                    this.self = Profile.fabricate(data.obj);
-                                    this.isOwnProfile = (this.self.user_address == id);
-                                });
-                        }
-                    );
-                this.lineService.getLines(id)
-                    .subscribe(
-                        data => {
-                            this.lines = Line.fabricateList(data.obj);
-                        }
-                    );
+        this.route.params.subscribe(params => {
+            this.profile_service.getProfile(params['id']).subscribe(data => {
+                console.log(data);
+                this.profile = Profile.fabricate(data.obj);
+                this.profile_service.getProfileWithToken()
+                    .subscribe(data => {
+                        this.self = Profile.fabricate(data.obj);
+                        this.isOwnProfile = (this.self.user_address == this.profile.user_address);
+                    });
             });
-
         });
     }
 

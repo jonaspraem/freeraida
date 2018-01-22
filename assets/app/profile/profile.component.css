@@ -21,7 +21,7 @@
     height: 200px;
     width: 200px;
     transform: translateY(-100px) translateX(+300px);
-    border: 1px solid #141D2F;
+    border: 1px solid #052a02;
     display: inline;
     position: absolute;
     z-index: 3;
@@ -71,7 +71,6 @@ h2 {
     display: inline-block;
     width: 400px;
     height: 200px;
-    background-color: #141D2F;
     float: left;
     padding: 80px 0 0 0;
 }
