@@ -6,7 +6,7 @@
 
 var app = require('../application');
 var debug = require('debug')('freeraida:server');
-var http = require('https');
+var http = require('http');
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +20,12 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+server.get('*', function(req, res) {
+    res.redirect('https://' + req.headers.host + req.url);
+
+    // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+    // res.redirect('https://example.com' + req.url);
+});
 
 /**
  * Listen on provided port, on all network interfaces.
