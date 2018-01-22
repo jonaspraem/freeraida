@@ -28,11 +28,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'images','favicon.ico')));
 
 app.all('*', function(req, res, next) {
-    if (req.headers.host != "localhost:3000" && !req.secure) {
-        console.log('redirect to https');
-        res.redirect('https://' + req.headers.host + req.url);
+    console.log(req.headers.host);
+    console.log(req.secure);
+    if (req.headers.host == "localhost:3000") {
+        console.log('localhost dev environment');
+        next();
     }
-    next();
+    else if (req.secure) {
+        next();
+    }
+    else res.redirect('https://' + req.headers.host + req.url);
     // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
     // res.redirect('https://example.com' + req.url);
 });
