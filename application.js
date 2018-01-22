@@ -16,13 +16,6 @@ var lineInfoRoutes = require('./routes/lineinfo');
 var app = express();
 mongoose.connect('test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database');
 
-app.use('*', function(req, res) {
-    res.redirect('https://' + req.headers.host + req.url);
-
-    // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
-    // res.redirect('https://example.com' + req.url);
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -33,6 +26,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'images','favicon.ico')));
+
+app.use('*', function(req, res) {
+    res.redirect('https://' + req.headers.host + req.url);
+
+    // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+    // res.redirect('https://example.com' + req.url);
+});
 
 app.use(function(req, res, next){
     res.setHeader('Acces-Control-Allow-Origin', '*');
