@@ -29,7 +29,7 @@ app.use(favicon(path.join(__dirname,'images','favicon.ico')));
 
 app.use('*', function(req, res, next) {
     console.log(req.headers.host);
-    if (req.headers.host != "localhost:3000") {
+    if (req.headers.host != "localhost:3000" && req.protocol==='http') {
         console.log('redirect to https');
         res.redirect('https://' + req.headers.host + req.url);
     }
