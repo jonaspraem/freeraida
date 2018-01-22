@@ -7,12 +7,14 @@ import { SettingsComponent } from "./profile/settings/settings.component";
 import { RegisterLineComponent } from "./lines/register-line.component";
 import { RidesComponent } from "./rides/rides.component";
 import { ForumsComponent } from "./coming-soon/forums/forums.component";
+import { BeginnersGuideComponent } from "./coming-soon/beginners-guide/beginners-guide.component";
 
 const WEBAPP_ROUTES: Routes = [
     { path: 'feed', component: LiveFeedComponent},
     { path: 'register-line', component: RegisterLineComponent},
     { path: 'rides', component: RidesComponent},
     { path: 'track', component: TrackPageComponent},
+    { path: 'school', component: BeginnersGuideComponent},
     { path: 'forums', component: ForumsComponent},
     { path: 'settings', component: SettingsComponent},
     { path: 'user/:id', component: ProfileComponent}
