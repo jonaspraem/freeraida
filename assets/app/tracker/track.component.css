@@ -22,11 +22,12 @@ p {
 
 .signature-card {
     z-index: 2;
-    width: 500px;
+    width: 80%;
+    min-width: 300px;
     background-color: white;
     align-content: center;
     text-align: center;
-    height: 500px;
+    height: 80%;
 }
 
 .background {
