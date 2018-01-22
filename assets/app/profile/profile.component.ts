@@ -7,6 +7,8 @@ import { LineService } from "../lines/line.service";
 import { Line } from "../objects/models/line.model";
 import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
+import { PostService } from "../posts/post.service";
+import { Post } from "../objects/models/post.model";
 
 const background_image = require('../../images/licensed/iStock-01.jpg');
 const profile_picture = require('../../images/default-skier.jpg');
@@ -23,10 +25,12 @@ export class ProfileComponent implements OnInit{
     isOwnProfile: boolean;
     self: Profile;
     profile: Profile;
+    posts: Post[];
     lines: Line[];
 
     constructor(private profile_service: ProfileService,
-                private lineService: LineService,
+                private line_service: LineService,
+                private post_service: PostService,
                 private router: Router,
                 private route: ActivatedRoute,
                 public flag_dictionary: FLAG_DICTIONARY,
@@ -43,7 +47,11 @@ export class ProfileComponent implements OnInit{
                         this.isOwnProfile = (this.self.user_address == this.profile.user_address);
                     });
             });
+            this.post_service.getPosts(params['id']).subscribe(data => {
+                this.posts = Post.fabricateList(data.obj);
+            });
         });
+
     }
 
     isFollowing(): boolean {
