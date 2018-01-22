@@ -27,9 +27,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'images','favicon.ico')));
 
-app.use('*', function(req, res) {
-    res.redirect('https://' + req.headers.host + req.url);
-
+app.use('*', function(req, res, next) {
+    console.log(req.headers.host);
+    if (req.headers.host != "localhost:3000") {
+        console.log('redirect to https');
+        res.redirect('https://' + req.headers.host + req.url);
+    }
+    next();
     // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
     // res.redirect('https://example.com' + req.url);
 });
