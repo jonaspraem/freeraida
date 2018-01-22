@@ -319,6 +319,7 @@ const zimbabwe = require('../../images/flags/zimbabwe.png');
 @Injectable()
 
 export class FLAG_DICTIONARY {
+    private flags = [];
     private static flagmap: Map<string, string> = new Map<string, string>();
 
     constructor() {

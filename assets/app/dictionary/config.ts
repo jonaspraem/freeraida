@@ -3,7 +3,7 @@ import { Injectable, isDevMode } from "@angular/core";
 @Injectable()
 
 export class CONFIG {
-    private static ENDPOINTS = ['http://localhost:3000', 'http://www.freeraida.com'];
+    private static ENDPOINTS = ['http://localhost:3000', 'https://www.freeraida.com'];
     private static ElevationKey = 'AIzaSyABj_T1wCMVSfQgskqWFwzHJQKaBFjepko';
 
     getEndpoint() {
