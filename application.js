@@ -34,12 +34,11 @@ app.all('*', function(req, res, next) {
         console.log('localhost dev environment');
         next();
     }
-    else if (req.secure) {
+    else if (req.headers["x-forwarded-proto"] === "https") {
         next();
     }
+    // Force HTTPS redirect on production server
     else res.redirect('https://' + req.headers.host + req.url);
-    // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
-    // res.redirect('https://example.com' + req.url);
 });
 
 app.use(function(req, res, next){
