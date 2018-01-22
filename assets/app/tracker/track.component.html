@@ -1,6 +1,6 @@
 <img class="background" src="{{descent}}">
 <header>
-    <mat-card class="signature-card">
+    <mat-card class="signature-card" [ngStyle]="{'background-color': color_dictionary.get('primary'), 'color': 'white'}" >
         <img class="header-img" src="{{track_header}}">
         <hr>
         <div *ngIf="isTracking; then tracking_content else normal_content"></div>
@@ -8,7 +8,7 @@
             <button type="button" class="btn btn-danger" (click)="stopTracking()">STOP</button>
         </ng-template>
         <ng-template #normal_content>
-            <button type="button" class="btn btn-primary" (click)="startTracking()">START TRACKING</button>
+            <button type="button" class="btn btn-success" (click)="startTracking()">START TRACKING</button>
         </ng-template>
 
         <hr>
