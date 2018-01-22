@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 
-import { RidesComponent } from "./rides.component";
+import { LineHistoryComponent } from "./line-history.component";
 import { TrackedLineItemComponent } from "./list-items/tracked/tracked-line.component";
 import { CommonModule } from "@angular/common";
-import { RidesService } from "./rides.service";
+import { LineHistoryService } from "./line-history.service";
 import { LineItemComponent } from "./list-items/lines/line-item.component";
-import { LineModule } from "../lines/line.module";
+import { LineModule } from "../line.module";
 
 // Material design
 import { MatExpansionModule } from '@angular/material';
@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material';
 
 @NgModule({
     declarations: [
-        RidesComponent,
+        LineHistoryComponent,
         TrackedLineItemComponent,
         LineItemComponent,
     ],
@@ -28,10 +28,10 @@ import { MatIconModule } from '@angular/material';
         MatIconModule
     ],
     providers: [
-        RidesService
+        LineHistoryService
     ],
     exports: [
-        RidesComponent
+        LineHistoryComponent
     ]
 })
 

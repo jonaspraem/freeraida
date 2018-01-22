@@ -5,7 +5,7 @@ import { ProfileComponent } from "./profile/profile.component";
 import { TrackPageComponent } from "./tracker/track.component";
 import { SettingsComponent } from "./profile/settings/settings.component";
 import { RegisterLineComponent } from "./lines/register-line.component";
-import { RidesComponent } from "./rides/rides.component";
+import { LineHistoryComponent } from "./lines/line-history/line-history.component";
 import { ForumsComponent } from "./coming-soon/forums/forums.component";
 import { BeginnersGuideComponent } from "./coming-soon/beginners-guide/beginners-guide.component";
 import { WikiComponent } from "./coming-soon/wiki/wiki.component";
@@ -14,7 +14,7 @@ import { EventsComponent } from "./coming-soon/events/events.component";
 const WEBAPP_ROUTES: Routes = [
     { path: 'feed', component: LiveFeedComponent},
     { path: 'register-line', component: RegisterLineComponent},
-    { path: 'rides', component: RidesComponent},
+    { path: 'rides', component: LineHistoryComponent},
     { path: 'track', component: TrackPageComponent},
     { path: 'school', component: BeginnersGuideComponent},
     { path: 'wiki', component: WikiComponent},

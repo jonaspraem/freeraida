@@ -19,19 +19,18 @@ import {
 
 import { MapContentComponent } from "./map-content";
 import { LineService } from "./line.service";
-import { LineHistoryComponent } from "./line-history.component";
 import { RegisterLineComponent } from "./register-line.component";
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import { HeightMapComponent } from "./heightmap/registered/heightmap.component";
 import { LineMapComponent } from "./map/registered/line-map.component";
 import { LineMapUnregisteredComponent } from "./map/un-registered/line-map-unregistered.component";
 import { HeightmapUnregisteredComponent } from "./heightmap/un-registered/heightmap-unregistered.component";
+import { LineHistoryComponent } from "./line-history/line-history.component";
 
 
 @NgModule({
     declarations: [
         MapContentComponent,
-        LineHistoryComponent,
         RegisterLineComponent,
         HeightMapComponent,
         LineMapComponent,
@@ -54,7 +53,6 @@ import { HeightmapUnregisteredComponent } from "./heightmap/un-registered/height
         MatInputModule
     ],
     exports: [
-        LineHistoryComponent,
         RegisterLineComponent,
         HeightMapComponent,
         LineMapComponent,

@@ -17,7 +17,7 @@ import { PostModule } from "./posts/post.module";
 import { WebAppComponent } from "./webapp.component";
 import { UserOptionsDropdownComponent } from "./header/user-options/user-options-dropdown.component";
 import { TrackPageModule } from "./tracker/track.module";
-import { RidesModule } from "./rides/rides.module";
+import { RidesModule } from "./lines/line-history/line-history.module";
 import { ComingSoonModule } from "./coming-soon/coming-soon.module";
 
 @NgModule({

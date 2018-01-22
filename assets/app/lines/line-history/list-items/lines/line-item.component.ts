@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Line } from "../../../objects/models/line.model";
-import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
+import { Line } from "../../../../objects/models/line.model";
+import { COLOR_DICTIONARY } from "../../../../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-line-item',

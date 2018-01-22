@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
-import { TrackedLineObject } from "../objects/interfaces/tracked-line-object.interface";
+import { TrackedLineObject } from "../../objects/interfaces/tracked-line-object.interface";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { CONFIG } from "../dictionary/config";
-import { ErrorService } from "../errors/error.service";
-import { LineObject } from "../objects/interfaces/line-object.interface";
-import { TrackedLine } from "../objects/models/tracked-line.model";
+import { CONFIG } from "../../dictionary/config";
+import { ErrorService } from "../../errors/error.service";
+import { LineObject } from "../../objects/interfaces/line-object.interface";
 
 interface TrackedLineResponse{
     message: string;
@@ -23,7 +22,7 @@ interface LineListResponse {
 
 @Injectable()
 
-export class RidesService {
+export class LineHistoryService {
 
     constructor(private http: HttpClient,
                 private errorService: ErrorService,

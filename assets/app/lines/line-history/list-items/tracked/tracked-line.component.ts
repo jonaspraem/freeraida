@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { TrackedLine } from "../../../objects/models/tracked-line.model";
-import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
+import { TrackedLine } from "../../../../objects/models/tracked-line.model";
+import { COLOR_DICTIONARY } from "../../../../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-tracked-line-item',

@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { TrackedLine } from "../objects/models/tracked-line.model";
-import { Line } from "../objects/models/line.model";
-import { RidesService } from "./rides.service";
+import { Component, OnInit } from "@angular/core";
+import { LineHistoryService } from "./line-history.service";
+import { TrackedLine } from "../../objects/models/tracked-line.model";
+import { Line } from "../../objects/models/line.model";
 
 @Component({
     selector: 'app-rides',
-    templateUrl: './rides.component.html',
-    styleUrls: ['./rides.component.css']
+    templateUrl: './line-history.component.html',
+    styleUrls: ['./line-history.component.css']
 })
 
-export class RidesComponent implements OnInit {
+export class LineHistoryComponent implements OnInit {
     public unregistered_line_list: TrackedLine[];
     public line_list: Line[];
 
-    constructor(private rides_service: RidesService) {}
+    constructor(private rides_service: LineHistoryService) {}
 
     ngOnInit(): void {
         this.rides_service.getTrackedLines().subscribe(data => {
