@@ -10,17 +10,18 @@ export class COLOR_DICTIONARY {
     private static ALIAS: Map<string, string> = new Map<string, string>();
 
     constructor() {
-        COLOR_DICTIONARY.COLOR_MAP.set('primary', '#141D2F');
-        COLOR_DICTIONARY.COLOR_MAP.set('secondary', '#6495ED');
+        COLOR_DICTIONARY.COLOR_MAP.set('primary', '#052a02');
+        COLOR_DICTIONARY.COLOR_MAP.set('secondary', '#1B1E1B');
         COLOR_DICTIONARY.COLOR_MAP.set('black', '#000000');
         COLOR_DICTIONARY.COLOR_MAP.set('white', '#FFFFFF');
-        COLOR_DICTIONARY.COLOR_MAP.set('secondary_light', '#C1D4F7');
+        COLOR_DICTIONARY.COLOR_MAP.set('secondary_light', '#829480');
         COLOR_DICTIONARY.COLOR_MAP.set('sky-blue', '#0275D8');
         COLOR_DICTIONARY.COLOR_MAP.set('ascent', '#448BDD');
         COLOR_DICTIONARY.COLOR_MAP.set('descent', '#560000');
         COLOR_DICTIONARY.COLOR_MAP.set('tour', '#E1BC21');
-        COLOR_DICTIONARY.COLOR_MAP.set('address', '#42BCF1');
+        COLOR_DICTIONARY.COLOR_MAP.set('address', '#99C053');
         COLOR_DICTIONARY.COLOR_MAP.set('tracked', '#339988');
+        COLOR_DICTIONARY.COLOR_MAP.set('grey', '#404040'); // D3EEDF
         // UTILITIES
         COLOR_DICTIONARY.COLOR_MAP.set('available', '#12E112');
         COLOR_DICTIONARY.COLOR_MAP.set('not-available', '#F60C00');

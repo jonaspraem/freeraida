@@ -62,7 +62,8 @@ p {
 }
 
 .menu-item:hover {
-    background-color: #6495ED;
+    background-color: #1B1E1B;
+    color: white;
 }
 
 .menu-container {
