@@ -6,7 +6,7 @@
 
 var app = require('../application');
 var debug = require('debug')('freeraida:server');
-var http = require('http');
+var http = require('https');
 
 /**
  * Get port from environment and store in Express.
