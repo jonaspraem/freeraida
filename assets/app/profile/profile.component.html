@@ -15,10 +15,10 @@
             <div *ngIf="!isOwnProfile; else spacer">
                 <div *ngIf="isFollowing(); then unfollow_button else follow_button"></div>
                 <ng-template #follow_button>
-                    <button mat-raised-button type="button" (click)="follow()" [ngStyle]="{'background-color': color_dictionary.get('tracked')}">follow</button>
+                    <button mat-raised-button type="button" (click)="follow()" [ngStyle]="{'background-color': color_dictionary.get('address')}">follow</button>
                 </ng-template>
                 <ng-template #unfollow_button>
-                    <button mat-raised-button type="button" (click)="unfollow()" [ngStyle]="{'background-color': color_dictionary.get('secondary_light')}">unfollow</button>
+                    <button mat-raised-button type="button" (click)="unfollow()" [ngStyle]="{'background-color': color_dictionary.get('third')}">unfollow</button>
                 </ng-template>
             </div>
             <ng-template #spacer>
