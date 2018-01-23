@@ -15,7 +15,7 @@ import { AfterRegistrationComponent } from "./lines/after-registration/after-reg
 const WEBAPP_ROUTES: Routes = [
     { path: 'feed', component: LiveFeedComponent},
     { path: 'register-line', component: RegisterLineComponent},
-    { path: 'rides', component: LineHistoryComponent},
+    { path: 'line-history', component: LineHistoryComponent},
     { path: 'track', component: TrackPageComponent},
     { path: 'school', component: BeginnersGuideComponent},
     { path: 'wiki', component: WikiComponent},
