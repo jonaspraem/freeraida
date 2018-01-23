@@ -1,7 +1,8 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from "@angular/core";
+import { Component, ElementRef, Input } from "@angular/core";
 import { AuthService } from "../auth/auth.service";
 import { Profile } from "../objects/models/profile.model";
-import { ProfileService } from "../profile/profile.service";
+
+const logoImage = require('../../images/logo/favicon.png');
 
 @Component({
     host: {
@@ -15,6 +16,7 @@ import { ProfileService } from "../profile/profile.service";
 export class HeaderComponent {
     @Input() userProfile: any;
     @Input() profile: Profile;
+    public logo = logoImage;
     public isOpen: boolean = false;
 
     constructor(private authService: AuthService,

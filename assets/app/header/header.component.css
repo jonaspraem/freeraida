@@ -1,6 +1,7 @@
 body {
     color: white;
     position: relative;
+    z-index: 20;
 }
 
 h1 {
@@ -21,6 +22,13 @@ img {
     height: 40px;
     border-radius: 50%;
     border: solid 2px white;
+}
+
+.logo {
+    position: relative;
+    z-index: 10;
+    margin-right: 10px;
+    margin-left: 0;
 }
 
 i {
@@ -50,6 +58,8 @@ i {
 .mat-toolbar {
     position: relative;
     background-color: #0B2100;
+    z-index: 10;
+    border-bottom:1px groove white;
 }
 
 .nickname {
