@@ -8,7 +8,10 @@ import { LineItemComponent } from "./list-items/lines/line-item.component";
 import { LineModule } from "../line.module";
 
 // Material design
-import { MatExpansionModule } from '@angular/material';
+import {
+    MatButtonModule, MatButtonToggleModule, MatCardModule, MatExpansionModule,
+    MatInputModule
+} from '@angular/material';
 import { MatListModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
 import { MatIconModule } from '@angular/material';
@@ -25,7 +28,11 @@ import { MatIconModule } from '@angular/material';
         LineModule,
         MatListModule,
         MatFormFieldModule,
-        MatIconModule
+        MatIconModule,
+        MatCardModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatInputModule
     ],
     providers: [
         LineHistoryService

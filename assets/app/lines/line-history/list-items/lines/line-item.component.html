@@ -12,7 +12,7 @@
         <mat-panel-description>
             <p [ngStyle]="{'color': color_dictionary.get(color_dictionary.getAlias(line?.line_type?.toLowerCase())), 'font-weight': 'bold'}">{{line?.line_type}}</p>
             <div class="right-desc">
-                <button class="list-delete-item" mat-icon-button (click)="onDelete()">
+                <button class="list-delete-item" mat-icon-button (click)="onDelete()" [ngStyle]="{'background-color': color_dictionary.get('secondary'), 'color': 'white'}">
                     <mat-icon>delete</mat-icon>
                 </button>
                 <p>{{line?.timestamp}}</p>

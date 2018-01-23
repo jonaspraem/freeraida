@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { LineHistoryService } from "./line-history.service";
 import { TrackedLine } from "../../objects/models/tracked-line.model";
 import { Line } from "../../objects/models/line.model";
+import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-rides',
@@ -13,7 +14,8 @@ export class LineHistoryComponent implements OnInit {
     public unregistered_line_list: TrackedLine[];
     public line_list: Line[];
 
-    constructor(private rides_service: LineHistoryService) {}
+    constructor(public color_dictionary: COLOR_DICTIONARY,
+        private rides_service: LineHistoryService) {}
 
     ngOnInit(): void {
         this.rides_service.getTrackedLines().subscribe(data => {

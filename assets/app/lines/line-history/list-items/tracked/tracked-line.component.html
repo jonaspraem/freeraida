@@ -5,10 +5,10 @@
         </mat-panel-title>
         <mat-panel-description>
             <p>{{line?.duration}}</p>
-            <button class="list-delete-item" mat-icon-button (click)="onEdit(line._id)" [ngStyle]="{'background-color': color_dictionary.get('tracked')}">
+            <button class="list-delete-item" mat-icon-button (click)="onEdit(line._id)" [ngStyle]="{'background-color': color_dictionary.get('address')}">
                 <mat-icon>edit</mat-icon>
             </button>
-            <button class="list-delete-item" mat-icon-button (click)="onDelete()">
+            <button class="list-delete-item" mat-icon-button (click)="onDelete()" [ngStyle]="{'background-color': color_dictionary.get('secondary'), 'color': 'white'}">
                 <mat-icon>delete</mat-icon>
             </button>
         </mat-panel-description>
