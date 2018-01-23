@@ -1,54 +1,61 @@
-<div class="container">
-    <mat-card class="image-container">
-        <img [src]="background_image" class="cover">
-    </mat-card>
-    <img [src]="profile_picture" class="profile-picture">
-    <img [src]="flag_dictionary.get(profile?.representation)" class="flag">
-    <div class="left">
-        <div class="profile-info">
-            <h2 [ngStyle]="{'color': color_dictionary.get('blue_primary')}"> {{ profile?.display_name }} </h2>
-            <br>
-            <a [ngStyle]="{'color': color_dictionary.get('address')}" (click)="onAddressClick()"> @{{ profile?.user_address }}</a>
-            <p> {{ profile?.bio }} </p>
+<div *ngIf="profile; then profile_found else profile_not_found"></div>
+<ng-template #profile_found>
+    <div class="container">
+        <mat-card class="image-container">
+            <img [src]="background_image" class="cover">
+        </mat-card>
+        <img [src]="profile_picture" class="profile-picture">
+        <img [src]="flag_dictionary.get(profile?.representation)" class="flag">
+        <div class="left">
+            <div class="profile-info">
+                <h2 [ngStyle]="{'color': color_dictionary.get('blue_primary')}"> {{ profile?.display_name }} </h2>
+                <br>
+                <a [ngStyle]="{'color': color_dictionary.get('address')}" (click)="onAddressClick()"> @{{ profile?.user_address }}</a>
+                <p> {{ profile?.bio }} </p>
+            </div>
+            <mat-card class="image-card-container" [ngStyle]="{'background-color': color_dictionary.get('secondary')}">
+                <div *ngIf="!isOwnProfile; else spacer">
+                    <div *ngIf="isFollowing(); then unfollow_button else follow_button"></div>
+                    <ng-template #follow_button>
+                        <button mat-raised-button type="button" (click)="follow()" [ngStyle]="{'background-color': color_dictionary.get('address')}">follow</button>
+                    </ng-template>
+                    <ng-template #unfollow_button>
+                        <button mat-raised-button type="button" (click)="unfollow()" [ngStyle]="{'background-color': color_dictionary.get('third')}">unfollow</button>
+                    </ng-template>
+                </div>
+                <ng-template #spacer>
+                    <div id="spacer"></div>
+                </ng-template>
+
+                <div class="image-card-stat-container">
+                    <div class="image-card-stat">
+                        <p class="image-card-paragraph">Lines</p>
+                        <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">{{profile?.lines?.length || 0}}</p>
+                    </div>
+                    <div class="image-card-stat">
+                        <p class="image-card-paragraph">Followers</p>
+                        <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">{{profile?.followers?.length || 0}}</p>
+                    </div>
+                    <div class="image-card-stat">
+                        <p class="image-card-paragraph">Following</p>
+                        <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">{{profile?.following?.length || 0}}</p>
+                    </div>
+                    <div class="image-card-stat">
+                        <p class="image-card-paragraph">Posts</p>
+                        <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">{{profile?.posts?.length || 0}}</p>
+                    </div>
+                </div>
+            </mat-card>
         </div>
-        <mat-card class="image-card-container" [ngStyle]="{'background-color': color_dictionary.get('secondary')}">
-            <div *ngIf="!isOwnProfile; else spacer">
-                <div *ngIf="isFollowing(); then unfollow_button else follow_button"></div>
-                <ng-template #follow_button>
-                    <button mat-raised-button type="button" (click)="follow()" [ngStyle]="{'background-color': color_dictionary.get('address')}">follow</button>
-                </ng-template>
-                <ng-template #unfollow_button>
-                    <button mat-raised-button type="button" (click)="unfollow()" [ngStyle]="{'background-color': color_dictionary.get('third')}">unfollow</button>
-                </ng-template>
-            </div>
-            <ng-template #spacer>
-                <div id="spacer"></div>
-            </ng-template>
+        <div class="right">
+            <mat-card class="user-activity">
+                <app-user-activity [profile]="profile" [posts]="posts" [ngStyle]="{'width': '100%'}" [ngStyle]="{'color': 'white'}"></app-user-activity>
+            </mat-card>
+        </div>
 
-            <div class="image-card-stat-container">
-                <div class="image-card-stat">
-                    <p class="image-card-paragraph">Lines</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">{{profile?.lines?.length || 0}}</p>
-                </div>
-                <div class="image-card-stat">
-                    <p class="image-card-paragraph">Followers</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">{{profile?.followers?.length || 0}}</p>
-                </div>
-                <div class="image-card-stat">
-                    <p class="image-card-paragraph">Following</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">{{profile?.following?.length || 0}}</p>
-                </div>
-                <div class="image-card-stat">
-                    <p class="image-card-paragraph">Posts</p>
-                    <p class="image-card-stat-number" [ngStyle]="{'color': color_dictionary.get('address')}">{{profile?.posts?.length || 0}}</p>
-                </div>
-            </div>
-        </mat-card>
     </div>
-    <div class="right">
-        <mat-card class="user-activity">
-            <app-user-activity [profile]="profile" [posts]="posts" [ngStyle]="{'width': '100%'}" [ngStyle]="{'color': 'white'}"></app-user-activity>
-        </mat-card>
-    </div>
+</ng-template>
+<ng-template #profile_not_found>
+    <p>Profile not found</p>
+</ng-template>
 
-</div>
