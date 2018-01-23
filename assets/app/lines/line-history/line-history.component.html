@@ -1,7 +1,7 @@
 <div class="container">
     <div *ngIf="unregistered_line_list">
         <h3>Unregistered Lines</h3>
-        <p [ngStyle]="{'color': color_dictionary.get('address')}">*Register these lines to confirm your rides</p>
+        <p [ngStyle]="{'color': color_dictionary.get('blue_secondary')}">*Register these lines to confirm your rides</p>
         <br>
         <app-tracked-line-item
                 (deleteEvent)="deleteUnregistered($event)"
@@ -10,7 +10,9 @@
         <hr>
     </div>
     <h3>Line History</h3>
-    <p [ngStyle]="{'color': color_dictionary.get('address')}">Here you can browse your previous registered lines</p>
+    <p [ngStyle]="{'color': color_dictionary.get('blue_secondary')}">Here you can browse your previous registered lines.
+        Click <a (click)="goToRegister()" [ngStyle]="{'color': color_dictionary.get('secondary')}">here</a> to register a line,
+        or <a (click)="goToTrack()" [ngStyle]="{'color': color_dictionary.get('secondary')}">here</a> to track a new line, with our location tracker</p>
     <app-line-item
             (deleteEvent)="deleteRegistered($event)"
             [line]="line"

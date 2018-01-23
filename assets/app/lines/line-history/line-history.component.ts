@@ -3,6 +3,7 @@ import { LineHistoryService } from "./line-history.service";
 import { TrackedLine } from "../../objects/models/tracked-line.model";
 import { Line } from "../../objects/models/line.model";
 import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
     selector: 'app-rides',
@@ -15,7 +16,8 @@ export class LineHistoryComponent implements OnInit {
     public line_list: Line[];
 
     constructor(public color_dictionary: COLOR_DICTIONARY,
-        private rides_service: LineHistoryService) {}
+                private rides_service: LineHistoryService,
+                private router: Router) {}
 
     ngOnInit(): void {
         this.rides_service.getTrackedLines().subscribe(data => {
@@ -43,5 +45,13 @@ export class LineHistoryComponent implements OnInit {
         this.rides_service.deleteLine(_id).subscribe(data => {
             console.log(data);
         });
+    }
+
+    goToRegister() {
+        this.router.navigate(['home/register-line']);
+    }
+
+    goToTrack() {
+        this.router.navigate(['home/track']);
     }
 }

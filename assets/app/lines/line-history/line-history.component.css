@@ -7,3 +7,8 @@ p {
 h3 {
     display: inline-block;
 }
+
+a {
+    font-weight: bold;
+    cursor: pointer;
+}
