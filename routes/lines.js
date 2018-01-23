@@ -74,6 +74,7 @@ function getLineMarkers(id_list, callback) {
 
 function getTransformedLine(line, callback) {
     var newLine = line;
+    console.log('made it here2');
     getLineMarkers(line.markers, function (marker_list) {
         newLine.markers = marker_list;
         callback(newLine);
@@ -118,6 +119,9 @@ function saveMarkerList(marker_list, callback) {
         marker_list[i].save(function (err, result) {
             counter++;
             if (counter == marker_list.length) callback(true);
+        });
+        marker_list[i].location.save(function (err, result) {
+
         });
     }
 }
@@ -232,7 +236,9 @@ router.get('/user-lines/', function(req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
+                    console.log('get user lines');
                     getUserLines(user_profile, function(list) {
+                        console.log('list: '+list);
                         return res.status(201).json({
                             message: 'User registered lines received',
                             obj: list
@@ -307,14 +313,6 @@ router.post('/newline/', function(req, res, next) {
                             distance_from_start: req.body.markers[i].distance_from_start
                         });
                         markerlist.push(marker);
-                        location.save(function (err, location) {
-                           if (err) {
-                               return res.status(500).json({
-                                   title: 'An error occurred',
-                                   error: err
-                               });
-                           }
-                        });
                     }
 
                     var line = new Line({
@@ -390,15 +388,6 @@ router.post('/new-tracked-line/', function(req, res, next) {
                             lng: req.body.locations[i].lng
                         });
                         locations.push(location);
-                        location.save(function (err, location) {
-                            if (err) {
-                                console.log('error saving: '+err);
-                                return res.status(500).json({
-                                    title: 'An error occurred',
-                                    error: err
-                                });
-                            }
-                        });
                     }
 
                     var tracked_line = new TrackedLine({
@@ -440,6 +429,129 @@ router.post('/new-tracked-line/', function(req, res, next) {
             }
         }
     );
+});
+
+router.post('/confirm-line/:id', function (req, res, next) {
+    console.log('confirming line: '+req.params.id);
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        { json: { id_token: req.query.token } },
+        function (error, response, body) {
+            if (!error) {
+                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                    if (profile_err) {
+                        return res.status(500).json({
+                            title: 'Error finding user profile',
+                            error: profile_err
+                        });
+                    }
+                    if (!user_profile) {
+                        return res.status(500).json({
+                            title: 'Error finding user profile',
+                            error: {message: 'An error occurred regarding profile'}
+                        });
+                    }
+                    TrackedLine.findOne({_id: req.params.id}, function (err, tracked_line) {
+                        if (err) {
+                            return res.status(500).json({
+                                title: 'An error occurred',
+                                error: err
+                            });
+                        }
+                        if (!tracked_line) {
+                            return res.status(500).json({
+                                title: 'An error occurred',
+                                error: {message: 'The tracked line couldn\'t be found'}
+                            });
+                        }
+                        // Check whether the tracked line is the user's line
+                        if (tracked_line.user_id != body.user_id) {
+                            return res.status(500).json({
+                                title: 'An error occurred',
+                                error: {message: 'The tracked line is not the user\s line'}
+                            });
+                        }
+                        console.log('line found');
+                        getTransformedTrackedLine(tracked_line, function(transformedTrackedLine) {
+                            console.log('line transformed');
+                            // Create markers
+                            var markers = [];
+                            for (var i = 0; i < req.body.markers.length; i++) {
+                                console.log('location properties: ' + req.body.markers[i].location.lat + ', '
+                                    +req.body.markers[i].location.lng+', '+req.body.markers[i].location.elevation+', '+req.body.markers[i].location.resolution);
+
+                                var location = new Location({
+                                    lat: req.body.markers[i].location.lat,
+                                    lng: req.body.markers[i].location.lng,
+                                    elevation: req.body.markers[i].location.elevation,
+                                    resolution: req.body.markers[i].location.resolution});
+
+                                console.log('location '+location);
+
+                                markers.push(new Marker({
+                                    index: req.body.markers[i].index,
+                                    name: req.body.markers[i].name,
+                                    location: location,
+                                    distance_from_start: req.body.markers[i].distance_from_start
+                                }));
+                                console.log('marker '+markers);
+                            }
+
+                            // Create line
+                            var newLine = new Line({
+                                name: req.body.name,
+                                line_type: req.body.line_type,
+                                markers: markers,
+                                timestamp: new Date(),
+                                danger_level: req.body.danger_level,
+                                tree_level: req.body.tree_level,
+                                rock_level: req.body.rock_level,
+                                cliff_level: req.body.cliff_level,
+                                user_id: body.user_id,
+                                confirmed: true
+                            });
+                            newLine.save(function (err, line_result) {
+                                if (err) {
+                                    return res.status(500).json({
+                                        title: 'An error occured',
+                                        error: err
+                                    });
+                                }
+                                user_profile.lines.push(line_result);
+                                user_profile.save(function (err, profile_result) {
+                                    if (err) {
+                                        return res.status(500).json({
+                                            title: 'An error occurred',
+                                            error: err
+                                        });
+                                    }
+                                    saveMarkerList(markers, function(save_success) {
+                                        if (!save_success) {
+                                            return res.status(500).json({
+                                                title: 'An error occurred',
+                                                error: {message: 'An error occurred saving the map markers'}
+                                            });
+                                        }
+                                        transformedTrackedLine.remove(function(err, result) {
+                                            if (err) {
+                                                return res.status(500).json({
+                                                    title: 'An error occured',
+                                                    error: err
+                                                });
+                                            }
+                                            return res.status(201).json({
+                                                message: 'Line successfully confirmed',
+                                                obj: line_result
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            }
+        });
 });
 
 router.delete('/remove-tracked-line/:id', function(req, res, next) {

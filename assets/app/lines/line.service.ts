@@ -50,9 +50,15 @@ export class LineService {
     }
 
     getTrackedLine(id: string) {
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
         return this.http.get<TrackedLineResponse>(this.config.getEndpoint() + '/lineservice/tracked-line/' + id, {params: new HttpParams().set('token', token)});
+    }
+
+    confirmLine(id: string, line) {
+        const body = JSON.stringify(line);
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('id_token');
+        return this.http.post<TrackedLineResponse>(this.config.getEndpoint() + '/lineservice/confirm-line/' + id, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     getLines(username: string) {

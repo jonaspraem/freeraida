@@ -5,7 +5,7 @@ var schema = new Schema({
     lat: {type: Number, required: true},
     lng: {type: Number, required: true},
     elevation: {type: Number},
-    resolution: {type: Number},
+    resolution: {type: Number}
 });
 
 module.exports = mongoose.model('Location', schema);

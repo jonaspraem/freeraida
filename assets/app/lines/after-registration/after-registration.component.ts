@@ -10,6 +10,7 @@ import { AmChart, AmChartsService } from "@amcharts/amcharts3-angular";
 import { DistancePoint } from "../../objects/models/distance/distance-point.model";
 import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 import { LineLocation } from "../../objects/models/line-location.model";
+import { Line } from "../../objects/models/line.model";
 
 @Component({
     selector: 'app-after-registration',
@@ -253,5 +254,52 @@ export class AfterRegistrationComponent implements OnInit {
             lng += this.markers[i].location.lng;
         }
         return lng / this.markers.length;
+    }
+
+    onSubmit() {
+        console.log(this.selectedLineName);
+        const lineTransfer = new Line(
+            '',
+            this.selectedLineName,
+            this.selectedLineType,
+            new Date(),
+            this.markers,
+            this.selectedDangerLevel,
+            this.selectedTreeLevel,
+            this.selectedRockLevel,
+            this.selectedCliffLevel);
+        console.log(lineTransfer);
+        // check for data
+        if (lineTransfer.name &&
+            lineTransfer.line_type &&
+            lineTransfer.markers.length > 1 &&
+            lineTransfer.danger_level &&
+            lineTransfer.tree_level &&
+            lineTransfer.rock_level &&
+            lineTransfer.cliff_level) {
+            // submit
+            this.line_service.confirmLine(this.line._id, lineTransfer).subscribe(
+                data => {
+                    console.log(data);
+                });
+        }
+        // TODO: make better error message
+        else {
+            console.log('cant submit');
+            console.log(lineTransfer.name);
+            console.log(lineTransfer.line_type);
+            console.log(lineTransfer.markers.length);
+            console.log(lineTransfer.danger_level);
+            console.log(lineTransfer.tree_level);
+
+            console.log('cant submit ' + lineTransfer);
+            console.log(lineTransfer.name + ' \n' +
+                lineTransfer.line_type + ' \n' +
+                lineTransfer.markers.length > 1 + ' \n' +
+                lineTransfer.danger_level + ' \n' +
+                lineTransfer.tree_level + ' \n' +
+                lineTransfer.rock_level + ' \n' +
+                lineTransfer.cliff_level);
+        }
     }
 }

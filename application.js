@@ -28,10 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'images','favicon.ico')));
 
 app.all('*', function(req, res, next) {
-    console.log(req.headers.host);
-    console.log(req.secure);
     if (req.headers.host == "localhost:3000") {
-        console.log('localhost dev environment');
         next();
     }
     else if (req.headers["x-forwarded-proto"] === "https") {

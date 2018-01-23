@@ -12,7 +12,8 @@ var schema = new Schema({
     tree_level: {type: String, required: true},
     rock_level: {type: String, required: true},
     cliff_level: {type: String, required: true},
-    user_id: {type: String, required: true}
+    user_id: {type: String, required: true},
+    confirmed: {type: Boolean}
 });
 
 schema.pre('remove', function(next) {
