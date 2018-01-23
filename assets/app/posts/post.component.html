@@ -4,7 +4,7 @@
     </div>
     <div class="content">
         <div class="author-info">
-            <h3 class="author" [ngStyle]="{'color': colorDictionary.get('secondary')}"> {{ post.display_name }} </h3>
+            <h3 class="author" [ngStyle]="{'color': colorDictionary.get('blue_primary')}"> {{ post.display_name }} </h3>
             <a [ngStyle]="{'color': colorDictionary.get('address')}" (click)="onAddressClick()"> @{{ post.user_address }}</a>
             <p class="date"> {{ getFormattedDate() }}</p>
         </div>
@@ -31,7 +31,7 @@
                 <img class="gnarly" [src]="activeImage" (mouseenter)="hover()" (mouseleave)="unhover()" (click)="gnarly()">
             </ng-template>
             <ng-template #static>
-                <img class="gnarly" [src]="gnarly_secondary" (click)="unGnarly()">
+                <img class="gnarly" [src]="gnarly_primary" (click)="unGnarly()">
             </ng-template>
             <p class="gnarly-amount" [ngStyle]="{'color': colorDictionary.get('secondary')}">{{post.gnarly?.length || 0}}</p>
         </div>

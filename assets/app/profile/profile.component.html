@@ -6,7 +6,7 @@
     <img [src]="flag_dictionary.get(profile?.representation)" class="flag">
     <div class="left">
         <div class="profile-info">
-            <h2 [ngStyle]="{'color': color_dictionary.get('secondary')}"> {{ profile?.display_name }} </h2>
+            <h2 [ngStyle]="{'color': color_dictionary.get('blue_primary')}"> {{ profile?.display_name }} </h2>
             <br>
             <a [ngStyle]="{'color': color_dictionary.get('address')}" (click)="onAddressClick()"> @{{ profile?.user_address }}</a>
             <p> {{ profile?.bio }} </p>

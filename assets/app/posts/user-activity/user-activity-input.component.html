@@ -7,7 +7,7 @@
         ></textarea>
         </mat-form-field>
         <div class="buttons">
-            <button mat-raised-button type="button" (click)="onClear()">Clear</button>
+            <button mat-raised-button type="button" [ngStyle]="{'background-color': color_dictionary.get('third')}" (click)="onClear()">Clear</button>
             <button mat-raised-button type="submit" class="button-submit" (click)="onSubmit()">Save</button>
         </div>
     </mat-card>

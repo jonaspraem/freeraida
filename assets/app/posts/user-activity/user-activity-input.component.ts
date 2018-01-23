@@ -4,6 +4,7 @@ import { NgForm } from "@angular/forms";
 
 import { Post } from "../../objects/models/post.model";
 import { Profile } from "../../objects/models/profile.model";
+import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-user-activity-input',
@@ -16,7 +17,8 @@ export class UserActivityInputComponent {
     @Input() posts: Post[];
     content: string = '';
 
-    constructor(private post_service: PostService) {}
+    constructor(private post_service: PostService,
+                public color_dictionary: COLOR_DICTIONARY) {}
 
     onSubmit() {
         const post = new Post(this.content);

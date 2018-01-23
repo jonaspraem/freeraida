@@ -75,7 +75,7 @@ export class PostComponent implements OnInit{
     }
 
     hover() {
-        if (!this.isGnarly) this.activeImage = this.gnarly_secondary;
+        if (!this.isGnarly) this.activeImage = this.gnarly_primary;
     }
 
     unhover() {
