@@ -176,6 +176,43 @@ router.use('/', function(req, res, next) {
     );
 });
 
+router.get('/tracked-line/:id', function (req, res, next) {
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        { json: { id_token: req.query.token } },
+        function (error, response, body) {
+            if (!error) {
+                TrackedLine.findOne({_id: req.params.id}, function (err, tracked_line) {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            error: err
+                        });
+                    }
+                    if (!tracked_line) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            error: {message: 'The tracked line couldn\'t be found'}
+                        });
+                    }
+                    // Check whether the tracked line is the user's line
+                    if (tracked_line.user_id != body.user_id) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            error: {message: 'The tracked line is not the user\s line'}
+                        });
+                    }
+                    getTransformedTrackedLine(tracked_line, function (transformedTrackedLine) {
+                        return res.status(200).json({
+                            message: 'Tracked line successfully generated',
+                            obj: transformedTrackedLine
+                        });
+                    });
+                });
+            }
+        });
+});
+
 router.get('/user-lines/', function(req, res, next) {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',

@@ -5,7 +5,9 @@
         </mat-panel-title>
         <mat-panel-description>
             <p>{{line?.duration}}</p>
-
+            <button class="list-delete-item" mat-icon-button (click)="onEdit(line._id)" [ngStyle]="{'background-color': color_dictionary.get('tracked')}">
+                <mat-icon>edit</mat-icon>
+            </button>
             <button class="list-delete-item" mat-icon-button (click)="onDelete()">
                 <mat-icon>delete</mat-icon>
             </button>

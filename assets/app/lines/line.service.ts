@@ -11,6 +11,7 @@ import { HeightMapObject } from "../objects/interfaces/height-map-object.interfa
 import { DistancePoint } from "../objects/models/distance/distance-point.model";
 import { TrackedLine } from "../objects/models/tracked-line.model";
 import { MapMarker } from "../objects/models/mapmarker.model";
+import { TrackedLineObject } from "../objects/interfaces/tracked-line-object.interface";
 
 interface LineListResponse {
     message: string;
@@ -27,6 +28,11 @@ interface DistanceResponse {
     obj: DistancePoint[];
 }
 
+interface TrackedLineResponse {
+    message: string;
+    obj: TrackedLineObject;
+}
+
 @Injectable()
 
 export class LineService {
@@ -41,6 +47,12 @@ export class LineService {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
         return this.http.post(this.config.getEndpoint() + '/lineservice/newline/', body, {headers: headers, params: new HttpParams().set('token', token)})
+    }
+
+    getTrackedLine(id: string) {
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('id_token');
+        return this.http.get<TrackedLineResponse>(this.config.getEndpoint() + '/lineservice/tracked-line/' + id, {params: new HttpParams().set('token', token)});
     }
 
     getLines(username: string) {

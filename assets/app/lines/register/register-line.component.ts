@@ -1,20 +1,20 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
-import { MapMarker } from "../objects/models/mapmarker.model";
-import { PolylineCoords } from "./path.model";
-import { LineService } from "./line.service";
-import { Line } from "../objects/models/line.model";
-import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
+import { MapMarker } from "../../objects/models/mapmarker.model";
+import { PolylineCoords } from "../path.model";
+import { LineService } from "../line.service";
+import { Line } from "../../objects/models/line.model";
+import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 import { AmChart, AmChartsService } from "@amcharts/amcharts3-angular";
-import { HeightMap } from "../objects/models/height-map.model";
-import { DistancePoint } from "../objects/models/distance/distance-point.model";
-import { LineLocation } from "../objects/models/line-location.model";
+import { HeightMap } from "../../objects/models/height-map.model";
+import { DistancePoint } from "../../objects/models/distance/distance-point.model";
+import { LineLocation } from "../../objects/models/line-location.model";
 
 @Component({
     selector: 'app-register-line',
     templateUrl: './register-line.component.html',
-    styleUrls: ['./register-line.component.css', '../../../node_modules/nvd3/build/nv.d3.css'],
+    styleUrls: ['./register-line.component.css', '../../../../node_modules/nvd3/build/nv.d3.css'],
     encapsulation: ViewEncapsulation.None
 })
 
@@ -146,8 +146,6 @@ export class RegisterLineComponent implements OnInit {
         };
         this.markers.push(marker);
         this.notifyChange();
-        // this.lineService.getHeightMap(this.markers).subscribe(data => console.log(data));
-        // this.lineService.getDistance(this.markers).subscribe(data => console.log(data));
     }
 
     clickedMarker(marker:MapMarker, index:number) {
