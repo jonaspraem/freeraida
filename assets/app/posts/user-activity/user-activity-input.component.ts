@@ -24,7 +24,7 @@ export class UserActivityInputComponent {
         const post = new Post(this.content);
         this.post_service.addPost(post)
             .subscribe(
-                data => this.posts.push(Post.fabricate(data.obj)),
+                data => this.posts.unshift(Post.fabricate(data.obj)),
                 error => console.log(error),
             );
     }

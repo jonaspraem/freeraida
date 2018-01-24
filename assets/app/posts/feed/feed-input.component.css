@@ -1,22 +1,35 @@
 .container {
-    margin: auto;
-    width: 50%;
+    height: 100%;
+    width: 80%;
+    display: block;
+    padding: 0;
+}
+
+.input-container {
+    background-color: #1B1E1B;
+}
+
+.buttons {
     padding: 10px;
-    text-align: right;
-}
-
-.post-input-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-}
-
-.post-input-form-field {
-    margin: 20px;
-    border-color: #141D2F;
-    width: 100%;
 }
 
 .button-submit {
-    background-color: #6495ED;
+    background-color: #99C053;
+    font-weight: bold;
+}
+
+mat-form-field {
+    background-color: white;
+    width: 100%;
+    padding: 5px;
+}
+
+textarea {
+    border-color: #6495ED;
+    color: #141D2F;
+}
+
+button {
+    float: right;
+    margin: 10px;
 }

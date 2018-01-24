@@ -1,18 +1,14 @@
 <div class="container">
-    <form ngNativeValidate (ngSubmit)="onSubmit(f)" #f="ngForm" class="post-input-form">
-        <mat-form-field class="post-input-form-field">
-            <input matInput
-                    type="text"
-                    id="content"
-                    class="form-control"
-                    name="content"
-                    required
-            >
+    <mat-card class="input-container">
+        <mat-form-field>
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="2"
+                  matAutosizeMaxRows="5"
+                  [(ngModel)]="content"
+        ></textarea>
         </mat-form-field>
-        <br>
         <div class="buttons">
-            <button mat-raised-button type="button" (click)="onClear(f)">Clear</button>
-            <button mat-raised-button type="submit" class="button-submit">Save</button>
+            <button mat-raised-button type="button" [ngStyle]="{'background-color': color_dictionary.get('third')}" (click)="onClear()">Clear</button>
+            <button mat-raised-button type="submit" class="button-submit" (click)="onSubmit()">Save</button>
         </div>
-    </form>
+    </mat-card>
 </div>
