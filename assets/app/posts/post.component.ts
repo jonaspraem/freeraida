@@ -28,7 +28,7 @@ export class PostComponent implements OnInit{
 
     constructor(private post_service : PostService,
                 private auth_service: AuthService,
-                public colorDictionary : COLOR_DICTIONARY,
+                public color_dictionary : COLOR_DICTIONARY,
                 private router : Router) {}
 
     ngOnInit(): void {
@@ -111,7 +111,7 @@ export class PostComponent implements OnInit{
     // }
 
     belongsToUser() {
-        return localStorage.getItem('username') == this.post.display_name;
+        return (this.profile.user_address == this.post.user_address);
     }
 
     hasMoreContent() : boolean {

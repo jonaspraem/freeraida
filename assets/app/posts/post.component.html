@@ -4,9 +4,18 @@
     </div>
     <div class="content">
         <div class="author-info">
-            <h3 class="author" [ngStyle]="{'color': colorDictionary.get('blue_primary')}"> {{ post.display_name }} </h3>
-            <a [ngStyle]="{'color': colorDictionary.get('address')}" (click)="onAddressClick()"> @{{ post.user_address }}</a>
+            <h3 class="author" [ngStyle]="{'color': color_dictionary.get('blue_primary')}"> {{ post.display_name }} </h3>
+            <a [ngStyle]="{'color': color_dictionary.get('address')}" (click)="onAddressClick()"> @{{ post.user_address }}</a>
             <p class="date"> {{ getFormattedDate() }}</p>
+
+            <div class="material-menu-container">
+                <div class="delete-item-container" *ngIf="belongsToUser()">
+                    <button class="list-delete-item" mat-icon-button (click)="onDelete()" [ngStyle]="{'background-color': color_dictionary.get('secondary'), 'color': 'white'}">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+
         </div>
         <div *ngIf="isExpanded; then expanded_content else normal_content"></div>
         <ng-template #normal_content>
@@ -33,7 +42,7 @@
             <ng-template #static>
                 <img class="gnarly" [src]="gnarly_primary" (click)="unGnarly()">
             </ng-template>
-            <p class="gnarly-amount" [ngStyle]="{'color': colorDictionary.get('secondary')}">{{post.gnarly?.length || 0}}</p>
+            <p class="gnarly-amount" [ngStyle]="{'color': color_dictionary.get('secondary')}">{{post.gnarly?.length || 0}}</p>
         </div>
     </div>
 

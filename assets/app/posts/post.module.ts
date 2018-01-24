@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 
 // Material design
-import { MatCardModule, MatButtonModule, MatInputModule } from "@angular/material";
+import { MatCardModule, MatButtonModule, MatInputModule, MatIconModule, MatMenuModule } from "@angular/material";
 
 import { PostService } from "./post.service";
 import { UserActivityComponent } from "./user-activity/user-activity.component";
@@ -30,7 +30,9 @@ import { UserActivityInputComponent } from "./user-activity/user-activity-input.
         FormsModule,
         MatCardModule,
         MatButtonModule,
-        MatInputModule
+        MatInputModule,
+        MatIconModule,
+        MatMenuModule
     ],
     exports: [
         UserActivityComponent,
