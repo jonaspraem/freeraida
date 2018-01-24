@@ -77,16 +77,8 @@ export class PostService {
     //         });
     // }
 
-    // deletePost(post: Post) {
-    //     this.posts.splice(this.posts.indexOf(post), 1);
-    //     const token = localStorage.getItem('token')
-    //         ? '?token=' + localStorage.getItem('token')
-    //         : '';
-    //     return this.http.delete('http://localhost:3000/post/' + post.postId + token)
-    //         .map((response: Response) => response.json())
-    //         .catch((error: Response) => {
-    //             this.errorService.handleError(error.json());
-    //             return Observable.throw(error.json());
-    //         });
-    // }
+    deletePost(id: string) {
+        const token = localStorage.getItem('id_token');
+        return this.http.delete<SinglePostResponse>(this.config.getEndpoint() + '/post/'+id, {params: new HttpParams().set('token', token)});
+    }
 }

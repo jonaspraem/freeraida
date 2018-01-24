@@ -355,39 +355,61 @@ router.patch('/:id', function(req, res, next) {
 
 // Delete post
 router.delete('/:id', function(req, res, next) {
-    var decoded = jwt.decode(req.query.token);
-    Post.findById(req.params.id, function(err, post) {
-        if (err) {
-            return res.status(500).json({
-                title: 'An error occured',
-                error: err
-            });
-        }
-        if (!post) {
-            return res.status(500).json({
-                title: 'No post found',
-                error: { message: 'Post not found'}
-            });
-        }
-        if (post.username != decoded.user.username) {
-            return res.status(401).json({
-                title: 'Not Authenticated',
-                error: {message: 'Not the user\'s post'}
-            });
-        }
-        post.remove(function(err, result) {
-            if (err) {
-                return res.status(500).json({
-                    title: 'An error occured',
-                    error: err
+    request.post(
+        'https://freeraida.eu.auth0.com/tokeninfo',
+        {json: {id_token: req.query.token}},
+        function (error, response, body) {
+            if (!error) {
+                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                    if (profile_err) {
+                        return res.status(500).json({
+                            title: 'An error occured',
+                            error: {message: 'An error occured'}
+                        });
+                    }
+                    if (!user_profile) {
+                        return res.status(500).json({
+                            title: 'No user found',
+                            error: {message: 'No user found'}
+                        });
+                    }
+                    Post.findById(req.params.id, function(err, post) {
+                        if (err) {
+                            return res.status(500).json({
+                                title: 'An error occured',
+                                error: err
+                            });
+                        }
+                        if (!post) {
+                            return res.status(500).json({
+                                title: 'No post found',
+                                error: { message: 'Post not found'}
+                            });
+                        }
+                        if (post.user_address != user_profile.user_address) {
+                            return res.status(401).json({
+                                title: 'Not Authenticated',
+                                error: {message: 'Not the user\'s post'}
+                            });
+                        }
+                        post.remove(function(err, result) {
+                            if (err) {
+                                return res.status(500).json({
+                                    title: 'An error occured',
+                                    error: err
+                                });
+                            }
+                            res.status(200).json({
+                                message: 'post deleted',
+                                obj: result
+                            });
+                        });
+                    });
                 });
+
+
             }
-            res.status(200).json({
-                message: 'post deleted',
-                obj: result
-            });
         });
-    });
 });
 
 module.exports = router;

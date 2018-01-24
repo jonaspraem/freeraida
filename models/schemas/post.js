@@ -11,10 +11,12 @@ var schema = new Schema({
     gnarly: [{type: String}]
 });
 
-schema.post('remove', function(post) {
-    Profile.findOne({user_id: post.user_id}, function(err, profile) {
-        profile.posts.pull(post._id);
+schema.pre('remove', function(next) {
+    var model = this;
+    Profile.findOne({user_address: model.user_address}, function(err, profile) {
+        profile.posts.pull(model._id);
         profile.save();
+        next();
     });
 });
 

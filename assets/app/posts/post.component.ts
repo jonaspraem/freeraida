@@ -103,12 +103,14 @@ export class PostComponent implements OnInit{
     //     this.postService.editPost(this.post);
     // }
     //
-    // onDelete() {
-    //     this.postService.deletePost(this.post)
-    //         .subscribe(
-    //             result => console.log(result)
-    //         );
-    // }
+    onDelete() {
+        this.post_service.deletePost(this.post.postId)
+            .subscribe(
+                result => {
+                    console.log(result);
+                }
+            );
+    }
 
     belongsToUser() {
         return (this.profile.user_address == this.post.user_address);
