@@ -12,4 +12,10 @@ import { Profile } from "../../objects/models/profile.model";
 export class UserActivityListComponent {
     @Input() profile: Profile;
     @Input() posts: Post[];
+
+    deletePost(id: string) {
+        for (let i = 0; i < this.posts.length; i++) {
+            if (this.posts[i].postId == id) this.posts.splice(i, 1);
+        }
+    }
 }

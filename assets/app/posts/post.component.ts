@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Post } from "../objects/models/post.model";
 import { PostService } from "./post.service";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
@@ -17,6 +17,7 @@ const gnarly_secondary_light = require('../../images/gnarly/gnarly_secondary_lig
 })
 
 export class PostComponent implements OnInit{
+    @Output() deleteEvent: EventEmitter<string> = new EventEmitter<string>();
     @Input() post: Post;
     @Input() profile: Profile;
     private gnarly_primary = gnarly_primary;
@@ -107,6 +108,7 @@ export class PostComponent implements OnInit{
         this.post_service.deletePost(this.post.postId)
             .subscribe(
                 result => {
+                    this.deleteEvent.emit(this.post.postId);
                     console.log(result);
                 }
             );
