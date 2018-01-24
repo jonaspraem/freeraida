@@ -23,7 +23,7 @@
                 <p>{{ post.content }}</p>
             </div>
             <div class="right">
-                <p *ngIf="hasMoreContent()"><a (click)="showMore()">show more</a></p>
+                <p *ngIf="hasMoreContent()"><a (click)="showMore()" [ngStyle]="{'color': color_dictionary.get('address')}">show more</a></p>
             </div>
         </ng-template>
         <ng-template #expanded_content>
@@ -31,7 +31,7 @@
                 <p>{{ post.expanded_content }}</p>
             </div>
             <div class="right">
-                <p *ngIf="hasMoreContent()"><a (click)="showLess()">show less</a></p>
+                <p *ngIf="hasMoreContent()"><a (click)="showLess()" [ngStyle]="{'color': color_dictionary.get('address')}">show less</a></p>
             </div>
         </ng-template>
         <div class="footer-container">
