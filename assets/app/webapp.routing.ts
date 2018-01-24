@@ -24,6 +24,7 @@ const WEBAPP_ROUTES: Routes = [
     { path: 'settings', component: SettingsComponent},
     { path: 'user/:id', component: ProfileComponent},
     { path: 'tracked-line/:id', component: AfterRegistrationComponent},
+    { path: '', redirectTo: 'home/feed', pathMatch: 'full'},
 ];
 
 export const webappRouting = RouterModule.forChild(WEBAPP_ROUTES);
