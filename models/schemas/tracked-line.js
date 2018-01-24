@@ -6,7 +6,8 @@ var Location = require('./location');
 var schema = new Schema({
     user_id: {type: String, required: true},
     duration: {type: String, required: true},
-    locations: [{type: Schema.Types.ObjectId, ref: 'Location'}]
+    locations: [{type: Schema.Types.ObjectId, ref: 'Location'}],
+    timestamp: {type: Date}
 });
 
 schema.pre('remove', function(next) {

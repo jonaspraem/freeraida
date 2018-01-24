@@ -387,7 +387,8 @@ router.post('/new-tracked-line/', function(req, res, next) {
                     var tracked_line = new TrackedLine({
                         user_id: body.user_id,
                         duration: req.body.duration,
-                        locations: locations
+                        locations: locations,
+                        timestamp: new Date()
                     });
 
                     tracked_line.save(function (err, result) {
