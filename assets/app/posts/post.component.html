@@ -10,7 +10,7 @@
 
             <div class="material-menu-container">
                 <div class="delete-item-container" *ngIf="belongsToUser()">
-                    <button class="list-delete-item" mat-icon-button (click)="onDelete()" [ngStyle]="{'background-color': color_dictionary.get('secondary'), 'color': 'white'}">
+                    <button class="list-delete-item" mat-icon-button (click)="onDelete()" [ngStyle]="{'background-color': 'white', 'color': color_dictionary.get('secondary')}">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>
