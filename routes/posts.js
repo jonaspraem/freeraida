@@ -25,15 +25,9 @@ function getUserPosts(username, callback) {
     });
 }
 
-// TODO
 function sortList(list, callback) {
     list.sort(function(a, b){
-        var keyA = new Date(a.timestamp),
-            keyB = new Date(b.timestamp);
-        // Compare the 2 dates
-        if(keyA < keyB) return -1;
-        if(keyA > keyB) return 1;
-        return 0;
+        return new Date(b.timestamp) - new Date(a.timestamp);
     });
     callback(list);
 }

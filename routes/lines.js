@@ -8,15 +8,9 @@ var Line = require('../models/schemas/line');
 var TrackedLine = require('../models/schemas/tracked-line');
 var Location = require('../models/schemas/location');
 
-// TODO
 function sortList(list, callback) {
     list.sort(function(a, b){
-        var keyA = new Date(a.timestamp),
-            keyB = new Date(b.timestamp);
-        // Compare the 2 dates
-        if(keyA < keyB) return -1;
-        if(keyA > keyB) return 1;
-        return 0;
+        return new Date(b.timestamp) - new Date(a.timestamp);
     });
     callback(list);
 }
@@ -236,12 +230,12 @@ router.get('/user-lines/', function(req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    console.log('get user lines');
                     getUserLines(user_profile, function(list) {
-                        console.log('list: '+list);
-                        return res.status(201).json({
-                            message: 'User registered lines received',
-                            obj: list
+                        sortList(list, function (sortedList) {
+                            return res.status(201).json({
+                                message: 'User registered lines received',
+                                obj: sortedList
+                            });
                         });
                     });
                 });
