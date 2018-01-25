@@ -5,6 +5,7 @@ import { NgForm } from "@angular/forms";
 import { Post } from "../../objects/models/post.model";
 import { Profile } from "../../objects/models/profile.model";
 import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
+import { PostTransferModel } from "../../objects/models/transfer-models/post-transfer.model";
 
 @Component({
     selector: 'app-user-activity-input',
@@ -22,10 +23,13 @@ export class UserActivityInputComponent {
                 public color_dictionary: COLOR_DICTIONARY) {}
 
     onSubmit() {
-        const post = new Post(this.content);
+        const post = new PostTransferModel(this.content);
         this.post_service.addPost(post)
             .subscribe(
-                data => this.posts.unshift(Post.fabricate(data.obj)),
+                data => {
+                    this.posts.unshift(Post.fabricate(data.obj));
+                    this.content = '';
+                },
                 error => console.log(error),
             );
     }
