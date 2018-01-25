@@ -27,7 +27,10 @@ export class PostInputComponent {
         const post = new PostTransferModel(this.content);
         this.post_service.addPost(post)
             .subscribe(
-                data => this.posts.unshift(Post.fabricate(data.obj)),
+                data => {
+                    this.posts.unshift(Post.fabricate(data.obj));
+                    this.content = '';
+                },
                 error => console.log(error),
             );
     }
