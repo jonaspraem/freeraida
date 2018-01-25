@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { PostService } from "../post.service";
 
 import { Post } from "../../objects/models/post.model";
@@ -11,7 +11,7 @@ import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
     styleUrls: ['./feed-input.component.css']
 })
 
-export class PostInputComponent implements OnInit{
+export class PostInputComponent {
     @Input() profile: Profile;
     @Input() posts: Post[];
     @Input() mentions: string[];
@@ -20,9 +20,6 @@ export class PostInputComponent implements OnInit{
     constructor(private post_service: PostService,
                 public color_dictionary: COLOR_DICTIONARY) {
 
-    }
-    ngOnInit() {
-        console.log(this.mentions);
     }
 
     onSubmit() {
