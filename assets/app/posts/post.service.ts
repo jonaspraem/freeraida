@@ -7,6 +7,7 @@ import { ErrorService } from "../errors/error.service";
 
 import { PostObject } from "../objects/interfaces/post-object";
 import { CONFIG } from "../dictionary/config";
+import { PostTransferModel } from "../objects/models/transfer-models/post-transfer.model";
 
 interface SinglePostResponse {
     message: string;
@@ -34,7 +35,7 @@ export class PostService {
                 private config: CONFIG
     ) {}
 
-    addPost(post: Post) {
+    addPost(post: PostTransferModel) {
         const body = JSON.stringify(post);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');

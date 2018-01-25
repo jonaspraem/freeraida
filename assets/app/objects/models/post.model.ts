@@ -19,7 +19,12 @@ export class Post {
         if (content.length > 500) {
             this.content = content.substring(0, 499) + '...';
             this.expanded_content = content;
+            console.log('expanded content: '+this.expanded_content);
         }
+    }
+
+    private generateAnchors(content: string) {
+
     }
 
     public static fabricate(object: PostObject): Post {

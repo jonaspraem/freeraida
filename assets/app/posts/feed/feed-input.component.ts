@@ -4,6 +4,7 @@ import { PostService } from "../post.service";
 import { Post } from "../../objects/models/post.model";
 import { Profile } from "../../objects/models/profile.model";
 import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
+import { PostTransferModel } from "../../objects/models/transfer-models/post-transfer.model";
 
 @Component({
     selector: 'app-message-input',
@@ -23,7 +24,7 @@ export class PostInputComponent {
     }
 
     onSubmit() {
-        const post = new Post(this.content);
+        const post = new PostTransferModel(this.content);
         this.post_service.addPost(post)
             .subscribe(
                 data => this.posts.unshift(Post.fabricate(data.obj)),
