@@ -18,6 +18,11 @@ interface PostListResponse {
     obj: PostObject[];
 }
 
+interface UserListResponse {
+    message: string,
+    obj: any
+}
+
 @Injectable()
 
 export class PostService {
@@ -34,6 +39,10 @@ export class PostService {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('id_token');
         return this.http.post<SinglePostResponse>(this.config.getEndpoint() + '/post', body, {headers: headers, params: new HttpParams().set('token', token)});
+    }
+
+    getUsers() {
+        return this.http.get<UserListResponse>(this.config.getEndpoint() + '/profile/user-list/');
     }
 
     getPosts(username: string) {

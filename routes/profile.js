@@ -26,6 +26,17 @@ router.get('/user/:address', function (req, res, next) {
     });
 });
 
+// Get user addresses
+router.get('/user-list/', function (req, res, next) {
+    Profile.find({}, 'user_address', function (err, users) {
+        console.log(users);
+        return res.status(200).json({
+            message: 'User list successfully generated',
+            obj: users
+        });
+    });
+});
+
 // Verify token
 router.use('/', function(req, res, next) {
     request.post(

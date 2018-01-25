@@ -15,6 +15,7 @@ import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 export class UserActivityInputComponent {
     @Input() profile: Profile;
     @Input() posts: Post[];
+    @Input() mentions: string[];
     content: string = '';
 
     constructor(private post_service: PostService,

@@ -10,12 +10,20 @@ import { Profile } from "../../objects/models/profile.model";
     styleUrls: ['./user-activity.component.css']
 })
 
-export class UserActivityComponent {
+export class UserActivityComponent implements OnInit {
     @Input() profile: Profile;
     @Input() posts: Post[];
+    mentions: string[];
 
     constructor(private post_service: PostService,
                 private route: ActivatedRoute) {}
 
-
+    ngOnInit() {
+        this.post_service.getUsers().subscribe(data =>{
+            this.mentions = [];
+            for (let i = 0; i < data.obj.length; i++) {
+                this.mentions.push(data.obj[i].user_address);
+            }
+        });
+    }
 }

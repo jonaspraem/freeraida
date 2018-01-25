@@ -13,6 +13,7 @@ import { PostComponent } from "./post.component";
 import { LiveFeedComponent } from "./feed/live-feed.component";
 import { FeedListComponent } from "./feed/feed-list.component";
 import { UserActivityInputComponent } from "./user-activity/user-activity-input.component";
+import { MentionModule } from "angular2-mentions/mention";
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { UserActivityInputComponent } from "./user-activity/user-activity-input.
     imports: [
         CommonModule,
         FormsModule,
+        MentionModule,
         MatCardModule,
         MatButtonModule,
         MatInputModule,
