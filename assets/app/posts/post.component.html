@@ -20,7 +20,7 @@
         <div *ngIf="isExpanded; then expanded_content else normal_content"></div>
         <ng-template #normal_content>
             <div class="post-content">
-                <p>{{ post.content }}</p>
+                <p [innerHTML]="postViewModel.content"></p>
             </div>
             <div class="right">
                 <p *ngIf="hasMoreContent()"><a (click)="showMore()" [ngStyle]="{'color': color_dictionary.get('address')}">show more</a></p>
@@ -28,7 +28,7 @@
         </ng-template>
         <ng-template #expanded_content>
             <div class="post-content-expanded">
-                <p>{{ post.expanded_content }}</p>
+                <p [innerHTML]="postViewModel.expanded_content"></p>
             </div>
             <div class="right">
                 <p *ngIf="hasMoreContent()"><a (click)="showLess()" [ngStyle]="{'color': color_dictionary.get('address')}">show less</a></p>

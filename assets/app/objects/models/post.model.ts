@@ -1,6 +1,7 @@
 import { PostObject } from "../interfaces/post-object";
 
 export class Post {
+    private static content_list = [];
     content: string;
     timestamp?: Date;
     display_name?: string;
@@ -9,6 +10,10 @@ export class Post {
     gnarly: string[];
     expanded_content?: string;
 
+    /*
+            The anchor generation will break if the @ tag is right between the cut
+     */
+
     constructor(content: string, timestamp?: Date, display_name?: string, user_address?: string, postId?: string, gnarly?: string[]) {
         this.content = content;
         this.timestamp = timestamp;
@@ -16,15 +21,6 @@ export class Post {
         this.user_address = user_address;
         this.postId = postId;
         this.gnarly = gnarly;
-        if (content.length > 500) {
-            this.content = content.substring(0, 499) + '...';
-            this.expanded_content = content;
-            console.log('expanded content: '+this.expanded_content);
-        }
-    }
-
-    private generateAnchors(content: string) {
-
     }
 
     public static fabricate(object: PostObject): Post {
@@ -35,7 +31,7 @@ export class Post {
             object.user_address,
             object._id,
             object.gnarly
-            );
+        );
     }
 
     public static fabricateList(objects: PostObject[]) : Post[] {
