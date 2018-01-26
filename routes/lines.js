@@ -466,14 +466,10 @@ router.post('/confirm-line/:id', function (req, res, next) {
                                 error: {message: 'The tracked line is not the user\s line'}
                             });
                         }
-                        console.log('line found');
                         getTransformedTrackedLine(tracked_line, function(transformedTrackedLine) {
-                            console.log('line transformed');
                             // Create markers
                             var markers = [];
                             for (var i = 0; i < req.body.markers.length; i++) {
-                                console.log('location properties: ' + req.body.markers[i].location.lat + ', '
-                                    +req.body.markers[i].location.lng+', '+req.body.markers[i].location.elevation+', '+req.body.markers[i].location.resolution);
 
                                 var location = new Location({
                                     lat: req.body.markers[i].location.lat,
@@ -481,7 +477,6 @@ router.post('/confirm-line/:id', function (req, res, next) {
                                     elevation: req.body.markers[i].location.elevation,
                                     resolution: req.body.markers[i].location.resolution});
 
-                                console.log('location '+location);
 
                                 markers.push(new Marker({
                                     index: req.body.markers[i].index,
@@ -489,7 +484,6 @@ router.post('/confirm-line/:id', function (req, res, next) {
                                     location: location,
                                     distance_from_start: req.body.markers[i].distance_from_start
                                 }));
-                                console.log('marker '+markers);
                             }
 
                             // Create line
