@@ -48,6 +48,10 @@ export class RegisterLineComponent implements OnInit {
     private chart: AmChart;
     private data;
 
+    // booleans
+    public isTriedToSubmit = false;
+    public isSubmitted = false;
+
     constructor(public color_dictionary: COLOR_DICTIONARY,
                 private cdRef: ChangeDetectorRef,
                 private line_service: LineService,
@@ -270,26 +274,21 @@ export class RegisterLineComponent implements OnInit {
             // submit
             this.line_service.addLine(lineTransfer).subscribe(
                 (line: Line) => {
-                    console.log(line);
+                    // Clearing form
+                    this.selectedLineType = '';
+                    this.selectedLineName = '';
+                    this.selectedDangerLevel = '';
+                    this.selectedTreeLevel = '';
+                    this.selectedRockLevel = '';
+                    this.selectedCliffLevel = '';
+                    this.markerDeleteAll();
+                    this.isTriedToSubmit = false;
+                    this.isSubmitted = true;
                 });
         }
-        // TODO: make better error message
         else {
-            console.log('cant submit');
-            console.log(lineTransfer.name);
-            console.log(lineTransfer.line_type);
-            console.log(lineTransfer.markers.length);
-            console.log(lineTransfer.danger_level);
-            console.log(lineTransfer.tree_level);
-
-            console.log('cant submit ' + lineTransfer);
-            console.log(lineTransfer.name + ' \n' +
-                lineTransfer.line_type + ' \n' +
-                lineTransfer.markers.length > 1 + ' \n' +
-                lineTransfer.danger_level + ' \n' +
-                lineTransfer.tree_level + ' \n' +
-                lineTransfer.rock_level + ' \n' +
-                lineTransfer.cliff_level);
+            this.isTriedToSubmit = true;
+            this.isSubmitted = false;
         }
     }
 }

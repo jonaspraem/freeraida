@@ -89,12 +89,6 @@
     <hr>
 
     <div>
-        <h4>Analyzed Line Information</h4>
-    </div>
-
-    <hr>
-
-    <div>
         <h4>Line Information</h4>
         <div class="line-information">
             <label for="name">Name of line</label>
@@ -109,7 +103,7 @@
                 <option>Danger</option>
                 <option>Extreme</option>
             </select>
-            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedDangerLevel?.toLowerCase())}"></div>
+            <div class="circle" *ngIf="selectedDangerLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedDangerLevel?.toLowerCase())}"></div>
 
             <br>
 
@@ -120,7 +114,7 @@
                 <option>Danger</option>
                 <option>Extreme</option>
             </select>
-            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedTreeLevel?.toLowerCase())}"></div>
+            <div class="circle" *ngIf="selectedTreeLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedTreeLevel?.toLowerCase())}"></div>
 
             <br>
 
@@ -131,7 +125,7 @@
                 <option>Danger</option>
                 <option>Extreme</option>
             </select>
-            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedRockLevel?.toLowerCase())}"></div>
+            <div class="circle" *ngIf="selectedRockLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedRockLevel?.toLowerCase())}"></div>
 
             <br>
 
@@ -142,7 +136,7 @@
                 <option>Danger</option>
                 <option>Extreme</option>
             </select>
-            <div class="circle" [ngStyle]="{'background-color': color_dictionary.get(selectedCliffLevel?.toLowerCase())}"></div>
+            <div class="circle" *ngIf="selectedCliffLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedCliffLevel?.toLowerCase())}"></div>
         </div>
     </div>
 
@@ -150,6 +144,12 @@
 
     <div id="submit">
         <button type="button" class="btn btn-primary" (click)="onSubmit()">SUBMIT</button>
+        <div *ngIf="isTriedToSubmit">
+            <p [ngStyle]="{'color': 'red'}">*The form hasn't been completely filled out</p>
+        </div>
+        <div *ngIf="isSubmitted">
+            <p [ngStyle]="{'color': color_dictionary.get('address')}">*The has successfully been saved</p>
+        </div>
     </div>
 
     <hr>
