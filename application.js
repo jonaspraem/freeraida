@@ -14,7 +14,9 @@ var lineRoutes = require('./routes/lines');
 var lineInfoRoutes = require('./routes/lineinfo');
 
 var app = express();
-mongoose.connect('test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database');
+mongoose.connect('mongodb://test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database', {
+    useMongoClient: true
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -56,5 +58,7 @@ app.use('/', index);
 app.use(function(req, res, next) {
     res.render('index');
 });
+
+console.log('Freeraida server running... ');
 
 module.exports = app;
