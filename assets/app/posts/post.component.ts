@@ -36,7 +36,6 @@ export class PostComponent implements OnInit{
 
     ngOnInit(): void {
         this.postViewModel = new PostViewModel(this.post);
-        console.log('postviewmodel: '+this.postViewModel.content);
         if (this.post.gnarly) {
             this.isGnarly = (this.post.gnarly.indexOf(this.profile.user_address) > -1);
         } else this.isGnarly = false;

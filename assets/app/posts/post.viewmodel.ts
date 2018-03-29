@@ -13,6 +13,10 @@ export class PostViewModel {
         }
     }
 
+    /**
+        TODO: The anchor generation will break if the @ tag is right between the cut
+    */
+
     private generateAnchors(content: string) {
         return content.replace(/@([^ @]+)/ig, '<a href="/home/user/$1">@$1</a>');
     }

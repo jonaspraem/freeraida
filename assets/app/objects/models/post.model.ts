@@ -1,7 +1,6 @@
 import { PostObject } from "../interfaces/post-object";
 
 export class Post {
-    private static content_list = [];
     content: string;
     timestamp?: Date;
     display_name?: string;
@@ -9,10 +8,6 @@ export class Post {
     postId?: string;
     gnarly: string[];
     expanded_content?: string;
-
-    /*
-            The anchor generation will break if the @ tag is right between the cut
-     */
 
     constructor(content: string, timestamp?: Date, display_name?: string, user_address?: string, postId?: string, gnarly?: string[]) {
         this.content = content;
