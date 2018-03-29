@@ -75,6 +75,7 @@
     "image-webpack-loader": "^3.6.0",
     "live-server": "^1.2.0",
     "node-sass": "^4.8.3",
+    "object-assign": "^4.1.1",
     "performance-now": "^2.1.0",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.2",
