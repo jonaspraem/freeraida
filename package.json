@@ -3,7 +3,9 @@
   "license": "MIT",
   "version": "1.1.4",
   "private": true,
-  "engines" : { "node" : ">=8.9.1" },
+  "engines" : {
+    "node" : "8.9.1"
+  },
   "engineStrict" : true,
   "scripts": {
     "start": "node ./bin/www",
