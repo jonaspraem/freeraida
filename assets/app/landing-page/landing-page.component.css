@@ -4,15 +4,6 @@ header {
     justify-content: center;
 }
 
-.signature-card {
-    width: 500px;
-    background-color: white;
-    align-content: center;
-    text-align: center;
-    height: 500px;
-    transform: translateY(-250px);
-}
-
 .background {
     position: fixed;
     padding: 400px;

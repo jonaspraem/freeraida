@@ -10,12 +10,12 @@ import { ErrorComponent } from "./errors/error.component";
 import { ErrorService } from "./errors/error.service";
 
 import { LandingPageModule } from "./landing-page/landing-page.module";
-import { AuthService } from "./auth/auth.service";
 import { AuthGuardService } from "./auth/auth-guard.service";
 import { WebAppModule } from "./webapp.module";
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
 import { CONFIG } from "./dictionary/config";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -25,13 +25,14 @@ import { CONFIG } from "./dictionary/config";
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        ReactiveFormsModule,
         appRouting,
         HttpClientModule,
         LandingPageModule,
         WebAppModule,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [AuthGuardService, AuthService, ErrorService, CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY],
+    providers: [AuthGuardService, ErrorService, CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
