@@ -1,27 +1,31 @@
 <div class="form-container">
     <form [formGroup]="registration_form" (ngSubmit)="onSubmit(registration_form.value)">
         <div class="form-element">
-            <mat-form-field>
-                <input formControlName="email" matInput placeholder="Email" value="aaa@test.com" type="email" ([ngModel])="form.email">
-            </mat-form-field>
+            <label for="email">
+                <span>Email</span>
+                <input name="email" id="email" [formControl]="registration_form.controls['email']" type="email">
+            </label>
         </div>
 
         <div class="form-element">
-            <mat-form-field>
-                <input formControlName="username" matInput placeholder="Username" value="username" ([ngModel])="form.username">
-            </mat-form-field>
+            <label for="username">
+                <span>Username</span>
+                <input name="username" id="username" [formControl]="registration_form.controls['username']" type="text">
+            </label>
         </div>
 
         <div class="form-element">
-            <mat-form-field>
-                <input formControlName="password" matInput placeholder="Password" type="password" ([ngModel])="form.password">
-            </mat-form-field>
+            <label for="password">
+                <span>Username</span>
+                <input name="password" id="password" [formControl]="registration_form.controls['password']" type="password">
+            </label>
         </div>
 
         <div class="form-element">
-            <mat-form-field>
-                <input formControlName="password_confirmation" matInput placeholder="Repeat password" type="password" ([ngModel])="form.password_confirmation">
-            </mat-form-field>
+            <label for="password_confirmation">
+                <span>Repeat password</span>
+                <input name="password_confirmation" id="password_confirmation" [formControl]="registration_form.controls['password_confirmation']" type="password">
+            </label>
         </div>
     </form>
 </div>

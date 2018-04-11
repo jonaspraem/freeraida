@@ -16,10 +16,10 @@ export class RegisterPromptComponent implements OnInit {
 
     ngOnInit() {
         this.registration_form = new FormGroup({
-            username: new FormControl(this.form.username, Validators.required),
-            email: new FormControl(this.form.email, Validators.required),
-            password: new FormControl(this.form.password, Validators.required),
-            password_confirmation: new FormControl(this.form.password_confirmation, Validators.required)
+            username: new FormControl(null, Validators.required),
+            email: new FormControl(null, Validators.required),
+            password: new FormControl(null, Validators.required),
+            password_confirmation: new FormControl(null, Validators.required)
         });
     }
 
