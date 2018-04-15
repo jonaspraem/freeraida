@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 
+const logoImage = require('../../../images/logo/favicon_kickstarter.png');
+
 @Component({
     selector: 'app-auth-prompt',
     templateUrl: './auth-prompt.component.html',
@@ -7,5 +9,6 @@ import { Component } from "@angular/core";
 })
 
 export class AuthPromptComponent {
+    public logo = logoImage;
 
 }

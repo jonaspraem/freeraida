@@ -1,0 +1,39 @@
+body {
+    position: relative;
+    z-index: 20;
+}
+
+h1 {
+    color: white;
+    text-shadow: 1px 0 var(--colorSecondaryLight);, 0 1px var(--colorSecondaryLight);, 1px 0 var(--colorSecondaryLight);, 0 -1px var(--colorSecondaryLight);;
+    margin: 0;
+    vertical-align: center;
+    z-index: 5;
+}
+
+.logo {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 10;
+    margin-right: 10px;
+    margin-left: 0;
+}
+
+i {
+    color: white;
+    transform: translateY(+32%);
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.mat-toolbar {
+    position: relative;
+    background-color: var(--colorPrimary);
+    z-index: 10;
+    border-bottom:1px groove var(--colorSecondaryDark);
+}

@@ -1,10 +1,11 @@
-<mat-card class="signature-card">
-    <mat-tab-group>
-        <mat-tab label="Login">
-            <app-login-prompt></app-login-prompt>
-        </mat-tab>
-        <mat-tab label="Sign up">
-            <app-register-prompt></app-register-prompt>
-        </mat-tab>
-    </mat-tab-group>
-</mat-card>
+<mat-sidenav-container class="auth-container">
+    <div class="auth-header">
+        <img class="logo" src="{{logo}}">
+        <h3>Join the community</h3>
+        <h4>Take it to the next level</h4>
+    </div>
+    <app-login-prompt></app-login-prompt>
+</mat-sidenav-container>
+<div class="background">
+
+</div>
