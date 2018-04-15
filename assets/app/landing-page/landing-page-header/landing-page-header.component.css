@@ -5,7 +5,7 @@ body {
 
 h1 {
     color: white;
-    text-shadow: 1px 0 var(--colorSecondaryLight);, 0 1px var(--colorSecondaryLight);, 1px 0 var(--colorSecondaryLight);, 0 -1px var(--colorSecondaryLight);;
+    text-shadow: 1px 0 var(--colorSecondaryLight);, 0 1px var(--colorSecondaryLight);, 1px 0 var(--colorSecondaryLight);, 0 -1px var(--colorSecondaryLight);
     margin: 0;
     vertical-align: center;
     z-index: 5;

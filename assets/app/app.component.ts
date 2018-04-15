@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         const colors = new Map([
-            ['colorPrimary', '#023059'],
+            ['colorPrimary', '#141d2f'],
             ['colorPrimaryLight', '#166BBC'],
             ['colorPrimaryLighter', '#56A1BF'],
             ['colorSecondaryLight', '#D9C589'],
