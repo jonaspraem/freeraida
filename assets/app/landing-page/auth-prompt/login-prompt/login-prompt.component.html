@@ -2,7 +2,19 @@
     <div class="form-element">
         <label for="username" >
             <span>Username or email</span>
-            <input id="username" [formControlName]="username_email">
+            <input id="username" [formControlName]="username_email" type="text">
         </label>
     </div>
+    <div class="form-element">
+        <label for="password" >
+            <span>Password</span>
+            <input id="password" [formControlName]="password" type="password">
+        </label>
+    </div>
+    <button class="reset" type="reset">
+        CLEAR
+    </button>
+    <button class="submit" type="submit" [disabled]="!form.valid">
+        LOGIN
+    </button>
 </form>

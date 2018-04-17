@@ -53,7 +53,9 @@ h2, h3, h4, h5 {
 }
 
 .form-element {
+    width: 100%;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 span {
@@ -67,10 +69,51 @@ span {
 input {
     background-color: var(--colorWhite);
     border: 0;
-    border-bottom: 3px solid var(--colorPrimaryLight);
+    border-bottom: 2px solid var(--colorPrimary);
     height: 40px;
     width: 100%;
     display: block;
+}
+
+label {
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+    border-bottom: 4px solid var(--colorPrimaryLighter);
+}
+
+button {
+    border: 0;
+    height: 40px;
+    font-weight: 700;
+}
+
+.submit {
+    width: 60%;
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    float: right;
+}
+
+.submit:hover {
+    background-color: var(--colorPrimaryLighter);
+}
+
+.reset {
+    width: 30%;
+    background-color: var(--colorRed);
+    color: var(--colorWhite);
+    float: left;
+}
+
+.reset:hover {
+    background-color: var(--colorDark);
+}
+
+hr {
+    border-bottom: 2px inset var(--colorPrimary);
 }
 
 /*

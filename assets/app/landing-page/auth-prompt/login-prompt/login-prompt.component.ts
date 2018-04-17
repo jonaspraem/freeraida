@@ -19,4 +19,8 @@ export class LoginPromptComponent implements OnInit {
         });
     }
 
+    onSubmit() {
+
+    }
+
 }
