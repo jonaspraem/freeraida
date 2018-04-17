@@ -1,10 +1,8 @@
-<!--
-<form class="example-form">
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Username or email" value="AoschkA">
-    </mat-form-field>
-
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Password" value="aaa" type="password">
-    </mat-form-field>
-</form>-->
+<form [formGroup]="form">
+    <div class="form-element">
+        <label for="username" >
+            <span>Username or email</span>
+            <input id="username" [formControlName]="username_email">
+        </label>
+    </div>
+</form>

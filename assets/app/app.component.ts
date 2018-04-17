@@ -10,19 +10,23 @@ export class AppComponent implements OnInit {
 
     // Defining global color pallet
 
+    // Bases
+        // #141D2F
+
     ngOnInit() {
         const colors = new Map([
-            ['colorPrimary', '#141d2f'],
-            ['colorPrimaryLight', '#166BBC'],
-            ['colorPrimaryLighter', '#56A1BF'],
-            ['colorSecondaryLight', '#D9C589'],
-            ['colorSecondary', '#A68521'],
-            ['colorSecondaryDark', '#594302'],
-            ['colorClay', '#A68160'],
-            ['colorRed', '#8C4F65'],
-            ['colorGreen', '#798C65'],
-            ['colorGreenLight', '#BDBFAA'],
+            ['colorPrimary', '#141C2E'],
+            ['colorPrimaryLight', '#28437A'],
+            ['colorPrimaryLighter', '#41537A'],
+            ['colorSecondaryLight', '#BC998D'],
+            ['colorSecondary', '#7A5D1C'],
+            ['colorSecondaryDark', '#2E2614'],
+            ['colorRed', '#3B231F'],
+            ['colorGreen', '#4C6120'],
+            ['colorGreenLight', '#627A2F'],
             ['colorDark', '#1B1E1B'],
+            ['colorWhite', '#F1EEE8'],
+            ['colorWhiteDark', '#D7CEBA']
         ]);
         Array.from(colors.entries()).forEach(([name, value]) => {
             document.body.style.setProperty(`--${name}`, value);
