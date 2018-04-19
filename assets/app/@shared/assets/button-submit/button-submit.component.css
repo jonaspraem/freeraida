@@ -1,0 +1,20 @@
+button {
+    color: var(--colorWhite);
+    background-color: var(--colorPrimaryLight);
+    border-color: var(--colorPrimaryLight);
+    box-shadow: 1px 1px var(--colorDark);
+    font-weight: 900;
+    font-family: Impact;
+    letter-spacing: 2px;
+    font-size: xx-large;
+    width: 200px;
+    height: 50px;
+}
+
+button:hover {
+    background-color: var(--colorPrimaryLighter);
+}
+
+button:focus {
+    outline: none;
+}

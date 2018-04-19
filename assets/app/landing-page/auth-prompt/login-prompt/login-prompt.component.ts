@@ -9,6 +9,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 export class LoginPromptComponent implements OnInit {
     public form: FormGroup;
+    public submitText = 'LOGIN';
 
     constructor() {}
 

@@ -26,7 +26,8 @@ export class AppComponent implements OnInit {
             ['colorGreenLight', '#627A2F'],
             ['colorDark', '#1B1E1B'],
             ['colorWhite', '#F1EEE8'],
-            ['colorWhiteDark', '#D7CEBA']
+            ['colorWhiteDark', '#D7CEBA'],
+            ['colorHighlight', '#A8E6CF']
         ]);
         Array.from(colors.entries()).forEach(([name, value]) => {
             document.body.style.setProperty(`--${name}`, value);
