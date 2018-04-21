@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
             ['colorSecondary', '#7A5D1C'],
             ['colorSecondaryDark', '#2E2614'],
             ['colorRed', '#3B231F'],
+            ['colorRedLight', '#D35058'],
             ['colorGreen', '#4C6120'],
             ['colorGreenLight', '#627A2F'],
             ['colorDark', '#1B1E1B'],

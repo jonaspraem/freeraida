@@ -16,8 +16,18 @@ module.exports = {
                 use: [{ loader: 'html-loader' }]
             },
             {
-                test: /\.css$/,
+                test: /\.css$/, // for legacy purposes
                 use: [{ loader: 'raw-loader' }]
+            },
+            {
+                test: /\.scss$/,
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "sass-loader" // compiles Sass to CSS
+                }]
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|tff|eot|ico)$/,

@@ -10,5 +10,6 @@ const logoImage = require('../../../images/logo/favicon_kickstarter.png');
 
 export class AuthPromptComponent {
     public logo = logoImage;
+    public enlistText = 'ENLIST NOW';
 
 }
