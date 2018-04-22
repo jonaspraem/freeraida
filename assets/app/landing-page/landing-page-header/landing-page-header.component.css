@@ -34,6 +34,6 @@ i {
 .mat-toolbar {
     position: relative;
     background-color: var(--colorPrimary);
-    z-index: 10;
-    border-bottom:1px groove var(--colorDark);
+    z-index: 30;
+    box-shadow: 2px 2px 1px var(--colorDark);
 }

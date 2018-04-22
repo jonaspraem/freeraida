@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 
 export class LoginPromptComponent implements OnInit {
+    @ViewChild('el') el: ElementRef;
     public form: FormGroup;
     public submitText = 'LOGIN';
 
@@ -22,6 +23,10 @@ export class LoginPromptComponent implements OnInit {
 
     onSubmit() {
 
+    }
+
+    reColor() {
+        this.form.markAsUntouched();
     }
 
 }
