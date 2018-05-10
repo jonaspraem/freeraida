@@ -5,13 +5,10 @@
             <span>Username or email</span>
         </label>
     </div>
-    <div class="form-element" #input>
+    <div class="form-element">
         <label for="password" >
             <input id="password" name="password" formControlName="password" type="password" (focusout)="reColor()">
             <span>Password</span>
         </label>
     </div>
 </form>
-<div class="action-line">
-    <app-asset-button-submit [text]="submitText"></app-asset-button-submit>
-</div>

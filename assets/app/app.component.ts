@@ -26,8 +26,8 @@ export class AppComponent implements OnInit {
             ['colorGreen', '#4C6120'],
             ['colorGreenLight', '#627A2F'],
             ['colorDark', '#1B1E1B'],
-            ['colorWhite', '#F1EEE8'],
-            ['colorWhiteDark', '#D7CEBA'],
+            ['colorDarkLight', '#313431'],
+            ['colorWhite', '#FCFDFF'],
             ['colorHighlight', '#A8E6CF']
         ]);
         Array.from(colors.entries()).forEach(([name, value]) => {

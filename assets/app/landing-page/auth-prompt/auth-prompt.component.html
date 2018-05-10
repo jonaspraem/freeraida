@@ -4,19 +4,6 @@
         <h2>Join the community</h2>
         <h4>Take it to the next level</h4>
     </div>
-    <div *ngIf="isEnlistFormOpen; then enlistForm else loginForm"></div>
-    <ng-template #enlistForm [@slideDown]>
-        <app-register-prompt></app-register-prompt>
-    </ng-template>
-    <ng-template #loginForm>
-        <app-login-prompt></app-login-prompt>
-        <div class="spacer"></div>
-        <div class="action-line">
-            <app-asset-button-submit [text]="enlistText"></app-asset-button-submit>
-        </div>
-    </ng-template>
-
+    <app-register-prompt></app-register-prompt>
 </mat-sidenav-container>
-<div class="background">
-
-</div>
+<div class="background" [ngStyle]="{'background-image': 'url('+background+')'}"></div>

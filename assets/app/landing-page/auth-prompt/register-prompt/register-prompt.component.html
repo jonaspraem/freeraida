@@ -1,31 +1,17 @@
-<div class="form-container">
-    <form [formGroup]="registration_form" (ngSubmit)="onSubmit(registration_form.value)">
-        <div class="form-element">
-            <label for="email">
-                <span>Email</span>
-                <input name="email" id="email" [formControl]="registration_form.controls['email']" type="email">
-            </label>
-        </div>
-
-        <div class="form-element">
-            <label for="username">
-                <span>Username</span>
-                <input name="username" id="username" [formControl]="registration_form.controls['username']" type="text">
-            </label>
-        </div>
-
-        <div class="form-element">
-            <label for="password">
-                <span>Username</span>
-                <input name="password" id="password" [formControl]="registration_form.controls['password']" type="password">
-            </label>
-        </div>
-
-        <div class="form-element">
-            <label for="password_confirmation">
-                <span>Repeat password</span>
-                <input name="password_confirmation" id="password_confirmation" [formControl]="registration_form.controls['password_confirmation']" type="password">
-            </label>
-        </div>
-    </form>
+<form class="form-container" [formGroup]="form" >
+    <div class="form-element">
+        <label for="username" >
+            <input id="username" name="username_email" formControlName="username_email" type="text" (focusout)="reColor()">
+            <span>Username or email</span>
+        </label>
+    </div>
+    <div class="form-element">
+        <label for="password" >
+            <input id="password" name="password" formControlName="password" type="password" (focusout)="reColor()">
+            <span>Password</span>
+        </label>
+    </div>
+</form>
+<div class="action-line">
+    <app-asset-button-submit [text]="submitText"></app-asset-button-submit>
 </div>

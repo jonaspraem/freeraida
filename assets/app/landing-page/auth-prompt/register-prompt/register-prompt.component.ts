@@ -9,21 +9,23 @@ import { RegisterModel } from "./register.model";
 })
 
 export class RegisterPromptComponent implements OnInit {
-    public registration_form: FormGroup;
-    public form: RegisterModel = new RegisterModel('', '', '', '', '');
+    public form: FormGroup;
+    public submitText = 'ENLIST NOW';
 
-    constructor(private fb:FormBuilder) {}
+    constructor() {}
 
     ngOnInit() {
-        this.registration_form = new FormGroup({
-            username: new FormControl(null, Validators.required),
-            email: new FormControl(null, Validators.required),
+        this.form = new FormGroup({
+            username_email: new FormControl(null, Validators.required),
             password: new FormControl(null, Validators.required),
-            password_confirmation: new FormControl(null, Validators.required)
         });
     }
 
-    onSubmit(form: Form) {
+    onSubmit() {
 
+    }
+
+    reColor() {
+        this.form.markAsUntouched();
     }
 }
