@@ -28,15 +28,16 @@ router.post('/login', function (req, res, next) {
 });
 
 router.post('/sign-up', function (req, res, next) {
+    console.log('enlisting user..');
     if (req.body.email &&
         req.body.username &&
         req.body.password &&
         req.body.password_confirmation) {
         if (req.body.password === req.body.password_confirmation) {
-
+            console.log('password matches');
             var user = new User({
-                username: req.body.username,
                 email: req.body.email,
+                username: req.body.username,
                 password: req.body.password
             });
 
@@ -55,3 +56,5 @@ router.post('/sign-up', function (req, res, next) {
         }
     }
 });
+
+module.exports = router;

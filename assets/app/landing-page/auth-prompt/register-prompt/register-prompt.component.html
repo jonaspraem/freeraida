@@ -1,8 +1,14 @@
 <form class="form-container" [formGroup]="form" >
     <div class="form-element">
+        <label for="username_email" >
+            <input id="username_email" name="username_email" formControlName="username_email" type="email" (focusout)="reColor()">
+            <span>Email</span>
+        </label>
+    </div>
+    <div class="form-element">
         <label for="username" >
-            <input id="username" name="username_email" formControlName="username_email" type="text" (focusout)="reColor()">
-            <span>Username or email</span>
+            <input id="username" name="username" formControlName="username" type="text" (focusout)="reColor()">
+            <span>Username</span>
         </label>
     </div>
     <div class="form-element">
@@ -11,7 +17,13 @@
             <span>Password</span>
         </label>
     </div>
+    <div class="form-element">
+        <label for="password_repeat" >
+            <input id="password_repeat" name="password_repeat" formControlName="password_repeat" type="password" (focusout)="reColor()">
+            <span>Repeat password</span>
+        </label>
+    </div>
 </form>
 <div class="action-line">
-    <app-asset-button-submit [text]="submitText"></app-asset-button-submit>
+    <app-asset-button-submit [text]="submitText" (onClick)="onSubmit()"></app-asset-button-submit>
 </div>

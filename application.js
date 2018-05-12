@@ -9,6 +9,7 @@ var passport = require('passport');
 var session = require("express-session");
 
 var index = require('./routes/app');
+var authRoutes = require('./routes/authenticate');
 var postRoutes = require('./routes/posts');
 var connectRoutes = require('./routes/connect');
 var profileRoutes = require('./routes/profile');
@@ -59,6 +60,7 @@ app.use(function(req, res, next){
     next();
 });
 
+app.use('/authentication', authRoutes);
 app.use('/post', postRoutes);
 app.use('/connect', connectRoutes);
 app.use('/profile', profileRoutes);

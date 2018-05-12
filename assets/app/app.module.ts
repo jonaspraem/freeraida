@@ -16,11 +16,13 @@ import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
 import { CONFIG } from "./dictionary/config";
 import { ReactiveFormsModule } from "@angular/forms";
+import { CoreModule } from "./@core/core.module";
 
+// TODO: Organize
 @NgModule({
     declarations: [
         AppComponent,
-        ErrorComponent,
+        ErrorComponent, // TODO: Remove
     ],
     imports: [
         BrowserModule,
@@ -30,6 +32,7 @@ import { ReactiveFormsModule } from "@angular/forms";
         HttpClientModule,
         LandingPageModule,
         WebAppModule,
+        CoreModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
     providers: [AuthGuardService, ErrorService, CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY],
