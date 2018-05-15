@@ -1,17 +1,43 @@
-header {
+.landing-page-container {
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.background {
-    position: fixed;
-    padding: 400px;
+.left {
+    width: 50%;
     height: 100%;
+}
+
+.logo {
+    display: inline-block;
     width: 100%;
-    background-image: url("js/app/assets/350214-mountain-view.0e19ad6496c20f342c1bc7f111a12be5.jpg");
-    background-size: cover;
-    align-content: center;
-    vertical-align: middle;
+    height: 70%;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    margin-top: 25%;
+    color: var(--colorPrimary);
+    text-shadow:
+            -1px -1px 2px #FFF,
+            1px -1px 2px #FFF,
+            -1px 1px 2px #FFF,
+            1px 1px 2px #FFF;
+    font-family: Impact;
+    font-size: 150px;
+    font-weight: bolder;
+    opacity: 1;
+}
+
+header {
     text-align: center;
+    width: 100%;
+}
+
+.right {
+    width: 50%;
+    height: 100%;
+    background-color: var(--colorWhite);
 }
