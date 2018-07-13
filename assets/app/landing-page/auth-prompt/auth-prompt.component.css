@@ -46,34 +46,6 @@ h2, h3, h4, h5 {
     font-family: Impact;
 }
 
-/* Sub components  */
-
-.form-container {
-    margin-top: 30px;
-    padding: 10%;
-    width: 100%;
-}
-
-.form-element {
-    height: 60px;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-span {
-    float: left;
-    font-family: "sans-serif";
-    font-size: larger;
-    font-weight: bolder;
-    color: var(--colorDark);
-    transform: translateY(-60px);
-    transition:font-size 200ms ease;
-    -moz-transition:font-size 200ms ease; /* Firefox 4 */
-    -webkit-transition:font-size 200ms ease; /* Safari and Chrome */
-    -o-transition:font-size 200ms ease; /* Opera ?*/
-}
-
 input {
     background-color: var(--colorWhite);
     border: 0;
@@ -83,29 +55,10 @@ input {
     display: block;
 }
 
-label {
-    width: 100%;
-}
-
-input:focus + span {
-    font-size: small;
-}
-
-
-input:focus {
-    outline: none;
-    border-bottom: 2px solid var(--colorPrimaryLighter);
-}
-
 button {
     border: 0;
     height: 40px;
     font-weight: 700;
-}
-
-input.ng-invalid.ng-touched {
-    border: none;
-    border-bottom: 2px solid var(--colorRedLight);
 }
 
 .submit {

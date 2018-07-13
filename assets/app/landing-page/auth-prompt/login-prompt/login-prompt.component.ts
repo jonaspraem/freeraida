@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 @Component({
     selector: 'app-login-prompt',
     templateUrl: './login-prompt.component.html',
-    styleUrls: ['./../auth-prompt.component.css']
+    styleUrls: ['./login-prompt.component.css']
 })
 
 export class LoginPromptComponent implements OnInit {

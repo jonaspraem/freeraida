@@ -1,6 +1,6 @@
 button {
-    color: var(--colorWhite);
-    background-color: var(--colorDark);
+    color: var(--colorDark);
+    background-color: var(--colorAlternativePrimaryLight);
     border: none;
     font-weight: 200;
     font-family: Impact;
@@ -9,12 +9,11 @@ button {
     width: 200px;
     height: 40px;
     border-radius: 25px;
-    color: var(--colorWhite);
 }
 
 button:hover {
-    background-color: var(--colorDarkLight);
-    border-color: var(--colorDarkLight);
+    background-color: var(--colorPrimaryLighter);
+    border-color: var(--colorPrimaryLighter);
     -webkit-transition: background-color 50ms ease-in;
     -ms-transition: background-color 50ms ease-in;
     transition: background-color 50ms ease-in;

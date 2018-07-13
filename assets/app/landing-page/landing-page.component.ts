@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 
 const image = require('../../images/350214-mountain-view.jpg');
 
-const logoImage = require('../../images/logo/favicon_kickstarter.png');
+const logoImage = require('../../images/logo/favicon.png');
 const backgroundImage = require('../../images/backgrounds/snow-3193865_1920.jpg');
 
 @Component({

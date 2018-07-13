@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
             ['colorPrimary', '#141C2E'],
             ['colorPrimaryLight', '#28437A'],
             ['colorPrimaryLighter', '#41537A'],
+            ['colorAlternativePrimary', '#6695FF'],
+            ['colorAlternativePrimaryLight', '#93B4FF'],
             ['colorSecondaryLight', '#BC998D'],
             ['colorSecondary', '#7A5D1C'],
             ['colorSecondaryDark', '#2E2614'],
@@ -28,7 +30,7 @@ export class AppComponent implements OnInit {
             ['colorDark', '#1B1E1B'],
             ['colorDarkLight', '#313431'],
             ['colorWhite', '#FCFDFF'],
-            ['colorHighlight', '#A8E6CF']
+            ['colorHighlight', '#F3F9FF']
         ]);
         Array.from(colors.entries()).forEach(([name, value]) => {
             document.body.style.setProperty(`--${name}`, value);

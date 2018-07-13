@@ -7,12 +7,13 @@ import { EnlistRequest } from "../../../@core/interfaces/auth";
 @Component({
     selector: 'app-register-prompt',
     templateUrl: './register-prompt.component.html',
-    styleUrls: ['./../auth-prompt.component.css']
+    styleUrls: ['./register-prompt.component.css']
 })
 
 export class RegisterPromptComponent implements OnInit {
     public form: FormGroup;
-    public submitText = 'ENLIST NOW';
+    public submitText = 'SIGN UP';
+    public cancelText = 'CLEAR';
 
     constructor(private authService: AuthenticationService) {}
 
@@ -35,6 +36,10 @@ export class RegisterPromptComponent implements OnInit {
         this.authService.enlist(request).subscribe(data => {
             console.log('enlisted');
         });
+    }
+
+    onCancel() {
+        console.log('clear');
     }
 
     reColor() {
