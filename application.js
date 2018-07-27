@@ -8,6 +8,8 @@ var favicon = require('serve-favicon');
 var passport = require('passport');
 var session = require("express-session");
 
+const passportSetup = require('./config/passport-setup');
+
 var index = require('./routes/app');
 var authRoutes = require('./routes/authenticate');
 var postRoutes = require('./routes/posts');

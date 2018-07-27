@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthenticationService } from "../../../@core/services/authentication.service";
 
 @Component({
     selector: 'app-login-prompt',
@@ -11,7 +12,9 @@ export class LoginPromptComponent implements OnInit {
     public form: FormGroup;
     public submitText = 'LOGIN';
 
-    constructor() {}
+    constructor(
+        private authService: AuthenticationService,
+    ) {}
 
     ngOnInit() {
         this.form = new FormGroup({
@@ -21,7 +24,14 @@ export class LoginPromptComponent implements OnInit {
     }
 
     onSubmit() {
-
+        console.log('logging in..');
+        const request = {
+            username: this.form.controls['username_email'].value,
+            password: this.form.controls['password'].value
+        };
+        this.authService.login(request).subscribe(data => {
+            console.log(data);
+        });
     }   
 
     reColor() {

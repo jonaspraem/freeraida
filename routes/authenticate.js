@@ -19,12 +19,25 @@ passport.use(new LocalStrategy(
     }
 ));
 
-router.post('/login', function (req, res, next) {
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/landing-page',
-        failureFlash: true
-    });
+router.get('/logout', (req, res, next) => {
+    res.send('logging out');
+});
+
+router.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/landing-page',
+                                   failureFlash: true })
+);
+
+router.get('/google', 
+    passport.authenticate('google', {
+        scope: ['profile']
+    })
+);
+
+router.get('/google/redirect', passport.authenticate('google'), (req, res, next) => {
+    res.send('you reached the google callback URI');
+    // redirect to root
 });
 
 router.post('/sign-up', function (req, res, next) {
@@ -53,7 +66,10 @@ router.post('/sign-up', function (req, res, next) {
                     obj: result
                 });
             });
-        }
+        } else {
+            // Password doesn't match
+            console.log('password don\'t match');
+        } 
     }
 });
 

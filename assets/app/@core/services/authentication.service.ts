@@ -14,7 +14,13 @@ export class AuthenticationService {
     enlist(request: EnlistRequest) {
         const body = JSON.stringify(request);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        return this.http.post(this.config.getEndpoint() + '/authentication/sign-up/', body, {headers: headers})
+        return this.http.post(this.config.getEndpoint() + '/authentication/sign-up/', body, {headers: headers});
+    }
+
+    login(request) {
+        const body = JSON.stringify(request);
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        return this.http.post(this.config.getEndpoint() + '/authentication/login/', body, {headers: headers});
     }
 
 }
