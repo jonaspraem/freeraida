@@ -1,0 +1,100 @@
+.auth-container {
+    height: calc(100%);
+    width: 320px;
+    z-index: 1;
+    position: fixed;
+    background-color: var(--colorWhite);
+    box-shadow: 2px 2px 1px var(--colorDark);
+
+
+}
+
+.auth-header {
+    background-color: var(--colorPrimary);
+    width: 100%;
+    height: 300px;
+    text-align: center;
+    border-bottom:1px groove var(--colorDark);
+}
+
+.logo {
+    display: inline-block;
+    width: 100%;
+    height: 70%;
+    position: relative;
+    z-index: 10;
+}
+
+mat-sidenav-container {
+    overflow: hidden !important;
+}
+
+.background {
+    position: fixed;
+    padding: 400px;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    align-content: center;
+    vertical-align: middle;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+h2, h3, h4, h5 {
+    color: white;
+    font-family: Impact;
+}
+
+input {
+    background-color: var(--colorWhite);
+    border: 0;
+    border-bottom: 2px solid var(--colorPrimary);
+    height: 40px;
+    width: 100%;
+    display: block;
+}
+
+button {
+    border: 0;
+    height: 40px;
+    font-weight: 700;
+}
+
+.submit {
+    width: 60%;
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    float: right;
+}
+
+.submit:hover {
+    background-color: var(--colorPrimaryLighter);
+}
+
+.reset {
+    width: 30%;
+    background-color: var(--colorRed);
+    color: var(--colorWhite);
+    float: left;
+}
+
+.reset:hover {
+    background-color: var(--colorDark);
+}
+
+.action-line {
+    width: 100%;
+    height: 70px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.spacer {
+    display: block;
+    height: 30px;
+}
+
+hr {
+    border-bottom: 2px inset var(--colorPrimary);
+}

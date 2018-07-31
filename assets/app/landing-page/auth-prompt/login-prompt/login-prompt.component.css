@@ -1,0 +1,24 @@
+.login-container {
+    width: 100%;
+    padding: 10px 5% 0 0;
+    height: 60px;
+    background-color: var(--colorPrimary);
+    color: var(--colorWhite);
+    text-align: right;
+}
+
+.form-element {
+    display: inline-block;
+    width: 30%;
+    margin-right: 20px;
+}
+
+.form-control {
+    display: inline-block;
+}
+
+.button-container {
+    display: inline-block;
+    height: 100%;
+    transform: translateY(2px);
+}

@@ -1,0 +1,38 @@
+<div class="enlist-container">
+    <div class="form-container">
+        <form  [formGroup]="form" >
+            <div class="form-element">
+                <label for="username_email" >
+                    <input id="username_email" name="username_email" formControlName="username_email" type="email" (focusout)="reColor()">
+                    <span>Email</span>
+                </label>
+            </div>
+            <div class="form-element">
+                <label for="username" >
+                    <input id="username" name="username" formControlName="username" type="text" (focusout)="reColor()">
+                    <span>Username</span>
+                </label>
+            </div>
+            <div class="form-element">
+                <label for="password" >
+                    <input id="password" name="password" formControlName="password" type="password" (focusout)="reColor()">
+                    <span>Password</span>
+                </label>
+            </div>
+            <div class="form-element">
+                <label for="password_repeat" >
+                    <input id="password_repeat" name="password_repeat" formControlName="password_repeat" type="password" (focusout)="reColor()">
+                    <span>Repeat password</span>
+                </label>
+            </div>
+        </form>
+    </div>
+    <div class="button-container">
+        <span>
+            <app-asset-button-submit [text]="submitText" (onClick)="onSubmit()"></app-asset-button-submit>
+        </span>
+        <span>
+            <app-asset-button-cancel [text]="cancelText" (onClick)="onCancel()"></app-asset-button-cancel>
+        </span>
+    </div>
+</div>

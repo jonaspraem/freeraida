@@ -1,0 +1,28 @@
+button {
+    color: var(--colorDark);
+    background-color: var(--colorAlternativePrimary);
+    border: none;
+    font-weight: 400;
+    font-family: Impact;
+    letter-spacing: 2px;
+    font-size: 20px;
+    width: 200px;
+    height: 34px;
+    border-radius: 25px;
+    color: var(--colorDark);
+}
+
+button:hover {
+    background-color: var(--colorAlternativePrimaryLight);
+    -webkit-transition: background-color 50ms ease-in;
+    -ms-transition: background-color 50ms ease-in;
+    transition: background-color 50ms ease-in;
+}
+
+button:focus {
+    background-color: var(--colorAlternativePrimaryLight);
+    -webkit-transition: background-color 50ms ease-in;
+    -ms-transition: background-color 50ms ease-in;
+    transition: background-color 50ms ease-in;
+    outline: none;
+}

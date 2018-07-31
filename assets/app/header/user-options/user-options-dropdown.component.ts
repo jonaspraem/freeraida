@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { AuthService } from "../../auth/auth.service";
 import { Router } from "@angular/router";
 import { Profile } from "../../objects/models/profile.model";
 
@@ -13,7 +12,7 @@ export class UserOptionsDropdownComponent {
     @Input() userProfile: any;
     @Input() profile: Profile;
 
-    constructor(private authService: AuthService, private router: Router) {}
+    constructor(private router: Router) {}
 
     hasImage(): boolean {
         if (this.userProfile) {
@@ -23,7 +22,7 @@ export class UserOptionsDropdownComponent {
     }
 
     onLogout() {
-        this.authService.logout();
+        // this.authService.logout();
     }
 
     onSettingsClick() {

@@ -1,15 +1,40 @@
-import { Component } from '@angular/core';
-import { isDevMode } from '@angular/core';
-import { AuthService } from "./auth/auth.service";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-    constructor(public auth: AuthService) {
-        auth.handleAuthentication();
+    constructor() { }
+
+    // Defining global color pallet
+
+    // Bases
+        // #141D2F
+
+    ngOnInit() {
+        const colors = new Map([
+            ['colorPrimary', '#141C2E'],
+            ['colorPrimaryLight', '#28437A'],
+            ['colorPrimaryLighter', '#41537A'],
+            ['colorAlternativePrimary', '#6695FF'],
+            ['colorAlternativePrimaryLight', '#93B4FF'],
+            ['colorSecondaryLight', '#BC998D'],
+            ['colorSecondary', '#7A5D1C'],
+            ['colorSecondaryDark', '#2E2614'],
+            ['colorRed', '#3B231F'],
+            ['colorRedLight', '#D35058'],
+            ['colorGreen', '#4C6120'],
+            ['colorGreenLight', '#627A2F'],
+            ['colorDark', '#1B1E1B'],
+            ['colorDarkLight', '#313431'],
+            ['colorWhite', '#FCFDFF'],
+            ['colorHighlight', '#F3F9FF']
+        ]);
+        Array.from(colors.entries()).forEach(([name, value]) => {
+            document.body.style.setProperty(`--${name}`, value);
+        });
     }
 
 }

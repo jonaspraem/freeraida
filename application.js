@@ -5,8 +5,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var favicon = require('serve-favicon');
+var passport = require('passport');
+var session = require("express-session");
+
+const passportSetup = require('./config/passport-setup');
 
 var index = require('./routes/app');
+var authRoutes = require('./routes/authenticate');
 var postRoutes = require('./routes/posts');
 var connectRoutes = require('./routes/connect');
 var profileRoutes = require('./routes/profile');
@@ -24,6 +29,16 @@ app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(express.static("public"));
+
+app.use(session({
+    secret: 'work hard',
+    resave: true,
+    saveUninitialized: false
+}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,6 +62,7 @@ app.use(function(req, res, next){
     next();
 });
 
+app.use('/authentication', authRoutes);
 app.use('/post', postRoutes);
 app.use('/connect', connectRoutes);
 app.use('/profile', profileRoutes);

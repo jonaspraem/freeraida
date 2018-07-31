@@ -4,7 +4,6 @@ import { Profile } from "../../objects/models/profile.model";
 import { Router } from "@angular/router";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { FormControl, FormGroup, NgForm, Validators } from "@angular/forms";
-import { AuthService } from "../../auth/auth.service";
 import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 
 let twitter = require('../../../images/social/twitter.png');
@@ -41,7 +40,6 @@ export class SettingsComponent implements OnInit {
 
 
     constructor(private profile_service: ProfileService,
-                public auth_service: AuthService,
                 private router: Router,
                 public flag_dictionary: FLAG_DICTIONARY,
                 public color_dictionary: COLOR_DICTIONARY) {}
@@ -103,11 +101,11 @@ export class SettingsComponent implements OnInit {
             this.form_twitter,
             this.form_instagram
         );
-        if (this.auth_service.isWelcome) {
-            this.profile_service.createNewProfile(profile).subscribe((profile: Profile) => this.profile = profile);
-            this.auth_service.isWelcome = false;
-            this.router.navigate(['home/feed']);
-        }
-        else this.profile_service.submitSettings(profile).subscribe((profile: Profile) => this.profile = profile);
+        // if (this.auth_service.isWelcome) {
+        //     this.profile_service.createNewProfile(profile).subscribe((profile: Profile) => this.profile = profile);
+        //     // this.auth_service.isWelcome = false;
+        //     this.router.navigate(['home/feed']);
+        // }
+        this.profile_service.submitSettings(profile).subscribe((profile: Profile) => this.profile = profile);
     }
 }
