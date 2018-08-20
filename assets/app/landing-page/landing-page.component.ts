@@ -9,7 +9,7 @@ const backgroundImage = require('../../images/backgrounds/snow-3193865_1920.jpg'
 @Component({
     selector: 'app-landing-page',
     templateUrl: './landing-page.component.html',
-    styleUrls: ['./landing-page.component.css']
+    // styleUrls: ['../@styles/features/landing-page.scss']
 })
 
 export class LandingPageComponent implements OnInit {
