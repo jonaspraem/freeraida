@@ -40,7 +40,7 @@ app.use(cookieSession({
 }));
 
 app.use(session({
-    secret: 'work hard',
+    secret: keys.session.sessionKey,
     resave: true,
     saveUninitialized: false
 }));

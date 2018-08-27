@@ -1,13 +1,13 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var mongooseUniqueValidator = require('mongoose-unique-validator');
-var bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const mongooseUniqueValidator = require('mongoose-unique-validator');
+const bcrypt = require('bcrypt');
 
-var schema = new Schema({
+const schema = new Schema({
     email: {type: String, required: true, unique: true},
     username: {type: String, required: true},
     firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
+    surName: {type: String, required: true},
     password: {type: String, required: false},
     googleId: {type: String, required: false} 
 });
