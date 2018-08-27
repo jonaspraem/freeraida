@@ -1,24 +1,26 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var favicon = require('serve-favicon');
-var passport = require('passport');
-var session = require("express-session");
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const favicon = require('serve-favicon');
+const passport = require('passport');
+const session = require("express-session");
+const keys = require('./config/keys');
 
 const passportSetup = require('./config/passport-setup');
 
-var index = require('./routes/app');
-var authRoutes = require('./routes/authenticate');
-var postRoutes = require('./routes/posts');
-var connectRoutes = require('./routes/connect');
-var profileRoutes = require('./routes/profile');
-var lineRoutes = require('./routes/lines');
-var lineInfoRoutes = require('./routes/lineinfo');
+const index = require('./routes/app');
+const authRoutes = require('./routes/authenticate');
+const postRoutes = require('./routes/posts');
+const connectRoutes = require('./routes/connect');
+const profileRoutes = require('./routes/profile');
+const lineRoutes = require('./routes/lines');
+const lineInfoRoutes = require('./routes/lineinfo');
 
-var app = express();
+const app = express();
 mongoose.connect('mongodb://test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database', {
     useMongoClient: true
 });
@@ -31,16 +33,22 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
+app.use(cookieParser(keys.session.cookieKey));
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000, // TODO: 1 day
+    keys: [keys.session.cookieKey]
+}));
+
 app.use(session({
     secret: 'work hard',
     resave: true,
     saveUninitialized: false
 }));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'images','favicon.ico')));
 

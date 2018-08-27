@@ -5,13 +5,18 @@ var bcrypt = require('bcrypt');
 
 var schema = new Schema({
     email: {type: String, required: true, unique: true},
-    username: {type: String, required: true, unique: true},
-    password: {type: String, required: true}
+    username: {type: String, required: true},
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true},
+    password: {type: String, required: false},
+    googleId: {type: String, required: false} 
 });
 
 // hashing the password before saving it to the database
 schema.pre('save', function (next) {
     var user = this;
+
+    // Check password / googleId / twitterId / etc..
 
     // only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) {

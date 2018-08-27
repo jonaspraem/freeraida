@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, Route } from "@angular/router";
+import { AuthenticationService } from "../@core/services/authentication.service";
 
 const image = require('../../images/350214-mountain-view.jpg');
 
@@ -16,11 +17,14 @@ export class LandingPageComponent implements OnInit {
     public logo = logoImage;
     public background = backgroundImage;
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private authService: AuthenticationService) {}
 
     ngOnInit(): void {
         // if (!this.authService.isAuthenticated()) this.authService.login();
         // else this.router.navigate(['home'])
+    }
+
+    onGoogle() {
     }
 
 }

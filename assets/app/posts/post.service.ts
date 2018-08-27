@@ -1,6 +1,6 @@
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from "@angular/core";
-import 'rxjs/Rx';
+import 'rxjs';
 
 import { Post } from "../objects/models/post.model";
 import { ErrorService } from "../errors/error.service";

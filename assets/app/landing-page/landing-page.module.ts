@@ -9,12 +9,10 @@ import {
 import { AuthPromptComponent } from "./auth-prompt/auth-prompt.component";
 import { LoginPromptComponent } from "./auth-prompt/login-prompt/login-prompt.component";
 import { RegisterPromptComponent } from "./auth-prompt/register-prompt/register-prompt.component";
-import { LandingPageHeaderComponent } from "./landing-page-header/landing-page-header.component";
 import { AssetsModule } from "../@shared/assets/assets.module";
 
 @NgModule({
     declarations: [
-        LandingPageHeaderComponent,
         LandingPageComponent,
         AuthPromptComponent,
         LoginPromptComponent,
