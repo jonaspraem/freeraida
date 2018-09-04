@@ -1,5 +1,21 @@
-<div class="background" [ngStyle]="{'background-image': 'url('+background+')'}">
+<div>
     <header>
-        <mat-card></mat-card>
+        <!-- TODO Make fixed height -->
+        <mat-card class="landing-page__header" [ngStyle]="{'background-image': 'url('+background+')'}">
+            <h1>Freeraida</h1>
+        </mat-card>
     </header>
+
+    <mat-card class="landing-page__container-card">
+        <div class="landing-page__login-item landing-page__login-item_credentials">
+            <!-- Credential login -->
+            <input class="input-primary" id="username" name="username_email" formControlName="username_email" type="text" (focusout)="reColor()" placeholder="Username or email">
+            <input class="input-primary" id="password" name="password" formControlName="password" type="password" (focusout)="reColor()" placeholder="Password">
+            <button class="button-primary"></button>
+        </div>
+        <hr>
+        <div class="landing-page__login-item"></div>
+        <hr>
+        <div class="landing-page__login-item"></div>
+    </mat-card>
 </div>
