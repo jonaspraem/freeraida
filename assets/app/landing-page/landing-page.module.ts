@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { LandingPageComponent } from "./landing-page.component";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
     MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatCardModule, MatFormFieldModule, MatInputModule, MatSidenavModule,
     MatTabsModule, MatToolbarModule
@@ -21,6 +21,7 @@ import { AssetsModule } from "../@shared/assets/assets.module";
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        FormsModule,
         AssetsModule,
         MatToolbarModule,
         MatSidenavModule,
