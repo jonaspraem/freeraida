@@ -17,6 +17,7 @@ import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
 import { CONFIG } from "./dictionary/config";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from "./@core/core.module";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 // TODO: Organize
 @NgModule({
@@ -28,6 +29,7 @@ import { CoreModule } from "./@core/core.module";
         BrowserModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
+        FontAwesomeModule,
         appRouting,
         HttpClientModule,
         LandingPageModule,

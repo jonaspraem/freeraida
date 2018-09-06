@@ -24,7 +24,7 @@
         width: 100%;
         background-color: wheat;
 
-        &__credentials {
+        &__child {
             display: flex;
         }
     }
@@ -41,5 +41,10 @@
             height: 50px;
             width: 200px;
         }
+    }
+
+    &__social-item {
+        width: 25%;
+        height: 150px;
     }
 }
