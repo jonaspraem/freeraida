@@ -1,4 +1,7 @@
 // TODO Simplify imports
+$fa-font-path: "../../../node_modules/font-awesome/fonts";
+@import "../../../node_modules/font-awesome/scss/font-awesome";
+
 @import './assets/buttons.scss';
 @import './assets/inputs.scss';
 @import './features/landing-page.scss';
