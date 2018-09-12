@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Form, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { RegisterModel } from "./register.model";
+import { RegisterModel } from "../../register.model";
 import { AuthenticationService } from "../../../@core/services/authentication.service";
 import { EnlistRequest } from "../../../@core/interfaces/auth";
 

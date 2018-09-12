@@ -1,23 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
+const express = require('express');
+const router = express.Router();
+const passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 
-var User = require('../models/schemas/user');
-
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        User.findOne({ username: username }, function(err, user) {
-            if (err) { return done(err); }
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
-            }
-            if (!user.validPassword(password)) {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
-        });
-    }
-));
+const User = require('../models/schemas/user');
 
 router.get('/logout', (req, res, next) => {
     res.send('logging out');
@@ -31,11 +16,12 @@ router.post('/login',
 
 router.get('/google', 
     passport.authenticate('google', {
-        scope: ['profile']
+        scope: ['profile', 'email']
     })
 );
 
 router.get('/google/redirect', passport.authenticate('google'), (req, res, next) => {
+    console.log('made it hgere');
     res.send('you reached the google callback URI');
     // redirect to root
 });

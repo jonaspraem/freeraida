@@ -23,4 +23,9 @@ export class AuthenticationService {
         return this.http.post(this.config.getEndpoint() + '/authentication/login/', body, {headers: headers});
     }
 
+    loginGoogle(request) {
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        return this.http.get(this.config.getEndpoint() + '/authentication/google');
+    }
+
 }

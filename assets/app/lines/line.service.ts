@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import 'rxjs/Rx';
+import 'rxjs';
 
 import { ErrorService } from "../errors/error.service";
 import { Line } from "../objects/models/line.model";
