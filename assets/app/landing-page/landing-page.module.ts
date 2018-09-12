@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { LandingPageComponent } from "./landing-page.component";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
     MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatCardModule, MatFormFieldModule, MatInputModule, MatSidenavModule,
     MatTabsModule, MatToolbarModule
@@ -10,6 +10,7 @@ import { AuthPromptComponent } from "./auth-prompt/auth-prompt.component";
 import { LoginPromptComponent } from "./auth-prompt/login-prompt/login-prompt.component";
 import { RegisterPromptComponent } from "./auth-prompt/register-prompt/register-prompt.component";
 import { AssetsModule } from "../@shared/assets/assets.module";
+import { MDBBootstrapModule } from "angular-bootstrap-md";
 
 @NgModule({
     declarations: [
@@ -21,6 +22,8 @@ import { AssetsModule } from "../@shared/assets/assets.module";
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        MDBBootstrapModule.forRoot(),
+        FormsModule,
         AssetsModule,
         MatToolbarModule,
         MatSidenavModule,

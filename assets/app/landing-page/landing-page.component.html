@@ -1,1 +1,59 @@
-<a href="/authentication/google">Google</a>
+<div>
+    <header>
+        <!-- TODO Make fixed height -->
+        <mat-card class="landing-page__header" [ngStyle]="{'background-image': 'url('+background+')'}">
+            <h1>Freeraida</h1>
+        </mat-card>
+    </header>
+
+    <mat-card class="landing-page__container-card">
+        <div class="landing-page__login-item">
+            <!-- Credential login -->
+            <form class="landing-page__login-item__child">
+
+                    <div class="form-group landing-page__form-element__credentials">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group landing-page__form-element__credentials">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary landing-page__form-element__button-submit">Login</button>
+
+            </form>
+        </div>
+        <hr>
+        <div class="landing-page__login-item">
+            <!-- Social login -->
+            <h2>Login with a social account</h2>
+            <div class="landing-page__login-item__child">
+                <div class="landing-page__social-item">
+                    <button mdbBtn mdbWavesEffect type="button" class="waves-light landing-page__social-item__button" color="danger">
+                        <span class="fa fa-google-plus"></span> | Sign in with Google+
+                    </button>
+                </div>
+                <div class="landing-page__social-item">
+                    <button mdbBtn mdbWavesEffect type="button" class="waves-light landing-page__social-item__button" color="info">
+                        <span class="fa fa-twitter"></span> | Sign in with Twitter
+                    </button>
+                </div>
+            </div>
+            <div class="landing-page__login-item__child">
+                <div class="landing-page__social-item">
+                    <button mdbBtn mdbWavesEffect type="button" class="waves-light landing-page__social-item__button" color="primary">
+                        <span class="fa fa-facebook"></span> | Sign in with Facebook
+                    </button>
+                </div>
+                <div class="landing-page__social-item">
+                    <button mdbBtn mdbWavesEffect type="button" class="waves-light landing-page__social-item__button" color="#434312">
+                        <span class="fa fa-instagram"></span> | Sign in with Instagram
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="landing-page__login-item"></div>
+    </mat-card>
+</div>
