@@ -19,6 +19,7 @@ export class LandingPageComponent implements OnInit {
     constructor(private router: Router) {}
 
     ngOnInit(): void {
+        console.log('dsa');
         // if (!this.authService.isAuthenticated()) this.authService.login();
         // else this.router.navigate(['home'])
     }

@@ -10,6 +10,7 @@ import { AuthPromptComponent } from "./auth-prompt/auth-prompt.component";
 import { LoginPromptComponent } from "./auth-prompt/login-prompt/login-prompt.component";
 import { RegisterPromptComponent } from "./auth-prompt/register-prompt/register-prompt.component";
 import { AssetsModule } from "../@shared/assets/assets.module";
+import { MDBBootstrapModule } from "angular-bootstrap-md";
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { AssetsModule } from "../@shared/assets/assets.module";
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        MDBBootstrapModule.forRoot(),
         FormsModule,
         AssetsModule,
         MatToolbarModule,
