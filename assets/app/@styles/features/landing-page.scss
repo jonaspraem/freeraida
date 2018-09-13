@@ -28,6 +28,14 @@
         min-height: 100px;
         width: 100%;
 
+        &__header {
+            color: #141D2F;
+            opacity: 0.85;
+            font-weight: 900;
+            font-size: 25px;
+            text-transform: uppercase;
+        }
+
         &__child {
             display: flex;
         }
