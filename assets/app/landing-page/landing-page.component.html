@@ -1,9 +1,9 @@
-<div>
+<div class="landing-page__background-container" [ngStyle]="{'background-image': 'url('+background+')'}">
     <header>
         <!-- TODO Make fixed height -->
-        <mat-card class="landing-page__header" [ngStyle]="{'background-image': 'url('+background+')'}">
+        <div class="landing-page__header">
             <h1>Freeraida</h1>
-        </mat-card>
+        </div>
     </header>
 
     <mat-card class="landing-page__container-card">
@@ -47,7 +47,7 @@
                     </button>
                 </div>
                 <div class="landing-page__social-item">
-                    <button mdbBtn mdbWavesEffect type="button" class="waves-light landing-page__social-item__button" color="#434312">
+                    <button mdbBtn mdbWavesEffect type="button" class="waves-light landing-page__social-item__button" color="secondary">
                         <span class="fa fa-instagram"></span> | Sign in with Instagram
                     </button>
                 </div>
