@@ -34,15 +34,8 @@
     }
 
     &__form-element {
-        &__credentials {
-            flex: 1;
-            margin: 10px 40px;
-        }
-
-        &__enlist {
-            flex: 1;
-            margin: 10px 40px;
-        }
+        flex: 1;
+        margin: 10px 40px;
 
         &__button-submit {
             align-self: center;
