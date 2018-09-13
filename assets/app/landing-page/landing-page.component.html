@@ -12,11 +12,11 @@
             <form [formGroup]="loginForm" class="landing-page__login-item__child" (ngSubmit)="onLogin()">
                     <div class="form-group landing-page__form-element">
                         <label for="login-username-email">Username or email address</label>
-                        <input type="text" class="form-control" id="login-username-email" placeholder="Enter username or email" formControlName="user_input">
+                        <input type="text" class="form-control" id="login-username-email" placeholder="Enter username or email" formControlName="user_input" (focusout)="reColor()">
                     </div>
                     <div class="form-group landing-page__form-element">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" formControlName="password">
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" formControlName="password" (focusout)="reColor()">
                     </div>
                     <div class="landing-page__form-element landing-page__sign-up-button-container">
                         <button type="submit" class="btn btn-primary landing-page__button">Login</button>

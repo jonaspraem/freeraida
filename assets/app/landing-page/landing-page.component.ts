@@ -33,6 +33,10 @@ export class LandingPageComponent implements OnInit {
         this.countryList = FLAG_DICTIONARY.toList();
     }
 
+    reColor() {
+        this.loginForm.markAsUntouched();
+    }
+
     onLogin() {
         console.log('logging in..');
         let request: LoginRequest;
