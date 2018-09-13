@@ -4,4 +4,4 @@ npm.debug.log
 /aot
 /public/js
 npm-debug.log
-/config/keys.js
+package-lock.json
