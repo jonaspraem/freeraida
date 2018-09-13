@@ -19,7 +19,6 @@
                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                     </div>
                     <button type="submit" class="btn btn-primary landing-page__form-element__button-submit">Login</button>
-
             </form>
         </div>
         <hr>
@@ -55,42 +54,44 @@
         <div class="landing-page__login-item">
             <!-- Sign up -->
             <h2 class="landing-page__login-item__header">Don't have an account? Sign up!</h2>
-            <div class="landing-page__enlist-row">
-                <div class="form-group landing-page__form-element">
-                    <label for="sign-up-email">Email address</label>
-                    <input type="email" class="form-control" id="sign-up-email" aria-describedby="sign-up-email-help" placeholder="Enter email">
-                    <small id="sign-up-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <form>
+                <div class="landing-page__enlist-row">
+                    <div class="form-group landing-page__form-element">
+                        <label for="sign-up-email">Email address</label>
+                        <input type="email" class="form-control" id="sign-up-email" aria-describedby="sign-up-email-help" placeholder="Enter email">
+                        <small id="sign-up-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group landing-page__form-element">
+                        <label for="sign-up-username">Username</label>
+                        <input type="text" class="form-control" id="sign-up-username" aria-describedby="sign-up-username-help" placeholder="Enter username">
+                        <small id="sign-up-username-help" class="form-text text-muted">Username must be unique</small>
+                    </div>
                 </div>
-                <div class="form-group landing-page__form-element">
-                    <label for="sign-up-username">Username</label>
-                    <input type="text" class="form-control" id="sign-up-username" aria-describedby="sign-up-username-help" placeholder="Enter username">
-                    <small id="sign-up-username-help" class="form-text text-muted">Username must be unique</small>
+                <div class="landing-page__enlist-row">
+                    <div class="form-group landing-page__form-element">
+                        <label for="sign-up-firstName">Firstname</label>
+                        <input type="text" class="form-control" id="sign-up-firstName" placeholder="John">
+                    </div>
+                    <div class="form-group landing-page__form-element">
+                        <label for="sign-up-surName">Surname</label>
+                        <input type="text" class="form-control" id="sign-up-surName" placeholder="Doe">
+                    </div>
                 </div>
-            </div>
-            <div class="landing-page__enlist-row">
-                <div class="form-group landing-page__form-element">
-                    <label for="sign-up-firstName">Firstname</label>
-                    <input type="text" class="form-control" id="sign-up-firstName" placeholder="John">
+                <div class="landing-page__enlist-row">
+                    <div class="form-group landing-page__form-element">
+                        <label for="sign-up-password">Password</label>
+                        <input type="password" class="form-control" id="sign-up-password" aria-describedby="sign-up-password-help" placeholder="Enter password">
+                        <small id="sign-up-password-help" class="form-text text-muted">Must be at least 7 characters long</small>
+                    </div>
+                    <div class="form-group landing-page__form-element">
+                        <label for="sign-up-password-repeat">Repeat password</label>
+                        <input type="password" class="form-control" id="sign-up-password-repeat" placeholder="Repeat password">
+                    </div>
                 </div>
-                <div class="form-group landing-page__form-element">
-                    <label for="sign-up-surName">Surname</label>
-                    <input type="text" class="form-control" id="sign-up-surName" placeholder="Doe">
+                <div class="landing-page__sign-up-button-container">
+                    <button id="sign-up-button" class="btn btn-primary landing-page__sign-up-button" type="button">Sign up <i class="fa fa-chevron-right"></i></button>
                 </div>
-            </div>
-            <div class="landing-page__enlist-row">
-                <div class="form-group landing-page__form-element">
-                    <label for="sign-up-password">Password</label>
-                    <input type="password" class="form-control" id="sign-up-password" aria-describedby="sign-up-password-help" placeholder="Enter password">
-                    <small id="sign-up-password-help" class="form-text text-muted">Must be at least 7 characters long</small>
-                </div>
-                <div class="form-group landing-page__form-element">
-                    <label for="sign-up-password-repeat">Repeat password</label>
-                    <input type="password" class="form-control" id="sign-up-password-repeat" placeholder="Repeat password">
-                </div>
-            </div>
-            <div class="landing-page__sign-up-button-container">
-                <button id="sign-up-button" class="btn btn-primary landing-page__sign-up-button" type="button">Sign up <i class="fa fa-chevron-right"></i></button>
-            </div>
+            </form>
         </div>
     </mat-card>
 </div>
