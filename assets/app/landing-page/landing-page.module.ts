@@ -6,18 +6,12 @@ import {
     MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatCardModule, MatFormFieldModule, MatInputModule, MatSidenavModule,
     MatTabsModule, MatToolbarModule
 } from "@angular/material";
-import { AuthPromptComponent } from "./auth-prompt/auth-prompt.component";
-import { LoginPromptComponent } from "./auth-prompt/login-prompt/login-prompt.component";
-import { RegisterPromptComponent } from "./auth-prompt/register-prompt/register-prompt.component";
 import { AssetsModule } from "../@shared/assets/assets.module";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
 
 @NgModule({
     declarations: [
         LandingPageComponent,
-        AuthPromptComponent,
-        LoginPromptComponent,
-        RegisterPromptComponent
     ],
     imports: [
         CommonModule,
