@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { CONFIG } from "../../dictionary/config";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { EnlistRequest } from "../interfaces/auth";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { LoginRequest } from "../interfaces/authentication/LoginRequest";
 
 @Injectable()
 
@@ -11,21 +11,10 @@ export class AuthenticationService {
                 private config: CONFIG
     ) {}
 
-    enlist(request: EnlistRequest) {
-        const body = JSON.stringify(request);
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        return this.http.post(this.config.getEndpoint() + '/authentication/sign-up/', body, {headers: headers});
-    }
-
-    login(request) {
+    login(request: LoginRequest) {
         const body = JSON.stringify(request);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         return this.http.post(this.config.getEndpoint() + '/authentication/login/', body, {headers: headers});
-    }
-
-    loginGoogle(request) {
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        return this.http.get(this.config.getEndpoint() + '/authentication/google');
     }
 
 }
