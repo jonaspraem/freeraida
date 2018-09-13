@@ -56,12 +56,16 @@
     }
 
     &__sign-up-button {
-        width: 300px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
     }
 
     &__sign-up-button-container {
+        position: relative;
         width: 100%;
-        text-align: right;
+        height: 70px;
     }
 
     &__social-item {
