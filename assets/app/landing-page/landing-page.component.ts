@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, Route } from "@angular/router";
 import { AuthenticationService } from "../@core/services/authentication.service";
+import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
 
 const image = require('../../images/350214-mountain-view.jpg');
 
@@ -16,13 +17,13 @@ const backgroundImage = require('../../images/backgrounds/snow-3193865_1920.jpg'
 export class LandingPageComponent implements OnInit {
     public logo = logoImage;
     public background = backgroundImage;
+    public countryList;
 
     constructor(private router: Router, private authService: AuthenticationService) {}
 
     ngOnInit(): void {
-        console.log('dsa');
-        // if (!this.authService.isAuthenticated()) this.authService.login();
-        // else this.router.navigate(['home'])
+        this.countryList = FLAG_DICTIONARY.toList();
+        console.log(this.countryList)
     }
 
     onGoogle() {

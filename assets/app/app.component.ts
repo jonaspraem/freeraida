@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import './@styles/styles.scss';
+import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 
 @Component({
     selector: 'app-root',
@@ -36,6 +37,8 @@ export class AppComponent implements OnInit {
         Array.from(colors.entries()).forEach(([name, value]) => {
             document.body.style.setProperty(`--${name}`, value);
         });
+
+        FLAG_DICTIONARY.initialize();
     }
 
 }

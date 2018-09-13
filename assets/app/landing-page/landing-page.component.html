@@ -94,11 +94,7 @@
                     <div class="form-group landing-page__form-element">
                         <label for="country-select">Country</label>
                         <select class="form-control" id="country-select">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            <option *ngFor="let country of countryList">{{ country }}</option>
                         </select>
                     </div>
                     <div class="landing-page__form-element landing-page__sign-up-button-container">
