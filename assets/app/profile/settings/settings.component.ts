@@ -63,7 +63,7 @@ export class SettingsComponent implements OnInit {
                     this.control_firstname.disable();
                     this.control_surname.disable();
 
-                    this.form_firstname = profile.firstName;
+                    this.form_firstname = profile.firstname;
                     this.form_surname = profile.lastName;
                     this.form_bio = profile.bio;
                     this.form_address = profile.user_address;

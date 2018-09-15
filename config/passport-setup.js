@@ -48,7 +48,7 @@ passport.use(
                 var userObject = new User({
                     email: profile.email,
                     username: profile.displayName,
-                    firstName: profile.name.givenName,
+                    firstname: profile.name.givenName,
                     surName: profile.name.familyName,
                     googleId: profile.id
                 });

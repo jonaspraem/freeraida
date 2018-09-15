@@ -99,7 +99,7 @@ router.post('/new', function (req, res, next) {
                         var profile_schema = new Profile({
                             user_id: body.user_id,
                             user_address: req.body.user_address,
-                            firstName: req.body.firstName,
+                            firstname: req.body.firstname,
                             lastName: req.body.lastName,
                             bio: req.body.bio,
                             representation: req.body.representation,

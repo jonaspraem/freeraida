@@ -83,8 +83,8 @@
                 </div>
                 <div class="landing-page__enlist-row">
                     <div class="form-group landing-page__form-element">
-                        <label for="sign-up-firstName">Firstname</label>
-                        <input type="text" class="form-control" id="sign-up-firstName" placeholder="John" formControlName="firstName">
+                        <label for="sign-up-firstname">Firstname</label>
+                        <input type="text" class="form-control" id="sign-up-firstname" placeholder="John" formControlName="firstname">
                         <mat-error *ngFor="let validation of messages.firstname">
                             <mat-error class="landing-page__error-message"
                                        *ngIf="signUpForm.get('firstname').hasError(validation.type) &&

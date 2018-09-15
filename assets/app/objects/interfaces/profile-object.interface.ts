@@ -5,7 +5,7 @@ export interface ProfileObject {
     user_id: string;
     user_address: string;
     bio: string;
-    firstName: string;
+    firstname: string;
     lastName: string;
     representation: string;
     social_twitter: string;

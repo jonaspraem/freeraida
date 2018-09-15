@@ -39,7 +39,7 @@ export class LandingPageComponent implements OnInit {
             Validators.maxLength(25),
             Validators.minLength(5)
         ])),
-        firstName: new FormControl('', Validators.required),
+        firstname: new FormControl('', Validators.required),
         surName: new FormControl('', Validators.required),
         password: new FormControl('', Validators.compose([
             Validators.minLength(5),
