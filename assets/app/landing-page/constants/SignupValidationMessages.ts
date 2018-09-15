@@ -3,8 +3,7 @@ const signup_messages = {
         { type: 'required', message: 'Username is required' },
         { type: 'minlength', message: 'Username must be at least 5 characters long' },
         { type: 'maxlength', message: 'Username cannot be more than 25 characters long' },
-        { type: 'pattern', message: 'Your username must contain only numbers and letters' },
-        { type: 'validUsername', message: 'Your username has already been taken' }
+        { type: 'validUsername', message: 'Your username can\'t contain a space or a @' }
     ],
     'email': [
         { type: 'required', message: 'Email is required' },

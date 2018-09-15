@@ -74,9 +74,9 @@
                         <input type="text" class="form-control" id="sign-up-username" aria-describedby="sign-up-username-help" placeholder="Enter username" formControlName="username">
                         <mat-error *ngFor="let validation of messages.username">
                             <mat-error class="landing-page__error-message"
-                                       *ngIf="signUpForm.get('email').hasError(validation.type) &&
-                                       (signUpForm.get('email').dirty ||
-                                       signUpForm.get('email').touched)">* {{validation.message}}</mat-error>
+                                       *ngIf="signUpForm.get('username').hasError(validation.type) &&
+                                       (signUpForm.get('username').dirty ||
+                                       signUpForm.get('username').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
                         <small id="sign-up-username-help" class="form-text text-muted">Username must be unique</small>
                     </div>
