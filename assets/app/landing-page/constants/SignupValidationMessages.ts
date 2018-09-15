@@ -9,7 +9,7 @@ const signup_messages = {
         { type: 'required', message: 'Email is required' },
         { type: 'pattern', message: 'Enter a valid email' }
     ],
-    'confirm_password': [
+    'password_repeat': [
         { type: 'required', message: 'Confirm password is required' },
         { type: 'areEqual', message: 'Password mismatch' }
     ],
@@ -17,6 +17,12 @@ const signup_messages = {
         { type: 'required', message: 'Password is required' },
         { type: 'minlength', message: 'Password must be at least 5 characters long' },
         { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number' }
+    ],
+    'firstname': [
+        { type: 'required', message: 'Firstname is required' },
+    ],
+    'surname': [
+        { type: 'required', message: 'Surname is required' },
     ],
     'terms': [
         { type: 'pattern', message: 'You must accept terms and conditions' }

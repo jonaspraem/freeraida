@@ -61,34 +61,46 @@
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-email">Email address</label>
                         <input type="email" class="form-control" id="sign-up-email" aria-describedby="sign-up-email-help" placeholder="Enter email" formControlName="email">
+                        <small id="sign-up-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
                         <mat-error *ngFor="let validation of messages.email">
                             <mat-error class="landing-page__error-message"
                                        *ngIf="signUpForm.get('email').hasError(validation.type) &&
                                        (signUpForm.get('email').dirty ||
                                        signUpForm.get('email').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
-                        <small id="sign-up-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-username">Username</label>
                         <input type="text" class="form-control" id="sign-up-username" aria-describedby="sign-up-username-help" placeholder="Enter username" formControlName="username">
+                        <small id="sign-up-username-help" class="form-text text-muted">Username must be unique</small>
                         <mat-error *ngFor="let validation of messages.username">
                             <mat-error class="landing-page__error-message"
                                        *ngIf="signUpForm.get('username').hasError(validation.type) &&
                                        (signUpForm.get('username').dirty ||
                                        signUpForm.get('username').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
-                        <small id="sign-up-username-help" class="form-text text-muted">Username must be unique</small>
                     </div>
                 </div>
                 <div class="landing-page__enlist-row">
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-firstName">Firstname</label>
                         <input type="text" class="form-control" id="sign-up-firstName" placeholder="John" formControlName="firstName">
+                        <mat-error *ngFor="let validation of messages.firstname">
+                            <mat-error class="landing-page__error-message"
+                                       *ngIf="signUpForm.get('firstname').hasError(validation.type) &&
+                                       (signUpForm.get('firstname').dirty ||
+                                       signUpForm.get('firstname').touched)">* {{validation.message}}</mat-error>
+                        </mat-error>
                     </div>
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-surName">Surname</label>
                         <input type="text" class="form-control" id="sign-up-surName" placeholder="Doe" formControlName="surName">
+                        <mat-error *ngFor="let validation of messages.surname">
+                            <mat-error class="landing-page__error-message"
+                                       *ngIf="signUpForm.get('surname').hasError(validation.type) &&
+                                       (signUpForm.get('surname').dirty ||
+                                       signUpForm.get('surname').touched)">* {{validation.message}}</mat-error>
+                        </mat-error>
                     </div>
                 </div>
                 <div class="landing-page__enlist-row">
@@ -96,10 +108,22 @@
                         <label for="sign-up-password">Password</label>
                         <input type="password" class="form-control" id="sign-up-password" aria-describedby="sign-up-password-help" placeholder="Enter password" formControlName="password">
                         <small id="sign-up-password-help" class="form-text text-muted">Must be at least 7 characters long</small>
+                        <mat-error *ngFor="let validation of messages.password">
+                            <mat-error class="landing-page__error-message"
+                                       *ngIf="signUpForm.get('password').hasError(validation.type) &&
+                                       (signUpForm.get('password').dirty ||
+                                       signUpForm.get('password').touched)">* {{validation.message}}</mat-error>
+                        </mat-error>
                     </div>
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-password-repeat">Repeat password</label>
                         <input type="password" class="form-control" id="sign-up-password-repeat" placeholder="Repeat password" formControlName="password_repeat">
+                        <mat-error *ngFor="let validation of messages.password_repeat">
+                            <mat-error class="landing-page__error-message"
+                                       *ngIf="signUpForm.get('password_repeat').hasError(validation.type) &&
+                                       (signUpForm.get('password_repeat').dirty ||
+                                       signUpForm.get('password_repeat').touched)">* {{validation.message}}</mat-error>
+                        </mat-error>
                     </div>
                 </div>
                 <div class="landing-page__enlist-row">
