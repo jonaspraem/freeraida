@@ -12,11 +12,11 @@
             <form [formGroup]="loginForm" class="landing-page__login-item__child" (ngSubmit)="onLogin()">
                     <div class="form-group landing-page__form-element">
                         <label for="login-username-email">Username or email address</label>
-                        <input type="text" class="form-control" id="login-username-email" placeholder="Enter username or email" formControlName="user_input" (focusout)="reColor()">
+                        <input type="text" class="form-control" id="login-username-email" placeholder="Enter username or email" formControlName="user_input" (focusout)="reColor()" required>
                     </div>
                     <div class="form-group landing-page__form-element">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" formControlName="password" (focusout)="reColor()">
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" formControlName="password" (focusout)="reColor()" required>
                     </div>
                     <div class="landing-page__form-element landing-page__sign-up-button-container">
                         <button type="submit" class="btn btn-primary landing-page__button">Login</button>
@@ -56,38 +56,50 @@
         <div class="landing-page__login-item">
             <!-- Sign up -->
             <h2 class="landing-page__login-item__header">Don't have an account? Sign up!</h2>
-            <form>
+            <form [formGroup]="signUpForm">
                 <div class="landing-page__enlist-row">
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-email">Email address</label>
-                        <input type="email" class="form-control" id="sign-up-email" aria-describedby="sign-up-email-help" placeholder="Enter email">
+                        <input type="email" class="form-control" id="sign-up-email" aria-describedby="sign-up-email-help" placeholder="Enter email" formControlName="email">
+                        <mat-error *ngFor="let validation of messages.email">
+                            <mat-error class="landing-page__error-message"
+                                       *ngIf="signUpForm.get('email').hasError(validation.type) &&
+                                       (signUpForm.get('email').dirty ||
+                                       signUpForm.get('email').touched)">* {{validation.message}}</mat-error>
+                        </mat-error>
                         <small id="sign-up-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-username">Username</label>
-                        <input type="text" class="form-control" id="sign-up-username" aria-describedby="sign-up-username-help" placeholder="Enter username">
+                        <input type="text" class="form-control" id="sign-up-username" aria-describedby="sign-up-username-help" placeholder="Enter username" formControlName="username">
+                        <mat-error *ngFor="let validation of messages.username">
+                            <mat-error class="landing-page__error-message"
+                                       *ngIf="signUpForm.get('email').hasError(validation.type) &&
+                                       (signUpForm.get('email').dirty ||
+                                       signUpForm.get('email').touched)">* {{validation.message}}</mat-error>
+                        </mat-error>
                         <small id="sign-up-username-help" class="form-text text-muted">Username must be unique</small>
                     </div>
                 </div>
                 <div class="landing-page__enlist-row">
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-firstName">Firstname</label>
-                        <input type="text" class="form-control" id="sign-up-firstName" placeholder="John">
+                        <input type="text" class="form-control" id="sign-up-firstName" placeholder="John" formControlName="firstName">
                     </div>
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-surName">Surname</label>
-                        <input type="text" class="form-control" id="sign-up-surName" placeholder="Doe">
+                        <input type="text" class="form-control" id="sign-up-surName" placeholder="Doe" formControlName="surName">
                     </div>
                 </div>
                 <div class="landing-page__enlist-row">
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-password">Password</label>
-                        <input type="password" class="form-control" id="sign-up-password" aria-describedby="sign-up-password-help" placeholder="Enter password">
+                        <input type="password" class="form-control" id="sign-up-password" aria-describedby="sign-up-password-help" placeholder="Enter password" formControlName="password">
                         <small id="sign-up-password-help" class="form-text text-muted">Must be at least 7 characters long</small>
                     </div>
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-password-repeat">Repeat password</label>
-                        <input type="password" class="form-control" id="sign-up-password-repeat" placeholder="Repeat password">
+                        <input type="password" class="form-control" id="sign-up-password-repeat" placeholder="Repeat password" formControlName="password_repeat">
                     </div>
                 </div>
                 <div class="landing-page__enlist-row">

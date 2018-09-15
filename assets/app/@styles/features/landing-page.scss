@@ -69,4 +69,10 @@
             width: 100%;
         }
     }
+
+    &__error-message {
+        color: red;
+        font-weight: 700;
+        margin-left: 10px;
+    }
 }
