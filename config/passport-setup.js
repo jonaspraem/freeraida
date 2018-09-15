@@ -49,7 +49,7 @@ passport.use(
                     email: profile.email,
                     username: profile.displayName,
                     firstname: profile.name.givenName,
-                    surName: profile.name.familyName,
+                    surname: profile.name.familyName,
                     googleId: profile.id
                 });
                 console.log('new user', userObject);

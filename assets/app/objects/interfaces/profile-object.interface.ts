@@ -6,7 +6,7 @@ export interface ProfileObject {
     user_address: string;
     bio: string;
     firstname: string;
-    lastName: string;
+    surname: string;
     representation: string;
     social_twitter: string;
     social_instagram: string;

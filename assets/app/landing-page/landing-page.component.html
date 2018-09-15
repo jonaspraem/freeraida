@@ -93,8 +93,8 @@
                         </mat-error>
                     </div>
                     <div class="form-group landing-page__form-element">
-                        <label for="sign-up-surName">Surname</label>
-                        <input type="text" class="form-control" id="sign-up-surName" placeholder="Doe" formControlName="surName">
+                        <label for="sign-up-surname">Surname</label>
+                        <input type="text" class="form-control" id="sign-up-surname" placeholder="Doe" formControlName="surname">
                         <mat-error *ngFor="let validation of messages.surname">
                             <mat-error class="landing-page__error-message"
                                        *ngIf="signUpForm.get('surname').hasError(validation.type) &&

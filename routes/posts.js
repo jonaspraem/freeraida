@@ -169,7 +169,7 @@ router.post('/', function(req, res, next) {
                 var post = new Post({
                     content: req.body.content,
                     user_address: user_profile.user_address,
-                    display_name: user_profile.firstname + ' ' + user_profile.lastName,
+                    display_name: user_profile.firstname + ' ' + user_profile.surname,
                     timestamp: new Date(),
                     gnarly: []
                 });

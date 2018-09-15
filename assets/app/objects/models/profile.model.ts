@@ -8,7 +8,7 @@ export class Profile {
     user_address?: string;
     bio?: string;
     firstname?: string;
-    lastName?: string;
+    surname?: string;
     representation?: string;
     social_twitter?: string;
     social_instagram?: string;
@@ -23,7 +23,7 @@ export class Profile {
                 user_address?: string,
                 bio?: string,
                 firstname?: string,
-                lastName?: string,
+                surname?: string,
                 representation?: string,
                 social_twitter?: string,
                 social_instagram?: string,
@@ -38,7 +38,7 @@ export class Profile {
         this.user_address = user_address;
         this.bio = bio;
         this.firstname = firstname;
-        this.lastName = lastName;
+        this.surname = surname;
         this.representation = representation;
         this.social_twitter = social_twitter;
         this.social_instagram = social_instagram;
@@ -52,11 +52,11 @@ export class Profile {
 
     public static fabricate(object: ProfileObject): Profile {
         return new Profile(
-            object.firstname + ' ' + object.lastName,
+            object.firstname + ' ' + object.surname,
             object.user_address,
             object.bio,
             object.firstname,
-            object.lastName,
+            object.surname,
             object.representation,
             object.social_twitter,
             object.social_instagram,

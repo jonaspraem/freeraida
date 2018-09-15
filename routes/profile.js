@@ -100,7 +100,7 @@ router.post('/new', function (req, res, next) {
                             user_id: body.user_id,
                             user_address: req.body.user_address,
                             firstname: req.body.firstname,
-                            lastName: req.body.lastName,
+                            surname: req.body.surname,
                             bio: req.body.bio,
                             representation: req.body.representation,
                             social_twitter: req.body.social_twitter,
