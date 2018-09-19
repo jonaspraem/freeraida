@@ -9,7 +9,7 @@ const signup_messages = {
         { type: 'required', message: 'Email is required' },
         { type: 'pattern', message: 'Enter a valid email' }
     ],
-    'password_repeat': [
+    'password_confirmation': [
         { type: 'required', message: 'Confirm password is required' },
         { type: 'areEqual', message: 'Password mismatch' }
     ],

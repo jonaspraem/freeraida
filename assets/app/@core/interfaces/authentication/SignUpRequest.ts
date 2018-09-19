@@ -4,6 +4,6 @@ export interface SignUpRequest {
     firstname: string,
     surname: string,
     password: string,
-    password_repeat: string,
+    password_confirmation: string,
     country: string
 }

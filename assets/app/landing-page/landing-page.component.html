@@ -117,12 +117,12 @@
                     </div>
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-password-repeat">Repeat password</label>
-                        <input type="password" class="form-control" id="sign-up-password-repeat" placeholder="Repeat password" formControlName="password_repeat" required>
-                        <mat-error *ngFor="let validation of messages.password_repeat">
+                        <input type="password" class="form-control" id="sign-up-password-repeat" placeholder="Repeat password" formControlName="password_confirmation" required>
+                        <mat-error *ngFor="let validation of messages.password_confirmation">
                             <mat-error class="landing-page__error-message"
-                                       *ngIf="signupForm.get('password_repeat').hasError(validation.type) &&
-                                       (signupForm.get('password_repeat').dirty ||
-                                       signupForm.get('password_repeat').touched)">* {{validation.message}}</mat-error>
+                                       *ngIf="signupForm.get('password_confirmation').hasError(validation.type) &&
+                                       (signupForm.get('password_confirmation').dirty ||
+                                       signupForm.get('password_confirmation').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
                     </div>
                 </div>

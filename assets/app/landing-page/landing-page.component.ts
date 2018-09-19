@@ -46,7 +46,7 @@ export class LandingPageComponent implements OnInit {
             Validators.required,
             Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
         ])),
-        password_repeat: new FormControl('', Validators.required),
+        password_confirmation: new FormControl('', Validators.required),
         country: new FormControl('', Validators.required)
     }, (formGroup: FormGroup) => {
      return PasswordValidator.MatchPassword(formGroup);
@@ -90,7 +90,7 @@ export class LandingPageComponent implements OnInit {
             firstname: this.signupForm.controls.firstname.value,
             surname: this.signupForm.controls.surname.value,
             password: this.signupForm.controls.password.value,
-            password_repeat: this.signupForm.controls.password_repeat.value,
+            password_confirmation: this.signupForm.controls.password_confirmation.value,
             country: this.signupForm.controls.country.value,
         };
         this.authService.signup(request).subscribe(data => console.log(data));
