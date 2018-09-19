@@ -5,16 +5,18 @@ const bcrypt = require('bcrypt');
 
 const schema = new Schema({
     email: {type: String, required: true, unique: true},
-    username: {type: String, required: true},
+    username: {type: String, required: true, unique: true},
     firstname: {type: String, required: true},
     surname: {type: String, required: true},
+    country: {type: String, required: true},
     password: {type: String, required: false},
     googleId: {type: String, required: false} 
 });
 
 // hashing the password before saving it to the database
 schema.pre('save', function (next) {
-    var user = this;
+    const user = this;
+    const SALT_WORK_FACTOR = 2010290;
 
     // Check password / googleId / twitterId / etc..
 

@@ -31,17 +31,25 @@ router.post('/sign-up', function (req, res, next) {
     if (req.body.email &&
         req.body.username &&
         req.body.password &&
-        req.body.password_confirmation) {
+        req.body.password_confirmation &&
+        req.body.firstname &&
+        req.body.surname &&
+        req.body.country
+    ) {
         if (req.body.password === req.body.password_confirmation) {
             console.log('password matches');
             const user = new User({
                 email: req.body.email,
                 username: req.body.username,
-                password: req.body.password
+                firstname: req.body.firstname,
+                surname: req.body.surname,
+                password: req.body.password,
+                country: req.body.country
             });
 
             user.save(function (err, result) {
                 if (err) {
+                    console.log('hmhm', err);
                     return res.status(500).json({
                         title: 'An error occured',
                         error: err
