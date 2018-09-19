@@ -56,7 +56,7 @@
         <div class="landing-page__login-item">
             <!-- Sign up -->
             <h2 class="landing-page__login-item__header">Don't have an account? Sign up!</h2>
-            <form [formGroup]="signUpForm" (ngSubmit)="onSignup()">
+            <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
                 <div class="landing-page__enlist-row">
                     <div class="form-group landing-page__form-element">
                         <label for="sign-up-email">Email address</label>
@@ -64,9 +64,9 @@
                         <small id="sign-up-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
                         <mat-error *ngFor="let validation of messages.email">
                             <mat-error class="landing-page__error-message"
-                                       *ngIf="signUpForm.get('email').hasError(validation.type) &&
-                                       (signUpForm.get('email').dirty ||
-                                       signUpForm.get('email').touched)">* {{validation.message}}</mat-error>
+                                       *ngIf="signupForm.get('email').hasError(validation.type) &&
+                                       (signupForm.get('email').dirty ||
+                                       signupForm.get('email').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
                     </div>
                     <div class="form-group landing-page__form-element">
@@ -75,9 +75,9 @@
                         <small id="sign-up-username-help" class="form-text text-muted">Username must be unique</small>
                         <mat-error *ngFor="let validation of messages.username">
                             <mat-error class="landing-page__error-message"
-                                       *ngIf="signUpForm.get('username').hasError(validation.type) &&
-                                       (signUpForm.get('username').dirty ||
-                                       signUpForm.get('username').touched)">* {{validation.message}}</mat-error>
+                                       *ngIf="signupForm.get('username').hasError(validation.type) &&
+                                       (signupForm.get('username').dirty ||
+                                       signupForm.get('username').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
                     </div>
                 </div>
@@ -87,9 +87,9 @@
                         <input type="text" class="form-control" id="sign-up-firstname" placeholder="John" formControlName="firstname" required>
                         <mat-error *ngFor="let validation of messages.firstname">
                             <mat-error class="landing-page__error-message"
-                                       *ngIf="signUpForm.get('firstname').hasError(validation.type) &&
-                                       (signUpForm.get('firstname').dirty ||
-                                       signUpForm.get('firstname').touched)">* {{validation.message}}</mat-error>
+                                       *ngIf="signupForm.get('firstname').hasError(validation.type) &&
+                                       (signupForm.get('firstname').dirty ||
+                                       signupForm.get('firstname').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
                     </div>
                     <div class="form-group landing-page__form-element">
@@ -97,9 +97,9 @@
                         <input type="text" class="form-control" id="sign-up-surname" placeholder="Doe" formControlName="surname">
                         <mat-error *ngFor="let validation of messages.surname">
                             <mat-error class="landing-page__error-message"
-                                       *ngIf="signUpForm.get('surname').hasError(validation.type) &&
-                                       (signUpForm.get('surname').dirty ||
-                                       signUpForm.get('surname').touched)">* {{validation.message}}</mat-error>
+                                       *ngIf="signupForm.get('surname').hasError(validation.type) &&
+                                       (signupForm.get('surname').dirty ||
+                                       signupForm.get('surname').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
                     </div>
                 </div>
@@ -110,9 +110,9 @@
                         <small id="sign-up-password-help" class="form-text text-muted">Must be at least 7 characters long</small>
                         <mat-error *ngFor="let validation of messages.password">
                             <mat-error class="landing-page__error-message"
-                                       *ngIf="signUpForm.get('password').hasError(validation.type) &&
-                                       (signUpForm.get('password').dirty ||
-                                       signUpForm.get('password').touched)">* {{validation.message}}</mat-error>
+                                       *ngIf="signupForm.get('password').hasError(validation.type) &&
+                                       (signupForm.get('password').dirty ||
+                                       signupForm.get('password').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
                     </div>
                     <div class="form-group landing-page__form-element">
@@ -120,28 +120,28 @@
                         <input type="password" class="form-control" id="sign-up-password-repeat" placeholder="Repeat password" formControlName="password_repeat" required>
                         <mat-error *ngFor="let validation of messages.password_repeat">
                             <mat-error class="landing-page__error-message"
-                                       *ngIf="signUpForm.get('password_repeat').hasError(validation.type) &&
-                                       (signUpForm.get('password_repeat').dirty ||
-                                       signUpForm.get('password_repeat').touched)">* {{validation.message}}</mat-error>
+                                       *ngIf="signupForm.get('password_repeat').hasError(validation.type) &&
+                                       (signupForm.get('password_repeat').dirty ||
+                                       signupForm.get('password_repeat').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
                     </div>
                 </div>
                 <div class="landing-page__enlist-row">
                     <div class="form-group landing-page__form-element">
                         <label for="country-select">Country</label>
-                        <select [formControl]="signUpForm.controls.country" class="form-control" id="country-select">
+                        <select [formControl]="signupForm.controls.country" class="form-control" id="country-select">
                             <option *ngFor="let country of countryList" [ngValue]="country">{{ country }}</option>
                         </select>
                         <mat-error *ngFor="let validation of messages.country">
                             <mat-error class="landing-page__error-message"
-                                       *ngIf="signUpForm.get('country').hasError(validation.type) &&
-                                       (signUpForm.get('country').dirty ||
-                                       signUpForm.get('country').touched)">* {{validation.message}}</mat-error>
+                                       *ngIf="signupForm.get('country').hasError(validation.type) &&
+                                       (signupForm.get('country').dirty ||
+                                       signupForm.get('country').touched)">* {{validation.message}}</mat-error>
                         </mat-error>
                     </div>
                     <div class="landing-page__form-element landing-page__sign-up-button-container">
-                        <button id="sign-up-button" class="btn btn-primary landing-page__button" type="submit" [disabled]="!signUpForm.valid">Sign up <i class="fa fa-chevron-right"></i></button>
-                        <p>{{ signUpForm.valid }}</p>
+                        <button id="sign-up-button" class="btn btn-primary landing-page__button" type="submit" [disabled]="!signupForm.valid">Sign up <i class="fa fa-chevron-right"></i></button>
+                        <p>{{ signupForm.valid }}</p>
                     </div>
                 </div>
             </form>

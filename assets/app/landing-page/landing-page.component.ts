@@ -28,7 +28,7 @@ export class LandingPageComponent implements OnInit {
         user_input: new FormControl('', Validators.required),
         password: new FormControl('', Validators.required)
     });
-    public signUpForm = new FormGroup({
+    public signupForm = new FormGroup({
         email: new FormControl('johndoe@mail.com', Validators.compose([
             Validators.required,
             Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
@@ -85,13 +85,13 @@ export class LandingPageComponent implements OnInit {
     onSignup() {
         console.log('signing up..');
         let request: SignUpRequest = {
-            email: this.signUpForm.controls.email.value,
-            username: this.signUpForm.controls.username.value,
-            firstname: this.signUpForm.controls.firstname.value,
-            surname: this.signUpForm.controls.surname.value,
-            password: this.signUpForm.controls.password.value,
-            password_repeat: this.signUpForm.controls.password_repeat.value,
-            country: this.signUpForm.controls.country.value,
+            email: this.signupForm.controls.email.value,
+            username: this.signupForm.controls.username.value,
+            firstname: this.signupForm.controls.firstname.value,
+            surname: this.signupForm.controls.surname.value,
+            password: this.signupForm.controls.password.value,
+            password_repeat: this.signupForm.controls.password_repeat.value,
+            country: this.signupForm.controls.country.value,
         };
         this.authService.signup(request).subscribe(data => console.log(data));
     }
