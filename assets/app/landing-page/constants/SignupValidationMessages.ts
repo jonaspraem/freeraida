@@ -26,6 +26,9 @@ const signup_messages = {
     ],
     'terms': [
         { type: 'pattern', message: 'You must accept terms and conditions' }
+    ],
+    'country': [
+        { type: 'required', message: 'Please select a country to represent'}
     ]
 };
 

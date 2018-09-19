@@ -7,6 +7,7 @@ import { LoginRequest } from "../@core/interfaces/authentication/LoginRequest";
 import { UsernameValidator } from "../@shared/form-validators/UsernameValidator";
 import { PasswordValidator } from "../@shared/form-validators/PasswordValidator";
 import signup_messages from "./constants/SignupValidationMessages";
+import { SignUpRequest } from "../@core/interfaces/authentication/SignUpRequest";
 
 const image = require('../../images/350214-mountain-view.jpg');
 
@@ -15,8 +16,7 @@ const backgroundImage = require('../../images/backgrounds/snow-3193865_1920.jpg'
 
 @Component({
     selector: 'app-landing-page',
-    templateUrl: './landing-page.component.html',
-    // styleUrls: ['../@styles/features/landing-page.scss']
+    templateUrl: './landing-page.component.html'
 })
 
 export class LandingPageComponent implements OnInit {
@@ -49,7 +49,7 @@ export class LandingPageComponent implements OnInit {
         password_repeat: new FormControl('', Validators.required),
         country: new FormControl('', Validators.required)
     }, (formGroup: FormGroup) => {
-        return PasswordValidator.areEqual(formGroup);
+     return PasswordValidator.MatchPassword(formGroup);
     });
 
     constructor(private fb: FormBuilder,
@@ -82,8 +82,18 @@ export class LandingPageComponent implements OnInit {
         this.authService.login(request).subscribe(data => console.log(data));
     }
 
-    onSignUp() {
-
+    onSignup() {
+        console.log('signing up..');
+        let request: SignUpRequest = {
+            email: this.signUpForm.controls.email.value,
+            username: this.signUpForm.controls.username.value,
+            firstname: this.signUpForm.controls.firstname.value,
+            surname: this.signUpForm.controls.surname.value,
+            password: this.signUpForm.controls.password.value,
+            password_repeat: this.signUpForm.controls.password_repeat.value,
+            country: this.signUpForm.controls.country.value,
+        };
+        this.authService.signup(request).subscribe(data => console.log(data));
     }
 
     onGoogle() {

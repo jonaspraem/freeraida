@@ -19,7 +19,7 @@ export class AuthenticationService {
         return this.http.post(this.config.getEndpoint() + '/authentication/login/', body, {headers: headers});
     }
 
-    signUp(request: SignUpRequest) {
+    signup(request: SignUpRequest) {
         const body = JSON.stringify(request);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         return this.http.post(this.config.getEndpoint() + '/authentication/sign-up/', body, {headers: headers});
