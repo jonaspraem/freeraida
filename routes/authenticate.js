@@ -26,7 +26,7 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res, next)
     // redirect to root
 });
 
-router.post('/sign-up', function (req, res, next) {
+router.post('/signup', function (req, res, next) {
     console.log('enlisting user..', req.body);
     if (req.body.email &&
         req.body.username &&
