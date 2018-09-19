@@ -27,14 +27,14 @@ router.get('/google/redirect', passport.authenticate('google'), (req, res, next)
 });
 
 router.post('/sign-up', function (req, res, next) {
-    console.log('enlisting user..');
+    console.log('enlisting user..', req.body);
     if (req.body.email &&
         req.body.username &&
         req.body.password &&
         req.body.password_confirmation) {
         if (req.body.password === req.body.password_confirmation) {
             console.log('password matches');
-            var user = new User({
+            const user = new User({
                 email: req.body.email,
                 username: req.body.username,
                 password: req.body.password
@@ -56,6 +56,11 @@ router.post('/sign-up', function (req, res, next) {
             // Password doesn't match
             console.log('password don\'t match');
         } 
+    } else {
+        return res.status(500).json({
+            title: 'Wrong body format',
+            message: 'Please provide all the required body attributes'
+        });
     }
 });
 
