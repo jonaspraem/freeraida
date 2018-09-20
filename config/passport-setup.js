@@ -17,7 +17,9 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-passport.use(new LocalStrategy(function(username, password, done) {
+passport.use(new LocalStrategy(
+    { session: true },
+    function(username, password, done) {
         User.findOne({ username: username }, (err, user) => {
             if (err) { return done(err); }
             if (!user) {
