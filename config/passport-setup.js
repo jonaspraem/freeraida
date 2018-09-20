@@ -10,25 +10,28 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id, (user) => {
+    console.log('id', id);
+    User.findById(id, (err, user) => {
         console.log('user ' + user);
         done(null, user);
     });
-        
 });
 
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        User.findOne({ username: username }, function(err, user) {
+passport.use(new LocalStrategy(function(username, password, done) {
+        User.findOne({ username: username }, (err, user) => {
             if (err) { return done(err); }
             if (!user) {
                 console.log('no user with that username');
                 return done(null, false, { message: 'Incorrect username.' });
             }
-            if (!user.validPassword(password)) {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
+            return user.validPassword(password, (error, isMatch) => {
+                if (!error && isMatch) {
+                    console.log('matching password', user);
+                    return done(null, user);
+                } else {
+                    return done(null, false, { message: 'Incorrect password.' });
+                }
+            });
         });
     }
 ));

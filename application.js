@@ -9,8 +9,7 @@ const favicon = require('serve-favicon');
 const passport = require('passport');
 const session = require("express-session");
 const keys = require('./config/keys');
-
-// const passportSetup = require('./config/passport-setup');
+require('./config/passport-setup');
 
 const index = require('./routes/app');
 const authRoutes = require('./routes/authenticate');

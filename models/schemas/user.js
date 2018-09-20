@@ -40,10 +40,15 @@ schema.pre('save', function (next) {
     });
 });
 
-schema.methods.validPassword = function(password) {
+schema.methods.validPassword = function(password, callback) {
     console.log('comparing password');
     bcrypt.compare(password, this.password, function(err, isMatch) {
-        cb(err, isMatch);
+        if (err) {
+            return callback(err);
+        }
+        else {
+            callback(null, isMatch);
+        }
     });
 };
 
