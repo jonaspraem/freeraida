@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, Route } from "@angular/router";
+import { Router } from "@angular/router";
 import { AuthenticationService } from "../@core/services/authentication.service";
 import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
@@ -79,7 +79,9 @@ export class LandingPageComponent implements OnInit {
                 password: this.loginForm.controls.password.value
             };
         }
-        this.authService.login(request).subscribe(data => console.log(data));
+        this.authService.login(request).subscribe(data => {
+            console.log(data);
+        });
     }
 
     onSignup() {

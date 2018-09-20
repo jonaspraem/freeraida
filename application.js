@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const favicon = require('serve-favicon');
 const passport = require('passport');
 const session = require("express-session");
+const flash = require("connect-flash");
 const keys = require('./config/keys');
 require('./config/passport-setup');
 
@@ -44,6 +45,7 @@ app.use(session({
     saveUninitialized: false
 }));
 
+app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
