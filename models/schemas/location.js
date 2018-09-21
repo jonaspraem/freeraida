@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var schema = new Schema({
+const schema = new Schema({
     lat: {type: Number, required: true},
     lng: {type: Number, required: true},
     elevation: {type: Number},

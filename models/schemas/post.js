@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var Profile = require('./profile');
+const Profile = require('./profile');
 
-var schema = new Schema({
+const schema = new Schema({
     content: {type: String, required: true},
     user_address: {type: String},
     display_name: {type: String},
@@ -11,9 +11,9 @@ var schema = new Schema({
     gnarly: [{type: String}]
 });
 
-schema.pre('remove', function(next) {
-    var model = this;
-    Profile.findOne({user_address: model.user_address}, function(err, profile) {
+schema.pre('remove', (next) => {
+    const model = this;
+    Profile.findOne({user_address: model.user_address}, (err, profile) => {
         profile.posts.pull(model._id);
         profile.save();
         next();

@@ -14,7 +14,7 @@ const schema = new Schema({
 });
 
 // hashing the password before saving it to the database
-schema.pre('save', function (next) {
+schema.pre('save', (next) => {
     const user = this;
     const SALT_WORK_FACTOR = 2010290;
 
@@ -25,11 +25,11 @@ schema.pre('save', function (next) {
         return next();
     }
     // password changed so we need to hash it (generate a salt)
-    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
         if (err) {
             return next(err);
         } else {
-            bcrypt.hash(user.password, 10, function (err, hash){
+            bcrypt.hash(user.password, 10, (err, hash) => {
                 if (err) {
                     return next(err);
                 }
@@ -40,9 +40,9 @@ schema.pre('save', function (next) {
     });
 });
 
-schema.methods.validPassword = function(password, callback) {
+schema.methods.validPassword = (password, callback) => {
     console.log('comparing password');
-    bcrypt.compare(password, this.password, function(err, isMatch) {
+    bcrypt.compare(password, this.password, (err, isMatch) => {
         if (err) {
             return callback(err);
         }
