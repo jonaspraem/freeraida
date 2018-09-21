@@ -1,6 +1,13 @@
 .button-primary {
-    background-color: aqua;
-    color: black;
-    margin: 35px; // TODO move
-    width: 60%; // TODO move
+    background-color: #141D2F; // TODO
+    border-color: #141D2F;
+    color: white;
+
+    &:hover, &:focus {
+        opacity: 0.85;
+    }
+
+    &:disabled {
+        opacity: 0.65;
+    }
 }
