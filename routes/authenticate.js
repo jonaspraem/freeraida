@@ -6,11 +6,15 @@ const keys = require('../config/keys');
 const User = require('../models/schemas/user');
 
 router.post('/login', (req, res, done) => {
-    console.log('logging in: ', req.body);
     if (req.body.username) {
-        console.log('logging in with username');
+        console.log('logging in with username', req.body.username);
         User.findOne({username: req.body.username}, (err, user) => {
-            console.log('user', user);
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occured',
+                    error: err
+                });
+            }
             user.validPassword(req.body.password, (err, isMatch) => {
                 console.log('isMatch', isMatch);
                 if (err) {
@@ -36,7 +40,7 @@ router.post('/login', (req, res, done) => {
         });
     }
     else if (req.body.email) {
-        console.log('logging in with email');
+        console.log('logging in with email', req.body.email);
         User.findOne({email: req.body.email}, (err, user) => {
             user.validPassword(req.body.password, (err, isMatch) => {
                 if (err) {
@@ -68,7 +72,7 @@ router.post('/login', (req, res, done) => {
     }
 });
 
-router.post('/signup', function (req, res, next) {
+router.post('/signup', (req, res, next) => {
     console.log('enlisting user..', req.body.username);
     // Required properties
     if (req.body.email &&
@@ -80,6 +84,15 @@ router.post('/signup', function (req, res, next) {
         req.body.country
     ) {
         if (req.body.password === req.body.password_confirmation) {
+            if (req.body.username.includes('@') || req.body.username.length < 3 || req.body.username.length > 25) {
+                // @ is not allowed in username property - will be impossible to login via the landing page
+                // Length of username needs to be between 3 and 25
+                return res.status(400).json({
+                    title: 'Error signing up',
+                    message: 'invalid username'
+                });
+            }
+
             const user = new User({
                 email: req.body.email.toLowerCase(),
                 username: req.body.username.toLowerCase(),
@@ -89,7 +102,7 @@ router.post('/signup', function (req, res, next) {
                 country: req.body.country
             });
 
-            user.save(function (err, result) {
+            user.save((err, result) => {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occured',
