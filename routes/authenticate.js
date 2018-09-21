@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 
 const User = require('../models/schemas/user');
 
@@ -8,22 +9,23 @@ router.get('/logout', (req, res, next) => {
     res.send('logging out');
 });
 
-router.post('/login',
-  passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/landing-page',
-                                   failureFlash: true })
-);
-
-router.get('/google', 
-    passport.authenticate('google', {
-        scope: ['profile', 'email']
-    })
-);
-
-router.get('/google/redirect', passport.authenticate('google'), (req, res, next) => {
-    console.log('made it hgere');
-    res.send('you reached the google callback URI');
-    // redirect to root
+router.post('/login', (req, res, done) => {
+    console.log('logging in: ', req.body);
+    User.findOne({username: req.body.username}, (err, user) => {
+        console.log('user', user);
+        user.validPassword(req.body.password, (err, user) => {
+            if (err) {
+                // fail
+            }
+            console.log('valid password');
+            const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
+            res.status(200).json({
+                message: 'Successfully signed in',
+                auth: true,
+                token: token,
+            });
+        });
+    });
 });
 
 router.post('/signup', function (req, res, next) {
@@ -55,9 +57,13 @@ router.post('/signup', function (req, res, next) {
                         error: err
                     });
                 }
+                // create a token
+                const token = jwt.sign({ id: result._id }, keys.token.secret, { expiresIn: 86400 });
                 return res.status(201).json({
                     message: 'User created',
-                    obj: result
+                    obj: result,
+                    auth: true,
+                    token: token
                 });
             });
         } else {

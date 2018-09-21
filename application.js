@@ -6,11 +6,9 @@ const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const favicon = require('serve-favicon');
-const passport = require('passport');
-const session = require("express-session");
-const flash = require("connect-flash");
+const session = require('express-session');
+const flash = require('connect-flash');
 const keys = require('./config/keys');
-require('./config/passport-setup');
 
 const index = require('./routes/app');
 const authRoutes = require('./routes/authenticate');
@@ -47,8 +45,6 @@ app.use(session({
 
 app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'images','favicon.ico')));

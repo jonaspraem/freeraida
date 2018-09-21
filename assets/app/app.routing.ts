@@ -6,7 +6,7 @@ import { WebAppComponent } from "./webapp.component";
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'landing-page', pathMatch: 'full'},
     { path: 'landing-page', component: LandingPageComponent },
-    { path: 'home', component: WebAppComponent, canActivate: [AuthGuard], loadChildren: './webapp.module#WebAppModule'},
+    { path: 'home', component: WebAppComponent, loadChildren: './webapp.module#WebAppModule'},
     { path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];
 

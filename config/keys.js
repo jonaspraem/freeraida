@@ -8,5 +8,8 @@ module.exports = {
     session: {
         sessionKey: '67543hgrjh?=(qwplzamkfg21$333++874t23',
         cookieKey: 'poewurvhgsajgnshcuv675467465654?dsabhgrmkgt4565442lkewq'
+    },
+    token: {
+        secret: 'WAHSgmn?=??=&%saerixjdkshbb&&bmgk6859qtASWQQEWP==?&&kf'
     }
 };
