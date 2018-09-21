@@ -50,7 +50,7 @@ export class SettingsComponent implements OnInit {
             firstname: this.control_firstname,
             surname: this.control_surname
         });
-        this.flag_list = this.flag_dictionary.toList();
+        this.flag_list = FLAG_DICTIONARY.toList();
         this.profile_service.getProfileWithToken()
             .subscribe(
                 (data) => {
