@@ -49,7 +49,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'images','favicon.ico')));
 
-app.all('*', function(req, res, next) {
+app.all('*', (req, res, next) => {
     if (req.headers.host == "localhost:3000") {
         next();
     }
@@ -60,7 +60,7 @@ app.all('*', function(req, res, next) {
     else res.redirect('https://' + req.headers.host + req.url);
 });
 
-app.use(function(req, res, next){
+app.use((req, res, next) => {
     res.setHeader('Acces-Control-Allow-Origin', '*');
     res.setHeader('Acces-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.setHeader('Acces-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
@@ -76,7 +76,7 @@ app.use('/line-info', lineInfoRoutes);
 app.use('/', index);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.render('index');
 });
 
