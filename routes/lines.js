@@ -1,137 +1,135 @@
-var express = require('express');
-var router = express.Router();
-var request = require('request');
+const express = require('express');
+const router = express.Router();
+const request = require('request');
 
-var Profile = require('../models/schemas/profile');
-var Marker = require('../models/schemas/marker');
-var Line = require('../models/schemas/line');
-var TrackedLine = require('../models/schemas/tracked-line');
-var Location = require('../models/schemas/location');
+const Profile = require('../models/schemas/profile');
+const Marker = require('../models/schemas/marker');
+const Line = require('../models/schemas/line');
+const TrackedLine = require('../models/schemas/tracked-line');
+const Location = require('../models/schemas/location');
 
-function sortList(list, callback) {
-    list.sort(function(a, b){
+sortList = (list, callback) => {
+    list.sort((a, b) => {
         return new Date(b.timestamp) - new Date(a.timestamp);
     });
     callback(list);
-}
+};
 
-function getTransformedTrackedLine(line, callback) {
-    var newTracked = line;
-    Location.find({'_id': {$in: line.locations}}, function(err, location_list) {
+getTransformedTrackedLine = (line, callback) => {
+    const newTracked = line;
+    Location.find({'_id': {$in: line.locations}}, (err, location_list) => {
         newTracked.locations = location_list;
         callback(newTracked);
     });
-}
+};
 
-function getTransformedTrackedLineList(lines, callback) {
-    var transformedTrackedLines = [];
-    var counter = 0;
-    for (var i = 0; i < lines.length; i++) {
-        getTransformedTrackedLine(lines[i], function (line) {
+getTransformedTrackedLineList = (lines, callback) => {
+    const transformedTrackedLines = [];
+    let counter = 0;
+    for (let i = 0; i < lines.length; i++) {
+        getTransformedTrackedLine(lines[i], (line) => {
             counter++;
             if (line) transformedTrackedLines.push(line);
-            if (lines.length == counter) callback(transformedTrackedLines);
+            if (lines.length === counter) callback(transformedTrackedLines);
         });
     }
-}
+};
 
-function getMarkerLocation(marker, callback) {
-    var newMarker = marker;
-    Location.findOne({'_id': marker.location}, function(err, location) {
+getMarkerLocation = (marker, callback) => {
+    const newMarker = marker;
+    Location.findOne({'_id': marker.location}, (err, location) => {
         newMarker.location = location;
         callback(newMarker);
     });
-}
+};
 
-function getTransformedMarkersList(marker_list, callback) {
-    var transformedMarkers = [];
-    var counter = 0;
-    for (var i = 0; i < marker_list.length; i++) {
-        getMarkerLocation(marker_list[i], function (marker) {
+getTransformedMarkersList = (marker_list, callback) => {
+    const transformedMarkers = [];
+    let counter = 0;
+    for (let i = 0; i < marker_list.length; i++) {
+        getMarkerLocation(marker_list[i], (marker) => {
             counter++;
             if (marker) transformedMarkers.push(marker);
-            if (marker_list.length == counter) callback(transformedMarkers);
+            if (marker_list.length === counter) callback(transformedMarkers);
         });
     }
-}
+};
 
-function getLineMarkers(id_list, callback) {
-    Marker.find({'_id': {$in: id_list}}, function (err, markers) {
+getLineMarkers = (id_list, callback) => {
+    Marker.find({'_id': {$in: id_list}}, (err, markers) => {
         if (err) return null;
         if (!markers) return null;
 
-        getTransformedMarkersList(markers, function (marker_list) {
+        getTransformedMarkersList(markers, (marker_list) => {
             callback(marker_list);
         })
     });
-}
+};
 
-function getTransformedLine(line, callback) {
-    var newLine = line;
+getTransformedLine = (line, callback) => {
+    const newLine = line;
     console.log('made it here2');
-    getLineMarkers(line.markers, function (marker_list) {
+    getLineMarkers(line.markers, (marker_list) => {
         newLine.markers = marker_list;
         callback(newLine);
     });
-}
+};
 
-function getTransformedLineList(lines, callback) {
-    var transformedLines = [];
-    var counter = 0;
-    for (var i = 0; i < lines.length; i++) {
-        getTransformedLine(lines[i], function (line) {
+getTransformedLineList = (lines, callback) => {
+    const transformedLines = [];
+    let counter = 0;
+    for (let i = 0; i < lines.length; i++) {
+        getTransformedLine(lines[i], (line) => {
             counter++;
             if (line) transformedLines.push(line);
-            if (lines.length == counter) callback(transformedLines);
+            if (lines.length === counter) callback(transformedLines);
         });
     }
-}
+};
 
-function getUserLines(profile, callback) {
-    Line.find({'_id': {$in: profile.lines}}, function (err, user_lines) {
+getUserLines = (profile, callback) => {
+    Line.find({'_id': {$in: profile.lines}}, (err, user_lines) => {
         if (err) return null;
         if (!user_lines) return null;
-        getTransformedLineList(user_lines, function(transformedLineList) {
+        getTransformedLineList(user_lines, (transformedLineList) => {
             callback(transformedLineList);
         });
     });
-}
+};
 
-function getUserTrackedLines(profile, callback) {
-    TrackedLine.find({'_id': {$in: profile.tracked_lines}}, function (err, user_lines) {
+getUserTrackedLines = (profile, callback) => {
+    TrackedLine.find({'_id': {$in: profile.tracked_lines}}, (err, user_lines) => {
         if (err) return null;
         if (!user_lines) return null;
-        getTransformedTrackedLineList(user_lines, function(transformedLineList) {
+        getTransformedTrackedLineList(user_lines, (transformedLineList) => {
             callback(transformedLineList);
         });
     });
-}
+};
 
-function saveMarkerList(marker_list, callback) {
-    var counter = 0;
-    for (var i = 0; i < marker_list.length; i++) {
-        marker_list[i].save(function (err, result) {
+saveMarkerList = (marker_list, callback) => {
+    let counter = 0;
+    for (let i = 0; i < marker_list.length; i++) {
+        marker_list[i].save((err, result) => {
             counter++;
-            if (counter == marker_list.length) callback(true);
+            if (counter === marker_list.length) callback(true);
         });
-        marker_list[i].location.save(function (err, result) {
+        marker_list[i].location.save((err, result) => {});
+    }
+};
 
+saveLocationList = (location_list, callback) => {
+    let counter = 0;
+    for (let i = 0; i < location_list.length; i++) {
+        location_list[i].save((err, result) => {
+            counter++;
+            if (counter === location_list.length) callback(true);
         });
     }
-}
+};
 
-function saveLocationList(location_list, callback) {
-    var counter = 0;
-    for (var i = 0; i < location_list.length; i++) {
-        location_list[i].save(function (err, result) {
-            counter++;
-            if (counter == location_list.length) callback(true);
-        });
-    }
-}
-
-router.get('/user/:username', function (req, res, next) {
-    Profile.findOne({username: req.params.username}, function (err, user_profile) {
+router.get('/user/:username', (req, res, next) => {
+    Profile.findOne({username: req.params.username}, (err, user_profile) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
@@ -144,8 +142,8 @@ router.get('/user/:username', function (req, res, next) {
                 error: {message: 'An error occurred 1'}
             });
         }
-        getUserLines(user_profile, function(list) {
-            sortList(list, function(sortedList) {
+        getUserLines(user_profile, (list) => {
+            sortList(list, (sortedList) => {
                 return res.status(201).json({
                     message: 'User lines successfully generated',
                     obj: sortedList
@@ -156,12 +154,12 @@ router.get('/user/:username', function (req, res, next) {
 });
 
 // Verify token
-router.use('/', function(req, res, next) {
+router.use('/', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+        (error, response, body) => {
+            if (!error && response.statusCode === 200) {
                 next();
             } else {
                 console.log(response);
@@ -174,13 +172,13 @@ router.use('/', function(req, res, next) {
     );
 });
 
-router.get('/tracked-line/:id', function (req, res, next) {
+router.get('/tracked-line/:id', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                TrackedLine.findOne({_id: req.params.id}, function (err, tracked_line) {
+                TrackedLine.findOne({_id: req.params.id}, (err, tracked_line) => {
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occurred',
@@ -194,13 +192,13 @@ router.get('/tracked-line/:id', function (req, res, next) {
                         });
                     }
                     // Check whether the tracked line is the user's line
-                    if (tracked_line.user_id != body.user_id) {
+                    if (tracked_line.user_id !== body.user_id) {
                         return res.status(500).json({
                             title: 'An error occurred',
                             error: {message: 'The tracked line is not the user\s line'}
                         });
                     }
-                    getTransformedTrackedLine(tracked_line, function (transformedTrackedLine) {
+                    getTransformedTrackedLine(tracked_line, (transformedTrackedLine) => {
                         return res.status(200).json({
                             message: 'Tracked line successfully generated',
                             obj: transformedTrackedLine
@@ -211,13 +209,13 @@ router.get('/tracked-line/:id', function (req, res, next) {
         });
 });
 
-router.get('/user-lines/', function(req, res, next) {
+router.get('/user-lines/', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
+                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'Error finding user profile',
@@ -230,8 +228,8 @@ router.get('/user-lines/', function(req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    getUserLines(user_profile, function(list) {
-                        sortList(list, function (sortedList) {
+                    getUserLines(user_profile, (list) => {
+                        sortList(list, (sortedList) => {
                             return res.status(201).json({
                                 message: 'User registered lines received',
                                 obj: sortedList
@@ -243,13 +241,13 @@ router.get('/user-lines/', function(req, res, next) {
         });
 });
 
-router.get('/unregistered-lines/', function(req, res, next) {
+router.get('/unregistered-lines/', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
+                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'Error finding user profile',
@@ -262,7 +260,7 @@ router.get('/unregistered-lines/', function(req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    getUserTrackedLines(user_profile, function(list) {
+                    getUserTrackedLines(user_profile, (list) => {
                         return res.status(201).json({
                             message: 'User unregistered lines received',
                             obj: list
@@ -273,13 +271,13 @@ router.get('/unregistered-lines/', function(req, res, next) {
         });
 });
 
-router.post('/newline/', function(req, res, next) {
+router.post('/newline/', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
+                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'Error finding user profile',
@@ -292,15 +290,15 @@ router.post('/newline/', function(req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    var markerlist = [];
-                    for (var i = 0; i<req.body.markers.length; i++) {
-                        var location = new Location({
+                    const markerlist = [];
+                    for (let i = 0; i<req.body.markers.length; i++) {
+                        const location = new Location({
                             lat: req.body.markers[i].location.lat,
                             lng: req.body.markers[i].location.lng,
                             elevation: req.body.markers[i].location.elevation,
                             resolution: req.body.markers[i].location.resolution
                         });
-                        var marker = new Marker({
+                        const marker = new Marker({
                             name: req.body.markers[i].name,
                             index: req.body.markers[i].index,
                             location: location,
@@ -309,7 +307,7 @@ router.post('/newline/', function(req, res, next) {
                         markerlist.push(marker);
                     }
 
-                    var line = new Line({
+                    const line = new Line({
                         user_id: body.user_id,
                         name: req.body.name,
                         line_type: req.body.line_type,
@@ -321,7 +319,7 @@ router.post('/newline/', function(req, res, next) {
                         cliff_level: req.body.cliff_level
                     });
 
-                    line.save(function (err, result) {
+                    line.save((err, result) => {
                         if (err) {
                             return res.status(500).json({
                                 title: 'Couldn\'t save line',
@@ -329,14 +327,14 @@ router.post('/newline/', function(req, res, next) {
                             });
                         }
                         user_profile.lines.push(result);
-                        saveMarkerList(markerlist, function(save_success) {
+                        saveMarkerList(markerlist, (save_success) => {
                             if (!save_success) {
                                 return res.status(500).json({
                                     title: 'An error occurred',
                                     error: {message: 'An error occurred saving the map markers'}
                                 });
                             }
-                            user_profile.save(function (err, profile_result) {
+                            user_profile.save((err, profile_result) => {
                                 if (err) {
                                     return res.status(500).json({
                                         title: 'An error occurred',
@@ -356,13 +354,13 @@ router.post('/newline/', function(req, res, next) {
     );
 });
 
-router.post('/new-tracked-line/', function(req, res, next) {
+router.post('/new-tracked-line/', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Profile.findOne({user_id: body.user_id}, function (profile_err, user_profile) {
+                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'Error finding user profile',
@@ -375,23 +373,23 @@ router.post('/new-tracked-line/', function(req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    var locations = [];
-                    for (var i = 0; i<req.body.locations.length; i++) {
-                        var location = new Location({
+                    const locations = [];
+                    for (let i = 0; i<req.body.locations.length; i++) {
+                        const location = new Location({
                             lat: req.body.locations[i].lat,
                             lng: req.body.locations[i].lng
                         });
                         locations.push(location);
                     }
 
-                    var tracked_line = new TrackedLine({
+                    const tracked_line = new TrackedLine({
                         user_id: body.user_id,
                         duration: req.body.duration,
                         locations: locations,
                         timestamp: new Date()
                     });
 
-                    tracked_line.save(function (err, result) {
+                    tracked_line.save((err, result) => {
                         if (err) {
                             return res.status(500).json({
                                 title: 'Couldn\'t save line',
@@ -399,14 +397,14 @@ router.post('/new-tracked-line/', function(req, res, next) {
                             });
                         }
                         user_profile.tracked_lines.push(result);
-                        saveLocationList(locations, function(save_success) {
+                        saveLocationList(locations, (save_success) => {
                             if (!save_success) {
                                 return res.status(500).json({
                                     title: 'An error occured',
                                     error: err
                                 });
                             }
-                            user_profile.save(function (err, profile_result) {
+                            user_profile.save((err, profile_result) => {
                                 if (err) {
                                     return res.status(500).json({
                                         title: 'An error occured',
@@ -426,14 +424,14 @@ router.post('/new-tracked-line/', function(req, res, next) {
     );
 });
 
-router.post('/confirm-line/:id', function (req, res, next) {
+router.post('/confirm-line/:id', (req, res, next) => {
     console.log('confirming line: '+req.params.id);
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'Error finding user profile',
@@ -446,7 +444,7 @@ router.post('/confirm-line/:id', function (req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    TrackedLine.findOne({_id: req.params.id}, function (err, tracked_line) {
+                    TrackedLine.findOne({_id: req.params.id}, (err, tracked_line) => {
                         if (err) {
                             return res.status(500).json({
                                 title: 'An error occurred',
@@ -460,23 +458,22 @@ router.post('/confirm-line/:id', function (req, res, next) {
                             });
                         }
                         // Check whether the tracked line is the user's line
-                        if (tracked_line.user_id != body.user_id) {
+                        if (tracked_line.user_id !== body.user_id) {
                             return res.status(500).json({
                                 title: 'An error occurred',
                                 error: {message: 'The tracked line is not the user\s line'}
                             });
                         }
-                        getTransformedTrackedLine(tracked_line, function(transformedTrackedLine) {
+                        getTransformedTrackedLine(tracked_line, (transformedTrackedLine) => {
                             // Create markers
-                            var markers = [];
-                            for (var i = 0; i < req.body.markers.length; i++) {
-
-                                var location = new Location({
+                            const markers = [];
+                            for (let i = 0; i < req.body.markers.length; i++) {
+                                const location = new Location({
                                     lat: req.body.markers[i].location.lat,
                                     lng: req.body.markers[i].location.lng,
                                     elevation: req.body.markers[i].location.elevation,
-                                    resolution: req.body.markers[i].location.resolution});
-
+                                    resolution: req.body.markers[i].location.resolution
+                                });
 
                                 markers.push(new Marker({
                                     index: req.body.markers[i].index,
@@ -487,7 +484,7 @@ router.post('/confirm-line/:id', function (req, res, next) {
                             }
 
                             // Create line
-                            var newLine = new Line({
+                            const newLine = new Line({
                                 name: req.body.name,
                                 line_type: req.body.line_type,
                                 markers: markers,
@@ -499,7 +496,7 @@ router.post('/confirm-line/:id', function (req, res, next) {
                                 user_id: body.user_id,
                                 confirmed: true
                             });
-                            newLine.save(function (err, line_result) {
+                            newLine.save((err, line_result) => {
                                 if (err) {
                                     return res.status(500).json({
                                         title: 'An error occured',
@@ -507,21 +504,21 @@ router.post('/confirm-line/:id', function (req, res, next) {
                                     });
                                 }
                                 user_profile.lines.push(line_result);
-                                user_profile.save(function (err, profile_result) {
+                                user_profile.save((err, profile_result) => {
                                     if (err) {
                                         return res.status(500).json({
                                             title: 'An error occurred',
                                             error: err
                                         });
                                     }
-                                    saveMarkerList(markers, function(save_success) {
+                                    saveMarkerList(markers, (save_success) => {
                                         if (!save_success) {
                                             return res.status(500).json({
                                                 title: 'An error occurred',
                                                 error: {message: 'An error occurred saving the map markers'}
                                             });
                                         }
-                                        transformedTrackedLine.remove(function(err, result) {
+                                        transformedTrackedLine.remove((err, result) => {
                                             if (err) {
                                                 return res.status(500).json({
                                                     title: 'An error occured',
@@ -543,13 +540,13 @@ router.post('/confirm-line/:id', function (req, res, next) {
         });
 });
 
-router.delete('/remove-tracked-line/:id', function(req, res, next) {
+router.delete('/remove-tracked-line/:id', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         {json: {id_token: req.query.token}},
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                TrackedLine.findById(req.params.id, function(err, line) {
+                TrackedLine.findById(req.params.id, (err, line) => {
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occured',
@@ -562,13 +559,13 @@ router.delete('/remove-tracked-line/:id', function(req, res, next) {
                             error: { message: 'Post not found'}
                         });
                     }
-                    if (line.user_id != body.user_id) {
+                    if (line.user_id !== body.user_id) {
                         return res.status(401).json({
                             title: 'Not Authenticated',
                             error: {message: 'Not the user\'s tracked line'}
                         });
                     }
-                    line.remove(function(err, result) {
+                    line.remove((err, result) => {
                         if (err) {
                             return res.status(500).json({
                                 title: 'An error occured',
@@ -585,13 +582,13 @@ router.delete('/remove-tracked-line/:id', function(req, res, next) {
         })
 });
 
-router.delete('/remove-line/:id', function(req, res, next) {
+router.delete('/remove-line/:id', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         {json: {id_token: req.query.token}},
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Line.findById(req.params.id, function(err, line) {
+                Line.findById(req.params.id, (err, line) => {
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occured',
@@ -604,13 +601,13 @@ router.delete('/remove-line/:id', function(req, res, next) {
                             error: { message: 'Post not found'}
                         });
                     }
-                    if (line.user_id != body.user_id) {
+                    if (line.user_id !== body.user_id) {
                         return res.status(401).json({
                             title: 'Not Authenticated',
                             error: {message: 'Not the user\'s tracked line'}
                         });
                     }
-                    line.remove(function(err, result) {
+                    line.remove((err, result) => {
                         if (err) {
                             return res.status(500).json({
                                 title: 'An error occured',
