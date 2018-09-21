@@ -70,6 +70,7 @@ router.post('/login', (req, res, done) => {
 
 router.post('/signup', function (req, res, next) {
     console.log('enlisting user..', req.body.username);
+    // Required properties
     if (req.body.email &&
         req.body.username &&
         req.body.password &&
