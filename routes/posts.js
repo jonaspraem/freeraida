@@ -1,19 +1,19 @@
-var express = require('express');
-var router = express.Router();
-var request = require('request');
+const express = require('express');
+const router = express.Router();
+const request = require('request');
 
-var Post = require('../models/schemas/post');
-var Profile = require('../models/schemas/profile');
+const Post = require('../models/schemas/post');
+const Profile = require('../models/schemas/profile');
 
-function getUserPosts(username, callback) {
-    Profile.findOne({user_address: username}, function (err, user_profile) {
+getUserPosts = (username, callback) => {
+    Profile.findOne({user_address: username}, (err, user_profile) => {
         if (err) {
             return null;
         }
         if (!user_profile) {
             return null;
         }
-        Post.find({'_id': {$in: user_profile.posts}}, function (err, user_posts) {
+        Post.find({'_id': {$in: user_profile.posts}}, (err, user_posts) => {
             if (err) {
                 return null;
             }
@@ -23,53 +23,53 @@ function getUserPosts(username, callback) {
             callback(user_posts);
         });
     });
-}
+};
 
-function sortList(list, callback) {
-    list.sort(function(a, b){
+sortList = (list, callback) => {
+    list.sort((a, b) => {
         return new Date(b.timestamp) - new Date(a.timestamp);
     });
     callback(list);
-}
+};
 
-function getTransformedList(profile, callback) {
-    var transformedPosts = profile.posts;
-    var counter = 0;
+getTransformedList = (profile, callback) => {
+    const transformedPosts = profile.posts;
+    let counter = 0;
     transformedPosts.push.apply(transformedPosts, profile.posts);
     if (profile.following != null && profile.following.length !== 0) {
-        profile.following.forEach(function(product, index){
-            getUserPosts(product, function(user_posts) {
+        profile.following.forEach((product, index) => {
+            getUserPosts(product, (user_posts) => {
                 counter++;
                 if (user_posts) transformedPosts.push.apply(transformedPosts, user_posts);
                 if (profile.following.length === counter) callback(transformedPosts);
             });
         });
     } else callback(transformedPosts);
-}
+};
 
-function getUserFeed(profile, callback) {
-    var postList = [];
-    Post.find({'_id': {$in: profile.posts}}, function (err, user_posts) {
+getUserFeed = (profile, callback) => {
+    const postList = [];
+    Post.find({'_id': {$in: profile.posts}}, (err, user_posts) => {
         if (err) return null;
         if (!user_posts) return null;
         postList.push.apply(postList, user_posts);
         callback(postList);
     });
-}
+};
 
-function getPosts(post_list, callback) {
-    var postList = [];
-    Post.find({'_id': {$in: post_list}}, function (err, user_posts) {
+getPosts = (post_list, callback) => {
+    const postList = [];
+    Post.find({'_id': {$in: post_list}}, (err, user_posts) => {
         if (err) return null;
         if (!user_posts) return null;
         postList.push.apply(postList, user_posts);
         callback(postList);
     });
-}
+};
 
 // Get all user posts
-router.get('/profile-feed/:user_address', function (req, res, next) {
-    Profile.findOne({user_address: req.params.user_address}, function (err, user_profile) {
+router.get('/profile-feed/:user_address', (req, res, next) => {
+    Profile.findOne({user_address: req.params.user_address}, (err, user_profile) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
@@ -82,8 +82,8 @@ router.get('/profile-feed/:user_address', function (req, res, next) {
                 error: {message: 'An error occurred 1'}
             });
         }
-        getUserFeed(user_profile, function(list) {
-            sortList(list, function(sortedList) {
+        getUserFeed(user_profile, (list) => {
+            sortList(list, (sortedList) => {
                 return res.status(201).json({
                     message: 'User feed successfully generated',
                     obj: sortedList
@@ -94,12 +94,12 @@ router.get('/profile-feed/:user_address', function (req, res, next) {
 });
 
 //Verify token
-router.use('/', function(req, res, next) {
+router.use('/', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+        (error, response, body) => {
+            if (!error && response.statusCode === 200) {
                 next();
             } else {
                 console.log(response);
@@ -113,13 +113,13 @@ router.use('/', function(req, res, next) {
 });
 
 // Get user live-feed
-router.get('/feed', function (req, res, next) {
+router.get('/feed', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'Error finding user profile',
@@ -132,9 +132,9 @@ router.get('/feed', function (req, res, next) {
                             error: {message: 'An error occurred regarding profile'}
                         });
                     }
-                    getTransformedList(user_profile, function(post_ids) {
-                        getPosts(post_ids, function(post_list){
-                            sortList(post_list, function(sortedList) {
+                    getTransformedList(user_profile, (post_ids) => {
+                        getPosts(post_ids, (post_list) => {
+                            sortList(post_list, (sortedList) => {
                                 return res.status(201).json({
                                     message: 'User feed received',
                                     obj: sortedList
@@ -148,12 +148,12 @@ router.get('/feed', function (req, res, next) {
 });
 
 // Post new post
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
-            Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+        (error, response, body) => {
+            Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                 if (profile_err) {
                     return res.status(500).json({
                         title: 'An error occured',
@@ -166,14 +166,14 @@ router.post('/', function(req, res, next) {
                         error: {message: 'No user found'}
                     });
                 }
-                var post = new Post({
+                const post = new Post({
                     content: req.body.content,
                     user_address: user_profile.user_address,
                     display_name: user_profile.firstname + ' ' + user_profile.surname,
                     timestamp: new Date(),
                     gnarly: []
                 });
-                post.save(function (err, result) {
+                post.save((err, result) => {
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occured',
@@ -181,7 +181,7 @@ router.post('/', function(req, res, next) {
                         });
                     }
                     user_profile.posts.push(result);
-                    user_profile.save(function (err, result) {
+                    user_profile.save((err, result) => {
                         if (err) {
                             return res.status(500).json({
                                 title: 'An error occured',
@@ -199,13 +199,13 @@ router.post('/', function(req, res, next) {
 });
 
 // gnarly post
-router.post('/gnarly/:post_id', function(req, res, next) {
+router.post('/gnarly/:post_id', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         { json: { id_token: req.query.token } },
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'An error occured',
@@ -218,7 +218,7 @@ router.post('/gnarly/:post_id', function(req, res, next) {
                             error: {message: 'No user found'}
                         });
                     }
-                    Post.findOne({_id: req.params.post_id}, function(post_err, post) {
+                    Post.findOne({_id: req.params.post_id}, (post_err, post) => {
                         if (profile_err) {
                             return res.status(500).json({
                                 title: 'An error occured',
@@ -239,7 +239,7 @@ router.post('/gnarly/:post_id', function(req, res, next) {
                             });
                         }
                         post.gnarly.push(user_profile.user_address);
-                        post.save(function (err, result) {
+                        post.save((err, result) => {
                             if (err) {
                                 return res.status(500).json({
                                     title: 'An error occured',
@@ -258,13 +258,13 @@ router.post('/gnarly/:post_id', function(req, res, next) {
 });
 
 //un-gnarly post
-router.post('/un-gnarly/:post_id', function(req, res, next) {
+router.post('/un-gnarly/:post_id', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         {json: {id_token: req.query.token}},
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'An error occured',
@@ -277,7 +277,7 @@ router.post('/un-gnarly/:post_id', function(req, res, next) {
                             error: {message: 'No user found'}
                         });
                     }
-                    Post.findOne({_id: req.params.post_id}, function(post_err, post) {
+                    Post.findOne({_id: req.params.post_id}, (post_err, post) => {
                         if (profile_err) {
                             return res.status(500).json({
                                 title: 'An error occured',
@@ -297,7 +297,7 @@ router.post('/un-gnarly/:post_id', function(req, res, next) {
                             });
                         }
                         post.gnarly.splice(post.gnarly.indexOf(user_profile.user_address), 1);
-                        post.save(function (err, result) {
+                        post.save((err, result) => {
                             if (err) {
                                 return res.status(500).json({
                                     title: 'An error occured',
@@ -316,9 +316,9 @@ router.post('/un-gnarly/:post_id', function(req, res, next) {
 });
 
 // Edit post
-router.patch('/:id', function(req, res, next) {
-    var decoded = jwt.decode(req.query.token);
-    Post.findById(req.params.id, function(err, post) {
+router.patch('/:id', (req, res, next) => {
+    const decoded = jwt.decode(req.query.token);
+    Post.findById(req.params.id, (err, post) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occured',
@@ -331,14 +331,14 @@ router.patch('/:id', function(req, res, next) {
                 error: { message: 'Post not found'}
             });
         }
-        if (post.user != decoded.user._id) {
+        if (post.user !== decoded.user._id) {
             return res.status(401).json({
                 title: 'Not Authenticated',
                 error: {message: 'Not the user\'s post'}
             });
         }
         post.content = req.body.content;
-        post.save(function(err, result) {
+        post.save((err, result) => {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occured',
@@ -354,13 +354,13 @@ router.patch('/:id', function(req, res, next) {
 });
 
 // Delete post
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', (req, res, next) => {
     request.post(
         'https://freeraida.eu.auth0.com/tokeninfo',
         {json: {id_token: req.query.token}},
-        function (error, response, body) {
+        (error, response, body) => {
             if (!error) {
-                Profile.findOne({user_id: body.user_id}, function(profile_err, user_profile) {
+                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
                     if (profile_err) {
                         return res.status(500).json({
                             title: 'An error occured',
@@ -373,7 +373,7 @@ router.delete('/:id', function(req, res, next) {
                             error: {message: 'No user found'}
                         });
                     }
-                    Post.findById(req.params.id, function(err, post) {
+                    Post.findById(req.params.id, (err, post) => {
                         if (err) {
                             return res.status(500).json({
                                 title: 'An error occured',
@@ -386,13 +386,13 @@ router.delete('/:id', function(req, res, next) {
                                 error: { message: 'Post not found'}
                             });
                         }
-                        if (post.user_address != user_profile.user_address) {
+                        if (post.user_address !== user_profile.user_address) {
                             return res.status(401).json({
                                 title: 'Not Authenticated',
                                 error: {message: 'Not the user\'s post'}
                             });
                         }
-                        post.remove(function(err, result) {
+                        post.remove((err, result) => {
                             if (err) {
                                 return res.status(500).json({
                                     title: 'An error occured',
@@ -406,8 +406,6 @@ router.delete('/:id', function(req, res, next) {
                         });
                     });
                 });
-
-
             }
         });
 });
