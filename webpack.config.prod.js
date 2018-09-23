@@ -1,10 +1,8 @@
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
-
-var path = require('path');
-
-var webpack = require('webpack');
-var webpackMerge = require('webpack-merge');
-var commonConfig = require('./webpack.config.common.js');
+const path = require('path');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const commonConfig = require('./webpack.config.common.js');
 
 module.exports = webpackMerge.smart(commonConfig, {
     entry: {

@@ -1,15 +1,15 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var mongooseUniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const mongooseUniqueValidator = require('mongoose-unique-validator');
 
-var Post = require('./post');
-var Line = require('./line');
+const Post = require('./post');
+const Line = require('./line');
 
-var schema = new Schema({
+const schema = new Schema({
     user_id: {type: String, required: true, unique: true},
     user_address: {type: String, required: true, unique: true},
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
+    firstname: {type: String, required: true},
+    surname: {type: String, required: true},
     bio: {type: String},
     representation: {type: String},
     social_twitter: {type: String},

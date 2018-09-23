@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input } from "@angular/core";
-import { AuthService } from "../auth/auth.service";
 import { Profile } from "../objects/models/profile.model";
 
 const logoImage = require('../../images/logo/favicon.png');
@@ -19,8 +18,7 @@ export class HeaderComponent {
     public logo = logoImage;
     public isOpen: boolean = false;
 
-    constructor(private authService: AuthService,
-                private _eref: ElementRef) {}
+    constructor(private _eref: ElementRef) {}
 
     // On click outside component
     onClick(event) {
@@ -35,11 +33,11 @@ export class HeaderComponent {
     }
 
     isLoggedIn() {
-        return this.authService.isAuthenticated();
+        // return this.authService.isAuthenticated();
     }
 
     onLogout() {
-        this.authService.logout();
+        // this.authService.logout();
     }
 
     onOpen() {

@@ -1,4 +1,4 @@
-import 'rxjs/Rx';
+import 'rxjs';
 import 'rxjs/add/operator/map'
 
 import { Injectable } from "@angular/core";
@@ -319,10 +319,9 @@ const zimbabwe = require('../../images/flags/zimbabwe.png');
 @Injectable()
 
 export class FLAG_DICTIONARY {
-    private flags = [];
     private static flagmap: Map<string, string> = new Map<string, string>();
 
-    constructor() {
+    static initialize() {
         // From a to z
 
         // A
@@ -638,13 +637,12 @@ export class FLAG_DICTIONARY {
         FLAG_DICTIONARY.flagmap.set('Zimbabwe', zimbabwe);
     }
 
-    get(key: string) {
+    static get(key: string) {
         return FLAG_DICTIONARY.flagmap.get(key);
     }
 
-    toList(): string[] {
+    static toList(): string[] {
         let output: string[] = [];
-        output.push('None');
         for (let key of Array.from(FLAG_DICTIONARY.flagmap.keys())) {
             output.push(key);
         }

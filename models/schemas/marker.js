@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var Location = require('./location');
+const Location = require('./location');
 
-var schema = new Schema({
+const schema = new Schema({
     index: {type: Number, required: true},
     name: {type: String, required: true},
     location: {type: Schema.Types.ObjectId, ref: 'Location'},
@@ -11,10 +11,10 @@ var schema = new Schema({
     time_from_start: {type: Number}
 });
 
-schema.pre('remove', function(next) {
-    var model = this;
-    Location.findOne({_id: model.location}, function(err, location) {
-        location.remove(function(err) {
+schema.pre('remove', (next) => {
+    const model = this;
+    Location.findOne({_id: model.location}, (err, location) => {
+        location.remove((err) => {
             next();
         });
     });

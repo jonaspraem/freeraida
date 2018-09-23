@@ -4,7 +4,6 @@ import { PostService } from "./post.service";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
 import { Router } from "@angular/router";
 import { Profile } from "../objects/models/profile.model";
-import { AuthService } from "../auth/auth.service";
 import { PostViewModel } from "./post.viewmodel";
 
 const gnarly_primary = require('../../images/gnarly/gnarly_primary.png');
@@ -30,7 +29,6 @@ export class PostComponent implements OnInit{
     isExpanded: boolean = false;
 
     constructor(private post_service : PostService,
-                private auth_service: AuthService,
                 public color_dictionary : COLOR_DICTIONARY,
                 private router : Router) {}
 
@@ -106,7 +104,7 @@ export class PostComponent implements OnInit{
     // onEdit() {
     //     this.postService.editPost(this.post);
     // }
-    //
+
     onDelete() {
         this.post_service.deletePost(this.post.postId)
             .subscribe(

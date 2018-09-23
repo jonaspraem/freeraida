@@ -1,19 +1,24 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var favicon = require('serve-favicon');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const favicon = require('serve-favicon');
+const session = require('express-session');
+const flash = require('connect-flash');
+const keys = require('./config/keys');
 
-var index = require('./routes/app');
-var postRoutes = require('./routes/posts');
-var connectRoutes = require('./routes/connect');
-var profileRoutes = require('./routes/profile');
-var lineRoutes = require('./routes/lines');
-var lineInfoRoutes = require('./routes/lineinfo');
+const index = require('./routes/app');
+const authRoutes = require('./routes/authenticate');
+const postRoutes = require('./routes/posts');
+const connectRoutes = require('./routes/connect');
+const profileRoutes = require('./routes/profile');
+const lineRoutes = require('./routes/lines');
+const lineInfoRoutes = require('./routes/lineinfo');
 
-var app = express();
+const app = express();
 mongoose.connect('mongodb://test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database', {
     useMongoClient: true
 });
@@ -24,12 +29,27 @@ app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(express.static("public"));
+
+app.use(cookieParser(keys.session.cookieKey));
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000, // TODO: 1 day
+    keys: [keys.session.cookieKey]
+}));
+
+app.use(session({
+    secret: keys.session.sessionKey,
+    resave: true,
+    saveUninitialized: false
+}));
+
+app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'images','favicon.ico')));
 
-app.all('*', function(req, res, next) {
+app.all('*', (req, res, next) => {
     if (req.headers.host == "localhost:3000") {
         next();
     }
@@ -40,13 +60,14 @@ app.all('*', function(req, res, next) {
     else res.redirect('https://' + req.headers.host + req.url);
 });
 
-app.use(function(req, res, next){
+app.use((req, res, next) => {
     res.setHeader('Acces-Control-Allow-Origin', '*');
     res.setHeader('Acces-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.setHeader('Acces-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
     next();
 });
 
+app.use('/authentication', authRoutes);
 app.use('/post', postRoutes);
 app.use('/connect', connectRoutes);
 app.use('/profile', profileRoutes);
@@ -55,7 +76,7 @@ app.use('/line-info', lineInfoRoutes);
 app.use('/', index);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     res.render('index');
 });
 

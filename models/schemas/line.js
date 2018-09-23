@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var Marker = require('./marker');
+const Marker = require('./marker');
 
-var schema = new Schema({
+const schema = new Schema({
     name: {type: String, required: true},
     line_type: {type: String, required: true},
     markers: [{type: Schema.Types.ObjectId, ref: 'Marker'}],
@@ -16,15 +16,15 @@ var schema = new Schema({
     confirmed: {type: Boolean}
 });
 
-schema.pre('remove', function(next) {
-    var model = this;
-    var profile = require('./profile');
-    Marker.find({_id: {$in: model.markers}}, function(err, result) {
-        result.forEach(function(marker) {
-            marker.remove(function(err) {});
+schema.pre('remove', (next) => {
+    const model = this;
+    const profile = require('./profile');
+    Marker.find({_id: {$in: model.markers}}, (err, result) => {
+        result.forEach((marker) => {
+            marker.remove((err) => {});
         });
     });
-    profile.findOne({user_id: model.user_id}, function(err, profile) {
+    profile.findOne({user_id: model.user_id}, (err, profile) => {
         profile.lines.pull(model._id);
         profile.save();
         next();

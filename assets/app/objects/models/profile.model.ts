@@ -7,8 +7,8 @@ export class Profile {
     display_name: string;
     user_address?: string;
     bio?: string;
-    firstName?: string;
-    lastName?: string;
+    firstname?: string;
+    surname?: string;
     representation?: string;
     social_twitter?: string;
     social_instagram?: string;
@@ -22,8 +22,8 @@ export class Profile {
     constructor(display_name: string,
                 user_address?: string,
                 bio?: string,
-                firstName?: string,
-                lastName?: string,
+                firstname?: string,
+                surname?: string,
                 representation?: string,
                 social_twitter?: string,
                 social_instagram?: string,
@@ -37,8 +37,8 @@ export class Profile {
         this.display_name = display_name;
         this.user_address = user_address;
         this.bio = bio;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.surname = surname;
         this.representation = representation;
         this.social_twitter = social_twitter;
         this.social_instagram = social_instagram;
@@ -52,11 +52,11 @@ export class Profile {
 
     public static fabricate(object: ProfileObject): Profile {
         return new Profile(
-            object.firstName + ' ' + object.lastName,
+            object.firstname + ' ' + object.surname,
             object.user_address,
             object.bio,
-            object.firstName,
-            object.lastName,
+            object.firstname,
+            object.surname,
             object.representation,
             object.social_twitter,
             object.social_instagram,
