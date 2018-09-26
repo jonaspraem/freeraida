@@ -366,14 +366,14 @@ router.post('/new-tracked-line/', (req, res, next) => {
             saveLocationList(locations, (save_success) => {
                 if (!save_success) {
                     return res.status(500).json({
-                        title: 'An error occured',
+                        title: 'An error occurred',
                         error: err
                     });
                 }
                 user_profile.save((err, profile_result) => {
                     if (err) {
                         return res.status(500).json({
-                            title: 'An error occured',
+                            title: 'An error occurred',
                             error: err
                         });
                     }
@@ -457,7 +457,7 @@ router.post('/confirm-line/:id', (req, res, next) => {
                 newLine.save((err, line_result) => {
                     if (err) {
                         return res.status(500).json({
-                            title: 'An error occured',
+                            title: 'An error occurred',
                             error: err
                         });
                     }
@@ -479,7 +479,7 @@ router.post('/confirm-line/:id', (req, res, next) => {
                             transformedTrackedLine.remove((err, result) => {
                                 if (err) {
                                     return res.status(500).json({
-                                        title: 'An error occured',
+                                        title: 'An error occurred',
                                         error: err
                                     });
                                 }
@@ -501,7 +501,7 @@ router.delete('/remove-tracked-line/:id', (req, res, next) => {
     TrackedLine.findById(req.params.id, (err, line) => {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: err
             });
         }
@@ -520,7 +520,7 @@ router.delete('/remove-tracked-line/:id', (req, res, next) => {
         line.remove((err, result) => {
             if (err) {
                 return res.status(500).json({
-                    title: 'An error occured',
+                    title: 'An error occurred',
                     error: err
                 });
             }

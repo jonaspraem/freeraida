@@ -24,8 +24,8 @@ router.post('/follow/:user_address', (req, res, next) => {
     Profile.findOne({user_id: decoded.user._id}, (profile_err, own_profile) => {
         if (profile_err) {
             return res.status(500).json({
-                title: 'An error occured',
-                error: {message: 'An error occured'}
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
             });
         }
         if (!own_profile) {
@@ -45,8 +45,8 @@ router.post('/follow/:user_address', (req, res, next) => {
         Profile.findOne({user_address: req.params.user_address}, (p_err, profile_toFollow) => {
             if (p_err) {
                 return res.status(500).json({
-                    title: 'An error occured',
-                    error: {message: 'An error occured'}
+                    title: 'An error occurred',
+                    error: {message: 'An error occurred'}
                 });
             }
             if (!profile_toFollow) {
@@ -60,15 +60,15 @@ router.post('/follow/:user_address', (req, res, next) => {
             own_profile.save((err, result_ownProfile) => {
                 if (err) {
                     return res.status(500).json({
-                        title: 'An error occured',
-                        error: {message: 'An error occured'}
+                        title: 'An error occurred',
+                        error: {message: 'An error occurred'}
                     });
                 }
                 profile_toFollow.save((err, result) => {
                     if (err) {
                         return res.status(500).json({
-                            title: 'An error occured',
-                            error: {message: 'An error occured'}
+                            title: 'An error occurred',
+                            error: {message: 'An error occurred'}
                         });
                     }
                     return res.status(201).json({
@@ -87,8 +87,8 @@ router.post('/unfollow/:user_address', (req, res, next) => {
     Profile.findOne({user_id: decoded.user._id}, (profile_err, own_profile) => {
         if (profile_err) {
             return res.status(500).json({
-                title: 'An error occured',
-                error: {message: 'An error occured'}
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
             });
         }
         if (!own_profile) {
@@ -107,8 +107,8 @@ router.post('/unfollow/:user_address', (req, res, next) => {
         Profile.findOne({user_address: req.params.user_address}, (p_err, profile_toUnfollow) => {
             if (p_err) {
                 return res.status(500).json({
-                    title: 'An error occured',
-                    error: {message: 'An error occured'}
+                    title: 'An error occurred',
+                    error: {message: 'An error occurred'}
                 });
             }
             if (!profile_toUnfollow) {
@@ -122,15 +122,15 @@ router.post('/unfollow/:user_address', (req, res, next) => {
             own_profile.save((err, result_ownProfile) => {
                 if (err) {
                     return res.status(500).json({
-                        title: 'An error occured',
-                        error: {message: 'An error occured'}
+                        title: 'An error occurred',
+                        error: {message: 'An error occurred'}
                     });
                 }
                 profile_toUnfollow.save((err, result) => {
                     if (err) {
                         return res.status(500).json({
-                            title: 'An error occured',
-                            error: {message: 'An error occured'}
+                            title: 'An error occurred',
+                            error: {message: 'An error occurred'}
                         });
                     }
                     return res.status(201).json({

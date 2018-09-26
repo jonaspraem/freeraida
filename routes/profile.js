@@ -10,7 +10,7 @@ router.get('/user/:address', (req, res, next) => {
     Profile.findOne({user_address: req.params.address}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: p_err
             });
         }
@@ -56,7 +56,7 @@ router.get('/user-address/:address', (req, res, next) => {
     Profile.findOne({user_address: req.params.address}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: p_err
             });
         }
@@ -81,7 +81,7 @@ router.post('/new', (req, res, next) => {
     Profile.findOne({user_id: decoded.user._id}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: p_err
             });
         }
@@ -105,7 +105,7 @@ router.post('/new', (req, res, next) => {
             profile_schema.save((err, result) => {
                 if (err) {
                     return res.status(500).json({
-                        title: 'An error occured',
+                        title: 'An error occurred',
                         error: err
                     });
                 }
@@ -124,7 +124,7 @@ router.get('/user-info', (req, res, next) => {
     Profile.findOne({user_id: decoded.user._id}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: p_err
             });
         }
@@ -147,7 +147,7 @@ router.patch('/edit-profile', (req, res, next) => {
     Profile.findOne({user_id: decoded.user._id}, (err, profile) => {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: err
             });
         }
@@ -166,7 +166,7 @@ router.patch('/edit-profile', (req, res, next) => {
         profile.save((err, result) => {
             if (err) {
                 return res.status(500).json({
-                    title: 'An error occured',
+                    title: 'An error occurred',
                     error: err
                 });
             }

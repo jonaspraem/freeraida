@@ -142,8 +142,8 @@ router.post('/', (req, res, next) => {
     Profile.findOne({user_id: decoded.user._id}, (profile_err, user_profile) => {
         if (profile_err) {
             return res.status(500).json({
-                title: 'An error occured',
-                error: {message: 'An error occured'}
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
             });
         }
         if (!user_profile) {
@@ -189,8 +189,8 @@ router.post('/gnarly/:post_id', (req, res, next) => {
     Profile.findOne({user_id: decoded.user._id}, (profile_err, user_profile) => {
         if (profile_err) {
             return res.status(500).json({
-                title: 'An error occured',
-                error: {message: 'An error occured'}
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
             });
         }
         if (!user_profile) {
@@ -202,8 +202,8 @@ router.post('/gnarly/:post_id', (req, res, next) => {
         Post.findOne({_id: req.params.post_id}, (post_err, post) => {
             if (profile_err) {
                 return res.status(500).json({
-                    title: 'An error occured',
-                    error: {message: 'An error occured'}
+                    title: 'An error occurred',
+                    error: {message: 'An error occurred'}
                 });
             }
             if (!post) {
@@ -223,7 +223,7 @@ router.post('/gnarly/:post_id', (req, res, next) => {
             post.save((err, result) => {
                 if (err) {
                     return res.status(500).json({
-                        title: 'An error occured',
+                        title: 'An error occurred',
                         error: err
                     });
                 }
@@ -242,8 +242,8 @@ router.post('/un-gnarly/:post_id', (req, res, next) => {
     Profile.findOne({user_id: decoded.user._id}, (profile_err, user_profile) => {
         if (profile_err) {
             return res.status(500).json({
-                title: 'An error occured',
-                error: {message: 'An error occured'}
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
             });
         }
         if (!user_profile) {
@@ -255,8 +255,8 @@ router.post('/un-gnarly/:post_id', (req, res, next) => {
         Post.findOne({_id: req.params.post_id}, (post_err, post) => {
             if (profile_err) {
                 return res.status(500).json({
-                    title: 'An error occured',
-                    error: {message: 'An error occured'}
+                    title: 'An error occurred',
+                    error: {message: 'An error occurred'}
                 });
             }
             if (!post) {
@@ -275,7 +275,7 @@ router.post('/un-gnarly/:post_id', (req, res, next) => {
             post.save((err, result) => {
                 if (err) {
                     return res.status(500).json({
-                        title: 'An error occured',
+                        title: 'An error occurred',
                         error: err
                     });
                 }
@@ -294,7 +294,7 @@ router.patch('/:id', (req, res, next) => {
     Post.findById(req.params.id, (err, post) => {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: err
             });
         }
@@ -314,7 +314,7 @@ router.patch('/:id', (req, res, next) => {
         post.save((err, result) => {
             if (err) {
                 return res.status(500).json({
-                    title: 'An error occured',
+                    title: 'An error occurred',
                     error: err
                 });
             }
@@ -332,8 +332,8 @@ router.delete('/:id', (req, res, next) => {
     Profile.findOne({user_id: decoded.user._id}, (profile_err, user_profile) => {
         if (profile_err) {
             return res.status(500).json({
-                title: 'An error occured',
-                error: {message: 'An error occured'}
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
             });
         }
         if (!user_profile) {
@@ -345,7 +345,7 @@ router.delete('/:id', (req, res, next) => {
         Post.findById(req.params.id, (err, post) => {
             if (err) {
                 return res.status(500).json({
-                    title: 'An error occured',
+                    title: 'An error occurred',
                     error: err
                 });
             }
@@ -364,7 +364,7 @@ router.delete('/:id', (req, res, next) => {
             post.remove((err, result) => {
                 if (err) {
                     return res.status(500).json({
-                        title: 'An error occured',
+                        title: 'An error occurred',
                         message: 'Error removing the post'
                     });
                 }

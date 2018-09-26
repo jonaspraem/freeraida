@@ -11,7 +11,7 @@ router.post('/login', (req, res, done) => {
         User.findOne({username: req.body.username}, (err, user) => {
             if (err) {
                 return res.status(500).json({
-                    title: 'An error occured',
+                    title: 'An error occurred',
                     error: err
                 });
             }
@@ -19,7 +19,7 @@ router.post('/login', (req, res, done) => {
                 console.log('isMatch', isMatch);
                 if (err) {
                     return res.status(500).json({
-                        title: 'An error occured',
+                        title: 'An error occurred',
                         error: err
                     });
                 }
@@ -45,7 +45,7 @@ router.post('/login', (req, res, done) => {
             user.validPassword(req.body.password, (err, isMatch) => {
                 if (err) {
                     return res.status(500).json({
-                        title: 'An error occured',
+                        title: 'An error occurred',
                         error: err
                     });
                 }
@@ -105,7 +105,7 @@ router.post('/signup', (req, res, next) => {
             user.save((err, result) => {
                 if (err) {
                     return res.status(500).json({
-                        title: 'An error occured',
+                        title: 'An error occurred',
                         error: err
                     });
                 }
