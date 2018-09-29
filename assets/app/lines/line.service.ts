@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs';
 
-import { ErrorService } from "../errors/error.service";
 import { Line } from "../objects/models/line.model";
 import { CONFIG } from "../dictionary/config";
 
@@ -38,7 +37,6 @@ interface TrackedLineResponse {
 export class LineService {
 
     constructor(private http: HttpClient,
-                private errorService: ErrorService,
                 private config: CONFIG
     ) {}
 

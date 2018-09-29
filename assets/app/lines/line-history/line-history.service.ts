@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { TrackedLineObject } from "../../objects/interfaces/tracked-line-object.interface";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { CONFIG } from "../../dictionary/config";
-import { ErrorService } from "../../errors/error.service";
 import { LineObject } from "../../objects/interfaces/line-object.interface";
 
 interface TrackedLineResponse{
@@ -25,7 +24,6 @@ interface LineListResponse {
 export class LineHistoryService {
 
     constructor(private http: HttpClient,
-                private errorService: ErrorService,
                 private config: CONFIG
     ) {}
 

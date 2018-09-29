@@ -6,8 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { appRouting } from "./app.routing";
-import { ErrorComponent } from "./errors/error.component";
-import { ErrorService } from "./errors/error.service";
 
 import { LandingPageModule } from "./landing-page/landing-page.module";
 import { AuthGuardService } from "./auth/auth-guard.service";
@@ -22,8 +20,7 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
 // TODO: Organize
 @NgModule({
     declarations: [
-        AppComponent,
-        ErrorComponent, // TODO: Remove
+        AppComponent
     ],
     imports: [
         BrowserModule,
@@ -37,7 +34,7 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
         CoreModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [AuthGuardService, ErrorService, CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY],
+    providers: [AuthGuardService, CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

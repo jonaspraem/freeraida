@@ -3,8 +3,6 @@ import { EventEmitter, Injectable } from "@angular/core";
 import 'rxjs';
 
 import { Post } from "../objects/models/post.model";
-import { ErrorService } from "../errors/error.service";
-
 import { PostObject } from "../objects/interfaces/post-object";
 import { CONFIG } from "../dictionary/config";
 import { PostTransferModel } from "../objects/models/transfer-models/post-transfer.model";
@@ -31,7 +29,6 @@ export class PostService {
     postIsEdit = new EventEmitter<Post>();
 
     constructor(private http: HttpClient,
-                private errorService: ErrorService,
                 private config: CONFIG
     ) {}
 

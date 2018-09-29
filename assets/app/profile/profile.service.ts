@@ -2,9 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs';
 
-import { ErrorService } from "../errors/error.service";
 import { Profile } from "../objects/models/profile.model";
-
 import { ProfileObject } from "../objects/interfaces/profile-object.interface";
 import { CONFIG } from "../dictionary/config";
 
@@ -23,7 +21,6 @@ interface AddressResponse {
 export class ProfileService {
 
     constructor(private http: HttpClient,
-                private errorService: ErrorService,
                 private config: CONFIG
     ) {}
 
