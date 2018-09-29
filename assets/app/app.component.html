@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<ng-container *ngIf="isComponentApp; else noApp">
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+</ng-container>
+<ng-template #noApp>
+    <router-outlet></router-outlet>
+</ng-template>
