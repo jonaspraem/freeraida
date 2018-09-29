@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const request = require('request');
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 
 const Post = require('../models/schemas/post');
 const Profile = require('../models/schemas/profile');
@@ -95,224 +96,196 @@ router.get('/profile-feed/:user_address', (req, res, next) => {
 
 //Verify token
 router.use('/', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        { json: { id_token: req.query.token } },
-        (error, response, body) => {
-            if (!error && response.statusCode === 200) {
-                next();
-            } else {
-                console.log(response);
-                return res.status(401).json({
-                    title: 'Not Authenticated',
-                    error: {message: 'Not a valid token'}
-                });
-            }
+    jwt.verify(req.query.token, keys.token.secret, function(err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not Authenticated',
+                message: 'Token couldn\'t be identified'
+            });
         }
-    );
+        next();
+    });
 });
 
 // Get user live-feed
 router.get('/feed', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        { json: { id_token: req.query.token } },
-        (error, response, body) => {
-            if (!error) {
-                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
-                    if (profile_err) {
-                        return res.status(500).json({
-                            title: 'Error finding user profile',
-                            error: profile_err
-                        });
-                    }
-                    if (!user_profile) {
-                        return res.status(500).json({
-                            title: 'An error occurred',
-                            error: {message: 'An error occurred regarding profile'}
-                        });
-                    }
-                    getTransformedList(user_profile, (post_ids) => {
-                        getPosts(post_ids, (post_list) => {
-                            sortList(post_list, (sortedList) => {
-                                return res.status(201).json({
-                                    message: 'User feed received',
-                                    obj: sortedList
-                                });
-                            });
-                        });
-                    });
-                });
-            }
-        });
-});
-
-// Post new post
-router.post('/', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        { json: { id_token: req.query.token } },
-        (error, response, body) => {
-            Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
-                if (profile_err) {
-                    return res.status(500).json({
-                        title: 'An error occured',
-                        error: {message: 'An error occured'}
-                    });
-                }
-                if (!user_profile) {
-                    return res.status(500).json({
-                        title: 'No user found',
-                        error: {message: 'No user found'}
-                    });
-                }
-                const post = new Post({
-                    content: req.body.content,
-                    user_address: user_profile.user_address,
-                    display_name: user_profile.firstname + ' ' + user_profile.surname,
-                    timestamp: new Date(),
-                    gnarly: []
-                });
-                post.save((err, result) => {
-                    if (err) {
-                        return res.status(500).json({
-                            title: 'An error occured',
-                            error: err
-                        });
-                    }
-                    user_profile.posts.push(result);
-                    user_profile.save((err, result) => {
-                        if (err) {
-                            return res.status(500).json({
-                                title: 'An error occured',
-                                error: err
-                            });
-                        }
-                        return res.status(201).json({
-                            message: 'Post saved',
-                            obj: post
-                        });
+    const decoded = jwt.decode(req.query.token);
+    Profile.findOne({user_id: decoded.user._id}, (profile_err, user_profile) => {
+        if (profile_err) {
+            return res.status(500).json({
+                title: 'Error finding user profile',
+                error: profile_err
+            });
+        }
+        if (!user_profile) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: {message: 'An error occurred regarding profile'}
+            });
+        }
+        getTransformedList(user_profile, (post_ids) => {
+            getPosts(post_ids, (post_list) => {
+                sortList(post_list, (sortedList) => {
+                    return res.status(201).json({
+                        message: 'User feed received',
+                        obj: sortedList
                     });
                 });
             });
         });
+    });
+});
+
+// Post new post
+router.post('/', (req, res, next) => {
+    const decoded = jwt.decode(req.query.token);
+    Profile.findOne({user_id: decoded.user._id}, (profile_err, user_profile) => {
+        if (profile_err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
+            });
+        }
+        if (!user_profile) {
+            return res.status(500).json({
+                title: 'No user found',
+                error: {message: 'No user found'}
+            });
+        }
+        const post = new Post({
+            content: req.body.content,
+            user_address: user_profile.user_address,
+            display_name: user_profile.firstname + ' ' + user_profile.surname,
+            timestamp: new Date(),
+            gnarly: []
+        });
+        post.save((err, result) => {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    message: 'Error saving the post'
+                });
+            }
+            user_profile.posts.push(result);
+            user_profile.save((err, result) => {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        message: 'Error saving the user'
+                    });
+                }
+                return res.status(201).json({
+                    message: 'Post saved',
+                    obj: post
+                });
+            });
+        });
+    });
 });
 
 // gnarly post
 router.post('/gnarly/:post_id', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        { json: { id_token: req.query.token } },
-        (error, response, body) => {
-            if (!error) {
-                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
-                    if (profile_err) {
-                        return res.status(500).json({
-                            title: 'An error occured',
-                            error: {message: 'An error occured'}
-                        });
-                    }
-                    if (!user_profile) {
-                        return res.status(500).json({
-                            title: 'No user found',
-                            error: {message: 'No user found'}
-                        });
-                    }
-                    Post.findOne({_id: req.params.post_id}, (post_err, post) => {
-                        if (profile_err) {
-                            return res.status(500).json({
-                                title: 'An error occured',
-                                error: {message: 'An error occured'}
-                            });
-                        }
-                        if (!post) {
-                            return res.status(500).json({
-                                title: 'No post found',
-                                error: {message: 'No post found matching the id'}
-                            });
-                        }
-                        // If user already gnarly post
-                        if (post.gnarly.indexOf(user_profile.user_address) > -1) {
-                            return res.status(500).json({
-                                title: 'User already gnarly post',
-                                error: {message: 'user can\'t gnarly post more than once'}
-                            });
-                        }
-                        post.gnarly.push(user_profile.user_address);
-                        post.save((err, result) => {
-                            if (err) {
-                                return res.status(500).json({
-                                    title: 'An error occured',
-                                    error: err
-                                });
-                            }
-                            return res.status(201).json({
-                                message: 'Successfully gnarly post '+req.params.post_id,
-                                obj: result
-                            });
-                        });
-                    });
+    const decoded = jwt.decode(req.query.token);
+    Profile.findOne({user_id: decoded.user._id}, (profile_err, user_profile) => {
+        if (profile_err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
+            });
+        }
+        if (!user_profile) {
+            return res.status(500).json({
+                title: 'No user found',
+                error: {message: 'No user found'}
+            });
+        }
+        Post.findOne({_id: req.params.post_id}, (post_err, post) => {
+            if (profile_err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: {message: 'An error occurred'}
                 });
             }
+            if (!post) {
+                return res.status(500).json({
+                    title: 'No post found',
+                    error: {message: 'No post found matching the id'}
+                });
+            }
+            // If user already gnarly post
+            if (post.gnarly.indexOf(user_profile.user_address) > -1) {
+                return res.status(500).json({
+                    title: 'User already gnarly post',
+                    error: {message: 'user can\'t gnarly post more than once'}
+                });
+            }
+            post.gnarly.push(user_profile.user_address);
+            post.save((err, result) => {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    });
+                }
+                return res.status(201).json({
+                    message: 'Successfully gnarly post '+req.params.post_id,
+                    obj: result
+                });
+            });
         });
+    });
 });
 
 //un-gnarly post
 router.post('/un-gnarly/:post_id', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        {json: {id_token: req.query.token}},
-        (error, response, body) => {
-            if (!error) {
-                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
-                    if (profile_err) {
-                        return res.status(500).json({
-                            title: 'An error occured',
-                            error: {message: 'An error occured'}
-                        });
-                    }
-                    if (!user_profile) {
-                        return res.status(500).json({
-                            title: 'No user found',
-                            error: {message: 'No user found'}
-                        });
-                    }
-                    Post.findOne({_id: req.params.post_id}, (post_err, post) => {
-                        if (profile_err) {
-                            return res.status(500).json({
-                                title: 'An error occured',
-                                error: {message: 'An error occured'}
-                            });
-                        }
-                        if (!post) {
-                            return res.status(500).json({
-                                title: 'No post found',
-                                error: {message: 'No post found matching the id'}
-                            });
-                        }
-                        if (!(post.gnarly.indexOf(user_profile.user_address) > -1)) {
-                            return res.status(500).json({
-                                title: 'Post is not gnarly by the user',
-                                error: {message: 'The user is not in the list of gnarly'}
-                            });
-                        }
-                        post.gnarly.splice(post.gnarly.indexOf(user_profile.user_address), 1);
-                        post.save((err, result) => {
-                            if (err) {
-                                return res.status(500).json({
-                                    title: 'An error occured',
-                                    error: err
-                                });
-                            }
-                            return res.status(201).json({
-                                message: 'Successfully un-gnarly post '+req.params.post_id,
-                                obj: result
-                            });
-                        });
-                    });
+    const decoded = jwt.decode(req.query.token);
+    Profile.findOne({user_id: decoded.user._id}, (profile_err, user_profile) => {
+        if (profile_err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
+            });
+        }
+        if (!user_profile) {
+            return res.status(500).json({
+                title: 'No user found',
+                error: {message: 'No user found'}
+            });
+        }
+        Post.findOne({_id: req.params.post_id}, (post_err, post) => {
+            if (profile_err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: {message: 'An error occurred'}
                 });
             }
+            if (!post) {
+                return res.status(500).json({
+                    title: 'No post found',
+                    error: {message: 'No post found matching the id'}
+                });
+            }
+            if (!(post.gnarly.indexOf(user_profile.user_address) > -1)) {
+                return res.status(500).json({
+                    title: 'Post is not gnarly by the user',
+                    error: {message: 'The user is not in the list of gnarly'}
+                });
+            }
+            post.gnarly.splice(post.gnarly.indexOf(user_profile.user_address), 1);
+            post.save((err, result) => {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    });
+                }
+                return res.status(201).json({
+                    message: 'Successfully un-gnarly post '+req.params.post_id,
+                    obj: result
+                });
+            });
         });
+    });
 });
 
 // Edit post
@@ -321,7 +294,7 @@ router.patch('/:id', (req, res, next) => {
     Post.findById(req.params.id, (err, post) => {
         if (err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: err
             });
         }
@@ -341,7 +314,7 @@ router.patch('/:id', (req, res, next) => {
         post.save((err, result) => {
             if (err) {
                 return res.status(500).json({
-                    title: 'An error occured',
+                    title: 'An error occurred',
                     error: err
                 });
             }
@@ -355,59 +328,53 @@ router.patch('/:id', (req, res, next) => {
 
 // Delete post
 router.delete('/:id', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        {json: {id_token: req.query.token}},
-        (error, response, body) => {
-            if (!error) {
-                Profile.findOne({user_id: body.user_id}, (profile_err, user_profile) => {
-                    if (profile_err) {
-                        return res.status(500).json({
-                            title: 'An error occured',
-                            error: {message: 'An error occured'}
-                        });
-                    }
-                    if (!user_profile) {
-                        return res.status(500).json({
-                            title: 'No user found',
-                            error: {message: 'No user found'}
-                        });
-                    }
-                    Post.findById(req.params.id, (err, post) => {
-                        if (err) {
-                            return res.status(500).json({
-                                title: 'An error occured',
-                                error: err
-                            });
-                        }
-                        if (!post) {
-                            return res.status(500).json({
-                                title: 'No post found',
-                                error: { message: 'Post not found'}
-                            });
-                        }
-                        if (post.user_address !== user_profile.user_address) {
-                            return res.status(401).json({
-                                title: 'Not Authenticated',
-                                error: {message: 'Not the user\'s post'}
-                            });
-                        }
-                        post.remove((err, result) => {
-                            if (err) {
-                                return res.status(500).json({
-                                    title: 'An error occured',
-                                    error: err
-                                });
-                            }
-                            res.status(200).json({
-                                message: 'post deleted',
-                                obj: result
-                            });
-                        });
-                    });
+    const decoded = jwt.decode(req.query.token);
+    Profile.findOne({user_id: decoded.user._id}, (profile_err, user_profile) => {
+        if (profile_err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: {message: 'An error occurred'}
+            });
+        }
+        if (!user_profile) {
+            return res.status(500).json({
+                title: 'No user found',
+                error: {message: 'No user found'}
+            });
+        }
+        Post.findById(req.params.id, (err, post) => {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
                 });
             }
+            if (!post) {
+                return res.status(500).json({
+                    title: 'No post found',
+                    error: { message: 'Post not found'}
+                });
+            }
+            if (post.user_address !== user_profile.user_address) {
+                return res.status(401).json({
+                    title: 'Not Authenticated',
+                    error: {message: 'Not the user\'s post'}
+                });
+            }
+            post.remove((err, result) => {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        message: 'Error removing the post'
+                    });
+                }
+                res.status(200).json({
+                    message: 'post deleted',
+                    obj: result
+                });
+            });
         });
+    });
 });
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const request = require('request');
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 
 const Profile = require('../models/schemas/profile');
 
@@ -9,7 +10,7 @@ router.get('/user/:address', (req, res, next) => {
     Profile.findOne({user_address: req.params.address}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: p_err
             });
         }
@@ -39,29 +40,23 @@ router.get('/user-list/', (req, res, next) => {
 
 // Verify token
 router.use('/', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        { json: { id_token: req.query.token } },
-        (error, response, body) => {
-            if (!error && response.statusCode >= 200) {
-                next();
-            } else {
-                console.log(response);
-                return res.status(401).json({
-                    title: 'Not Authenticated',
-                    error: {message: 'Not a valid token'}
-                });
-            }
+    jwt.verify(req.query.token, keys.token.secret, function(err, decoded) {
+        if (err) {
+            return res.status(401).json({
+                title: 'Not Authenticated',
+                message: 'Token couldn\'t be identified'
+            });
         }
-    );
+        next();
+    });
 });
 
-// Check availability of user address
+// Check availability of user address TODO move to unprotected
 router.get('/user-address/:address', (req, res, next) => {
     Profile.findOne({user_address: req.params.address}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
-                title: 'An error occured',
+                title: 'An error occurred',
                 error: p_err
             });
         }
@@ -82,123 +77,105 @@ router.get('/user-address/:address', (req, res, next) => {
 
 // Create new profile
 router.post('/new', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        {json: {id_token: req.query.token}},
-        (error, response, body) => {
-            if (!error) {
-                Profile.findOne({user_id: body.user_id}, (p_err, profile) => {
-                    if (p_err) {
-                        return res.status(500).json({
-                            title: 'An error occured',
-                            error: p_err
-                        });
-                    }
-                    if (!profile) {
-                        // If none exists, create new
-                        const profile_schema = new Profile({
-                            user_id: body.user_id,
-                            user_address: req.body.user_address,
-                            firstname: req.body.firstname,
-                            surname: req.body.surname,
-                            bio: req.body.bio,
-                            representation: req.body.representation,
-                            social_twitter: req.body.social_twitter,
-                            social_instagram: req.body.social_instagram,
-                            followers: [],
-                            following: [],
-                            lines: [],
-                            posts: []
-                        });
+    const decoded = jwt.decode(req.query.token);
+    Profile.findOne({user_id: decoded.user._id}, (p_err, profile) => {
+        if (p_err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: p_err
+            });
+        }
+        if (!profile) {
+            // If none exists, create new
+            const profile_schema = new Profile({
+                user_id: body.user_id,
+                user_address: req.body.user_address,
+                firstname: req.body.firstname,
+                surname: req.body.surname,
+                bio: req.body.bio,
+                representation: req.body.representation,
+                social_twitter: req.body.social_twitter,
+                social_instagram: req.body.social_instagram,
+                followers: [],
+                following: [],
+                lines: [],
+                posts: []
+            });
 
-                        profile_schema.save((err, result) => {
-                            if (err) {
-                                return res.status(500).json({
-                                    title: 'An error occured',
-                                    error: err
-                                });
-                            }
-                            return res.status(201).json({
-                                message: 'User created',
-                                obj: result
-                            });
-                        });
-                    }
+            profile_schema.save((err, result) => {
+                if (err) {
+                    return res.status(500).json({
+                        title: 'An error occurred',
+                        error: err
+                    });
+                }
+                return res.status(201).json({
+                    message: 'User created',
+                    obj: result
                 });
-            }
-        });
+            });
+        }
+    });
 });
 
 // Get user profile with token
 router.get('/user-info', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        {json: {id_token: req.query.token}},
-        (error, response, body) => {
-            if (!error) {
-                Profile.findOne({user_id: body.user_id}, (p_err, profile) => {
-                    if (p_err) {
-                        return res.status(500).json({
-                            title: 'An error occured',
-                            error: p_err
-                        });
-                    }
-                    if (!profile) {
-                        return res.status(400).json({
-                            title: 'No profile found',
-                            error: {message: 'No profile matching the id'}
-                        });
-                    }
-                    return res.status(201).json({
-                        message: 'Profile successfully received',
-                        obj: profile
-                    });
-                });
-            }
+    const decoded = jwt.decode(req.query.token);
+    Profile.findOne({user_id: decoded.user._id}, (p_err, profile) => {
+        if (p_err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: p_err
+            });
+        }
+        if (!profile) {
+            return res.status(400).json({
+                title: 'No profile found',
+                error: {message: 'No profile matching the id'}
+            });
+        }
+        return res.status(201).json({
+            message: 'Profile successfully received',
+            obj: profile
         });
+    });
 });
 
 // Edit profile
 router.patch('/edit-profile', (req, res, next) => {
-    request.post(
-        'https://freeraida.eu.auth0.com/tokeninfo',
-        {json: {id_token: req.query.token}},
-        (error, response, body) => {
-            if (!error) {
-                Profile.findOne({user_id: body.user_id}, (err, profile) => {
-                    if (err) {
-                        return res.status(500).json({
-                            title: 'An error occured',
-                            error: err
-                        });
-                    }
-                    if (!profile) {
-                        return res.status(400).json({
-                            title: 'No profile found',
-                            error: {message: 'No profile matching the id'}
-                        });
-                    }
-                    // Edit variables
-                    profile.representation = req.body.representation;
-                    profile.bio = req.body.bio;
-                    profile.social_twitter = req.body.social_twitter;
-                    profile.social_instagram = req.body.social_instagram;
+    const decoded = jwt.decode(req.query.token);
+    Profile.findOne({user_id: decoded.user._id}, (err, profile) => {
+        if (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                error: err
+            });
+        }
+        if (!profile) {
+            return res.status(400).json({
+                title: 'No profile found',
+                error: {message: 'No profile matching the id'}
+            });
+        }
+        // Edit variables
+        profile.representation = req.body.representation;
+        profile.bio = req.body.bio;
+        profile.social_twitter = req.body.social_twitter;
+        profile.social_instagram = req.body.social_instagram;
 
-                    profile.save((err, result) => {
-                        if (err) {
-                            return res.status(500).json({
-                                title: 'An error occured',
-                                error: err
-                            });
-                        }
-                        return res.status(201).json({
-                            message: 'User created',
-                            obj: result
-                        });
-                    });
+        profile.save((err, result) => {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: err
                 });
             }
+            return res.status(201).json({
+                message: 'User created',
+                obj: result
+            });
         });
+    });
 });
 
 module.exports = router;
