@@ -3,11 +3,12 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
-const Profile = require('../models/schemas/profile');
-const Marker = require('../models/schemas/marker');
-const Line = require('../models/schemas/line');
-const TrackedLine = require('../models/schemas/tracked-line');
-const Location = require('../models/schemas/location');
+const MODEL_PATH = '../models/schemas/';
+const Profile = require(MODEL_PATH + 'profile');
+const Marker = require(MODEL_PATH + 'marker');
+const Line = require(MODEL_PATH + 'line');
+const TrackedLine = require(MODEL_PATH + 'tracked-line');
+const Location = require(MODEL_PATH + 'location');
 
 sortList = (list, callback) => {
     list.sort((a, b) => {
@@ -134,13 +135,13 @@ router.get('/user/:username', (req, res, next) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                message: 'Error looking up user'
             });
         }
         if (!user_profile) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: {message: 'An error occurred 1'}
+            return res.status(404).json({
+                title: 'User not found',
+                message: 'No user exists with the given id'
             });
         }
         getUserLines(user_profile, (list) => {
@@ -173,13 +174,13 @@ router.get('/tracked-line/:id', (req, res, next) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                message: 'Error looking up line'
             });
         }
         if (!tracked_line) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: {message: 'The tracked line couldn\'t be found'}
+            return res.status(404).json({
+                title: 'Line not found',
+                message: 'The tracked line couldn\'t be found'
             });
         }
         // Check whether the tracked line is the user's line
@@ -204,13 +205,13 @@ router.get('/user-lines/', (req, res, next) => {
         if (profile_err) {
             return res.status(500).json({
                 title: 'Error finding user profile',
-                error: profile_err
+                message: 'Error on database lookup'
             });
         }
         if (!user_profile) {
-            return res.status(500).json({
+            return res.status(404).json({
                 title: 'Error finding user profile',
-                error: {message: 'An error occurred regarding profile'}
+                message: 'No user found with the given id'
             });
         }
         getUserLines(user_profile, (list) => {
@@ -230,13 +231,13 @@ router.get('/unregistered-lines/', (req, res, next) => {
         if (profile_err) {
             return res.status(500).json({
                 title: 'Error finding user profile',
-                error: profile_err
+                message: 'Error looking up the user'
             });
         }
         if (!user_profile) {
-            return res.status(500).json({
+            return res.status(404).json({
                 title: 'Error finding user profile',
-                error: {message: 'An error occurred regarding profile'}
+                message: 'An error occurred regarding profile'
             });
         }
         getUserTrackedLines(user_profile, (list) => {

@@ -3,7 +3,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
-const Profile = require('../models/schemas/profile');
+const MODEL_PATH = '../models/schemas/';
+const Profile = require(MODEL_PATH + 'profile');
 
 // Verify token
 router.use('/', (req, res, next) => {
@@ -25,13 +26,13 @@ router.post('/follow/:user_address', (req, res, next) => {
         if (profile_err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: {message: 'An error occurred'}
+                message: 'An error occurred'
             });
         }
         if (!own_profile) {
             return res.status(500).json({
                 title: 'No user found',
-                error: {message: 'No user found'}
+                message: 'No user found'
             });
         }
 
@@ -39,20 +40,20 @@ router.post('/follow/:user_address', (req, res, next) => {
         if (isAlreadyFollowing) {
             return res.status(500).json({
                 title: 'User is already followed',
-                error: {message: 'You are already following this user'}
+                message: 'You are already following this user'
             });
         }
         Profile.findOne({user_address: req.params.user_address}, (p_err, profile_toFollow) => {
             if (p_err) {
                 return res.status(500).json({
                     title: 'An error occurred',
-                    error: {message: 'An error occurred'}
+                    message: 'An error occurred'
                 });
             }
             if (!profile_toFollow) {
                 return res.status(500).json({
                     title: 'No user found',
-                    error: {message: 'No user found'}
+                    message: 'No user found'
                 });
             }
             own_profile.following.push(req.params.user_address);
@@ -61,14 +62,14 @@ router.post('/follow/:user_address', (req, res, next) => {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occurred',
-                        error: {message: 'An error occurred'}
+                        message: 'An error occurred'
                     });
                 }
                 profile_toFollow.save((err, result) => {
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occurred',
-                            error: {message: 'An error occurred'}
+                            message: 'An error occurred'
                         });
                     }
                     return res.status(201).json({
@@ -88,33 +89,33 @@ router.post('/unfollow/:user_address', (req, res, next) => {
         if (profile_err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: {message: 'An error occurred'}
+                message: 'An error occurred'
             });
         }
         if (!own_profile) {
             return res.status(500).json({
                 title: 'No user found',
-                error: {message: 'No user found'}
+                message: 'No user found'
             });
         }
         const isAlreadyFollowing = (own_profile.following.indexOf(req.params.user_address) > -1);
         if (!isAlreadyFollowing) {
             return res.status(500).json({
                 title: 'User not followed',
-                error: {message: 'User is not being followed by you'}
+                message: 'User is not being followed by you'
             });
         }
         Profile.findOne({user_address: req.params.user_address}, (p_err, profile_toUnfollow) => {
             if (p_err) {
                 return res.status(500).json({
                     title: 'An error occurred',
-                    error: {message: 'An error occurred'}
+                    message: 'An error occurred'
                 });
             }
             if (!profile_toUnfollow) {
                 return res.status(500).json({
                     title: 'No user found',
-                    error: {message: 'No user found'}
+                    message: 'No user found'
                 });
             }
             own_profile.following.splice(own_profile.following.indexOf(req.params.user_address), 1);
@@ -123,14 +124,14 @@ router.post('/unfollow/:user_address', (req, res, next) => {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occurred',
-                        error: {message: 'An error occurred'}
+                        message: 'An error occurred'
                     });
                 }
                 profile_toUnfollow.save((err, result) => {
                     if (err) {
                         return res.status(500).json({
                             title: 'An error occurred',
-                            error: {message: 'An error occurred'}
+                            message: 'An error occurred'
                         });
                     }
                     return res.status(201).json({

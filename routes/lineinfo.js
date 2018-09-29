@@ -3,10 +3,11 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
-const Line = require('../models/schemas/line');
-const Marker = require('../models/schemas/marker');
-const TrackedLine = require('../models/schemas/tracked-line');
-const Location = require('../models/schemas/location');
+const MODEL_PATH = '../models/schemas/';
+const Line = require(MODEL_PATH + 'line');
+const Marker = require(MODEL_PATH + 'marker');
+const TrackedLine = require(MODEL_PATH + 'tracked-line');
+const Location = require(MODEL_PATH + 'location');
 
 /*
         Mathematical functions for distance calculations
@@ -139,13 +140,13 @@ router.get('/height-map/:_id', (req, res, next) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                message: 'Error on line lookup'
             });
         }
         if (!line) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: {message: 'An error occurred 1'}
+            return res.status(404).json({
+                title: 'No line found',
+                message: 'No line matching the id'
             });
         }
         const googleMapsClient = require('@google/maps').createClient({
@@ -173,13 +174,13 @@ router.get('/height-map-unregistered/:_id', (req, res, next) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                message: 'Error on line lookup'
             });
         }
         if (!line) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: {message: 'An error occurred 1'}
+            return res.status(404).json({
+                title: 'No line found',
+                message: 'No line matching the id'
             });
         }
         const googleMapsClient = require('@google/maps').createClient({
@@ -207,13 +208,13 @@ router.get('/distance/:_id', (req, res, next) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                message: 'Error on line lookup'
             });
         }
         if (!line) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                error: {message: 'An error occurred 1'}
+            return res.status(404).json({
+                title: 'No line found',
+                message: 'No line matching the id'
             });
         }
         getLineMarkers(line.markers, (result) => {
@@ -241,20 +242,20 @@ router.get('/distance-unregistered/:_id', (req, res, next) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: err
+                message: 'Error on line lookup'
             });
         }
         if (!line || line.locations.length <= 0) {
-            return res.status(500).json({
+            return res.status(404).json({
                 title: 'An error occurred',
-                error: {message: 'An error occurred 1'}
+                message: 'No line matching the id'
             });
         }
         getLineLocationsWithTime(line.locations, (result) => {
             if (!result[0]) {
                 return res.status(500).json({
                     title: 'An error occurred',
-                    error: {message: 'An error occurred 1'}
+                    message: 'Error looking up locations'
                 });
             }
             const line_profile = [];

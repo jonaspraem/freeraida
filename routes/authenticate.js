@@ -3,7 +3,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
-const User = require('../models/schemas/user');
+const MODEL_PATH = '../models/schemas/';
+const User = require(MODEL_PATH + 'user');
 
 router.post('/login', (req, res, done) => {
     if (req.body.username) {
@@ -12,7 +13,7 @@ router.post('/login', (req, res, done) => {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',
-                    error: err
+                    message: 'Error looking up user'
                 });
             }
             user.validPassword(req.body.password, (err, isMatch) => {
@@ -20,7 +21,7 @@ router.post('/login', (req, res, done) => {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occurred',
-                        error: err
+                        message: 'Error validation the password'
                     });
                 }
                 if (!isMatch) {
@@ -42,11 +43,17 @@ router.post('/login', (req, res, done) => {
     else if (req.body.email) {
         console.log('logging in with email', req.body.email);
         User.findOne({email: req.body.email}, (err, user) => {
+            if (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    message: 'Error looking up user'
+                });
+            }
             user.validPassword(req.body.password, (err, isMatch) => {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occurred',
-                        error: err
+                        message: 'Error validation the password'
                     });
                 }
                 if (!isMatch) {
@@ -89,7 +96,7 @@ router.post('/signup', (req, res, next) => {
                 // Length of username needs to be between 3 and 25
                 return res.status(400).json({
                     title: 'Error signing up',
-                    message: 'invalid username'
+                    message: 'Invalid username'
                 });
             }
 
@@ -106,7 +113,7 @@ router.post('/signup', (req, res, next) => {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occurred',
-                        error: err
+                        message: 'Error saving the user'
                     });
                 }
                 // create a token
