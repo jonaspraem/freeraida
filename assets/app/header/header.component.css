@@ -5,22 +5,11 @@ body {
 }
 
 h1 {
-    color: white;
-    text-shadow: 1px 0 #88976D, 0 1px #88976D, 1px 0 #88976D, 0 -1px #88976D;
-    margin: 0;
-    vertical-align: center;
-    z-index: 5;
+
 }
 
 h3 {
     color: blue;
-}
-
-.logo {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
 }
 
 .avatar {
@@ -29,13 +18,6 @@ h3 {
     height: 40px;
     border-radius: 50%;
     border: solid 2px white;
-}
-
-.logo {
-    position: relative;
-    z-index: 10;
-    margin-right: 10px;
-    margin-left: 0;
 }
 
 i {
@@ -60,13 +42,6 @@ i {
 
 .spacer {
     flex: 1 1 auto;
-}
-
-.mat-toolbar {
-    position: relative;
-    background-color: #0B2100;
-    z-index: 10;
-    border-bottom:1px groove white;
 }
 
 .nickname {

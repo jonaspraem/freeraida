@@ -1,0 +1,28 @@
+@import '../lib/_colors';
+@import '../lib/_effects';
+
+.app-header {
+    &__container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: color('primary');
+        z-index: 10;
+        box-shadow: effect('header-box-shadow');
+    }
+
+    &__logo {
+        display: inline-block;
+        height: 100%;
+        position: relative;
+        z-index: 10;
+        margin-right: 10px;
+        margin-left: 0;
+    }
+
+    &__header {
+        color: white;
+        font-weight: 900;
+        text-shadow: effect('header-text-shadow');
+    }
+}

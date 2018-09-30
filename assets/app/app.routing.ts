@@ -14,7 +14,7 @@ import { ProfileComponent } from "./profile/profile.component";
 import { AfterRegistrationComponent } from "./lines/after-registration/after-registration.component";
 
 const APP_ROUTES: Routes = [
-    { path: '', redirectTo: 'landing-page', pathMatch: 'full'},
+   // { path: '', redirectTo: 'landing-page', pathMatch: 'full'},
     { path: 'landing-page', component: LandingPageComponent },
     { path: 'feed', component: LiveFeedComponent},
     { path: 'register-line', component: RegisterLineComponent},
@@ -27,7 +27,7 @@ const APP_ROUTES: Routes = [
     { path: 'settings', component: SettingsComponent},
     { path: 'user/:id', component: ProfileComponent},
     { path: 'tracked-line/:id', component: AfterRegistrationComponent},
-    { path: '**', redirectTo: '', pathMatch: 'full'},
+   // { path: '**', redirectTo: '', pathMatch: 'full'},
 ];
 
 export const appRouting = RouterModule.forRoot(APP_ROUTES);

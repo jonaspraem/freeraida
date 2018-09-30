@@ -1,0 +1,13 @@
+@import '_colors';
+
+$header-box-shadow: rgba(#000, 0.8);
+$header-text-shadow: rgba(color('primary-lighter'), 0.7);
+
+$effects: (
+        'header-text-shadow': 2px 2px 3px $header-text-shadow,
+        'header-box-shadow': 5px 5px 5px $header-box-shadow
+);
+
+@function effect($key: 'primary') {
+    @return map-get($effects, $key);
+}
