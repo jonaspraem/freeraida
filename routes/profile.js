@@ -3,7 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
-const Profile = require('../models/schemas/profile');
+const Profile = require('../models/schemas/user-profile');
 
 // Get user profile
 router.get('/user/:address', (req, res, next) => {

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
 const Post = require('../models/schemas/post');
-const Profile = require('../models/schemas/profile');
+const Profile = require('../models/schemas/user-profile');
 
 getUserPosts = (username, callback) => {
     Profile.findOne({user_address: username}, (err, user_profile) => {

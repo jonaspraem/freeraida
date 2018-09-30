@@ -6,19 +6,13 @@ const bcrypt = require('bcrypt');
 const schema = new Schema({
     email: {type: String, required: true, unique: true},
     username: {type: String, required: true, unique: true},
-    firstname: {type: String, required: true},
-    surname: {type: String, required: true},
-    country: {type: String, required: true},
-    password: {type: String, required: false},
-    googleId: {type: String, required: false} 
+    password: {type: String, required: true},
 });
 
 // hashing the password before saving it to the database
-schema.pre('save', (next) => {
+schema.pre('save', function(next) {
     const user = this;
-    const SALT_WORK_FACTOR = 2010290;
-
-    // Check password / googleId / twitterId / etc..
+    const SALT_WORK_FACTOR = 7;
 
     // only hash the password if it has been modified (or is new)
     if (!user.isModified('password')) {
@@ -29,7 +23,7 @@ schema.pre('save', (next) => {
         if (err) {
             return next(err);
         } else {
-            bcrypt.hash(user.password, 10, (err, hash) => {
+            bcrypt.hash(user.password, salt, (err, hash) => {
                 if (err) {
                     return next(err);
                 }
@@ -40,7 +34,7 @@ schema.pre('save', (next) => {
     });
 });
 
-schema.methods.validPassword = (password, callback) => {
+schema.methods.validPassword = function(password, callback) {
     console.log('comparing password');
     bcrypt.compare(password, this.password, (err, isMatch) => {
         if (err) {
@@ -54,4 +48,4 @@ schema.methods.validPassword = (password, callback) => {
 
 schema.plugin(mongooseUniqueValidator);
 
-module.exports = mongoose.model('User', schema);
+module.exports = mongoose.model('UserCredentials', schema);

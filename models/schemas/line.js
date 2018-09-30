@@ -18,7 +18,7 @@ const schema = new Schema({
 
 schema.pre('remove', (next) => {
     const model = this;
-    const profile = require('./profile');
+    const profile = require('./user-profile');
     Marker.find({_id: {$in: model.markers}}, (err, result) => {
         result.forEach((marker) => {
             marker.remove((err) => {});

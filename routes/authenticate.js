@@ -4,12 +4,13 @@ const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
 const MODEL_PATH = '../models/schemas/';
-const User = require(MODEL_PATH + 'user');
+const UserCredentials = require(MODEL_PATH + 'user-credentials');
+const UserProfile = require(MODEL_PATH + 'user-profile');
 
 router.post('/login', (req, res, done) => {
     if (req.body.username) {
         console.log('logging in with username', req.body.username);
-        User.findOne({username: req.body.username}, (err, user) => {
+        UserCredentials.findOne({username: req.body.username}, (err, user) => {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',
@@ -42,7 +43,7 @@ router.post('/login', (req, res, done) => {
     }
     else if (req.body.email) {
         console.log('logging in with email', req.body.email);
-        User.findOne({email: req.body.email}, (err, user) => {
+        UserCredentials.findOne({email: req.body.email}, (err, user) => {
             if (err) {
                 return res.status(500).json({
                     title: 'An error occurred',
@@ -99,30 +100,39 @@ router.post('/signup', (req, res, next) => {
                     message: 'Invalid username'
                 });
             }
-
-            const user = new User({
+            const user_credentials = new UserCredentials({
                 email: req.body.email.toLowerCase(),
+                username: req.body.username.toLowerCase(),
+                password: req.body.password,
+            });
+            const user_profile = new UserProfile({
                 username: req.body.username.toLowerCase(),
                 firstname: req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.toLowerCase().slice(1),
                 surname: req.body.surname.charAt(0).toUpperCase() + req.body.surname.toLowerCase().slice(1),
-                password: req.body.password,
                 country: req.body.country
             });
-
-            user.save((err, result) => {
+            user_credentials.save((err, result) => {
                 if (err) {
                     return res.status(500).json({
                         title: 'An error occurred',
-                        message: 'Error saving the user'
+                        message: 'Error saving the user credentials'
                     });
                 }
-                // create a token
-                const token = jwt.sign({ id: result._id }, keys.token.secret, { expiresIn: 86400 });
-                return res.status(201).json({
-                    message: 'User created',
-                    obj: result,
-                    auth: true,
-                    token: token
+                user_profile.save((err, result) => {
+                    if (err) {
+                        return res.status(500).json({
+                            title: 'An error occurred',
+                            message: 'Error saving the user profile'
+                        });
+                    }
+                    // create a token
+                    const token = jwt.sign({ id: result._id }, keys.token.secret, { expiresIn: 86400 });
+                    return res.status(201).json({
+                        message: 'User created',
+                        obj: result,
+                        auth: true,
+                        token: token
+                    });
                 });
             });
         } else {

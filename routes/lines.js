@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
 const MODEL_PATH = '../models/schemas/';
-const Profile = require(MODEL_PATH + 'profile');
+const Profile = require(MODEL_PATH + 'user-profile');
 const Marker = require(MODEL_PATH + 'marker');
 const Line = require(MODEL_PATH + 'line');
 const TrackedLine = require(MODEL_PATH + 'tracked-line');

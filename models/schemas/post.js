@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Profile = require('./profile');
+const Profile = require('./user-profile');
 
 const schema = new Schema({
     content: {type: String, required: true},

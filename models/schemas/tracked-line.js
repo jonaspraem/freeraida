@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Location = require('./location');
+const MODEL_PATH = './';
+const Location = require(MODEL_PATH + 'location');
+const Profile = require(MODEL_PATH + 'user-profile');
 
 const schema = new Schema({
     user_id: {type: String, required: true},
@@ -12,13 +14,12 @@ const schema = new Schema({
 
 schema.pre('remove', (next) => {
     const model = this;
-    const profile = require('./profile');
     Location.find({_id: {$in: model.locations}}, (err, result) => {
         result.forEach((location) => {
             location.remove((err) => {});
         });
     });
-    profile.findOne({user_id: model.user_id}, (err, profile) => {
+    Profile.findOne({user_id: model.user_id}, (err, profile) => {
         profile.tracked_lines.pull(model._id);
         profile.save();
         next();
