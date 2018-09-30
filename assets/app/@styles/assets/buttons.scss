@@ -1,6 +1,8 @@
+@import '../lib/_colors';
+
 .button-primary {
-    background-color: #141D2F; // TODO
-    border-color: #141D2F;
+    background-color: color('primary');
+    border-color: color('primary');
     color: white;
 
     &:hover, &:focus {

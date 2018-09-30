@@ -1,3 +1,5 @@
+@import '../lib/_colors';
+
 .landing-page {
     &__background-container {
         min-height: 100vh;
@@ -11,7 +13,7 @@
         font-family: "Berlin Sans FB", sans-serif;
         height: 50px;
         padding: 0 0 0 30px;
-        background-color: #141D2F; // TODO
+        background-color: color('primary');
         z-index: 2;
     }
 
@@ -27,7 +29,7 @@
         width: 100%;
 
         &__header {
-            color: #141D2F;
+            color: color('primary');
             font-weight: 700;
             font-size: 20px;
             text-transform: uppercase;

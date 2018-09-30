@@ -3,6 +3,7 @@ $fa-font-path: "../../../node_modules/font-awesome/fonts";
 @import "../../../node_modules/font-awesome/scss/font-awesome";
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
+@import './lib/_colors';
 
 @import './assets/buttons.scss';
 @import './assets/inputs.scss';
