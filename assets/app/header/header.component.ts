@@ -19,7 +19,7 @@ export class HeaderComponent {
     @Input() profile: Profile;
     public logo = logoImage;
     public isOpen: boolean = false;
-    public isExpanded: boolean;
+    public isExpanded: boolean = true;
     private previousScrollPosition: number;
 
     constructor(
