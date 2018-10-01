@@ -20,6 +20,7 @@ export class HeaderComponent {
     public logo = logoImage;
     public isOpen: boolean = false;
     public isExpanded: boolean;
+    private previousScrollPosition: number;
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
@@ -29,9 +30,10 @@ export class HeaderComponent {
 
     @HostListener("window:scroll", [])
     onWindowScroll() {
-        let number = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
-        console.log(number);
-        this.isExpanded = number === 0;
+        let scrollPosition = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
+        const isElasticScroll = this.previousScrollPosition < 0;
+        this.isExpanded = !(scrollPosition > this.previousScrollPosition || isElasticScroll);
+        this.previousScrollPosition = scrollPosition;
     }
 
     // On click outside component

@@ -9,13 +9,14 @@
         width: 100%;
         height: 56px;
         max-height: 64px;
+        opacity: 1;
         background-color: color('primary');
         z-index: 10;
         box-shadow: effect('header-box-shadow');
-        transition: all 0.25s ease-in-out;
-        -moz-transition: all 0.25s ease-in-out;
-        -webkit-transition: all 0.25s ease-in-out;
-        -o-transition: all 0.25s ease-in-out;
+        transition: all 0.4s ease-in-out;
+        -moz-transition: all 0.4s ease-in-out;
+        -webkit-transition: all 0.4s ease-in-out;
+        -o-transition: all 0.4s ease-in-out;
 
         &_expanded {
             height: 64px;
@@ -24,6 +25,7 @@
 
         &_collapsed {
             max-height: 56px;
+            opacity: 0.85;
         }
     }
 
