@@ -6,9 +6,25 @@
         position: fixed;
         top: 0;
         left: 0;
+        width: 100%;
+        height: 56px;
+        max-height: 64px;
         background-color: color('primary');
         z-index: 10;
         box-shadow: effect('header-box-shadow');
+        transition: all 0.15s linear;
+        -moz-transition: all 0.15s linear;
+        -webkit-transition: all 0.15s linear;
+        -o-transition: all 0.15s linear;
+
+        &_expanded {
+            height: 64px;
+            max-height: 64px;
+        }
+
+        &_collapsed {
+            max-height: 56px;
+        }
     }
 
     &__header {

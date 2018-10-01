@@ -34,6 +34,7 @@ import {
     MatSidenavModule,
     MatToolbarModule
 } from "@angular/material";
+import { WINDOW_PROVIDERS } from "./@shared/services/window.service";
 
 // TODO: Organize
 @NgModule({
@@ -69,7 +70,7 @@ import {
         MatButtonToggleModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [AuthGuardService, CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY],
+    providers: [AuthGuardService, CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY, WINDOW_PROVIDERS],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

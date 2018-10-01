@@ -1,5 +1,7 @@
-import { Component, ElementRef, Input } from "@angular/core";
+import { Component, ElementRef, HostListener, Inject, Input } from "@angular/core";
 import { Profile } from "../objects/models/profile.model";
+import { DOCUMENT, NgClass } from "@angular/common";
+import { WINDOW } from "../@shared/services/window.service";
 
 const logoImage = require('../../images/logo/favicon.png');
 
@@ -17,8 +19,20 @@ export class HeaderComponent {
     @Input() profile: Profile;
     public logo = logoImage;
     public isOpen: boolean = false;
+    public isExpanded: boolean;
 
-    constructor(private _eref: ElementRef) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(WINDOW) private window,
+        private _eref: ElementRef
+    ) {}
+
+    @HostListener("window:scroll", [])
+    onWindowScroll() {
+        let number = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
+        console.log(number);
+        this.isExpanded = number === 0;
+    }
 
     // On click outside component
     onClick(event) {
