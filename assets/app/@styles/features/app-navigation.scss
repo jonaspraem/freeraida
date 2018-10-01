@@ -12,10 +12,10 @@
         background-color: color('primary');
         z-index: 10;
         box-shadow: effect('header-box-shadow');
-        transition: all 0.15s linear;
-        -moz-transition: all 0.15s linear;
-        -webkit-transition: all 0.15s linear;
-        -o-transition: all 0.15s linear;
+        transition: all 0.25s ease-in-out;
+        -moz-transition: all 0.25s ease-in-out;
+        -webkit-transition: all 0.25s ease-in-out;
+        -o-transition: all 0.25s ease-in-out;
 
         &_expanded {
             height: 64px;
