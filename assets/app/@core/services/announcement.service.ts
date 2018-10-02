@@ -2,10 +2,10 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from "@angular/core";
 import 'rxjs';
 
-import { Post } from "../objects/models/post.model";
-import { PostObject } from "../objects/interfaces/post-object";
-import { CONFIG } from "../dictionary/config";
-import { PostTransferModel } from "../objects/models/transfer-models/post-transfer.model";
+import { Post } from "../../objects/models/post.model";
+import { PostObject } from "../../objects/interfaces/post-object";
+import { CONFIG } from "../../dictionary/config";
+import { PostTransferModel } from "../../objects/models/transfer-models/post-transfer.model";
 
 interface SinglePostResponse {
     message: string;
@@ -24,7 +24,7 @@ interface UserListResponse {
 
 @Injectable()
 
-export class PostService {
+export class AnnouncementService {
     posts: Post[] = [];
     postIsEdit = new EventEmitter<Post>();
 

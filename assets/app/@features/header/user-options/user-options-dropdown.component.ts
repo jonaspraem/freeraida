@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
-import { Profile } from "../../objects/models/profile.model";
+import { Profile } from "../../../objects/models/profile.model";
 
 @Component({
     selector: 'app-user-options-dropdown',

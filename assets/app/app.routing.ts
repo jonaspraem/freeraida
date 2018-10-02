@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
-import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { LandingPageComponent } from "./@pages/landing-page/landing-page.component";
 import { LiveFeedComponent } from "./posts/feed/live-feed.component";
 import { RegisterLineComponent } from "./lines/register/register-line.component";
 import { LineHistoryComponent } from "./lines/line-history/line-history.component";
@@ -12,9 +12,10 @@ import { EventsComponent } from "./coming-soon/events/events.component";
 import { SettingsComponent } from "./profile/settings/settings.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { AfterRegistrationComponent } from "./lines/after-registration/after-registration.component";
+import { HomePageComponent } from "./@pages/home-page/home-page.component";
 
 const APP_ROUTES: Routes = [
-   // { path: '', redirectTo: 'landing-page', pathMatch: 'full'},
+    { path: '', component: HomePageComponent},
     { path: 'landing-page', component: LandingPageComponent },
     { path: 'feed', component: LiveFeedComponent},
     { path: 'register-line', component: RegisterLineComponent},

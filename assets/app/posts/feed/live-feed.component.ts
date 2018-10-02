@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Post } from "../../objects/models/post.model";
 import { Profile } from "../../objects/models/profile.model";
-import { PostService } from "../post.service";
+import { AnnouncementService } from "../../@core/services/announcement.service";
 import { ProfileService } from "../../profile/profile.service";
 import { Subscription } from "rxjs/Subscription";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
@@ -20,7 +20,7 @@ export class LiveFeedComponent {
 
     private subscription_ticker: Subscription;
 
-    constructor(private post_service: PostService,
+    constructor(private post_service: AnnouncementService,
                 private profile_service: ProfileService) {
         this.instance = this;
     }

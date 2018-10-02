@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Post } from "../objects/models/post.model";
-import { PostService } from "./post.service";
+import { AnnouncementService } from "../@core/services/announcement.service";
 import { COLOR_DICTIONARY } from "../dictionary/color-dictionary";
 import { Router } from "@angular/router";
 import { Profile } from "../objects/models/profile.model";
-import { PostViewModel } from "./post.viewmodel";
+import { PostModel } from "../@models/viewmodels/post.model";
 
 const gnarly_primary = require('../../images/gnarly/gnarly_primary.png');
 const gnarly_secondary = require('../../images/gnarly/gnarly_secondary.png');
@@ -20,7 +20,7 @@ export class PostComponent implements OnInit{
     @Output() deleteEvent: EventEmitter<string> = new EventEmitter<string>();
     @Input() post: Post;
     @Input() profile: Profile;
-    public postViewModel: PostViewModel;
+    public postViewModel: PostModel;
     private gnarly_primary = gnarly_primary;
     private gnarly_secondary = gnarly_secondary;
     private gnarly_secondary_light = gnarly_secondary_light;
@@ -28,12 +28,12 @@ export class PostComponent implements OnInit{
     isGnarly: boolean;
     isExpanded: boolean = false;
 
-    constructor(private post_service : PostService,
+    constructor(private post_service : AnnouncementService,
                 public color_dictionary : COLOR_DICTIONARY,
                 private router : Router) {}
 
     ngOnInit(): void {
-        this.postViewModel = new PostViewModel(this.post);
+        this.postViewModel = new PostModel(this.post);
         if (this.post.gnarly) {
             this.isGnarly = (this.post.gnarly.indexOf(this.profile.user_address) > -1);
         } else this.isGnarly = false;

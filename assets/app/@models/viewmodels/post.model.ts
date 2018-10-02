@@ -1,6 +1,6 @@
-import { Post } from "../objects/models/post.model";
+import { Post } from "../../objects/models/post.model";
 
-export class PostViewModel {
+export class PostModel {
     content: string;
     expanded_content: string;
 

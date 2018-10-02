@@ -1,18 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthenticationService } from "../@core/services/authentication.service";
-import { FLAG_DICTIONARY } from "../dictionary/flag-dictionary";
+import { AuthenticationService } from "../../@core/services/authentication.service";
+import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { LoginRequest } from "../@core/interfaces/authentication/LoginRequest";
-import { UsernameValidator } from "../@shared/form-validators/UsernameValidator";
-import { PasswordValidator } from "../@shared/form-validators/PasswordValidator";
-import signup_messages from "./constants/SignupValidationMessages";
-import { SignUpRequest } from "../@core/interfaces/authentication/SignUpRequest";
+import { LoginInterface } from "../../@models/interfaces/authentication/login.interface";
+import { UsernameValidator } from "../../@shared/form-validators/UsernameValidator";
+import { PasswordValidator } from "../../@shared/form-validators/PasswordValidator";
+import signup_messages from "./SignupValidationMessages";
+import { SignupInterface } from "../../@models/interfaces/authentication/signup.interface";
 
-const image = require('../../images/350214-mountain-view.jpg');
+const image = require('../../../images/350214-mountain-view.jpg');
 
-const logoImage = require('../../images/logo/favicon.png');
-const backgroundImage = require('../../images/backgrounds/snow-3193865_1920.jpg');
+const logoImage = require('../../../images/logo/favicon.png');
+const backgroundImage = require('../../../images/backgrounds/snow-3193865_1920.jpg');
 
 @Component({
     selector: 'app-landing-page',
@@ -67,7 +67,7 @@ export class LandingPageComponent implements OnInit {
 
     onLogin() {
         console.log('logging in..');
-        let request: LoginRequest;
+        let request: LoginInterface;
         if (this.loginForm.controls.user_input.value.includes('@')) {
             request = {
                 email: this.loginForm.controls.user_input.value,
@@ -79,14 +79,12 @@ export class LandingPageComponent implements OnInit {
                 password: this.loginForm.controls.password.value
             };
         }
-        this.authService.login(request).subscribe(data => {
-            console.log(data);
-        });
+        this.authService.login(request);
     }
 
     onSignup() {
         console.log('signing up..');
-        let request: SignUpRequest = {
+        let request: SignupInterface = {
             email: this.signupForm.controls.email.value,
             username: this.signupForm.controls.username.value,
             firstname: this.signupForm.controls.firstname.value,
@@ -95,7 +93,7 @@ export class LandingPageComponent implements OnInit {
             password_confirmation: this.signupForm.controls.password_confirmation.value,
             country: this.signupForm.controls.country.value,
         };
-        this.authService.signup(request).subscribe(data => console.log(data));
+        this.authService.signup(request);
     }
 
     onGoogle() {

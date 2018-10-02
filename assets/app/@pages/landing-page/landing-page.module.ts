@@ -6,7 +6,6 @@ import {
     MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatCardModule, MatFormFieldModule, MatInputModule, MatSidenavModule,
     MatTabsModule, MatToolbarModule
 } from "@angular/material";
-import { AssetsModule } from "../@shared/assets/assets.module";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
 
 @NgModule({
@@ -18,7 +17,6 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
         ReactiveFormsModule,
         MDBBootstrapModule.forRoot(),
         FormsModule,
-        AssetsModule,
         MatToolbarModule,
         MatSidenavModule,
         MatCardModule,

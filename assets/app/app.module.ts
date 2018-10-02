@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { appRouting } from "./app.routing";
 
-import { LandingPageModule } from "./landing-page/landing-page.module";
+import { LandingPageModule } from "./@pages/landing-page/landing-page.module";
 import { AuthGuardService } from "./auth/auth-guard.service";
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
@@ -15,9 +15,9 @@ import { CONFIG } from "./dictionary/config";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from "./@core/core.module";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
-import { HeaderComponent } from "./header/header.component";
+import { HeaderComponent } from "./@features/header/header.component";
 import { SidenavComponent } from "./sidenav/sidenav.component";
-import { UserOptionsDropdownComponent } from "./header/user-options/user-options-dropdown.component";
+import { UserOptionsDropdownComponent } from "./@features/header/user-options/user-options-dropdown.component";
 import { CommonModule } from "@angular/common";
 import { ProfileModule } from "./profile/profile.module";
 import { LineModule } from "./lines/line.module";
@@ -34,7 +34,8 @@ import {
     MatSidenavModule,
     MatToolbarModule
 } from "@angular/material";
-import { WINDOW_PROVIDERS } from "./@shared/services/window.service";
+import { WINDOW_PROVIDERS } from "./@core/services/window.service";
+import { FeatureModule } from "./@pages/feature.module";
 
 // TODO: Organize
 @NgModule({
@@ -60,6 +61,7 @@ import { WINDOW_PROVIDERS } from "./@shared/services/window.service";
         PostModule,
         RidesModule,
         ComingSoonModule,
+        FeatureModule,
         // Material design modules:
         MatSidenavModule,
         MatCardModule,

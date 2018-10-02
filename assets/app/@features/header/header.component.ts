@@ -1,9 +1,10 @@
 import { Component, ElementRef, HostListener, Inject, Input } from "@angular/core";
-import { Profile } from "../objects/models/profile.model";
+import { Profile } from "../../objects/models/profile.model";
 import { DOCUMENT, NgClass } from "@angular/common";
-import { WINDOW } from "../@shared/services/window.service";
+import { WINDOW } from "../../@core/services/window.service";
+import { AuthenticationService } from "../../@core/services/authentication.service";
 
-const logoImage = require('../../images/logo/favicon.png');
+const logoImage = require('../../../images/logo/favicon.png');
 
 @Component({
     host: {
@@ -25,7 +26,8 @@ export class HeaderComponent {
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) private window,
-        private _eref: ElementRef
+        private _eref: ElementRef,
+        private authService: AuthenticationService
     ) {}
 
     @HostListener("window:scroll", [])
