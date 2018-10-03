@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from "@angular/router";
-import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
+import { AuthGuardService as AuthGuard } from './@core/services/auth-guard.service';
 import { LandingPageComponent } from "./@pages/landing-page/landing-page.component";
 import { LiveFeedComponent } from "./posts/feed/live-feed.component";
 import { RegisterLineComponent } from "./lines/register/register-line.component";
@@ -15,9 +15,8 @@ import { AfterRegistrationComponent } from "./lines/after-registration/after-reg
 import { HomePageComponent } from "./@pages/home-page/home-page.component";
 
 const APP_ROUTES: Routes = [
-    { path: '', component: HomePageComponent},
+    { path: '', component: HomePageComponent, canActivate: [AuthGuard]},
     { path: 'landing-page', component: LandingPageComponent },
-    { path: 'feed', component: LiveFeedComponent},
     { path: 'register-line', component: RegisterLineComponent},
     { path: 'line-history', component: LineHistoryComponent},
     { path: 'track', component: TrackPageComponent},
@@ -28,7 +27,6 @@ const APP_ROUTES: Routes = [
     { path: 'settings', component: SettingsComponent},
     { path: 'user/:id', component: ProfileComponent},
     { path: 'tracked-line/:id', component: AfterRegistrationComponent},
-   // { path: '**', redirectTo: '', pathMatch: 'full'},
 ];
 
 export const appRouting = RouterModule.forRoot(APP_ROUTES);

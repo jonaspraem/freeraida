@@ -93,7 +93,7 @@ export class LandingPageComponent implements OnInit {
             password_confirmation: this.signupForm.controls.password_confirmation.value,
             country: this.signupForm.controls.country.value,
         };
-        this.authService.signup(request);
+        this.authService.register(request);
     }
 
     onGoogle() {

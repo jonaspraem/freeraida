@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ProfileService } from "./profile.service";
+import { ProfileService } from "../@core/services/profile.service";
 import { Profile } from "../objects/models/profile.model";
 import { LineService } from "../lines/line.service";
 import { Line } from "../objects/models/line.model";

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ProfileService } from "../profile.service";
+import { ProfileService } from "../../@core/services/profile.service";
 import { Profile } from "../../objects/models/profile.model";
 import { Router } from "@angular/router";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";

@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { appRouting } from "./app.routing";
 
 import { LandingPageModule } from "./@pages/landing-page/landing-page.module";
-import { AuthGuardService } from "./auth/auth-guard.service";
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
 import { CONFIG } from "./dictionary/config";
@@ -72,7 +71,7 @@ import { FeatureModule } from "./@pages/feature.module";
         MatButtonToggleModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [AuthGuardService, CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY, WINDOW_PROVIDERS],
+    providers: [CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY, WINDOW_PROVIDERS],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

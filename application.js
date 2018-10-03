@@ -14,7 +14,7 @@ const index = require('./routes/app');
 const authRoutes = require('./routes/authenticate');
 const postRoutes = require('./routes/posts');
 const connectRoutes = require('./routes/connect');
-const profileRoutes = require('./routes/profile');
+const userProfileRoutes = require('./routes/user-profile');
 const lineRoutes = require('./routes/lines');
 const lineInfoRoutes = require('./routes/lineinfo');
 
@@ -67,12 +67,12 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/authentication', authRoutes);
-app.use('/post', postRoutes);
-app.use('/connect', connectRoutes);
-app.use('/profile', profileRoutes);
-app.use('/lineservice', lineRoutes);
-app.use('/line-info', lineInfoRoutes);
+app.use('/api/authentication', authRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/connect', connectRoutes);
+app.use('/api/user-profile', userProfileRoutes);
+app.use('/api/lineservice', lineRoutes);
+app.use('/api/line-info', lineInfoRoutes);
 app.use('/', index);
 
 // catch 404 and forward to error handler

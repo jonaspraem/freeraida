@@ -3,11 +3,12 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
-const Profile = require('../models/schemas/user-profile');
+const MODEL_PATH = '../models/schemas/';
+const UserProfile = require(MODEL_PATH + 'user-profile');
 
 // Get user profile
 router.get('/user/:address', (req, res, next) => {
-    Profile.findOne({user_address: req.params.address}, (p_err, profile) => {
+    UserProfile.findOne({user_address: req.params.address}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
                 title: 'An error occurred',
@@ -21,7 +22,7 @@ router.get('/user/:address', (req, res, next) => {
             });
         }
         return res.status(200).json({
-            message: 'Profile successfully received',
+            message: 'UserProfile successfully received',
             obj: profile
         });
     });
@@ -29,7 +30,7 @@ router.get('/user/:address', (req, res, next) => {
 
 // Get user addresses
 router.get('/user-list/', (req, res, next) => {
-    Profile.find({}, 'user_address', (err, users) => {
+    UserProfile.find({}, 'user_address', (err, users) => {
         console.log(users);
         return res.status(200).json({
             message: 'User list successfully generated',
@@ -53,7 +54,7 @@ router.use('/', (req, res, next) => {
 
 // Check availability of user address TODO move to unprotected
 router.get('/user-address/:address', (req, res, next) => {
-    Profile.findOne({user_address: req.params.address}, (p_err, profile) => {
+    UserProfile.findOne({user_address: req.params.address}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
                 title: 'An error occurred',
@@ -75,10 +76,10 @@ router.get('/user-address/:address', (req, res, next) => {
     });
 });
 
-// Create new profile
+// Create new profile TODO Remove
 router.post('/new', (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
-    Profile.findOne({user_id: decoded.user._id}, (p_err, profile) => {
+    UserProfile.findOne({user_id: decoded.user._id}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
                 title: 'An error occurred',
@@ -87,7 +88,7 @@ router.post('/new', (req, res, next) => {
         }
         if (!profile) {
             // If none exists, create new
-            const profile_schema = new Profile({
+            const profile_schema = new UserProfile({
                 user_id: body.user_id,
                 user_address: req.body.user_address,
                 firstname: req.body.firstname,
@@ -121,7 +122,7 @@ router.post('/new', (req, res, next) => {
 // Get user profile with token
 router.get('/user-info', (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
-    Profile.findOne({user_id: decoded.user._id}, (p_err, profile) => {
+    UserProfile.findOne({user: decoded.user._id}, (p_err, profile) => {
         if (p_err) {
             return res.status(500).json({
                 title: 'An error occurred',
@@ -135,7 +136,7 @@ router.get('/user-info', (req, res, next) => {
             });
         }
         return res.status(201).json({
-            message: 'Profile successfully received',
+            message: 'UserProfile successfully received',
             obj: profile
         });
     });
@@ -144,7 +145,7 @@ router.get('/user-info', (req, res, next) => {
 // Edit profile
 router.patch('/edit-profile', (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
-    Profile.findOne({user_id: decoded.user._id}, (err, profile) => {
+    UserProfile.findOne({user_id: decoded.user._id}, (err, profile) => {
         if (err) {
             return res.status(500).json({
                 title: 'An error occurred',

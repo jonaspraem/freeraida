@@ -80,7 +80,7 @@ router.post('/login', (req, res, done) => {
     }
 });
 
-router.post('/signup', (req, res, next) => {
+router.post('/register', (req, res, next) => {
     console.log('enlisting user..', req.body.username);
     // Required properties
     if (req.body.email &&
@@ -138,7 +138,7 @@ router.post('/signup', (req, res, next) => {
             });
         } else {
             return res.status(401).json({
-                title: 'Failed to signup',
+                title: 'Failed to register',
                 message: 'passwords didn\'t match'
             });
         } 

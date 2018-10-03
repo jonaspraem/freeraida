@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { Post } from "../../objects/models/post.model";
 import { Profile } from "../../objects/models/profile.model";
 import { AnnouncementService } from "../../@core/services/announcement.service";
-import { ProfileService } from "../../profile/profile.service";
+import { ProfileService } from "../../@core/services/profile.service";
 import { Subscription } from "rxjs/Subscription";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
 import { LineLocation } from "../../objects/models/line-location.model";

@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs';
 
-import { Profile } from "../objects/models/profile.model";
-import { ProfileObject } from "../objects/interfaces/profile-object.interface";
-import { CONFIG } from "../dictionary/config";
+import { Profile } from "../../objects/models/profile.model";
+import { ProfileObject } from "../../objects/interfaces/profile-object.interface";
+import { CONFIG } from "../../dictionary/config";
 
 interface ProfileResponse {
     message: string;
@@ -20,8 +20,9 @@ interface AddressResponse {
 
 export class ProfileService {
 
-    constructor(private http: HttpClient,
-                private config: CONFIG
+    constructor(
+        private http: HttpClient,
+        private config: CONFIG
     ) {}
 
     getProfile(user_address: string) {
@@ -29,9 +30,9 @@ export class ProfileService {
     }
 
     getProfileWithToken() {
-        const token = localStorage.getItem('id_token');
-        const headers = new HttpHeaders({'Acces-Control-Allow-Origin': '*'});
-        return this.http.get<ProfileResponse>(this.config.getEndpoint() + '/profile/user-info', {headers: headers, params: new HttpParams().set('token', token)});
+        const token = localStorage.getItem('api_token');
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        return this.http.get<ProfileResponse>(this.config.getEndpoint() + '/api/profile/user-info', {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     addressIsAvailable(address: string) {

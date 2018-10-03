@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 // Material design
 import { MatButtonModule, MatCardModule, MatFormFieldModule } from "@angular/material";
 
-import { ProfileService } from "./profile.service";
+import { ProfileService } from "../@core/services/profile.service";
 import { ProfileComponent } from "./profile.component";
 import { profileRouting } from "./profile.routing";
 import { PostModule } from "../posts/post.module";

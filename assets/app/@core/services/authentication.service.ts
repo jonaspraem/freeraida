@@ -19,7 +19,7 @@ export class AuthenticationService {
     login(request: LoginInterface) {
         const body = JSON.stringify(request);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        this.http.post(this.config.getEndpoint() + '/authentication/login/', body, {headers: headers})
+        this.http.post(this.config.getEndpoint() + '/api/authentication/login/', body, {headers: headers})
             .subscribe((data: any) => {
                 console.log(data);
                 localStorage.setItem('api_token', data.token);
@@ -27,10 +27,10 @@ export class AuthenticationService {
             });
     }
 
-    signup(request: SignupInterface) {
+    register(request: SignupInterface) {
         const body = JSON.stringify(request);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        this.http.post(this.config.getEndpoint() + '/authentication/signup/', body, {headers: headers})
+        this.http.post(this.config.getEndpoint() + '/api/authentication/register/', body, {headers: headers})
             .subscribe((data: any) => {
                 console.log(data);
                 localStorage.setItem('api_token', data.token);
@@ -38,14 +38,22 @@ export class AuthenticationService {
             });
     }
 
-    getUserProfileWithToken() {
-
+    logout() {
+        localStorage.removeItem('api_token');
+        this.router.navigate(['/landing-page']);
     }
 
-    getUserProfile(username: string) {
-
+    isAuthenticated(): boolean {
+        const token = localStorage.getItem('api_token');
+        return !this.isTokenExpired(token);
     }
 
-
+    private isTokenExpired(token: string) {
+        if (token === null) {
+            return true;
+        }
+        // check experation
+        return false;
+    }
 
 }
