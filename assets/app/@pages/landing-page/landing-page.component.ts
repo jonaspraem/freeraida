@@ -37,14 +37,14 @@ export class LandingPageComponent implements OnInit {
             UsernameValidator.validUsername,
             Validators.required,
             Validators.maxLength(25),
-            Validators.minLength(3)
+            Validators.minLength(2)
         ])),
         firstname: new FormControl('', Validators.required),
         surname: new FormControl('', Validators.required),
         password: new FormControl('', Validators.compose([
             Validators.minLength(5),
-            Validators.required,
-            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
+            Validators.required
+            // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
         ])),
         password_confirmation: new FormControl('', Validators.required),
         country: new FormControl('', Validators.required)

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import './@styles/styles.scss';
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { Event, NavigationStart, Router } from "@angular/router";
+import { ProfileService } from "./@core/services/profile.service";
 
 @Component({
     selector: 'app-root',
@@ -12,7 +13,8 @@ export class AppComponent implements OnInit {
     private nonAppUrls = ['/landing-page'];
 
     constructor(
-        private router: Router
+        private router: Router,
+        private profileService: ProfileService
     ) {}
 
     ngOnInit() {
@@ -22,6 +24,7 @@ export class AppComponent implements OnInit {
                 console.log(this.isComponentApp);
             }
         });
+        this.profileService.getProfileWithToken();
         FLAG_DICTIONARY.initialize();
     }
 

@@ -5,6 +5,7 @@ import 'rxjs';
 import { Profile } from "../../objects/models/profile.model";
 import { ProfileObject } from "../../objects/interfaces/profile-object.interface";
 import { CONFIG } from "../../dictionary/config";
+import { Router } from "@angular/router";
 
 interface ProfileResponse {
     message: string;
@@ -19,20 +20,29 @@ interface AddressResponse {
 @Injectable()
 
 export class ProfileService {
+    public userProfile: any;
 
     constructor(
         private http: HttpClient,
-        private config: CONFIG
+        private config: CONFIG,
+        private router: Router
     ) {}
 
-    getProfile(user_address: string) {
-        return this.http.get<ProfileResponse>(this.config.getEndpoint() + '/profile/user/'+user_address);
+    getProfile(username: string) {
+        return this.http.get<ProfileResponse>(this.config.getEndpoint() + '/api/user-profile/user/'+username);
     }
 
-    getProfileWithToken() {
+    getProfileWithToken(): void {
         const token = localStorage.getItem('api_token');
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        return this.http.get<ProfileResponse>(this.config.getEndpoint() + '/api/profile/user-info', {headers: headers, params: new HttpParams().set('token', token)});
+        this.http.get<ProfileResponse>(this.config.getEndpoint() + '/api/user-profile/user-info', {headers: headers, params: new HttpParams().set('token', token)})
+            .subscribe(
+                data => {
+                    this.userProfile = data;
+                    this.router.navigate(['/']);
+                },
+                err => {}
+            );
     }
 
     addressIsAvailable(address: string) {

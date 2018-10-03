@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService as AuthGuard } from './@core/services/auth-guard.service';
 import { LandingPageComponent } from "./@pages/landing-page/landing-page.component";
-import { LiveFeedComponent } from "./posts/feed/live-feed.component";
 import { RegisterLineComponent } from "./lines/register/register-line.component";
 import { LineHistoryComponent } from "./lines/line-history/line-history.component";
 import { TrackPageComponent } from "./tracker/track.component";
