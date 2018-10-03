@@ -6,6 +6,7 @@ const schema = new Schema({
     username: {type: String, required: true, unique: true},
     firstname: {type: String, required: true},
     surname: {type: String, required: true},
+    fullname: {type: String, required: true},
     country: {type: String, required: false},
     bio: {type: String, required: false},
     social_twitter: {type: String, required: false},

@@ -109,6 +109,7 @@ router.post('/signup', (req, res, next) => {
                 username: req.body.username.toLowerCase(),
                 firstname: req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.toLowerCase().slice(1),
                 surname: req.body.surname.charAt(0).toUpperCase() + req.body.surname.toLowerCase().slice(1),
+                fullname: this.firstname + ' ' + this.surname,
                 country: req.body.country
             });
             user_credentials.save((err, result) => {
