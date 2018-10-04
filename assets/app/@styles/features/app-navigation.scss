@@ -39,7 +39,28 @@
 
 .app-container {
     /* This is mostly intended for prototyping;  the pattern and re-host for production environments. Thank you! */
-    background: #fffcfc url("https://www.transparenttextures.com/patterns/beige-paper.png");
+    background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
     height: 100vh;
-    opacity: 0.8;
+    margin-left: 500px;
+}
+
+.sidenav {
+    &__container {
+        background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 100px 20px;
+        width: 500px;
+        height: 100%;
+        z-index: 2;
+        border-right: 1px solid color('primary');
+    }
+
+    &__border {
+        background-color: color('primary');
+        margin: 40px 0;
+        width: 3px;
+        height: 100%;
+    }
 }

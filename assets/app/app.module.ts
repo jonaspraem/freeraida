@@ -15,7 +15,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from "./@core/core.module";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { HeaderComponent } from "./@features/header/header.component";
-import { SidenavComponent } from "./sidenav/sidenav.component";
 import { UserOptionsDropdownComponent } from "./@features/header/user-options/user-options-dropdown.component";
 import { CommonModule } from "@angular/common";
 import { ProfileModule } from "./profile/profile.module";
@@ -24,6 +23,8 @@ import { TrackPageModule } from "./tracker/track.module";
 import { PostModule } from "./posts/post.module";
 import { RidesModule } from "./lines/line-history/line-history.module";
 import { ComingSoonModule } from "./coming-soon/coming-soon.module";
+import { FeatureModule } from "./@features/features.module";
+import { PageModule } from './@pages/feature.module';
 import {
     MatButtonToggleModule,
     MatCardModule,
@@ -34,14 +35,12 @@ import {
     MatToolbarModule
 } from "@angular/material";
 import { WINDOW_PROVIDERS } from "./@core/services/window.service";
-import { FeatureModule } from "./@pages/feature.module";
 
 // TODO: Organize
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        SidenavComponent,
         UserOptionsDropdownComponent
     ],
     imports: [
@@ -61,6 +60,7 @@ import { FeatureModule } from "./@pages/feature.module";
         RidesModule,
         ComingSoonModule,
         FeatureModule,
+        PageModule,
         // Material design modules:
         MatSidenavModule,
         MatCardModule,
