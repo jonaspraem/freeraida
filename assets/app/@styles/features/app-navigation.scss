@@ -1,6 +1,8 @@
 @import '../lib/_colors';
 @import '../lib/_effects';
 
+$sidenav-width: 300px;
+
 .app-header {
     &__container {
         position: fixed;
@@ -42,7 +44,7 @@
     /* This is mostly intended for prototyping;  the pattern and re-host for production environments. Thank you! */
     background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
     height: 100vh;
-    margin-left: 500px;
+    margin-left: $sidenav-width;
 }
 
 .sidenav {
@@ -51,11 +53,38 @@
         position: fixed;
         top: 0;
         left: 0;
-        padding: 100px 20px;
-        width: 500px;
+        padding: 250px 20px;
+        width: $sidenav-width;
         height: 100%;
         z-index: 2;
         border-right: 1px solid color('primary');
+    }
+
+    &__list {
+        list-style: none;
+        text-align: right;
+        font-weight: 500;
+        font-size: 16px;
+        color: color('primary');
+        transition: color 0.35s ease-in-out;
+
+        li {
+            cursor: pointer;
+            text-transform: lowercase;
+
+            i {
+                opacity: 0;
+                transition: opacity 0.35s ease-in-out;
+            }
+
+            &:hover {
+                color: color('primary-light');
+
+                i {
+                    opacity: 1;
+                }
+            }
+        }
     }
 
     &__border {
