@@ -30,9 +30,10 @@
     }
 
     &__header {
-        margin-left: 30px;
+        margin: 5px 30px;
         color: white;
-        font-weight: 900;
+        font-weight: 800;
+        text-transform: lowercase;
         text-shadow: effect('header-text-shadow');
     }
 }
