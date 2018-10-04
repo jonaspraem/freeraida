@@ -105,6 +105,13 @@ router.post('/register', (req, res, next) => {
                 username: req.body.username.toLowerCase(),
                 password: req.body.password,
             });
+            const user_profile = new UserProfile({
+                username: req.body.username.toLowerCase(),
+                firstname: req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.toLowerCase().slice(1),
+                surname: req.body.surname.charAt(0).toUpperCase() + req.body.surname.toLowerCase().slice(1),
+                fullname: this.firstname + ' ' + this.surname,
+                country: req.body.country
+            });
             user_credentials.save((err, user) => {
                 if (err) {
                     console.log(err);
@@ -113,14 +120,6 @@ router.post('/register', (req, res, next) => {
                         message: 'Error saving the user credentials'
                     });
                 }
-                const user_profile = new UserProfile({
-                    user: user._id,
-                    username: req.body.username.toLowerCase(),
-                    firstname: req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.toLowerCase().slice(1),
-                    surname: req.body.surname.charAt(0).toUpperCase() + req.body.surname.toLowerCase().slice(1),
-                    fullname: this.firstname + ' ' + this.surname,
-                    country: req.body.country
-                });
                 user_profile.save((err, result) => {
                     if (err) {
                         console.log(err);

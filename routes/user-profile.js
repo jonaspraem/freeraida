@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
 const MODEL_PATH = '../models/schemas/';
+const UserCredentials = require(MODEL_PATH + 'user-credentials');
 const UserProfile = require(MODEL_PATH + 'user-profile');
 
 // Get user profile
@@ -122,22 +123,36 @@ router.post('/new', (req, res, next) => {
 // Get user profile with token
 router.get('/user-info', (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
-    UserProfile.findOne({user: decoded.user._id}, (p_err, profile) => {
-        if (p_err) {
+    UserCredentials.findById(decoded.user._id, (uc_err, user_credentials) => {
+        if (uc_err) {
             return res.status(500).json({
                 title: 'An error occurred',
-                error: p_err
+                message: uc_err
             });
         }
-        if (!profile) {
+        if (!user_credentials) {
             return res.status(400).json({
                 title: 'No profile found',
                 error: {message: 'No profile matching the id'}
             });
         }
-        return res.status(201).json({
-            message: 'UserProfile successfully received',
-            obj: profile
+        UserProfile.findOne({username: user_credentials.username}, (p_err, profile) => {
+            if (p_err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    error: p_err
+                });
+            }
+            if (!profile) {
+                return res.status(400).json({
+                    title: 'No profile found',
+                    error: {message: 'No profile matching the id'}
+                });
+            }
+            return res.status(201).json({
+                message: 'UserProfile successfully received',
+                obj: profile
+            });
         });
     });
 });
