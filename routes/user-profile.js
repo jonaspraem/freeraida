@@ -131,9 +131,9 @@ router.get('/user-info', (req, res, next) => {
             });
         }
         if (!user_credentials) {
-            return res.status(400).json({
+            return res.status(404).json({
                 title: 'No profile found',
-                error: {message: 'No profile matching the id'}
+                message: 'No profile matching the id'
             });
         }
         UserProfile.findOne({username: user_credentials.username}, (p_err, profile) => {
@@ -144,9 +144,9 @@ router.get('/user-info', (req, res, next) => {
                 });
             }
             if (!profile) {
-                return res.status(400).json({
+                return res.status(404).json({
                     title: 'No profile found',
-                    error: {message: 'No profile matching the id'}
+                    message: 'No profile matching the id'
                 });
             }
             return res.status(201).json({
