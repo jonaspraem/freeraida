@@ -33,13 +33,15 @@ export class ProfileService {
     }
 
     getProfileWithToken(): void {
+        console.log('status');
         const token = localStorage.getItem('api_token');
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         this.http.get<ProfileResponse>(this.config.getEndpoint() + '/api/user-profile/user-info', {headers: headers, params: new HttpParams().set('token', token)})
             .subscribe(
                 data => {
                     this.userProfile = data;
-                    this.router.navigate(['/']);
+                    console.log(data);
+                    //this.router.navigate(['/']);
                 },
                 err => {}
             );

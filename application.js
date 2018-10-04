@@ -68,9 +68,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/authentication', authRoutes);
+app.use('/api/user-profile', userProfileRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/connect', connectRoutes);
-app.use('/api/user-profile', userProfileRoutes);
 app.use('/api/lineservice', lineRoutes);
 app.use('/api/line-info', lineInfoRoutes);
 app.use('/', index);

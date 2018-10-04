@@ -123,7 +123,7 @@ router.post('/new', (req, res, next) => {
 // Get user profile with token
 router.get('/user-info', (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
-    UserCredentials.findById(decoded.user._id, (uc_err, user_credentials) => {
+    UserCredentials.findById(decoded.id, (uc_err, user_credentials) => {
         if (uc_err) {
             return res.status(500).json({
                 title: 'An error occurred',

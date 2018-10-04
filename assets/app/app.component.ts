@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
         this.router.events.subscribe((event: Event) => {
             if(event instanceof NavigationStart) {
                 this.isComponentApp = !this.nonAppUrls.includes(event.url);
-                console.log(this.isComponentApp);
             }
         });
         this.profileService.getProfileWithToken();

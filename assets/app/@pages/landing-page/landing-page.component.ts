@@ -54,9 +54,11 @@ export class LandingPageComponent implements OnInit {
 
     constructor(private fb: FormBuilder,
                 private router: Router,
-                private authService: AuthenticationService) {}
+                private authService: AuthenticationService
+    ) {}
 
     ngOnInit(): void {
+        this.authService.logout(); // Force logout
         this.countryList = FLAG_DICTIONARY.toList();
         this.messages = signup_messages;
     }
