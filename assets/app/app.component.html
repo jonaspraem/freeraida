@@ -1,7 +1,7 @@
 <ng-container *ngIf="isComponentApp; else noApp">
     <app-header></app-header>
     <app-sidenav></app-sidenav>
-    <div class="app-container" [ngStyle]="{'padding-top': '70px'}">
+    <div class="app-container">
         <router-outlet></router-outlet>
     </div>
 </ng-container>

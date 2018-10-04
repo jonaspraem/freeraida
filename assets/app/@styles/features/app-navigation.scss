@@ -49,8 +49,11 @@ $sidenav-width: 220px;
 .app-container {
     /* This is mostly intended for prototyping;  the pattern and re-host for production environments. Thank you! */
     background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     margin-left: $sidenav-width;
+    padding-top: 70px;
+    overflow: hidden;
 }
 
 .sidenav {
