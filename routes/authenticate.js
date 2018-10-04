@@ -109,7 +109,6 @@ router.post('/register', (req, res, next) => {
             const surname = req.body.surname.charAt(0).toUpperCase() + req.body.surname.toLowerCase().slice(1);
             const user_profile = new UserProfile({
                 username: req.body.username.toLowerCase(),
-                surname: req.body.surname.charAt(0).toUpperCase() + req.body.surname.toLowerCase().slice(1),
                 firstname: firstname,
                 surname: surname,
                 fullname: firstname + ' ' + surname,
