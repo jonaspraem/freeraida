@@ -52,11 +52,11 @@ $sidenav-width: 220px;
     position: fixed;
     width: 100%;
     /* This is mostly intended for prototyping;  the pattern and re-host for production environments. Thank you! */
-    background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
+    // background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
     height: auto;
     min-height: 100vh;
     margin-left: $sidenav-width;
-    padding-top: 70px;
+    // padding-top: 70px;
 }
 
 .sidenav {

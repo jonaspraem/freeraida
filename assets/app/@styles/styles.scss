@@ -10,5 +10,7 @@ $fa-font-path: '../../../node_modules/font-awesome/fonts';
 @import './assets/buttons';
 @import './assets/inputs';
 
+@import './shared/app-component';
+
 @import './features/app-navigation';
 @import './features/landing-page';
