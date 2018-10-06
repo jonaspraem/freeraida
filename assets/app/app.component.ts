@@ -3,10 +3,12 @@ import './@styles/styles.scss';
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { Event, NavigationStart, Router } from "@angular/router";
 import { ProfileService } from "./@core/services/profile.service";
+import { routerTransition } from "./@shared/animations/router-transition.animation";
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html'
+    templateUrl: './app.component.html',
+    animations: [routerTransition]
 })
 export class AppComponent implements OnInit {
     public isComponentApp: boolean;
@@ -27,4 +29,7 @@ export class AppComponent implements OnInit {
         FLAG_DICTIONARY.initialize();
     }
 
+    getState(outlet) {
+        return outlet.activatedRouteData.state;
+    }
 }

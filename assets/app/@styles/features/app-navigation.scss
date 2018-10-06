@@ -34,10 +34,12 @@ $sidenav-width: 220px;
     }
 
     &__header {
+        font-size: 45px;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-family: "Berlin Sans FB", sans-serif;
         margin-left: 30px;
         color: white;
-        font-weight: 800;
-        text-transform: lowercase;
         text-shadow: effect('header-text-shadow');
         transition: all 0.4s ease-in-out;
         -moz-transition: all 0.4s ease-in-out;
@@ -47,13 +49,14 @@ $sidenav-width: 220px;
 }
 
 .app-container {
+    position: fixed;
+    width: 100%;
     /* This is mostly intended for prototyping;  the pattern and re-host for production environments. Thank you! */
     background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
     height: auto;
     min-height: 100vh;
     margin-left: $sidenav-width;
     padding-top: 70px;
-    overflow: hidden;
 }
 
 .sidenav {
@@ -85,7 +88,8 @@ $sidenav-width: 220px;
                 transition: opacity 0.35s ease-in-out;
             }
 
-            &:hover {
+            &:hover, &:focus, &.active {
+                outline: none;
                 color: color('primary-light');
 
                 i {

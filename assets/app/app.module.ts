@@ -35,6 +35,7 @@ import {
     MatToolbarModule
 } from "@angular/material";
 import { WINDOW_PROVIDERS } from "./@core/services/window.service";
+import { RouterModule } from '@angular/router';
 
 // TODO: Organize
 @NgModule({
@@ -47,6 +48,7 @@ import { WINDOW_PROVIDERS } from "./@core/services/window.service";
         BrowserModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
+        RouterModule,
         appRouting,
         MDBBootstrapModule.forRoot(),
         HttpClientModule,

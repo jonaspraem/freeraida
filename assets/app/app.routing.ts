@@ -14,9 +14,10 @@ import { AfterRegistrationComponent } from "./lines/after-registration/after-reg
 import { HomePageComponent } from "./@pages/home-page/home-page.component";
 
 const APP_ROUTES: Routes = [
-    { path: '', component: HomePageComponent, canActivate: [AuthGuard]},
+    { path: '', redirectTo: 'home', pathMatch: 'full'},
+    { path: 'home', component: HomePageComponent, canActivate: [AuthGuard], data: { state: 'home' }},
     { path: 'landing-page', component: LandingPageComponent },
-    { path: 'register-line', component: RegisterLineComponent},
+    { path: 'register-line', component: RegisterLineComponent, canActivate: [AuthGuard], data: { state: 'new-line' }},
     { path: 'line-history', component: LineHistoryComponent},
     { path: 'track', component: TrackPageComponent},
     { path: 'school', component: BeginnersGuideComponent},
