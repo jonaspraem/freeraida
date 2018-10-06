@@ -51,12 +51,21 @@ $sidenav-width: 220px;
 .app-container {
     position: fixed;
     width: 100%;
-    /* This is mostly intended for prototyping;  the pattern and re-host for production environments. Thank you! */
-    // background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
+    background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
     height: auto;
     min-height: 100vh;
     margin-left: $sidenav-width;
-    // padding-top: 70px;
+}
+
+.component-container {
+    position: absolute;
+    background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
+    left: 0;
+    right: -17px; /* Increase/Decrease this value for cross-browser compatibility */
+    padding-top: 70px;
+    padding-right: 220px;
+    overflow-y: scroll;
+    max-height: 100vh;
 }
 
 .sidenav {
