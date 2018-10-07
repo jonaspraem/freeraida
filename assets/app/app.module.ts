@@ -24,7 +24,7 @@ import { PostModule } from "./posts/post.module";
 import { RidesModule } from "./lines/line-history/line-history.module";
 import { ComingSoonModule } from "./coming-soon/coming-soon.module";
 import { FeatureModule } from "./@features/features.module";
-import { PageModule } from './@pages/feature.module';
+import { PageModule } from './@pages/pages.module';
 import {
     MatButtonToggleModule,
     MatCardModule,
@@ -36,6 +36,7 @@ import {
 } from "@angular/material";
 import { WINDOW_PROVIDERS } from "./@core/services/window.service";
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 // TODO: Organize
 @NgModule({
@@ -63,6 +64,7 @@ import { RouterModule } from '@angular/router';
         ComingSoonModule,
         FeatureModule,
         PageModule,
+        FontAwesomeModule,
         // Material design modules:
         MatSidenavModule,
         MatCardModule,
@@ -73,7 +75,13 @@ import { RouterModule } from '@angular/router';
         MatButtonToggleModule
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
-    providers: [CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY, WINDOW_PROVIDERS],
+    providers: [
+        CONFIG,
+        FontAwesomeModule,
+        FLAG_DICTIONARY,
+        COLOR_DICTIONARY,
+        WINDOW_PROVIDERS,
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

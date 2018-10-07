@@ -1,0 +1,24 @@
+@import '../lib/_colors';
+@import '../lib/_effects';
+$writer-size: 45px;
+$writer-icon-size: 25px;
+
+.announcement-writer-container {
+    position: fixed;
+    cursor: pointer;
+    background-color: color('primary');
+    right: 0;
+    top: 20%;
+    border-bottom-left-radius: $writer-size / 2;
+    border-top-left-radius: $writer-size / 2;
+    height: $writer-size * 1.2;
+    width: $writer-size * 1.8;
+    box-shadow: effect('element-shadow');
+
+    fa-icon {
+        position: absolute;
+        right: 25px;
+        top: ($writer-size * 1.2) / 5;
+        color: white;
+    }
+}

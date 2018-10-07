@@ -1,11 +1,13 @@
 @import '_colors';
 
-$header-box-shadow: rgba(#000, 0.8);
-$header-text-shadow: rgba(color('primary-lighter'), 0.7);
+$header-box-shadow-color: rgba(#000, 0.8);
+$header-text-shadow-color: rgba(color('primary-lighter'), 0.7);
+$element-shadow-color: rgba(#000, 0.6);
 
 $effects: (
-        'header-text-shadow': 2px 2px 20px $header-text-shadow,
-        'header-box-shadow': 5px 5px 20px $header-box-shadow
+        'header-text-shadow': 2px 2px 20px $header-text-shadow-color,
+        'header-box-shadow': 5px 5px 20px $header-box-shadow-color,
+        'element-shadow': 5px 5px 20px $element-shadow-color,
 );
 
 @function effect($key: 'primary') {
