@@ -1,4 +1,4 @@
-import { RouterModule, Routes } from "@angular/router";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { AuthGuardService as AuthGuard } from './@core/services/auth-guard.service';
 import { LandingPageComponent } from "./@pages/landing-page/landing-page.component";
 import { RegisterLineComponent } from "./lines/register/register-line.component";
@@ -29,4 +29,4 @@ const APP_ROUTES: Routes = [
     { path: 'tracked-line/:id', component: AfterRegistrationComponent},
 ];
 
-export const appRouting = RouterModule.forRoot(APP_ROUTES);
+export const appRouting = RouterModule.forRoot(APP_ROUTES, {preloadingStrategy: PreloadAllModules});
