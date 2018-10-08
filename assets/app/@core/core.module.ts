@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, Optional, SkipSelf } from "@angular/core";
 import { AuthenticationService } from "./services/authentication.service";
 import { AuthGuardService } from "./services/auth-guard.service";
 
@@ -9,4 +9,10 @@ import { AuthGuardService } from "./services/auth-guard.service";
     ]
 })
 
-export class CoreModule {}
+export class CoreModule {
+    constructor(@Optional() @SkipSelf() core: CoreModule) {
+        if (core) {
+            throw new Error('Core module already injected');
+        }
+    }
+}
