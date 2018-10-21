@@ -1,7 +1,10 @@
 $colors: (
         'primary': #141D2F,
-        'primary-light': #364F7F,
-        'primary-lighter': #6D9EFF
+        'primary-light': #1966FF,
+        'primary-lighter': #0055FF,
+        'secondary': #1B1E1B,
+        'tertiary': #B27B00,
+        'tertiary-lighter': #FFB000
 );
 
 @function color($key: 'primary') {

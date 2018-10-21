@@ -1,3 +1,11 @@
-<div class="announcement-writer-container">
+<div class="announcement-writer-icon">
     <fa-icon [icon]="icon" size="2x"></fa-icon>
+</div>
+<div #writerContainer class="announcement-writer">
+    <div class="announcement-writer__image__container">
+        <img [src]="defaultImage" class="announcement-writer__image">
+    </div>
+    <div class="announcement-writer__textwriter__container">
+        <div contentEditable="true" #writer class="announcement-writer__textwriter" (click)="expand()"></div>
+    </div>
 </div>

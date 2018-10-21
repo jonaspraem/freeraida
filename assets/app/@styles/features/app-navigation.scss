@@ -1,6 +1,8 @@
 @import '../lib/_colors';
 @import '../lib/_effects';
 
+$background-color: rgba(#fff, 1);
+$background-image: url("https://www.transparenttextures.com/patterns/blizzard.png");
 $sidenav-width: 220px;
 
 .app-header {
@@ -51,7 +53,7 @@ $sidenav-width: 220px;
 .app-container {
     position: fixed;
     width: 100%;
-    background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
+    background: $background-color $background-image;
     height: auto;
     min-height: 100vh;
     margin-left: $sidenav-width;
@@ -59,10 +61,10 @@ $sidenav-width: 220px;
 
 .component-container {
     position: absolute;
-    background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
+    background: $background-color $background-image;
     left: 0;
     right: -17px; /* Increase/Decrease this value for cross-browser compatibility */
-    padding-top: 70px;
+    padding-top: 100px;
     padding-right: 220px;
     overflow-y: scroll;
     max-height: 100vh;
@@ -70,7 +72,7 @@ $sidenav-width: 220px;
 
 .sidenav {
     &__container {
-        background: #fffafa url("https://www.transparenttextures.com/patterns/beige-paper.png");
+        background: $background-color $background-image;
         position: fixed;
         top: 0;
         left: 0;
