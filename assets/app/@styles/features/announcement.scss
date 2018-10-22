@@ -61,6 +61,11 @@ $writer-transition: 0.5s ease-in;
         background-color: white;
         transition: min-height $writer-transition;
 
+        &[contenteditable=true]:empty:before {
+            content: attr(placeholder);
+            display: block; /* For Firefox */
+        }
+
         &_open {
             min-height: 100px;
         }
