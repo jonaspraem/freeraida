@@ -7,11 +7,9 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome"; // TODO
 @NgModule({
     declarations: [
         SidenavComponent,
-        AnnouncementWriterComponent,
     ],
     exports: [
         SidenavComponent,
-        AnnouncementWriterComponent
     ],
     imports: [
         RouterModule,

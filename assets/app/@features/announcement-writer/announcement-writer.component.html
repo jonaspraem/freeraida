@@ -6,6 +6,10 @@
         <img [src]="defaultImage" class="announcement-writer__image">
     </div>
     <div class="announcement-writer__textwriter__container">
-        <div contentEditable="true" #writer class="announcement-writer__textwriter" (click)="expand()"></div>
+        <div contentEditable="true"
+             (input)="userInput=$event.target.textContent"
+             #writer
+             class="announcement-writer__textwriter"
+             (click)="expand()"></div>
     </div>
 </div>

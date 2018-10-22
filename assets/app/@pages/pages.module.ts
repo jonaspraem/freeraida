@@ -1,15 +1,12 @@
 import { NgModule } from "@angular/core";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { FeatureModule } from "../@features/features.module";
+import { HomePageModule } from "./home-page/home-page.module";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule({
-    declarations: [
-        HomePageComponent
-    ],
-    exports: [
-        HomePageComponent
-    ],
     imports: [
+        HomePageModule,
         FeatureModule,
     ]
 })
