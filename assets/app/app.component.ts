@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import './@styles/styles.scss';
+import '../styles/styles.scss';
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { Event, NavigationStart, Router } from "@angular/router";
-import { ProfileService } from "./@core/services/profile.service";
-import { routerTransition } from "./@shared/animations/router-transition.animation";
+import { ProfileService } from "./core/services/profile.service";
+import { routerTransition } from "./shared/animations/router-transition.animation";
 
 @Component({
     selector: 'app-root',

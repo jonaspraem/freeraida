@@ -1,17 +1,17 @@
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
-import { AuthGuardService as AuthGuard } from './@core/services/auth-guard.service';
-import { LandingPageComponent } from "./@pages/landing-page/landing-page.component";
-import { RegisterLineComponent } from "./lines/register/register-line.component";
-import { LineHistoryComponent } from "./lines/line-history/line-history.component";
-import { TrackPageComponent } from "./tracker/track.component";
-import { BeginnersGuideComponent } from "./coming-soon/beginners-guide/beginners-guide.component";
-import { WikiComponent } from "./coming-soon/wiki/wiki.component";
-import { ForumsComponent } from "./coming-soon/forums/forums.component";
-import { EventsComponent } from "./coming-soon/events/events.component";
-import { SettingsComponent } from "./profile/settings/settings.component";
-import { ProfileComponent } from "./profile/profile.component";
-import { AfterRegistrationComponent } from "./lines/after-registration/after-registration.component";
-import { HomePageComponent } from "./@pages/home-page/home-page.component";
+import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
+import { LandingPageComponent } from "./pages/landing-page/landing-page.component";
+import { RegisterLineComponent } from "./legacy/lines/register/register-line.component";
+import { LineHistoryComponent } from "./legacy/lines/line-history/line-history.component";
+import { TrackPageComponent } from "./legacy/tracker/track.component";
+import { BeginnersGuideComponent } from "./legacy/coming-soon/beginners-guide/beginners-guide.component";
+import { WikiComponent } from "./legacy/coming-soon/wiki/wiki.component";
+import { ForumsComponent } from "./legacy/coming-soon/forums/forums.component";
+import { EventsComponent } from "./legacy/coming-soon/events/events.component";
+import { SettingsComponent } from "./legacy/profile/settings/settings.component";
+import { ProfileComponent } from "./legacy/profile/profile.component";
+import { AfterRegistrationComponent } from "./legacy/lines/after-registration/after-registration.component";
+import { HomePageComponent } from "./pages/home-page/home-page.component";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},

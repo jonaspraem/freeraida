@@ -7,24 +7,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { appRouting } from "./app.routing";
 
-import { LandingPageModule } from "./@pages/landing-page/landing-page.module";
+import { LandingPageModule } from "./pages/landing-page/landing-page.module";
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
 import { CONFIG } from "./dictionary/config";
 import { ReactiveFormsModule } from "@angular/forms";
-import { CoreModule } from "./@core/core.module";
+import { CoreModule } from "./core/core.module";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
-import { HeaderComponent } from "./@features/header/header.component";
-import { UserOptionsDropdownComponent } from "./@features/header/user-options/user-options-dropdown.component";
+import { HeaderComponent } from "./features/header/header.component";
+import { UserOptionsDropdownComponent } from "./features/header/user-options/user-options-dropdown.component";
 import { CommonModule } from "@angular/common";
-import { ProfileModule } from "./profile/profile.module";
-import { LineModule } from "./lines/line.module";
-import { TrackPageModule } from "./tracker/track.module";
-import { PostModule } from "./posts/post.module";
-import { RidesModule } from "./lines/line-history/line-history.module";
-import { ComingSoonModule } from "./coming-soon/coming-soon.module";
-import { FeatureModule } from "./@features/features.module";
-import { PageModule } from './@pages/pages.module';
+import { ProfileModule } from "./legacy/profile/profile.module";
+import { LineModule } from "./legacy/lines/line.module";
+import { TrackPageModule } from "./legacy/tracker/track.module";
+import { PostModule } from "./legacy/posts/post.module";
+import { RidesModule } from "./legacy/lines/line-history/line-history.module";
+import { ComingSoonModule } from "./legacy/coming-soon/coming-soon.module";
+import { FeatureModule } from "./features/features.module";
+import { PageModule } from './pages/pages.module';
 import {
     MatButtonToggleModule,
     MatCardModule,
@@ -34,7 +34,7 @@ import {
     MatSidenavModule,
     MatToolbarModule
 } from "@angular/material";
-import { WINDOW_PROVIDERS } from "./@core/services/window.service";
+import { WINDOW_PROVIDERS } from "./core/services/window.service";
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
