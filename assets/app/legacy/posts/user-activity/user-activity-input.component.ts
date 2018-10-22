@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { AnnouncementService } from "../../../core/services/announcement.service";
-import { NgForm } from "@angular/forms";
 
 import { Post } from "../../objects/models/post.model";
 import { Profile } from "../../objects/models/profile.model";

@@ -1,9 +1,9 @@
 import { Component, Input } from "@angular/core";
-import { AnnouncementService } from "../../core/services/announcement.service";
+import { AnnouncementService } from "../../../core/services/announcement.service";
 
 import { Post } from "../../objects/models/post.model";
 import { Profile } from "../../objects/models/profile.model";
-import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
+import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 import { PostTransferModel } from "../../objects/models/transfer-models/post-transfer.model";
 
 @Component({

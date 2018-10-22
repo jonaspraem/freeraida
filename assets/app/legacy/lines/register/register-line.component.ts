@@ -14,7 +14,7 @@ import { LineLocation } from "../../objects/models/line-location.model";
 @Component({
     selector: 'app-register-line',
     templateUrl: './register-line.component.html',
-    styleUrls: ['./register-line.component.css', '../../../../node_modules/nvd3/build/nv.d3.css'],
+    styleUrls: ['./register-line.component.css', '../../../../../node_modules/nvd3/build/nv.d3.css'],
     encapsulation: ViewEncapsulation.None
 })
 
