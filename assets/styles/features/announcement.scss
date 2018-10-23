@@ -58,6 +58,7 @@ $writer-transition: 0.5s ease-in;
         resize: none;
         overflow: hidden;
         border: none;
+        cursor: text;
         background-color: white;
         transition: min-height $writer-transition;
 
