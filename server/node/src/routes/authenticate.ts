@@ -10,59 +10,68 @@ const UserProfile = require(MODEL_PATH + 'user-profile');
 router.post('/login', async (req, res, done) => {
     if (req.body.username) {
         console.log('logging in with username', req.body.username);
+        let user;
+        let isMatch;
         try {
-            const user = await UserCredentials.findOne({username: req.body.username});
-            const isMatch = await user.validPassword(req.body.password);
-            if (!isMatch) {
-                return res.status(401).json({
-                    title: 'Failed to login',
-                    message: 'Username & password didn\'t match'
-                });
-            }
-            const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
-            res.status(200).json({
-                message: 'Successfully signed in',
-                auth: true,
-                token: token,
-            });
+            user = await UserCredentials.findOne({username: req.body.username});
         }  catch (err) {
-            console.log('error looking up user', err);
             return res.status(500).json({
                 title: 'An error occurred',
                 message: 'Error looking up user'
             });
         }
+        try {
+            isMatch = await user.validPassword(req.body.password);
+        } catch (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                message: 'Error validation the password'
+            });
+        }
+        if (!isMatch) {
+            return res.status(401).json({
+                title: 'Failed to login',
+                message: 'Username & password didn\'t match'
+            });
+        }
+        const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
+        return res.status(200).json({
+            message: 'Successfully signed in',
+            auth: true,
+            token: token,
+        });
     }
     else if (req.body.email) {
         console.log('logging in with email', req.body.email);
-        UserCredentials.findOne({email: req.body.email}, (err, user) => {
-            if (err) {
-                return res.status(500).json({
-                    title: 'An error occurred',
-                    message: 'Error looking up user'
-                });
-            }
-            user.validPassword(req.body.password, (err, isMatch) => {
-                if (err) {
-                    return res.status(500).json({
-                        title: 'An error occurred',
-                        message: 'Error validation the password'
-                    });
-                }
-                if (!isMatch) {
-                    return res.status(401).json({
-                        title: 'Failed to login',
-                        message: 'Username & password didn\'t match'
-                    });
-                }
-                console.log('valid password');
-                const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
-                res.status(200).json({
-                    message: 'Successfully signed in',
-                    auth: true,
-                    token: token,
-                });
+        let user;
+        let isMatch;
+        try {
+            user = await UserCredentials.findOne({email: req.body.email});
+        } catch (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                message: 'Error looking up user'
             });
+        }
+        try {
+            isMatch = await user.validPassword(req.body.password);
+        } catch (err) {
+            return res.status(500).json({
+                title: 'An error occurred',
+                message: 'Error validation the password'
+            });
+        }
+        if (!isMatch) {
+            return res.status(401).json({
+                title: 'Failed to login',
+                message: 'Username & password didn\'t match'
+            });
+        }
+        const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
+        return res.status(200).json({
+            message: 'Successfully signed in',
+            auth: true,
+            token: token,
         });
     } else {
         return res.status(400).json({
