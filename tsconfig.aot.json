@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "module": "es2017",
+    "module": "commonjs",
+    "types": ["node"],
     "moduleResolution": "node",
     "target": "es6",
     "noImplicitAny": false,
