@@ -3,5 +3,5 @@
 npm.debug.log
 /aot
 /public/js
-npm-debug.log
+/node/dist
 package-lock.json
