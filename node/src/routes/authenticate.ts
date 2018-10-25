@@ -1,45 +1,37 @@
-const express = require('express');
+import * as express from 'express';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
+const keys = require('../../../config/keys');
 
-const MODEL_PATH = '../models/schemas/';
+const MODEL_PATH = '../../../models/schemas/';
 const UserCredentials = require(MODEL_PATH + 'user-credentials');
 const UserProfile = require(MODEL_PATH + 'user-profile');
 
-router.post('/login', (req, res, done) => {
+router.post('/login', async (req, res, done) => {
     if (req.body.username) {
         console.log('logging in with username', req.body.username);
-        UserCredentials.findOne({username: req.body.username}, (err, user) => {
-            if (err) {
-                return res.status(500).json({
-                    title: 'An error occurred',
-                    message: 'Error looking up user'
+        try {
+            const user = await UserCredentials.findOne({username: req.body.username});
+            const isMatch = await user.validPassword(req.body.password);
+            if (!isMatch) {
+                return res.status(401).json({
+                    title: 'Failed to login',
+                    message: 'Username & password didn\'t match'
                 });
             }
-            user.validPassword(req.body.password, (err, isMatch) => {
-                console.log('isMatch', isMatch);
-                if (err) {
-                    return res.status(500).json({
-                        title: 'An error occurred',
-                        message: 'Error validation the password'
-                    });
-                }
-                if (!isMatch) {
-                    return res.status(401).json({
-                        title: 'Failed to login',
-                        message: 'Username & password didn\'t match'
-                    });
-                }
-                console.log('valid password');
-                const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
-                res.status(200).json({
-                    message: 'Successfully signed in',
-                    auth: true,
-                    token: token,
-                });
+            const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
+            res.status(200).json({
+                message: 'Successfully signed in',
+                auth: true,
+                token: token,
             });
-        });
+        }  catch (err) {
+            console.log('error looking up user', err);
+            return res.status(500).json({
+                title: 'An error occurred',
+                message: 'Error looking up user'
+            });
+        }
     }
     else if (req.body.email) {
         console.log('logging in with email', req.body.email);
@@ -145,7 +137,7 @@ router.post('/register', (req, res, next) => {
                 title: 'Failed to register',
                 message: 'passwords didn\'t match'
             });
-        } 
+        }
     } else {
         return res.status(500).json({
             title: 'Wrong body format',
