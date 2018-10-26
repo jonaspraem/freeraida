@@ -64,7 +64,7 @@ const onListening = () => {
  * Module dependencies.
  */
 
-import app from '../application';
+import app from './application';
 const debug = require('debug')('freeraida:server');
 const http = require('http');
 
