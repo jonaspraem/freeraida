@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
 const MODEL_PATH = '../models/schemas/';
-const UserCredentials = require(MODEL_PATH + 'user-credentials');
+import UserCredentials from '../models/schemas/user-credentials';
 const UserProfile = require(MODEL_PATH + 'user-profile');
 
 router.post('/login', async (req, res, done) => {
@@ -21,13 +21,14 @@ router.post('/login', async (req, res, done) => {
             });
         }
         try {
-            isMatch = await user.comparePassword(req.body.password);
+            isMatch = await user.validPassword(req.body.password);
         } catch (err) {
             return res.status(500).json({
                 title: 'An error occurred',
                 message: 'Error validation the password'
             });
         }
+        console.log('ismatch', isMatch);
         if (!isMatch) {
             return res.status(401).json({
                 title: 'Failed to login',
@@ -81,7 +82,7 @@ router.post('/login', async (req, res, done) => {
     }
 });
 
-router.post('/register', (req, res, next) => {
+router.post('/register', async (req, res, next) => {
     console.log('enlisting user..', req.body.username);
     // Required properties
     if (req.body.email &&
