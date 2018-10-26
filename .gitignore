@@ -1,7 +1,8 @@
 .idea
-/node_modules
+.angulardoc.json
 npm.debug.log
 /aot
+/node_modules
 /public/js
-npm-debug.log
+/server/dist
 package-lock.json

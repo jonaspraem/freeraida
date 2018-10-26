@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
+const keys = require('../../config/keys');
 
 const Post = require('../models/schemas/post');
 const Profile = require('../models/schemas/user-profile');

@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "module": "es2015",
+    "module": "commonjs",
+    "types": ["node"],
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es6",
     "noImplicitAny": false,
     "sourceMap": true,
     "mapRoot": "",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "es2017",
       "dom"

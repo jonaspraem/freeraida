@@ -1,21 +1,24 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import * as bcrypt from 'bcryptjs';
+import * as mongoose from 'mongoose';
 const mongooseUniqueValidator = require('mongoose-unique-validator');
-const bcrypt = require('bcrypt');
 
-const schema = new Schema({
+export interface IUserCredentials extends mongoose.Document {
+    email: string;
+    username: string;
+    password: string;
+}
+
+export const schema: mongoose.Schema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
     username: {type: String, required: true, unique: true},
     password: {type: String, required: true},
 });
 
 // hashing the password before saving it to the database
-schema.pre('save', function(next) {
-    const user = this;
+schema.pre<IUserCredentials>("save", function(next) {
     const SALT_WORK_FACTOR = 7;
-
     // only hash the password if it has been modified (or is new)
-    if (!user.isModified('password')) {
+    if (!this.isModified('password')) {
         return next();
     }
     // password changed so we need to hash it (generate a salt)
@@ -23,29 +26,24 @@ schema.pre('save', function(next) {
         if (err) {
             return next(err);
         } else {
-            bcrypt.hash(user.password, salt, (err, hash) => {
+            bcrypt.hash(this.password, salt, (err, hash) => {
                 if (err) {
                     return next(err);
                 }
-                user.password = hash;
+                this.password = hash;
                 next();
             });
         }
     });
 });
 
-schema.methods.validPassword = function(password, callback) {
+schema.methods.validPassword = async function(password) {
     console.log('comparing password');
-    bcrypt.compare(password, this.password, (err, isMatch) => {
-        if (err) {
-            return callback(err);
-        }
-        else {
-            callback(null, isMatch);
-        }
-    });
+    return await bcrypt.compare(password, this.password);
 };
 
 schema.plugin(mongooseUniqueValidator);
 
-module.exports = mongoose.model('UserCredentials', schema);
+const UserCredentials = mongoose.model<IUserCredentials>('UserCredentials', schema);
+
+export default UserCredentials;
