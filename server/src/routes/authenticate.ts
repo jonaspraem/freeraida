@@ -1,9 +1,9 @@
 import * as express from 'express';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const keys = require('../../../config/keys');
+const keys = require('../../config/keys');
 
-const MODEL_PATH = '../../../models/schemas/';
+const MODEL_PATH = '../models/schemas/';
 const UserCredentials = require(MODEL_PATH + 'user-credentials');
 const UserProfile = require(MODEL_PATH + 'user-profile');
 
@@ -21,7 +21,7 @@ router.post('/login', async (req, res, done) => {
             });
         }
         try {
-            isMatch = await user.validPassword(req.body.password);
+            isMatch = await user.comparePassword(req.body.password);
         } catch (err) {
             return res.status(500).json({
                 title: 'An error occurred',

@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "commonjs",
     "types": ["node"],
-    "outDir": "server/node/dist",
+    "outDir": "server/dist",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",

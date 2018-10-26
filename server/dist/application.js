@@ -23,7 +23,7 @@ class Application {
             useMongoClient: true
         });
         // view engine setup
-        this.express.set('views', path.join(__dirname, '../../views'));
+        this.express.set('views', path.join(__dirname, '../views'));
         this.express.set('view engine', 'hbs');
         this.express.use(logger('dev'));
         this.express.use(bodyParser.json());
@@ -43,7 +43,7 @@ class Application {
         // this.express.use(flash());
         this.express.use(bodyParser.urlencoded({ extended: false }));
         this.express.use(bodyParser.urlencoded({ extended: false }));
-        this.express.use(express.static(path.join(__dirname, '../../public')));
+        this.express.use(express.static(path.join(__dirname, '../public')));
         // this.express.use(favicon(path.join(__dirname,'images','favicon.ico')));
         this.express.all('*', (req, res, next) => {
             if (req.headers.host == "localhost:3000") {

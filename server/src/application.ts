@@ -8,7 +8,7 @@ import * as mongoose from 'mongoose';
 import * as favicon from 'serve-favicon';
 import * as session from 'express-session';
 import flash from 'connect-flash';
-import * as keys from '../../config/keys';
+import * as keys from '../config/keys';
 
 class Application {
     public express;
@@ -34,7 +34,7 @@ class Application {
         });
 
         // view engine setup
-        this.express.set('views', path.join(__dirname, '../../views'));
+        this.express.set('views', path.join(__dirname, '../views'));
         this.express.set('view engine', 'hbs');
 
         this.express.use(logger('dev'));
@@ -58,7 +58,7 @@ class Application {
 
         this.express.use(bodyParser.urlencoded({ extended: false }));
         this.express.use(bodyParser.urlencoded({ extended: false }));
-        this.express.use(express.static(path.join(__dirname, '../../public')));
+        this.express.use(express.static(path.join(__dirname, '../public')));
         // this.express.use(favicon(path.join(__dirname,'images','favicon.ico')));
 
         this.express.all('*', (req, res, next) => {
