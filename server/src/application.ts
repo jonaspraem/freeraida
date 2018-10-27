@@ -25,7 +25,7 @@ class Application {
         const authRoutes = require('./routes/authenticate');
         //const postRoutes = require('./routes/posts');
         //const connectRoutes = require('./routes/connect');
-        //const userProfileRoutes = require('./routes/user-profile');
+        const userProfileRoutes = require('./routes/user-profile');
         //const lineRoutes = require('./routes/lines');
         //const lineInfoRoutes = require('./routes/lineinfo');
 
@@ -80,7 +80,7 @@ class Application {
         });
 
         this.express.use('/api/authentication', authRoutes);
-        // this.express.use('/api/user-profile', userProfileRoutes);
+        this.express.use('/api/user-profile', userProfileRoutes);
         // this.express.use('/api/post', postRoutes);
         // this.express.use('/api/connect', connectRoutes);
         // this.express.use('/api/lineservice', lineRoutes);
@@ -95,6 +95,5 @@ class Application {
         console.log('Freeraida server running... ');
     }
 }
-
 
 export default new Application().express;

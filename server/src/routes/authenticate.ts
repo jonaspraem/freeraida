@@ -1,9 +1,9 @@
 import * as express from 'express';
+import UserCredentials from '../models/schemas/user-credentials';
+import UserProfile from '../models/schemas/user-profile';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
-import UserCredentials from '../models/schemas/user-credentials';
-import UserProfile from '../models/schemas/user-profile';
 
 router.post('/login', async (req, res, done) => {
     if (req.body.username) {
@@ -12,7 +12,7 @@ router.post('/login', async (req, res, done) => {
         let isMatch;
         try {
             user = await UserCredentials.findOne({username: req.body.username});
-        }  catch (err) {
+        }  catch (e) {
             return res.status(500).json({
                 title: 'An error occurred',
                 message: 'Error looking up user'
@@ -20,7 +20,7 @@ router.post('/login', async (req, res, done) => {
         }
         try {
             isMatch = await user.validPassword(req.body.password);
-        } catch (err) {
+        } catch (e) {
             return res.status(500).json({
                 title: 'An error occurred',
                 message: 'Error validation the password'
@@ -46,7 +46,7 @@ router.post('/login', async (req, res, done) => {
         let isMatch;
         try {
             user = await UserCredentials.findOne({email: req.body.email});
-        } catch (err) {
+        } catch (e) {
             return res.status(500).json({
                 title: 'An error occurred',
                 message: 'Error looking up user'
@@ -54,7 +54,7 @@ router.post('/login', async (req, res, done) => {
         }
         try {
             isMatch = await user.validPassword(req.body.password);
-        } catch (err) {
+        } catch (e) {
             return res.status(500).json({
                 title: 'An error occurred',
                 message: 'Error validation the password'
@@ -115,11 +115,10 @@ router.post('/register', async (req, res, next) => {
                 country: req.body.country
             });
 
-            let user_credentials_result;
             let user_profile_result;
             try {
-                user_credentials_result = await user_credentials.save();
-            } catch (err) {
+                await user_credentials.save();
+            } catch (e) {
                 return res.status(500).json({
                     title: 'An error occurred',
                     message: 'Error saving the user credentials'
@@ -127,7 +126,7 @@ router.post('/register', async (req, res, next) => {
             }
             try {
                 user_profile_result = await user_profile.save();
-            } catch (err) {
+            } catch (e) {
                 return res.status(500).json({
                     title: 'An error occurred',
                     message: 'Error saving the user profile'
