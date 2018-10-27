@@ -2,10 +2,8 @@ import * as express from 'express';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
-
-const MODEL_PATH = '../models/schemas/';
 import UserCredentials from '../models/schemas/user-credentials';
-const UserProfile = require(MODEL_PATH + 'user-profile');
+import UserProfile from '../models/schemas/user-profile';
 
 router.post('/login', async (req, res, done) => {
     if (req.body.username) {
@@ -116,31 +114,31 @@ router.post('/register', async (req, res, next) => {
                 fullname: firstname + ' ' + surname,
                 country: req.body.country
             });
-            user_credentials.save((err, user) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).json({
-                        title: 'An error occurred',
-                        message: 'Error saving the user credentials'
-                    });
-                }
-                user_profile.save((err, result) => {
-                    if (err) {
-                        console.log(err);
-                        return res.status(500).json({
-                            title: 'An error occurred',
-                            message: 'Error saving the user profile'
-                        });
-                    }
-                    // create a token
-                    const token = jwt.sign({ id: result._id }, keys.token.secret, { expiresIn: 86400 });
-                    return res.status(201).json({
-                        message: 'User created',
-                        obj: result,
-                        auth: true,
-                        token: token
-                    });
+
+            let user_credentials_result;
+            let user_profile_result;
+            try {
+                user_credentials_result = await user_credentials.save();
+            } catch (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    message: 'Error saving the user credentials'
                 });
+            }
+            try {
+                user_profile_result = await user_profile.save();
+            } catch (err) {
+                return res.status(500).json({
+                    title: 'An error occurred',
+                    message: 'Error saving the user profile'
+                });
+            }
+            const token = jwt.sign({ id: user_profile_result._id }, keys.token.secret, { expiresIn: 86400 });
+            return res.status(201).json({
+                message: 'User created',
+                obj: user_profile_result,
+                auth: true,
+                token: token
             });
         } else {
             return res.status(401).json({

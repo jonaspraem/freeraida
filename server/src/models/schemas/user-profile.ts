@@ -1,8 +1,23 @@
 import * as mongoose from 'mongoose';
-const Schema = mongoose.Schema;
 const mongooseUniqueValidator = require('mongoose-unique-validator');
 
-const schema = new Schema({
+export interface IUserProfile extends mongoose.Document {
+    username: string,
+    firstname: string,
+    surname: string,
+    fullname: string,
+    country: string,
+    bio: string,
+    social_twitter: string,
+    social_instagram: string,
+    posts: mongoose.Schema.Types.ObjectId[],
+    lines: mongoose.Schema.Types.ObjectId[],
+    tracked_lines: mongoose.Schema.Types.ObjectId[],
+    following: string[],
+    followers: string[],
+}
+
+const schema = new mongoose.Schema({
     username: {type: String, required: true, unique: true},
     firstname: {type: String, required: true},
     surname: {type: String, required: true},
@@ -11,14 +26,15 @@ const schema = new Schema({
     bio: {type: String, required: false},
     social_twitter: {type: String, required: false},
     social_instagram: {type: String, required: false},
-    posts: [{type: Schema.Types.ObjectId, ref: 'Post'}],
-    lines: [{type: Schema.Types.ObjectId, ref: 'Line'}],
-    tracked_lines: [{type: Schema.Types.ObjectId, ref: 'TrackedLine'}],
+    posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
+    lines: [{type: mongoose.Schema.Types.ObjectId, ref: 'Line'}],
+    tracked_lines: [{type: mongoose.Schema.Types.ObjectId, ref: 'TrackedLine'}],
     following: [{type: String}],
     followers: [{type: String}],
-    img: {data: Buffer, contentType: String},
 });
 
 schema.plugin(mongooseUniqueValidator);
 
-module.exports = mongoose.model('UserProfile', schema);
+const UserProfile = mongoose.model<IUserProfile>('UserProfile', schema);
+
+export default UserProfile;
