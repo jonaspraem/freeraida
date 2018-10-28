@@ -10,7 +10,7 @@ export interface IUserProfile extends mongoose.Document {
     bio: string,
     social_twitter: string,
     social_instagram: string,
-    posts: mongoose.Schema.Types.ObjectId[],
+    announcements: mongoose.Schema.Types.ObjectId[],
     lines: mongoose.Schema.Types.ObjectId[],
     tracked_lines: mongoose.Schema.Types.ObjectId[],
     following: string[],
@@ -26,7 +26,7 @@ const schema = new mongoose.Schema({
     bio: {type: String, required: false},
     social_twitter: {type: String, required: false},
     social_instagram: {type: String, required: false},
-    posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
+    announcements: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
     lines: [{type: mongoose.Schema.Types.ObjectId, ref: 'Line'}],
     tracked_lines: [{type: mongoose.Schema.Types.ObjectId, ref: 'TrackedLine'}],
     following: [{type: String}],
@@ -34,7 +34,5 @@ const schema = new mongoose.Schema({
 });
 
 schema.plugin(mongooseUniqueValidator);
-
 const UserProfile = mongoose.model<IUserProfile>('UserProfile', schema);
-
 export default UserProfile;

@@ -43,7 +43,5 @@ schema.methods.validPassword = async function(password) {
 };
 
 schema.plugin(mongooseUniqueValidator);
-
 const UserCredentials = mongoose.model<IUserCredentials>('UserCredentials', schema);
-
 export default UserCredentials;
