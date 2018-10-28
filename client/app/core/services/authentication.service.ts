@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { CONFIG } from "../../dictionary/config";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 // Interfaces
-import { LoginInterface } from "../../models/interfaces/authentication/login.interface";
-import { SignupInterface } from "../../models/interfaces/authentication/signup.interface";
+import { ILogin } from "../../models/interfaces/authentication/login.interface";
+import { IRegister } from "../../models/interfaces/authentication/register.interface";
 import { Router } from "@angular/router";
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AuthenticationService {
         private router: Router
     ) {}
 
-    login(request: LoginInterface) {
+    login(request: ILogin) {
         const body = JSON.stringify(request);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         this.http.post(this.config.getEndpoint() + '/api/authentication/login/', body, {headers: headers})
@@ -27,7 +27,7 @@ export class AuthenticationService {
             });
     }
 
-    register(request: SignupInterface) {
+    register(request: IRegister) {
         const body = JSON.stringify(request);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         this.http.post(this.config.getEndpoint() + '/api/authentication/register/', body, {headers: headers})

@@ -1,10 +1,10 @@
-import { Post } from "../../legacy/objects/models/post.model";
+import { IAnnouncement } from "../interfaces/announcement/announcement.interface";
 
-export class PostModel {
+export class AnnouncementViewModel {
     content: string;
     expanded_content: string;
 
-    constructor(post: Post) {
+    constructor(post: IAnnouncement) {
         if (post.content.length > 500) {
             this.content = this.generateAnchors(post.content.substring(0, 499))+'...';
             this.expanded_content =  this.generateAnchors(post.content);
@@ -18,6 +18,6 @@ export class PostModel {
     */
 
     private generateAnchors(content: string) {
-        return content.replace(/@([^ @]+)/ig, '<a href="/home/user/$1">@$1</a>');
+        return content.replace(/@([^ @]+)/ig, '<a href="/user/$1">@$1</a>');
     }
 }

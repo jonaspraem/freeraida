@@ -1,4 +1,4 @@
-export interface SignupInterface {
+export interface IRegister {
     email: string,
     username: string,
     firstname: string,

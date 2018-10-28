@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { IAnnouncement } from "../../models/interfaces/announcement/announcement.interface";
 
 @Component({
     selector: 'app-announcement-list',
@@ -6,4 +7,7 @@ import { Component } from "@angular/core";
 })
 
 export class AnnouncementListComponent {
+    @Input() list: IAnnouncement;
+
+
 }

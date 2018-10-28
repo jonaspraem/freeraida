@@ -4,7 +4,7 @@ import { AnnouncementService } from "../../core/services/announcement.service";
 import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 import { Router } from "@angular/router";
 import { Profile } from "../objects/models/profile.model";
-import { PostModel } from "../../models/viewmodels/post.model";
+import { PostModel } from "../../models/viewmodels/announcement.model";
 
 const gnarly_primary = require('../../../images/gnarly/gnarly_primary.png');
 const gnarly_secondary = require('../../../images/gnarly/gnarly_secondary.png');
