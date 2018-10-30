@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { appRouting } from "./app.routing";
 
-import { LandingPageModule } from "./pages/landing-page/landing-page.module";
+import { LandingPageModule } from "./pages/landing-page/landing.page.module";
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
 import { CONFIG } from "./dictionary/config";

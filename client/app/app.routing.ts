@@ -1,6 +1,6 @@
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { AuthGuardService as AuthGuard } from './core/services/auth-guard.service';
-import { LandingPageComponent } from "./pages/landing-page/landing-page.component";
+import { LandingPageComponent } from "./pages/landing-page/landing.page.component";
 import { RegisterLineComponent } from "./legacy/lines/register/register-line.component";
 import { LineHistoryComponent } from "./legacy/lines/line-history/line-history.component";
 import { TrackPageComponent } from "./legacy/tracker/track.component";
@@ -10,8 +10,8 @@ import { ForumsComponent } from "./legacy/coming-soon/forums/forums.component";
 import { EventsComponent } from "./legacy/coming-soon/events/events.component";
 import { SettingsComponent } from "./legacy/profile/settings/settings.component";
 import { AfterRegistrationComponent } from "./legacy/lines/after-registration/after-registration.component";
-import { HomePageComponent } from "./pages/home-page/home-page.component";
-import { ProfilePageComponent } from "./pages/profile/profile-page.component";
+import { HomePageComponent } from "./pages/home-page/home.page.component";
+import { ProfilePageComponent } from "./pages/profile/profile.page.component";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
