@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import '../styles/styles.scss';
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { Event, NavigationStart, Router } from "@angular/router";
@@ -10,7 +10,7 @@ import { routerTransition } from "./shared/animations/router-transition.animatio
     templateUrl: './app.component.html',
     animations: [routerTransition]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
     public isComponentApp: boolean;
     private nonAppUrls = ['/landing-page'];
 
@@ -25,8 +25,11 @@ export class AppComponent implements OnInit {
                 this.isComponentApp = !this.nonAppUrls.includes(event.url);
             }
         });
-        this.profileService.getProfileWithToken();
         FLAG_DICTIONARY.initialize();
+    }
+
+    ngAfterViewInit() {
+        this.profileService.getProfileWithToken();
     }
 
     getState(outlet) {

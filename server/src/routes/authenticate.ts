@@ -6,79 +6,56 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
 router.post('/login', async (req, res, done) => {
-    if (req.body.username) {
-        console.log('logging in with username', req.body.username);
-        let user;
-        let isMatch;
-        try {
+    let user;
+    let userProfile;
+    let isMatch;
+    try {
+        if (req.body.username) {
             user = await UserCredentials.findOne({username: req.body.username});
-        }  catch (e) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                message: 'Error looking up user'
-            });
         }
-        try {
-            isMatch = await user.validPassword(req.body.password);
-        } catch (e) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                message: 'Error validation the password'
-            });
-        }
-        console.log('ismatch', isMatch);
-        if (!isMatch) {
-            return res.status(401).json({
-                title: 'Failed to login',
-                message: 'Username & password didn\'t match'
-            });
-        }
-        const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
-        return res.status(200).json({
-            message: 'Successfully signed in',
-            auth: true,
-            token: token,
-        });
-    }
-    else if (req.body.email) {
-        console.log('logging in with email', req.body.email);
-        let user;
-        let isMatch;
-        try {
+        else if (req.body.email) {
             user = await UserCredentials.findOne({email: req.body.email});
-        } catch (e) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                message: 'Error looking up user'
+        }
+        else {
+            return res.status(400).json({
+                title: 'Incorrect request format',
+                message: 'please provide an email or username'
             });
         }
-        try {
-            isMatch = await user.validPassword(req.body.password);
-        } catch (e) {
-            return res.status(500).json({
-                title: 'An error occurred',
-                message: 'Error validation the password'
-            });
-        }
-        if (!isMatch) {
-            return res.status(401).json({
-                title: 'Failed to login',
-                message: 'Username & password didn\'t match'
-            });
-        }
-        console.log('user', user);
-        const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
-        return res.status(200).json({
-            message: 'Successfully signed in',
-            auth: true,
-            token: token,
-        });
-    } else {
-        return res.status(400).json({
-            title: 'Incorrect request format',
-            message: 'please provide an email or username'
+    }  catch (e) {
+        return res.status(500).json({
+            title: 'An error occurred',
+            message: 'Error looking up user'
         });
     }
+    try {
+        isMatch = await user.validPassword(req.body.password);
+    } catch (e) {
+        return res.status(500).json({
+            title: 'An error occurred',
+            message: 'Error validation the password'
+        });
+    }
+    if (!isMatch) {
+        return res.status(401).json({
+            title: 'Failed to login',
+            message: 'Username & password didn\'t match'
+        });
+    }
+    try {
+        userProfile = await UserProfile.findOne({username: user.username});
+    } catch (e) {
+        return res.status(500).json({
+            title: 'Failed to login',
+            message: 'Failed to find user-profile'
+        });
+    }
+    const token = jwt.sign({ id: userProfile._id }, keys.token.secret, { expiresIn: 86400 });
+    return res.status(200).json({
+        message: 'Successfully signed in',
+        auth: true,
+        token: token,
+    });
 });
 
 router.post('/register', async (req, res, next) => {

@@ -23,7 +23,6 @@ export class ProfileService {
     }
 
     getProfileWithToken(): void {
-        console.log('status');
         const token = localStorage.getItem('api_token');
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/user-profile/user-info', {headers: headers, params: new HttpParams().set('token', token)})
