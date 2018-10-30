@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AuthenticationService } from "../../core/services/authentication.service";
 
 @Component({
     selector: 'app-sidenav',
@@ -7,9 +8,13 @@ import { Component, OnInit } from "@angular/core";
 
 export class SidenavComponent implements OnInit {
 
-    constructor() {}
+    constructor(
+        private auth_service: AuthenticationService
+    ) {}
 
-    ngOnInit(): void {
-        console.log('made it here');
+    ngOnInit(): void {}
+
+    public onLogout(): void {
+        this.auth_service.logout();
     }
 }

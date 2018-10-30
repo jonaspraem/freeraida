@@ -5,16 +5,18 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
 // Get user profile
-router.get('/user/:id', async (req, res, next) => {
+router.get('/user/:username', async (req, res, next) => {
     let profile;
     try {
-        profile = await UserProfile.findById(req.params.id);
+        profile = await UserProfile.findOne({username: req.params.username});
+        if (!profile) throw new Error();
     } catch (e) {
         return res.status(404).json({
             title: 'An error occurred',
             message: 'Error looking up user'
         });
     }
+    console.log(profile);
     return res.status(200).json({
         message: 'UserProfile successfully received',
         obj: profile
@@ -55,13 +57,17 @@ router.get('/user-info', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
     try {
+        console.log('decoded', decoded);
         profile = await UserProfile.findById(decoded.id);
+        console.log('user-info', profile);
+        if (!profile) throw new Error();
     } catch (e) {
         return res.status(404).json({
             title: 'No profile found',
             message: 'No profile matching the id'
         });
     }
+    console.log('user-info', profile);
     return res.status(200).json({
         message: 'UserProfile successfully received',
         obj: profile

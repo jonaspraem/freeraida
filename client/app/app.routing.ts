@@ -9,9 +9,9 @@ import { WikiComponent } from "./legacy/coming-soon/wiki/wiki.component";
 import { ForumsComponent } from "./legacy/coming-soon/forums/forums.component";
 import { EventsComponent } from "./legacy/coming-soon/events/events.component";
 import { SettingsComponent } from "./legacy/profile/settings/settings.component";
-import { ProfileComponent } from "./legacy/profile/profile.component";
 import { AfterRegistrationComponent } from "./legacy/lines/after-registration/after-registration.component";
 import { HomePageComponent } from "./pages/home-page/home-page.component";
+import { ProfilePageComponent } from "./pages/profile/profile-page.component";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -25,7 +25,7 @@ const APP_ROUTES: Routes = [
     { path: 'forums', component: ForumsComponent},
     { path: 'events', component: EventsComponent},
     { path: 'settings', component: SettingsComponent},
-    { path: 'user/:id', component: ProfileComponent},
+    { path: 'user/:username', component: ProfilePageComponent},
     { path: 'tracked-line/:id', component: AfterRegistrationComponent},
 ];
 

@@ -66,6 +66,7 @@ router.post('/login', async (req, res, done) => {
                 message: 'Username & password didn\'t match'
             });
         }
+        console.log('user', user);
         const token = jwt.sign({ id: user._id }, keys.token.secret, { expiresIn: 86400 });
         return res.status(200).json({
             message: 'Successfully signed in',
