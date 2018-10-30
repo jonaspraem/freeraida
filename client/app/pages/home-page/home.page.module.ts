@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { HomePageComponent } from "./home-page.component";
+import { HomePageComponent } from "./home.page.component";
 import { AnnouncementWriterComponent } from "../../features/announcement-writer/announcement-writer.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 

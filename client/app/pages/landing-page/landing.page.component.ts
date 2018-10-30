@@ -16,7 +16,7 @@ const backgroundImage = require('../../../images/backgrounds/snow-3193865_1920.j
 
 @Component({
     selector: 'app-landing-page',
-    templateUrl: './landing-page.component.html'
+    templateUrl: './landing.page.component.html'
 })
 
 export class LandingPageComponent implements OnInit {
