@@ -1,7 +1,7 @@
 @import 'colors';
 
 $header-box-shadow-color: rgba(#000, 0.8);
-$header-text-shadow-color: rgba(color('primary-lighter'), 0.7);
+$header-text-shadow-color: rgba($color-primary-lighter, 0.7);
 $element-shadow-color: rgba(#000, 0.6);
 
 $effects: (

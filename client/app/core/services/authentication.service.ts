@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { CONFIG } from "../../dictionary/config";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 // Interfaces
-import { ILogin } from "../../models/interfaces/authentication/login.interface";
-import { IRegister } from "../../models/interfaces/authentication/register.interface";
+import { ILogin } from "../../models/interfaces/requests/authentication/login.interface";
+import { IRegister } from "../../models/interfaces/requests/authentication/register.interface";
 import { Router } from "@angular/router";
 
 @Injectable()

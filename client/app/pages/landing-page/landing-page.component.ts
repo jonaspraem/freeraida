@@ -3,11 +3,11 @@ import { Router } from "@angular/router";
 import { AuthenticationService } from "../../core/services/authentication.service";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { ILogin } from "../../models/interfaces/authentication/login.interface";
+import { ILogin } from "../../models/interfaces/requests/authentication/login.interface";
 import { UsernameValidator } from "../../shared/form-validators/UsernameValidator";
 import { PasswordValidator } from "../../shared/form-validators/PasswordValidator";
 import signup_messages from "./SignupValidationMessages";
-import { IRegister } from "../../models/interfaces/authentication/register.interface";
+import { IRegister } from "../../models/interfaces/requests/authentication/register.interface";
 
 const image = require('../../../images/350214-mountain-view.jpg');
 

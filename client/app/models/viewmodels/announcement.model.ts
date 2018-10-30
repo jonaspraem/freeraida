@@ -1,4 +1,4 @@
-import { IAnnouncement } from "../interfaces/announcement/announcement.interface";
+import { IAnnouncement } from "../interfaces/types";
 
 export class AnnouncementViewModel {
     content: string;

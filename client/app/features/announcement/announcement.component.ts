@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { IAnnouncement } from "../../models/interfaces/announcement/announcement.interface";
+import { IAnnouncement } from "../../models/interfaces/types";
 import { AnnouncementViewModel } from "../../models/viewmodels/announcement.model";
 
 @Component({

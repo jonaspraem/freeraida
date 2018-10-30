@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { IAnnouncement } from "../../models/interfaces/announcement/announcement.interface";
+import { IAnnouncement } from "../../models/interfaces/types";
 
 @Component({
     selector: 'app-announcement-list',

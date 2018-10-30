@@ -1,5 +1,5 @@
-@import '../lib/colors';
-@import '../lib/effects';
+@import 'lib/colors';
+@import 'lib/effects';
 
 $background-color: rgba(#fff, 1);
 $background-image: url("https://www.transparenttextures.com/patterns/blizzard.png");
@@ -15,7 +15,7 @@ $sidenav-width: 220px;
         max-height: 64px;
         padding-top: 5px;
         opacity: 1;
-        background-color: color('primary');
+        background-color: $color-primary;
         z-index: 10;
         box-shadow: effect('header-box-shadow');
         transition: all 0.4s ease-in-out;
@@ -59,11 +59,11 @@ $sidenav-width: 220px;
     margin-left: $sidenav-width;
 }
 
-.component-container {
+.page-container {
     position: absolute;
     background: $background-color $background-image;
     left: 0;
-    right: -17px; /* Increase/Decrease this value for cross-browser compatibility */
+    right: -17px;
     padding-top: 100px;
     padding-right: 220px;
     overflow-y: scroll;
@@ -87,7 +87,7 @@ $sidenav-width: 220px;
         text-align: right;
         font-weight: 500;
         font-size: 16px;
-        color: color('primary');
+        color: $color-primary;
         transition: color 0.35s ease-in-out;
 
         li {
@@ -101,7 +101,7 @@ $sidenav-width: 220px;
 
             &:hover, &:focus, &.active {
                 outline: none;
-                color: color('primary-light');
+                color: $color-primary-light;
 
                 i {
                     opacity: 1;
@@ -114,7 +114,7 @@ $sidenav-width: 220px;
         position: absolute;
         right: 0;
         top: 0;
-        background-color: color('primary');
+        background-color: $color-primary;
         width: 1px;
         height: 78%;
         margin-top: 64%;

@@ -1,0 +1,19 @@
+$header-height: 200px;
+
+.profile-header {
+    width: 100%;
+    height: $header-height;
+    display: flex;
+
+    &__image-container {
+        height: 100%;
+        width: $header-height;
+        padding: 40px;
+    }
+
+    &__image {
+        height: 100%;
+        width: 100%;
+        border: 3px solid $color-primary;
+    }
+}

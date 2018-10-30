@@ -8,7 +8,7 @@ $writer-transition: 0.35s ease-in-out;
 .announcement-writer-icon {
     position: fixed;
     cursor: pointer;
-    background-color: color('primary');
+    background-color: $color-primary;
     right: 0;
     top: 20%;
     border-bottom-left-radius: $writer-size / 2;

@@ -1,12 +1,6 @@
-$colors: (
-        'primary': #141D2F,
-        'primary-light': #1966FF,
-        'primary-lighter': #0055FF,
-        'secondary': #1B1E1B,
-        'tertiary': #B27B00,
-        'tertiary-lighter': #FFB000
-);
-
-@function color($key: 'primary') {
-    @return map-get($colors, $key);
-}
+$color-primary: #141D2F;
+$color-primary-light: #1966FF;
+$color-primary-lighter: #0055FF;
+$color-secondary: #1B1E1B;
+$color-tertiary: #B27B00;
+$color-tertiary-light: #FFB000;

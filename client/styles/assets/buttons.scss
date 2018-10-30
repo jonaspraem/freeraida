@@ -1,8 +1,8 @@
 @import '../lib/colors';
 
 .button-primary {
-    background-color: color('primary');
-    border-color: color('primary');
+    background-color: $color-primary;
+    border-color: $color-primary;
     color: white;
 
     &:hover, &:focus {
