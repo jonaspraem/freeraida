@@ -1,4 +1,6 @@
-$header-height: 200px;
+@import '../lib/effects';
+
+$header-height: 400px;
 
 .profile-header {
     width: 100%;
@@ -8,12 +10,19 @@ $header-height: 200px;
     &__image-container {
         height: 100%;
         width: $header-height;
-        padding: 40px;
+        padding: 60px;
     }
 
     &__image {
         height: 100%;
         width: 100%;
-        border: 3px solid $color-primary;
+        border-radius: 50%;
+        border: 5px solid $color-primary;
+        box-shadow: effect('element-shadow');
+    }
+
+    &__description {
+        padding-top: 60px;
+        flex: 1;
     }
 }

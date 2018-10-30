@@ -13,5 +13,9 @@ $fa-font-path: '../../node_modules/font-awesome/fonts';
 @import 'pages/home-page';
 
 @import 'app';
+
+@import 'features/profile';
 @import 'features/landing-page';
 @import 'features/announcement';
+
+@import 'shared/text';
