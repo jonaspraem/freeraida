@@ -4,6 +4,10 @@ import { ActivatedRoute } from "@angular/router";
 import { ProfileService } from "../../core/services/profile.service";
 import { IUserProfile } from "../../models/interfaces/types";
 import { IUserProfileResponse } from "../../models/interfaces/responses";
+import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
+
+const hero = require('../../../images/licensed/iStock-01.jpg');
+const profile_image = require('../../../images/rider/profile-image.jpg');
 
 @Component({
     selector: 'app-profile-page',
@@ -13,6 +17,8 @@ import { IUserProfileResponse } from "../../models/interfaces/responses";
 export class ProfilePageComponent implements OnInit, OnDestroy {
     public isSelf: boolean = false;
     public profile: IUserProfile;
+    public hero = hero;
+    public profile_image = profile_image;
     private route_subscription: Subscription;
     private profile_subscription: Subscription;
 
@@ -33,5 +39,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         if (this.route_subscription) this.route_subscription.unsubscribe();
         if (this.profile_subscription) this.profile_subscription.unsubscribe();
+    }
+
+    public getFlag(key: string) {
+        return FLAG_DICTIONARY.get(key);
     }
 }

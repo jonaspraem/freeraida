@@ -1,0 +1,51 @@
+$hero-image-size: 250px;
+
+.profile {
+    background-color: $color-primary !important;
+    background-image: none !important;
+    min-height: 100vh;
+
+    &__hero {
+        width: 100%;
+        height: 450px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+
+        &__header {
+            display: flex;
+            margin: auto;
+            width: 500px
+        }
+
+        &__image {
+            display: block;
+            margin: auto;
+            height: $hero-image-size;
+            width: $hero-image-size;
+            border-radius: 50%;
+            border: 5px solid $color-primary;
+            margin-top: -($hero-image-size / 2);
+        }
+
+        &__flag {
+            width: 80px;
+            height: 80px;
+            margin-top: -40px;
+        }
+
+        &__description {
+            margin: 40px auto 0 auto;
+            width: 300px;
+            color: white;
+            text-align: center;
+
+            &__spacer {
+                height: 3px;
+                width: 100%;
+                background-color: white;
+                margin: 10px 0;
+            }
+        }
+    }
+}

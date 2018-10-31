@@ -1,3 +1,12 @@
-<div class="page-container">
-    <app-profile-header [profile]="profile"></app-profile-header>
+<div class="page-container profile">
+    <div class="profile__hero" [ngStyle]="{'background-image': 'url('+hero+')'}"></div>
+    <div class="profile__hero__header">
+        <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
+        <img class="profile__hero__image" [src]="profile_image">
+        <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
+    </div>
+    <div class="profile__hero__description">
+        <div class="profile__hero__description__spacer"></div>
+        <h1>{{ profile.fullname }}</h1>
+    </div>
 </div>
