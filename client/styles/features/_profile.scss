@@ -21,16 +21,31 @@ $header-height: 400px;
         box-shadow: effect('element-shadow');
     }
 
-    &__image-inline {
-        display: inline-block;
-        height: 24px;
-        width: 24px;
-        border-radius: 50%;
-        box-shadow: effect('element-shadow');
+    &__spacer {
+        height: 2px;
+        width: 100%;
+        background-color: $color-primary;
+        margin: 0 ;
     }
 
     &__description {
         padding-top: 60px;
         flex: 1;
+
+        &__item {
+            margin-top: 20px;
+        }
+
+        &__image {
+            display: inline-block;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            box-shadow: effect('element-shadow');
+
+            &__text {
+                display: inline-block;
+            }
+        }
     }
 }
