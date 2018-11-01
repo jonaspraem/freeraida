@@ -1,4 +1,5 @@
 @import '../lib/colors';
+@import '../lib/effects';
 @import '../lib/fonts';
 
 $hero-image-size: 250px;
@@ -63,8 +64,9 @@ $hero-image-size: 250px;
             height: $hero-image-size;
             width: $hero-image-size;
             border-radius: 50%;
-            border: 5px solid $color-primary;
+            border: 5px solid $color-white;
             margin-top: -($hero-image-size / 2);
+            box-shadow: $effect-box-shadow-standard;
 
             &__side-container {
                 min-width: 250px;
