@@ -4,10 +4,7 @@
 $hero-image-size: 250px;
 
 .profile {
-    background-color: $color-primary !important;
-    background-image: none !important;
     min-height: 100vh;
-    color: $color-white;
 
     &__hero {
         width: 100%;
@@ -16,10 +13,48 @@ $hero-image-size: 250px;
         background-repeat: no-repeat;
         background-position: center center;
 
+        &__container {
+            color: $color-white;
+            background-color: $color-primary !important;
+            background-image: none !important;
+            padding-bottom: 40px;
+        }
+
         &__header {
             display: flex;
             margin: auto;
             width: 620px;
+
+            &__container {
+                display: flex;
+                width: 100%;
+            }
+
+            &__side {
+                flex: 1;
+
+                &_right {
+                    display: flex;
+                    margin: 20px 40px 0 40px;
+
+                    &__item {
+                        flex: 1;
+                        text-align: center;
+
+                        &__label {
+                            color: $color-white-dark;
+                            font-weight: 400;
+                            font-size: $font-size-large;
+                        }
+
+                        &__value {
+                            color: $color-tertiary-light;
+                            font-weight: 800;
+                            font-size: $font-size-large;
+                        }
+                    }
+                }
+            }
         }
 
         &__image {
@@ -51,17 +86,26 @@ $hero-image-size: 250px;
         }
 
         &__description {
-            margin: 40px auto 0 auto;
-            width: 300px;
-            color: $color-white;
+            width: 500px;
             text-align: center;
+            margin-top: 70px;
 
             &__spacer {
                 height: 3px;
                 width: 100%;
-                background-color: $color-white;
+                background-color: $color-primary;
                 margin: 10px 0;
             }
+        }
+    }
+
+    &__content-box {
+        display: flex;
+        width: 100%;
+        color: $color-primary;
+
+        &__side {
+            flex: 1;
         }
     }
 }

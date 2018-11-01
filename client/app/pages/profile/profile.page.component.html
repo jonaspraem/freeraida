@@ -1,15 +1,39 @@
 <div class="page-container profile">
-    <div class="profile__hero" [ngStyle]="{'background-image': 'url('+hero+')'}"></div>
-    <div class="profile__hero__header">
-        <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
-        <img class="profile__hero__image" [src]="profile_image">
-        <div>
-            <button class="button--inverted profile__hero__button">Follow</button>
-            <div class="profile__hero__username">@{{ profile?.username }}</div>
+    <div class="profile__hero__container">
+        <div class="profile__hero" [ngStyle]="{'background-image': 'url('+hero+')'}"></div>
+        <div class="profile__hero__header__container">
+            <div class="profile__hero__header__side"></div>
+            <div class="profile__hero__header">
+                <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
+                <img class="profile__hero__image" [src]="profile_image">
+                <div>
+                    <button class="button--inverted profile__hero__button">Follow</button>
+                    <div class="profile__hero__username">@{{ profile?.username }}</div>
+                </div>
+            </div>
+            <div class="profile__hero__header__side profile__hero__header__side_right">
+                <div class="profile__hero__header__side_right__item">
+                    <div class="profile__hero__header__side_right__item__label">Following</div>
+                    <div class="profile__hero__header__side_right__item__value">559</div>
+                </div>
+                <div class="profile__hero__header__side_right__item">
+                    <div class="profile__hero__header__side_right__item__label">Followers</div>
+                    <div class="profile__hero__header__side_right__item__value">259</div>
+                </div>
+                <div class="profile__hero__header__side_right__item">
+                    <div class="profile__hero__header__side_right__item__label">Lines</div>
+                    <div class="profile__hero__header__side_right__item__value">32</div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="profile__hero__description">
-        <div class="profile__hero__description__spacer"></div>
-        <h1>{{ profile?.fullname }}</h1>
+    <div class="profile__content-box">
+        <div class="profile__content-box__side"></div>
+        <div class="profile__hero__description">
+            <h1>{{ profile?.fullname }}</h1>
+            <div class="profile__hero__description__spacer"></div>
+        </div>
+        <div class="profile__content-box__side"></div>
     </div>
+
 </div>
