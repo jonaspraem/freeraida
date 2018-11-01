@@ -24,7 +24,7 @@ class Application {
         const index = require('./routes/app');
         const authRoutes = require('./routes/authenticate');
         const announcementRoutes = require('./routes/announcements');
-        //const connectRoutes = require('./routes/connect');
+        const socialRoutes = require('./routes/social');
         const userProfileRoutes = require('./routes/user-profile');
         //const lineRoutes = require('./routes/lines');
         //const lineInfoRoutes = require('./routes/lineinfo');
@@ -82,7 +82,7 @@ class Application {
         this.express.use('/api/authentication', authRoutes);
         this.express.use('/api/user-profile', userProfileRoutes);
         this.express.use('/api/announcement', announcementRoutes);
-        // this.express.use('/api/connect', connectRoutes);
+        this.express.use('/api/social', socialRoutes);
         // this.express.use('/api/lineservice', lineRoutes);
         // this.express.use('/api/line-info', lineInfoRoutes);
         this.express.use('/', index);
