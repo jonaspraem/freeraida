@@ -1,13 +1,17 @@
+@import '../lib/colors';
+@import '../lib/fonts';
+
 $hero-image-size: 250px;
 
 .profile {
     background-color: $color-primary !important;
     background-image: none !important;
     min-height: 100vh;
+    color: $color-white;
 
     &__hero {
         width: 100%;
-        height: 450px;
+        height: 500px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
@@ -15,7 +19,7 @@ $hero-image-size: 250px;
         &__header {
             display: flex;
             margin: auto;
-            width: 500px
+            width: 620px;
         }
 
         &__image {
@@ -32,18 +36,30 @@ $hero-image-size: 250px;
             width: 80px;
             height: 80px;
             margin-top: -40px;
+            margin-left: 70px;
+        }
+
+        &__button {
+            margin-top: -25px;
+        }
+
+        &__username {
+            padding-top: 5px;
+            text-align: center;
+            font-size: $font-size-large;
+            color: $color-tertiary-light;
         }
 
         &__description {
             margin: 40px auto 0 auto;
             width: 300px;
-            color: white;
+            color: $color-white;
             text-align: center;
 
             &__spacer {
                 height: 3px;
                 width: 100%;
-                background-color: white;
+                background-color: $color-white;
                 margin: 10px 0;
             }
         }

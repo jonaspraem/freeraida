@@ -3,10 +3,13 @@
     <div class="profile__hero__header">
         <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
         <img class="profile__hero__image" [src]="profile_image">
-        <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
+        <div>
+            <button class="button--inverted profile__hero__button">Follow</button>
+            <div class="profile__hero__username">@{{ profile?.username }}</div>
+        </div>
     </div>
     <div class="profile__hero__description">
         <div class="profile__hero__description__spacer"></div>
-        <h1>{{ profile.fullname }}</h1>
+        <h1>{{ profile?.fullname }}</h1>
     </div>
 </div>
