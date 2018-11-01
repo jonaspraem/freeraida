@@ -14,15 +14,15 @@
             <div class="profile__hero__header__side profile__hero__header__side_right">
                 <div class="profile__hero__header__side_right__item">
                     <div class="profile__hero__header__side_right__item__label">Following</div>
-                    <div class="profile__hero__header__side_right__item__value">559</div>
+                    <div class="profile__hero__header__side_right__item__value">{{ profile?.following?.length }}</div>
                 </div>
                 <div class="profile__hero__header__side_right__item">
                     <div class="profile__hero__header__side_right__item__label">Followers</div>
-                    <div class="profile__hero__header__side_right__item__value">259</div>
+                    <div class="profile__hero__header__side_right__item__value">{{ profile?.followers?.length }}</div>
                 </div>
                 <div class="profile__hero__header__side_right__item">
                     <div class="profile__hero__header__side_right__item__label">Lines</div>
-                    <div class="profile__hero__header__side_right__item__value">32</div>
+                    <div class="profile__hero__header__side_right__item__value">{{ profile?.lines?.length }}</div>
                 </div>
             </div>
         </div>
