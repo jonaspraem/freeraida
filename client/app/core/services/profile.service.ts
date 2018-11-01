@@ -15,7 +15,6 @@ export class ProfileService {
     constructor(
         private http: HttpClient,
         private config: CONFIG,
-        private router: Router
     ) {}
 
     getProfile(username: string) {

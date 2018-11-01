@@ -24,7 +24,6 @@ const APP_ROUTES: Routes = [
     { path: 'wiki', component: WikiComponent},
     { path: 'forums', component: ForumsComponent},
     { path: 'events', component: EventsComponent},
-    { path: 'settings', component: SettingsComponent},
     { path: 'user/:username', component: ProfilePageComponent},
     { path: 'tracked-line/:id', component: AfterRegistrationComponent},
 ];

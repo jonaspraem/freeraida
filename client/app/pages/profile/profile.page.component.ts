@@ -5,6 +5,7 @@ import { ProfileService } from "../../core/services/profile.service";
 import { IUserProfile } from "../../models/interfaces/types";
 import { IUserProfileResponse } from "../../models/interfaces/responses";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
+import { SocialService } from "../../core/services/social.service";
 
 const hero = require('../../../images/licensed/iStock-01.jpg');
 const profile_image = require('../../../images/rider/profile-image.jpg');
@@ -19,29 +20,47 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     public profile: IUserProfile;
     public hero = hero;
     public profile_image = profile_image;
-    private route_subscription: Subscription;
-    private profile_subscription: Subscription;
+    private _routeSubscription: Subscription;
+    private _profileSubscription: Subscription;
 
     constructor(
-        private route: ActivatedRoute,
-        private profile_service: ProfileService
+        private _route: ActivatedRoute,
+        private _profileService: ProfileService,
+        private _socialService: SocialService
     ) {}
 
     public ngOnInit(): void {
-        this.route_subscription = this.route.params.subscribe(params => {
-            this.profile_subscription = this.profile_service.getProfile(params.username).subscribe((data: IUserProfileResponse) => {
+        this._routeSubscription = this._route.params.subscribe(params => {
+            this._profileSubscription = this._profileService.getProfile(params.username).subscribe((data: IUserProfileResponse) => {
                 this.profile = data.obj; // TODO
-                if (this.profile.username === this.profile_service.userProfile.username) this.isSelf = true;
+                if (this.profile.username === this._profileService.userProfile.username) this.isSelf = true;
             });
         });
     }
 
     public ngOnDestroy(): void {
-        if (this.route_subscription) this.route_subscription.unsubscribe();
-        if (this.profile_subscription) this.profile_subscription.unsubscribe();
+        if (this._routeSubscription) this._routeSubscription.unsubscribe();
+        if (this._profileSubscription) this._profileSubscription.unsubscribe();
     }
 
-    public getFlag(key: string) {
+    public getFlag(key: string): any {
         return FLAG_DICTIONARY.get(key);
+    }
+
+    public getFollowButtonText(): string {
+        if (this._socialService.isFollowing(this._profileService.userProfile, this.profile.username)) {
+            return 'Following';
+        }
+        else {
+            return 'Follow';
+        }
+    }
+
+    public onToggleFollow(): void {
+        this._socialService.toggleFollow(this._profileService.userProfile, this.profile).subscribe(
+            data => {
+                this.profile = data.obj;
+            }
+        )
     }
 }

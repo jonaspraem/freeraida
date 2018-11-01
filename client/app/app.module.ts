@@ -17,7 +17,6 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { HeaderComponent } from "./features/header/header.component";
 import { UserOptionsDropdownComponent } from "./features/header/user-options/user-options-dropdown.component";
 import { CommonModule } from "@angular/common";
-import { ProfileModule } from "./legacy/profile/profile.module";
 import { LineModule } from "./legacy/lines/line.module";
 import { TrackPageModule } from "./legacy/tracker/track.module";
 import { PostModule } from "./legacy/posts/post.module";
@@ -56,7 +55,6 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
         LandingPageModule,
         CoreModule,
         CommonModule,
-        ProfileModule,
         LineModule,
         TrackPageModule,
         PostModule,

@@ -11,8 +11,8 @@
                     <img class="profile__hero__image" [src]="profile_image">
                     <div class="profile__hero__username">@{{ profile?.username }}</div>
                 </div>
-                <div class="profile__hero__image__side-container">
-                    <button *ngIf="!isSelf" class="button--inverted profile__hero__button">Follow</button>
+                <div class="profile__hero__image__side-container" *ngIf="profile">
+                    <button *ngIf="!isSelf" class="button--inverted profile__hero__button" (click)="onToggleFollow()">{{ getFollowButtonText() }}</button>
                 </div>
             </div>
             <div class="profile__hero__header__side"></div>
