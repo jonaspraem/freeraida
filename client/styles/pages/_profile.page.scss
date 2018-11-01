@@ -19,41 +19,48 @@ $hero-image-size: 250px;
             background-color: $color-primary !important;
             background-image: none !important;
             padding-bottom: 20px;
+            box-shadow: $effect-box-shadow-standard;
         }
 
         &__header {
             display: flex;
+            width: auto;
+            margin: auto;
 
             &__container {
                 display: flex;
+                position: relative;
                 width: 100%;
+            }
+
+            &__right {
+                position: absolute;
+                display: flex;
+                right: 0;
+                top: 80px;
+                min-width: 30vw;
+
+                &__item {
+                    flex: 1;
+                    text-align: center;
+
+                    &__label {
+                        color: $color-white-dark;
+                        font-weight: 600;
+                        font-size: $font-size-large;
+                        border-bottom: 2px solid $color-white-dark;
+                    }
+
+                    &__value {
+                        color: $color-tertiary-light;
+                        font-weight: 800;
+                        font-size: $font-size-large;
+                    }
+                }
             }
 
             &__side {
                 flex: 1;
-
-                &_right {
-                    display: flex;
-                    margin: 20px 0 0 40px;
-
-                    &__item {
-                        flex: 1;
-                        text-align: center;
-
-                        &__label {
-                            color: $color-white-dark;
-                            font-weight: 600;
-                            font-size: $font-size-large;
-                            border-bottom: 2px solid $color-white-dark;
-                        }
-
-                        &__value {
-                            color: $color-tertiary-light;
-                            font-weight: 800;
-                            font-size: $font-size-large;
-                        }
-                    }
-                }
             }
         }
 
