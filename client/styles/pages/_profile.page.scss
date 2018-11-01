@@ -23,7 +23,6 @@ $hero-image-size: 250px;
 
         &__header {
             display: flex;
-            margin: auto;
 
             &__container {
                 display: flex;
@@ -60,7 +59,6 @@ $hero-image-size: 250px;
 
         &__image {
             display: block;
-            margin: auto;
             height: $hero-image-size;
             width: $hero-image-size;
             border-radius: 50%;
