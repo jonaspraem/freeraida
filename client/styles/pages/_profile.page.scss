@@ -17,13 +17,12 @@ $hero-image-size: 250px;
             color: $color-white;
             background-color: $color-primary !important;
             background-image: none !important;
-            padding-bottom: 40px;
+            padding-bottom: 20px;
         }
 
         &__header {
             display: flex;
             margin: auto;
-            width: 620px;
 
             &__container {
                 display: flex;
@@ -66,6 +65,11 @@ $hero-image-size: 250px;
             border-radius: 50%;
             border: 5px solid $color-primary;
             margin-top: -($hero-image-size / 2);
+
+            &__side-container {
+                min-width: 250px;
+                text-align: center;
+            }
         }
 
         &__flag {

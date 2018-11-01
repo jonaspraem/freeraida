@@ -4,11 +4,15 @@
         <div class="profile__hero__header__container">
             <div class="profile__hero__header__side"></div>
             <div class="profile__hero__header">
-                <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
-                <img class="profile__hero__image" [src]="profile_image">
+                <div class="profile__hero__image__side-container">
+                    <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
+                </div>
                 <div>
-                    <button class="button--inverted profile__hero__button">Follow</button>
+                    <img class="profile__hero__image" [src]="profile_image">
                     <div class="profile__hero__username">@{{ profile?.username }}</div>
+                </div>
+                <div class="profile__hero__image__side-container">
+                    <button *ngIf="!isSelf" class="button--inverted profile__hero__button">Follow</button>
                 </div>
             </div>
             <div class="profile__hero__header__side profile__hero__header__side_right">

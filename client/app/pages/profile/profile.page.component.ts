@@ -31,7 +31,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         this.route_subscription = this.route.params.subscribe(params => {
             this.profile_subscription = this.profile_service.getProfile(params.username).subscribe((data: IUserProfileResponse) => {
                 this.profile = data.obj; // TODO
-                // if (this.profile.username === this.profile_service.userProfile.username) this.isSelf = true;
+                if (this.profile.username === this.profile_service.userProfile.username) this.isSelf = true;
             });
         });
     }
