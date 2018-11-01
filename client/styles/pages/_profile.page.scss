@@ -35,7 +35,7 @@ $hero-image-size: 250px;
 
                 &_right {
                     display: flex;
-                    margin: 20px 40px 0 40px;
+                    margin: 20px 0 0 40px;
 
                     &__item {
                         flex: 1;
@@ -43,8 +43,9 @@ $hero-image-size: 250px;
 
                         &__label {
                             color: $color-white-dark;
-                            font-weight: 400;
+                            font-weight: 600;
                             font-size: $font-size-large;
+                            border-bottom: 2px solid $color-white-dark;
                         }
 
                         &__value {
