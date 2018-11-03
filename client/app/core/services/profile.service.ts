@@ -28,8 +28,7 @@ export class ProfileService {
             .subscribe(
                 (data) => {
                     this.userProfile = data.obj;
-                    console.log('userProfileLocal', data);
-                    //this.router.navigate(['/']);
+                    localStorage.setItem('username', data.obj.username);
                 },
                 err => {}
             );

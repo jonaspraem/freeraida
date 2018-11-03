@@ -8,7 +8,6 @@ import { BeginnersGuideComponent } from "./legacy/coming-soon/beginners-guide/be
 import { WikiComponent } from "./legacy/coming-soon/wiki/wiki.component";
 import { ForumsComponent } from "./legacy/coming-soon/forums/forums.component";
 import { EventsComponent } from "./legacy/coming-soon/events/events.component";
-import { SettingsComponent } from "./legacy/profile/settings/settings.component";
 import { AfterRegistrationComponent } from "./legacy/lines/after-registration/after-registration.component";
 import { HomePageComponent } from "./pages/home-page/home.page.component";
 import { ProfilePageComponent } from "./pages/profile/profile.page.component";
@@ -24,7 +23,10 @@ const APP_ROUTES: Routes = [
     { path: 'wiki', component: WikiComponent},
     { path: 'forums', component: ForumsComponent},
     { path: 'events', component: EventsComponent},
-    { path: 'user/:username', component: ProfilePageComponent},
+    { path: 'user', children: [
+            { path: '', redirectTo: localStorage.getItem('username'), pathMatch: 'full' },
+            { path: ':username', component: ProfilePageComponent }]
+    },
     { path: 'tracked-line/:id', component: AfterRegistrationComponent},
 ];
 
