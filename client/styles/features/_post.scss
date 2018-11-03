@@ -49,6 +49,12 @@ $writer-transition: 0.35s ease-in-out;
         }
     }
 
+    &__actions {
+        width: 100%;
+        text-align: right;
+        padding: 15px;
+    }
+
     &__textwriter {
         max-height: $writer-max-height - 48px;
         min-height: 45px;
