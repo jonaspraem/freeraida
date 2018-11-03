@@ -100,27 +100,42 @@ $hero-image-size: 250px;
             color: $color-tertiary-light;
         }
 
-        &__description {
-            width: 500px;
-            text-align: center;
-            margin-top: 70px;
 
-            &__spacer {
-                height: 3px;
-                width: 100%;
-                background-color: $color-primary;
-                margin: 10px 0;
-            }
+    }
+
+    &__header {
+        color: $color-primary;
+        margin: 50px 70px 0 70px;
+
+        &__text {
+            width: 500px;
+            margin-left: 100px;
+        }
+
+        &__spacer {
+            height: 2px;
+            background-color: $color-primary;
         }
     }
 
-    &__content-box {
+    &__info {
+        margin: 20px 70px;
         display: flex;
-        width: 100%;
-        color: $color-primary;
 
-        &__side {
+        &__column {
             flex: 1;
         }
+
+        &__label {
+            color: $color-secondary;
+            min-width: 100px;
+            display: inline-block;
+        }
+
+        &__value {
+            color: $color-primary-light;
+            font-weight: 600;
+        }
+
     }
 }

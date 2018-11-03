@@ -33,13 +33,67 @@
             </div>
         </div>
     </div>
-    <div class="profile__content-box">
-        <div class="profile__content-box__side"></div>
-        <div class="profile__hero__description">
+    <div class="profile__header">
+        <div class="profile__header__text">
             <h1>{{ profile?.fullname }}</h1>
-            <div class="profile__hero__description__spacer"></div>
         </div>
-        <div class="profile__content-box__side"></div>
+        <div class="profile__header__spacer"></div>
     </div>
 
+    <div class="profile__info">
+        <div class="profile__info__column">
+            <div>
+                <span class="profile__info__label">Firstname</span>
+                <span class="profile__info__value">{{ profile?.firstname }}</span>
+            </div>
+            <div>
+                <span class="profile__info__label">Surname</span>
+                <span class="profile__info__value">{{ profile?.surname }}</span>
+            </div>
+            <div>
+                <span class="profile__info__label">Country</span>
+                <span class="profile__info__value">{{ profile?.country }}</span>
+            </div>
+            <div>
+                <span class="profile__info__label">Reputation</span>
+                <span class="profile__info__value">150.050</span>
+            </div>
+        </div>
+        <div class="profile__info__column">
+            <div>
+                <span class="profile__info__label">Followers</span>
+                <span class="profile__info__value">{{ profile?.followers.length }}</span>
+            </div>
+            <div>
+                <span class="profile__info__label">Following</span>
+                <span class="profile__info__value">{{ profile?.following.length }}</span>
+            </div>
+            <div>
+                <span class="profile__info__label">Lines</span>
+                <span class="profile__info__value">{{ profile?.lines.length }}</span>
+            </div>
+            <div>
+                <span class="profile__info__label">Posts</span>
+                <span class="profile__info__value">{{ profile?.announcements.length }}</span>
+            </div>
+        </div>
+        <div class="profile__info__column">
+            <div>
+                <span class="profile__info__label">Km traveled</span>
+                <span class="profile__info__value">15.000 km</span>
+            </div>
+            <div>
+                <span class="profile__info__label">Achievements gathered</span>
+                <span class="profile__info__value">14</span>
+            </div>
+            <div>
+                <span class="profile__info__label">Images uploaded</span>
+                <span class="profile__info__value">157</span>
+            </div>
+            <div>
+                <span class="profile__info__label">Videos uploaded</span>
+                <span class="profile__info__value">24</span>
+            </div>
+        </div>
+    </div>
 </div>
