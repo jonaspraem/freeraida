@@ -40,18 +40,23 @@ router.post('/follow/:username', async (req, res, next) => {
             message: 'You are already following this user'
         });
     }
+    self.following.push(username);
+    toFollow.followers.push(self.username);
     try {
-        self.following.push(username);
-        toFollow.followers.push(self.username);
+        console.log("self", self);
+        console.log("toFollow", toFollow);
         await self.save();
+        console.log("made it here");
         toFollow = await toFollow.save();
+        console.log("made it here");
     } catch (e) {
+        console.log(e);
         return res.status(500).json({
             title: 'An error occurred',
             message: 'Error saving the user profiles'
         });
     }
-    return res.status(201).json({
+    return res.status(200).json({
         message: 'User successfully followed',
         obj: toFollow
     });
@@ -91,7 +96,7 @@ router.post('/unfollow/:username', async (req, res, next) => {
             message: 'Error saving the user profiles'
         });
     }
-    return res.status(201).json({
+    return res.status(200).json({
         message: 'User successfully unfollowed',
         obj: toUnfollow
     });

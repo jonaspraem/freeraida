@@ -13,33 +13,23 @@ export class SocialService {
     constructor(
         private _http: HttpClient,
         private _config: CONFIG,
-        private _profileService: ProfileService
     ) {}
 
     public followUser(username: string): Observable<IUserProfileResponse> {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('id_token');
-        return this._http.post<IUserProfileResponse>(this._config.getEndpoint() + '/social/follow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)});
+        const token = localStorage.getItem('api_token');
+        return this._http.post<IUserProfileResponse>(this._config.getEndpoint() + '/api/social/follow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     public unfollowUser(username: string): Observable<IUserProfileResponse> {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('id_token');
-        return this._http.post<IUserProfileResponse>(this._config.getEndpoint() + '/social/unfollow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)})
+        const token = localStorage.getItem('api_token');
+        return this._http.post<IUserProfileResponse>(this._config.getEndpoint() + '/api/social/unfollow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)})
     }
 
-    public toggleFollow(self: IUserProfile, profile: IUserProfile): Observable<IUserProfileResponse> {
-        if (this.isFollowing(self, profile.username)) {
-            return this.followUser(profile.username);
-        }
-        else {
-            return this.unfollowUser(profile.username);
-        }
-    }
-
-    public isFollowing(profile: IUserProfile, username: string): boolean {
-        return profile.following.indexOf(username) > -1;
+    public isFollowing(self: IUserProfile, username: string): boolean {
+        return self.following.indexOf(username) > -1;
     }
 }

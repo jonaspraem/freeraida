@@ -10,7 +10,7 @@ import { routerTransition } from "./shared/animations/router-transition.animatio
     templateUrl: './app.component.html',
     animations: [routerTransition]
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
     public isComponentApp: boolean;
     private nonAppUrls = ['/landing-page'];
 
@@ -22,13 +22,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.router.events.subscribe((event: Event) => {
             if(event instanceof NavigationStart) {
-                this.isComponentApp = !this.nonAppUrls.includes(event.url);
+                this.isComponentApp = !(this.nonAppUrls.indexOf(event.url) > -1);
             }
         });
         FLAG_DICTIONARY.initialize();
-    }
-
-    ngAfterViewInit() {
         this.profileService.getProfileWithToken();
     }
 

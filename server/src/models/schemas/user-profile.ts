@@ -26,11 +26,13 @@ const schema = new mongoose.Schema({
     bio: {type: String, required: false},
     social_twitter: {type: String, required: false},
     social_instagram: {type: String, required: false},
-    announcements: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
+    announcements: [{type: mongoose.Schema.Types.ObjectId, ref: 'Announcement'}],
     lines: [{type: mongoose.Schema.Types.ObjectId, ref: 'Line'}],
     tracked_lines: [{type: mongoose.Schema.Types.ObjectId, ref: 'TrackedLine'}],
     following: [{type: String}],
     followers: [{type: String}],
+}, {
+    usePushEach: true
 });
 
 schema.plugin(mongooseUniqueValidator);

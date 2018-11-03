@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { ProfileService } from "../../core/services/profile.service";
 import { IUserProfile } from "../../models/interfaces/types";
@@ -17,11 +17,13 @@ const profile_image = require('../../../images/rider/profile-image.jpg');
 
 export class ProfilePageComponent implements OnInit, OnDestroy {
     public isSelf: boolean = false;
+    public isFollowing: boolean;
     public profile: IUserProfile;
     public hero = hero;
     public profile_image = profile_image;
-    private _routeSubscription: Subscription;
-    private _profileSubscription: Subscription;
+    private _subscriptionRoutes: Subscription;
+    private _subscriptionProfile: Subscription;
+    private _subscriptionSocial: Subscription;
 
     constructor(
         private _route: ActivatedRoute,
@@ -30,17 +32,19 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     ) {}
 
     public ngOnInit(): void {
-        this._routeSubscription = this._route.params.subscribe(params => {
-            this._profileSubscription = this._profileService.getProfile(params.username).subscribe((data: IUserProfileResponse) => {
-                this.profile = data.obj; // TODO
+        this._subscriptionRoutes = this._route.params.subscribe(params => {
+            this._subscriptionProfile = this._profileService.getProfile(params.username).subscribe((data: IUserProfileResponse) => {
+                this.profile = data.obj;
                 if (this.profile.username === this._profileService.userProfile.username) this.isSelf = true;
+                this.isFollowing = this._socialService.isFollowing(this._profileService.userProfile, this.profile.username);
             });
         });
     }
 
     public ngOnDestroy(): void {
-        if (this._routeSubscription) this._routeSubscription.unsubscribe();
-        if (this._profileSubscription) this._profileSubscription.unsubscribe();
+        if (this._subscriptionRoutes) this._subscriptionRoutes.unsubscribe();
+        if (this._subscriptionProfile) this._subscriptionProfile.unsubscribe();
+        if (this._subscriptionSocial) this._subscriptionSocial.unsubscribe();
     }
 
     public getFlag(key: string): any {
@@ -48,7 +52,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     }
 
     public getFollowButtonText(): string {
-        if (this._socialService.isFollowing(this._profileService.userProfile, this.profile.username)) {
+        if (this.isFollowing) {
             return 'Following';
         }
         else {
@@ -57,10 +61,21 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     }
 
     public onToggleFollow(): void {
-        this._socialService.toggleFollow(this._profileService.userProfile, this.profile).subscribe(
-            data => {
-                this.profile = data.obj;
-            }
-        )
+        if (this.isFollowing) {
+            this._socialService.unfollowUser(this.profile.username).subscribe(
+                (data: IUserProfileResponse) => {
+                    this.profile = data.obj;
+                    this.isFollowing = false;
+                }
+            );
+        }
+        else {
+            this._socialService.followUser(this.profile.username).subscribe(
+                (data: IUserProfileResponse) => {
+                    this.profile = data.obj;
+                    this.isFollowing = true;
+                }
+            );
+        }
     }
 }
