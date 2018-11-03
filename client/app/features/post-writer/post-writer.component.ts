@@ -7,11 +7,11 @@ const default_image = require('../../../images/rider/default-image.png');
     host: {
         '(document:click)': 'onClick($event)',
     },
-    selector: 'app-announcement-writer',
-    templateUrl: './announcement-writer.component.html'
+    selector: 'app-post-writer',
+    templateUrl: './post-writer.component.html'
 })
 
-export class AnnouncementWriterComponent {
+export class PostWriterComponent {
     @ViewChild('writerContainer') writerContainer: ElementRef;
     @ViewChild('writer') writer: ElementRef;
     public defaultImage = default_image;
@@ -23,13 +23,13 @@ export class AnnouncementWriterComponent {
     ) {}
 
     public expand(): void {
-        this.writerContainer.nativeElement.className = 'announcement-writer announcement-writer_open';
-        this.writer.nativeElement.className = 'announcement-writer__textwriter announcement-writer__textwriter_open';
+        this.writerContainer.nativeElement.className = 'post-writer post-writer_open';
+        this.writer.nativeElement.className = 'post-writer__textwriter post-writer__textwriter_open';
     }
 
     public close(): void {
-        this.writerContainer.nativeElement.className = 'announcement-writer';
-        this.writer.nativeElement.className = 'announcement-writer__textwriter';
+        this.writerContainer.nativeElement.className = 'post-writer';
+        this.writer.nativeElement.className = 'post-writer__textwriter';
     }
 
     // On click outside component

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Post } from "../../objects/models/post.model";
 import { ActivatedRoute } from "@angular/router";
-import { AnnouncementService } from "../../../core/services/announcement.service";
+import { PostService } from "../../../core/services/post.service";
 import { Profile } from "../../objects/models/profile.model";
 
 @Component({
@@ -15,7 +15,7 @@ export class UserActivityComponent implements OnInit {
     @Input() posts: Post[];
     mentions: string[];
 
-    constructor(private post_service: AnnouncementService,
+    constructor(private post_service: PostService,
                 private route: ActivatedRoute) {}
 
     ngOnInit() {

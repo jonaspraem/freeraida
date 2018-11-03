@@ -1,4 +1,4 @@
-export interface IAnnouncement {
+export interface IPost {
     content: string,
     username: string,
     firstname: string,
@@ -18,7 +18,7 @@ export interface IUserProfile {
     bio?: string,
     social_twitter?: string,
     social_instagram?: string,
-    announcements?: string[],
+    posts?: string[],
     lines?: string[],
     tracked_lines?: string[],
     following?: string[],

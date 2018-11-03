@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 const UserProfile = require('./user-profile');
 
-export interface IAnnouncement extends mongoose.Document {
+export interface IPost extends mongoose.Document {
     content: string,
     username: string,
     firstname: string,
@@ -24,7 +24,7 @@ const schema = new mongoose.Schema({
 schema.post('save', async () => {
     try {
         const profile = await UserProfile.findById(this.username);
-        profile.announcements.push(this._id);
+        profile.posts.push(this._id);
         await profile.save();
     } catch (e) {}
 });
@@ -32,11 +32,11 @@ schema.post('save', async () => {
 schema.pre('remove', async (next) => {
     try {
         const profile = await UserProfile.findById(this.username);
-        profile.announcements.pull(this._id);
+        profile.posts.pull(this._id);
         await profile.save();
         next();
     } catch (e) {}
 });
 
-const Announcement = mongoose.model<IAnnouncement>('Announcement', schema);
-export default Announcement;
+const Post = mongoose.model<IPost>('Post', schema);
+export default Post;

@@ -5,7 +5,7 @@ import { FormsModule } from "@angular/forms";
 // Material design
 import { MatCardModule, MatButtonModule, MatInputModule, MatIconModule, MatMenuModule } from "@angular/material";
 
-import { AnnouncementService } from "../../core/services/announcement.service";
+import { PostService } from "../../core/services/post.service";
 import { UserActivityComponent } from "./user-activity/user-activity.component";
 import { UserActivityListComponent } from "./user-activity/user-activity-list.component";
 import { PostInputComponent } from "./feed/feed-input.component";
@@ -44,7 +44,7 @@ import { MentionModule } from "angular2-mentions/mention";
         LiveFeedComponent,
         FeedListComponent,
     ],
-    providers: [ AnnouncementService ]
+    providers: [ PostService ]
 })
 
 export class PostModule {

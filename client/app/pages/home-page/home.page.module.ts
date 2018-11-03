@@ -1,12 +1,12 @@
 import { NgModule } from "@angular/core";
 import { HomePageComponent } from "./home.page.component";
-import { AnnouncementWriterComponent } from "../../features/announcement-writer/announcement-writer.component";
+import { PostWriterComponent } from "../../features/post-writer/post-writer.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule({
     declarations: [
         HomePageComponent,
-        AnnouncementWriterComponent,
+        PostWriterComponent,
     ],
     exports: [
         HomePageComponent

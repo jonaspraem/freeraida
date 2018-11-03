@@ -7,7 +7,7 @@ import { LineService } from "../lines/line.service";
 import { Line } from "../objects/models/line.model";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
-import { AnnouncementService } from "../../core/services/announcement.service";
+import { PostService } from "../../core/services/post.service";
 import { Post } from "../objects/models/post.model";
 
 const background_image = require('../../../images/licensed/iStock-01.jpg');
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit{
 
     constructor(private profile_service: ProfileService,
                 private line_service: LineService,
-                private post_service: AnnouncementService,
+                private post_service: PostService,
                 private router: Router,
                 private route: ActivatedRoute,
                 public flag_dictionary: FLAG_DICTIONARY,

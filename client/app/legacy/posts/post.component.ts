@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Post } from "../objects/models/post.model";
-import { AnnouncementService } from "../../core/services/announcement.service";
+import { PostService } from "../../core/services/post.service";
 import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 import { Router } from "@angular/router";
 import { Profile } from "../objects/models/profile.model";
-import { PostModel } from "../../models/viewmodels/announcement.model";
+import { PostModel } from "../../models/viewmodels/post.model";
 
 const gnarly_primary = require('../../../images/gnarly/gnarly_primary.png');
 const gnarly_secondary = require('../../../images/gnarly/gnarly_secondary.png');
@@ -28,7 +28,7 @@ export class PostComponent implements OnInit{
     isGnarly: boolean;
     isExpanded: boolean = false;
 
-    constructor(private post_service : AnnouncementService,
+    constructor(private post_service : PostService,
                 public color_dictionary : COLOR_DICTIONARY,
                 private router : Router) {}
 

@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { AnnouncementService } from "../../../core/services/announcement.service";
+import { PostService } from "../../../core/services/post.service";
 
 import { Post } from "../../objects/models/post.model";
 import { Profile } from "../../objects/models/profile.model";
@@ -18,7 +18,7 @@ export class UserActivityInputComponent {
     @Input() mentions: string[];
     content: string = '';
 
-    constructor(private post_service: AnnouncementService,
+    constructor(private post_service: PostService,
                 public color_dictionary: COLOR_DICTIONARY) {}
 
     onSubmit() {

@@ -1,5 +1,5 @@
 import * as express from 'express';
-import Announcement from '../models/schemas/announcement';
+import Post from '../models/schemas/post';
 import UserProfile from '../models/schemas/user-profile';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -33,7 +33,7 @@ const getFeed = async (profile) => {
 
 const getUserFeed = async (profile) => {
     try {
-        return await Announcement.find({'_id': {$in: profile.announcements}});
+        return await Post.find({'_id': {$in: profile.posts}});
     } catch (e) {
         throw new e;
     }
@@ -119,7 +119,7 @@ router.post('/', async (req, res, next) => {
             message: 'Could find the user profile'
         });
     }
-    let announcement = new Announcement({
+    let post = new Post({
         content: req.body.content,
         username: profile.username,
         firstname: profile.firstname,
@@ -129,18 +129,18 @@ router.post('/', async (req, res, next) => {
         gnarly: []
     });
     try {
-        announcement = await announcement.save();
-        profile.announcements.push(announcement);
+        post = await post.save();
+        profile.posts.push(post);
         await profile.save();
     } catch (e) {
         return res.status(500).json({
             title: 'An error occurred',
-            message: 'Error saving the announcement'
+            message: 'Error saving the post'
         });
     }
     return res.status(201).json({
-        message: 'Announcement saved',
-        obj: announcement
+        message: 'Post saved',
+        obj: post
     });
 });
 
@@ -148,7 +148,7 @@ router.post('/', async (req, res, next) => {
 router.post('/gnarly/:id', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
-    let announcement;
+    let post;
     try {
         profile = await UserProfile.findById(decoded.id);
     } catch (e) {
@@ -158,32 +158,32 @@ router.post('/gnarly/:id', async (req, res, next) => {
         });
     }
     try {
-        announcement = await Announcement.findById(req.params.id);
+        post = await Post.findById(req.params.id);
     } catch (e) {
         return res.status(404).json({
-            title: 'Error finding the announcement',
-            message: 'No matching announcement with the provided id'
+            title: 'Error finding the post',
+            message: 'No matching post with the provided id'
         });
     }
     // If user already gnarly post
-    if (announcement.gnarly.indexOf(profile.username) > -1) {
+    if (post.gnarly.indexOf(profile.username) > -1) {
         return res.status(400).json({
-            title: 'Error gnarly the announcement',
+            title: 'Error gnarly the post',
             message: 'The user is already on gnarly list'
         });
     }
-    announcement.gnarly.push(profile.username);
+    post.gnarly.push(profile.username);
     try {
-        await announcement.save();
+        await post.save();
     } catch (e) {
         return res.status(500).json({
             title: 'An error occurred',
-            error: 'Error saving the announcement'
+            error: 'Error saving the post'
         });
     }
     return res.status(201).json({
-        message: 'Successfully gnarly announcement '+req.params.id,
-        obj: announcement
+        message: 'Successfully gnarly post '+req.params.id,
+        obj: post
     });
 });
 
@@ -191,7 +191,7 @@ router.post('/gnarly/:id', async (req, res, next) => {
 router.post('/un-gnarly/:id', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
-    let announcement;
+    let post;
     try {
         profile = await UserProfile.findById(decoded.id);
     } catch (e) {
@@ -201,31 +201,31 @@ router.post('/un-gnarly/:id', async (req, res, next) => {
         });
     }
     try {
-        announcement = await Announcement.findById(req.params.id);
+        post = await Post.findById(req.params.id);
     } catch (e) {
         return res.status(404).json({
-            title: 'Error finding the announcement',
-            message: 'No matching announcement with the provided id'
+            title: 'Error finding the post',
+            message: 'No matching post with the provided id'
         });
     }
-    if (!(announcement.gnarly.indexOf(profile.username) > -1)) {
+    if (!(post.gnarly.indexOf(profile.username) > -1)) {
         return res.status(400).json({
-            title: 'Error un-gnarly the announcement',
+            title: 'Error un-gnarly the post',
             message: 'The user is not on gnarly list'
         });
     }
-    announcement.gnarly.splice(announcement.gnarly.indexOf(profile.username), 1);
+    post.gnarly.splice(post.gnarly.indexOf(profile.username), 1);
     try {
-        await announcement.save();
+        await post.save();
     } catch (e) {
         return res.status(500).json({
             title: 'An error occurred',
-            error: 'Error saving the announcement'
+            error: 'Error saving the post'
         });
     }
     return res.status(201).json({
-        message: 'Successfully un-gnarly announcement '+req.params.id,
-        obj: announcement
+        message: 'Successfully un-gnarly post '+req.params.id,
+        obj: post
     });
 });
 
@@ -233,7 +233,7 @@ router.post('/un-gnarly/:id', async (req, res, next) => {
 router.patch('/:id', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
-    let announcement;
+    let post;
     try {
         profile = await UserProfile.findById(decoded.id);
     } catch (e) {
@@ -243,22 +243,22 @@ router.patch('/:id', async (req, res, next) => {
         });
     }
     try {
-        announcement = await Announcement.findById(req.params.id);
+        post = await Post.findById(req.params.id);
     } catch (e) {
         return res.status(404).json({
-            title: 'Error finding the announcement',
-            message: 'No matching announcement with the provided id'
+            title: 'Error finding the post',
+            message: 'No matching post with the provided id'
         });
     }
-    if (announcement.username !== profile.username) {
+    if (post.username !== profile.username) {
         return res.status(404).json({
-            title: 'Error patching the announcement',
-            message: 'Access to the patching the announcement denied'
+            title: 'Error patching the post',
+            message: 'Access to the patching the post denied'
         });
     }
-    announcement.content = req.body.content;
+    post.content = req.body.content;
     try {
-        await announcement.save();
+        await post.save();
     } catch (e) {
         return res.status(500).json({
             title: 'An error occurred',
@@ -267,7 +267,7 @@ router.patch('/:id', async (req, res, next) => {
     }
     return res.status(200).json({
         message: 'post updated',
-        obj: announcement
+        obj: post
     });
 });
 
@@ -275,7 +275,7 @@ router.patch('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
-    let announcement;
+    let post;
     try {
         profile = await UserProfile.findById(decoded.id);
     } catch (e) {
@@ -285,21 +285,21 @@ router.delete('/:id', async (req, res, next) => {
         });
     }
     try {
-        announcement = await Announcement.findById(req.params.id);
+        post = await Post.findById(req.params.id);
     } catch (e) {
         return res.status(404).json({
-            title: 'Error finding the announcement',
-            message: 'No matching announcement with the provided id'
+            title: 'Error finding the post',
+            message: 'No matching post with the provided id'
         });
     }
-    if (announcement.username !== profile.username) {
+    if (post.username !== profile.username) {
         return res.status(401).json({
             title: 'Not Authenticated',
             error: {message: 'Not the user\'s post'}
         });
     }
     try {
-        await announcement.remove();
+        await post.remove();
     } catch (e) {
         return res.status(500).json({
             title: 'An error occurred',
@@ -308,7 +308,7 @@ router.delete('/:id', async (req, res, next) => {
     }
     return res.status(200).json({
         message: 'post deleted',
-        obj: announcement
+        obj: post
     });
 });
 

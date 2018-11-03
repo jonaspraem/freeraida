@@ -24,7 +24,7 @@ interface UserListResponse {
 
 @Injectable()
 
-export class AnnouncementService {
+export class PostService {
     posts: Post[] = [];
     postIsEdit = new EventEmitter<Post>();
 
