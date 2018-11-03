@@ -1,33 +1,34 @@
 <div class="page-container profile">
-    <div class="profile__hero__container">
-        <div class="profile__hero" [ngStyle]="{'background-image': 'url('+hero+')'}"></div>
-        <div class="profile__hero__header__container">
-            <div class="profile__hero__header__side"></div>
-            <div class="profile__hero__header">
-                <div class="profile__hero__image__side-container">
-                    <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
+    <div class="profile__hero" [ngStyle]="{'background-image': 'url('+hero+')'}">
+        <div class="profile__hero__content">
+            <div class="profile__hero__header__container">
+                <div class="profile__hero__header__side"></div>
+                <div class="profile__hero__header">
+                    <div class="profile__hero__image__side-container">
+                        <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
+                    </div>
+                    <div>
+                        <img class="profile__hero__image" [src]="profile_image">
+                        <div class="profile__hero__username">@{{ profile?.username }}</div>
+                    </div>
+                    <div class="profile__hero__image__side-container" *ngIf="profile">
+                        <button *ngIf="!isSelf" class="button--inverted profile__hero__button" (click)="onToggleFollow()">{{ getFollowButtonText() }}</button>
+                    </div>
                 </div>
-                <div>
-                    <img class="profile__hero__image" [src]="profile_image">
-                    <div class="profile__hero__username">@{{ profile?.username }}</div>
-                </div>
-                <div class="profile__hero__image__side-container" *ngIf="profile">
-                    <button *ngIf="!isSelf" class="button--inverted profile__hero__button" (click)="onToggleFollow()">{{ getFollowButtonText() }}</button>
-                </div>
-            </div>
-            <div class="profile__hero__header__side"></div>
-            <div class="profile__hero__header__right">
-                <div class="profile__hero__header__right__item">
-                    <div class="profile__hero__header__right__item__label">Following</div>
-                    <div class="profile__hero__header__right__item__value">{{ profile?.following?.length }}</div>
-                </div>
-                <div class="profile__hero__header__right__item">
-                    <div class="profile__hero__header__right__item__label">Followers</div>
-                    <div class="profile__hero__header__right__item__value">{{ profile?.followers?.length }}</div>
-                </div>
-                <div class="profile__hero__header__right__item">
-                    <div class="profile__hero__header__right__item__label">Lines</div>
-                    <div class="profile__hero__header__right__item__value">{{ profile?.lines?.length }}</div>
+                <div class="profile__hero__header__side"></div>
+                <div class="profile__hero__header__right">
+                    <div class="profile__hero__header__right__item">
+                        <div class="profile__hero__header__right__item__label">Following</div>
+                        <div class="profile__hero__header__right__item__value">{{ profile?.following?.length }}</div>
+                    </div>
+                    <div class="profile__hero__header__right__item">
+                        <div class="profile__hero__header__right__item__label">Followers</div>
+                        <div class="profile__hero__header__right__item__value">{{ profile?.followers?.length }}</div>
+                    </div>
+                    <div class="profile__hero__header__right__item">
+                        <div class="profile__hero__header__right__item__label">Lines</div>
+                        <div class="profile__hero__header__right__item__value">{{ profile?.lines?.length }}</div>
+                    </div>
                 </div>
             </div>
         </div>
