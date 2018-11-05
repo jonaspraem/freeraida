@@ -1,7 +1,7 @@
 <ng-container *ngIf="isComponentApp; else noApp">
     <app-header></app-header>
     <app-sidenav></app-sidenav>
-    <main [@routerTransition]="getState(o)" class="app-container">
+    <main [@routerTransition]="getState(o)">
         <router-outlet #o="outlet"></router-outlet>
     </main>
 </ng-container>

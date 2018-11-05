@@ -2,8 +2,10 @@ $color-primary: #141D2F;
 $color-primary-light: #1966FF;
 $color-primary-lighter: #0055FF;
 $color-secondary: #1B1E1B;
-$color-tertiary: #B27B00;
-$color-tertiary-light: #FFB000;
+$color-tertiary: #FFB000;
 $color-white: #FDFEFF;
 $color-white-dark: #f6f6f6;
 $color-orange: #f28b0b; // MAYBE
+
+// opacity colors
+$color-opaque-overlay-black: rgba(0,0,0,.75);

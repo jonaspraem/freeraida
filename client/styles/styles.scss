@@ -11,10 +11,11 @@ $fa-font-path: '../../node_modules/font-awesome/fonts';
 @import 'assets/inputs';
 
 @import 'pages/profile.page';
-@import 'pages/home-page';
+@import 'pages/home.page';
+@import 'pages/landing.page';
 
 @import 'app';
 
 @import 'features/profile';
-@import 'features/landing-page';
+
 @import 'features/post';

@@ -7,7 +7,7 @@ $sidenav-width: 220px;
 
 .app-header {
     &__container {
-        position: fixed;
+        position: sticky;
         top: 0;
         left: 0;
         width: 100%;
@@ -50,15 +50,6 @@ $sidenav-width: 220px;
     }
 }
 
-.app-container {
-    position: fixed;
-    width: 100%;
-    background: $background-color $background-image;
-    height: auto;
-    min-height: 100vh;
-    margin-left: $sidenav-width;
-}
-
 .page-container {
     position: absolute;
     background: $background-color $background-image;
@@ -73,7 +64,7 @@ $sidenav-width: 220px;
 .sidenav {
     &__container {
         background: $background-color $background-image;
-        position: fixed;
+        position: sticky;
         top: 0;
         left: 0;
         padding: 250px 20px;

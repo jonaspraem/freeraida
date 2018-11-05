@@ -1,6 +1,14 @@
-.input-primary {
-    display: inline-block;
+.input-dark {
+    background: #333;
+    border-radius: 4px;
+    border: 0;
+    color: #fff;
+    height: 50px;
+    line-height: 50px;
+    padding: 16px 20px 0;
+    width: 100%;
 
-    margin: 40px; // TODO move
-    width: 100%; // TODO move
+    &:focus {
+        background: #454545;
+    }
 }
