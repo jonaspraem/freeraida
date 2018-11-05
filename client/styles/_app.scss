@@ -50,6 +50,16 @@ $sidenav-width: 220px;
     }
 }
 
+.app-container {
+    position: absolute;
+    width: 100%;
+    background: $background-color $background-image;
+    height: auto;
+    min-height: 100vh;
+    left: 220px;
+    top: 0;
+}
+
 .page-container {
     position: absolute;
     background: $background-color $background-image;

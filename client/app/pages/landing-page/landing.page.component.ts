@@ -12,7 +12,7 @@ import { IRegister } from "../../models/interfaces/requests/authentication/regis
 const image = require('../../../images/350214-mountain-view.jpg');
 
 const logoImage = require('../../../images/logo/favicon.png');
-const backgroundImage = require('../../../images/backgrounds/snow-3193865_1920.jpg');
+const backgroundImage = require('../../../images/350214-mountain-view.jpg');
 
 @Component({
     selector: 'app-landing-page',

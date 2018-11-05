@@ -1,4 +1,4 @@
-.input-dark {
+.input {
     background: #333;
     border-radius: 4px;
     border: 0;
@@ -8,7 +8,41 @@
     padding: 16px 20px 0;
     width: 100%;
 
-    &:focus {
-        background: #454545;
+    &--dark {
+        background: #333;
+        color: $color-white;
+
+        &:focus {
+            background: #454545;
+        }
+
+        + label {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            color: #8c8c8c;
+            font-size: 14px;
+            -webkit-transition: font .1s ease,top .1s ease,-webkit-transform .1s ease;
+            transition: font .1s ease,top .1s ease,-webkit-transform .1s ease;
+            -o-transition: font .1s ease,top .1s ease,-o-transform .1s ease;
+            -moz-transition: font .1s ease,top .1s ease,transform .1s ease,-moz-transform .1s ease;
+            transition: font .1s ease,top .1s ease,transform .1s ease;
+            transition: font .1s ease,top .1s ease,transform .1s ease,-webkit-transform .1s ease,-moz-transform .1s ease,-o-transform .1s ease;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+
+            .hybrid-login-form label {
+                left: 20px;
+            }
+
+            .nfInput label {
+                font-size: 12px;
+            }
+        }
     }
+
+
 }

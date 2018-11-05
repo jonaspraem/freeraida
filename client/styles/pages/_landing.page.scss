@@ -3,6 +3,7 @@
 .landing-page {
     &__background-container {
         min-height: 100vh;
+        padding: 20px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
@@ -13,14 +14,16 @@
         margin: 40px auto;
         width: 400px;
         padding: 50px;
+        height: 500px;
     }
 
     &__login-item {
         min-height: 100px;
         width: 100%;
+        color: $color-white;
 
         &__header {
-            color: $color-primary;
+            color: $color-white;
             font-weight: 700;
             font-size: 20px;
             text-transform: uppercase;
@@ -29,9 +32,11 @@
 
     &__button {
         width: 100%;
-        background-color: $color-tertiary;
+        background-color: $color-primary-light;
+        color: $color-white;
         text-transform: uppercase;
         font-weight: 800;
+        margin-top: 20px;
     }
 
     &__sign-up-button-container {
