@@ -27,6 +27,11 @@
         }
     }
 
+    &__form-element {
+        position: relative;
+        z-index: 2;
+    }
+
     &__alternative-actions {
         display: flex;
 
@@ -63,6 +68,7 @@
         }
     }
 
+    // Make shared
     &__button {
         width: 100%;
         background-color: $color-primary-light;
@@ -70,17 +76,6 @@
         text-transform: uppercase;
         font-weight: 800;
         margin-top: 20px;
-
-        &:hover {
-            * &:after {
-                content: "";
-                position: absolute;
-                height: 2px;
-                background-color: white;
-                bottom: 5px;
-                width: 100%;
-            }
-        }
     }
 
     &__sign-up-button-container {
