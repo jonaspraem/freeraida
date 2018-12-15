@@ -24,12 +24,13 @@ export class LandingPageComponent implements OnInit {
     public background = backgroundImage;
     public countryList;
     public messages;
+    public isLogin: boolean = true;
     public loginForm = new FormGroup({
         user_input: new FormControl('', Validators.required),
         password: new FormControl('', Validators.required)
     });
     public signupForm = new FormGroup({
-        email: new FormControl('johndoe@mail.com', Validators.compose([
+        email: new FormControl('', Validators.compose([
             Validators.required,
             Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
         ])),
@@ -96,6 +97,10 @@ export class LandingPageComponent implements OnInit {
             country: this.signupForm.controls.country.value,
         };
         this.authService.register(request);
+    }
+
+    onToggle() {
+        this.isLogin = !this.isLogin;
     }
 
     onGoogle() {

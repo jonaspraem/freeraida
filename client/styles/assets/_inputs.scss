@@ -1,3 +1,8 @@
+@import "../lib/animations";
+
+$input-timing: $timing-quick;
+$input-label-transition: font $input-timing ease,top $input-timing ease,transform .1s ease,-webkit-transform $input-timing ease,-moz-transform $input-timing ease,-o-transform $input-timing ease;
+
 .input {
     background: #333;
     border-radius: 4px;
@@ -13,17 +18,22 @@
         background: #454545;
 
         + label {
-            top: 15%;
+            top: 10px;
             font-size: 8px;
         }
     }
 
     + label {
         position: absolute;
-        top: 50%;
+        top: 25px;
+        font-size: 14px;
         left: 10px;
         color: #8c8c8c;
-        font-size: 14px;
-        transition: font .1s ease,top .1s ease,transform .1s ease,-webkit-transform .1s ease,-moz-transform .1s ease,-o-transform .1s ease;
+        transition: $input-label-transition;
     }
+}
+
+.ng-invalid .ng-touched {
+    outline-offset: -2px;
+    outline: $color-tertiary auto 5px;
 }

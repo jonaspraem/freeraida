@@ -1,7 +1,7 @@
 <div class="landing-page__background-container" [ngStyle]="{'background-image': 'url('+background+')'}">
 
-    <div class="landing-page__container-card">
-        <div class="landing-page__login-item">
+    <div class="landing-page__container-card" [ngClass]="!isLogin ? 'landing-page__container-card--wide' : ''">
+        <div *ngIf="isLogin; else signup">
             <!-- Credential login -->
             <h2 class="landing-page__login-item__header">Login</h2>
             <div class="landing-page__spacer"></div>
@@ -15,107 +15,118 @@
                         <label for="inputPassword">Enter password</label>
                     </div>
                     <div class="landing-page__sign-up-button-container">
-                        <button type="submit" class="btn landing-page__button">Login</button>
+                        <button type="submit" class="button-primary landing-page__button">Login</button>
                     </div>
             </form>
             <div class="landing-page__spacer landing-page__spacer--small"></div>
             <div class="landing-page__alternative-actions">
-                <div class="landing-page__alternative-actions--left-aligned">sign up</div>
+                <div class="landing-page__alternative-actions--left-aligned" (click)="onToggle()">sign up</div>
                 <div class="landing-page__alternative-actions--right-aligned">forgot password</div>
             </div>
         </div>
-        <!--<hr>-->
-        <!--<div class="landing-page__login-item">-->
-            <!--&lt;!&ndash; Sign up &ndash;&gt;-->
-            <!--<h2 class="landing-page__login-item__header">Don't have an account? Sign up!</h2>-->
-            <!--<form [formGroup]="signupForm" (ngSubmit)="onSignup()">-->
-                <!--<div class="landing-page__enlist-row">-->
-                    <!--<div class="form-group landing-page__form-element">-->
-                        <!--<label for="sign-up-email">Email address</label>-->
-                        <!--<input type="email" class="form-control" id="sign-up-email" aria-describedby="sign-up-email-help" placeholder="Enter email" formControlName="email" required>-->
-                        <!--<small id="sign-up-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
-                        <!--<mat-error *ngFor="let validation of messages.email">-->
-                            <!--<mat-error class="landing-page__error-message"-->
-                                       <!--*ngIf="signupForm.get('email').hasError(validation.type) &&-->
-                                       <!--(signupForm.get('email').dirty ||-->
-                                       <!--signupForm.get('email').touched)">* {{validation.message}}</mat-error>-->
-                        <!--</mat-error>-->
-                    <!--</div>-->
-                    <!--<div class="form-group landing-page__form-element">-->
-                        <!--<label for="sign-up-username">Username</label>-->
-                        <!--<input type="text" class="form-control" id="sign-up-username" aria-describedby="sign-up-username-help" placeholder="Enter username" formControlName="username" required>-->
-                        <!--<small id="sign-up-username-help" class="form-text text-muted">Username must be unique</small>-->
-                        <!--<mat-error *ngFor="let validation of messages.username">-->
-                            <!--<mat-error class="landing-page__error-message"-->
-                                       <!--*ngIf="signupForm.get('username').hasError(validation.type) &&-->
-                                       <!--(signupForm.get('username').dirty ||-->
-                                       <!--signupForm.get('username').touched)">* {{validation.message}}</mat-error>-->
-                        <!--</mat-error>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="landing-page__enlist-row">-->
-                    <!--<div class="form-group landing-page__form-element">-->
-                        <!--<label for="sign-up-firstname">Firstname</label>-->
-                        <!--<input type="text" class="form-control" id="sign-up-firstname" placeholder="John" formControlName="firstname" required>-->
-                        <!--<mat-error *ngFor="let validation of messages.firstname">-->
-                            <!--<mat-error class="landing-page__error-message"-->
-                                       <!--*ngIf="signupForm.get('firstname').hasError(validation.type) &&-->
-                                       <!--(signupForm.get('firstname').dirty ||-->
-                                       <!--signupForm.get('firstname').touched)">* {{validation.message}}</mat-error>-->
-                        <!--</mat-error>-->
-                    <!--</div>-->
-                    <!--<div class="form-group landing-page__form-element">-->
-                        <!--<label for="sign-up-surname">Surname</label>-->
-                        <!--<input type="text" class="form-control" id="sign-up-surname" placeholder="Doe" formControlName="surname">-->
-                        <!--<mat-error *ngFor="let validation of messages.surname">-->
-                            <!--<mat-error class="landing-page__error-message"-->
-                                       <!--*ngIf="signupForm.get('surname').hasError(validation.type) &&-->
-                                       <!--(signupForm.get('surname').dirty ||-->
-                                       <!--signupForm.get('surname').touched)">* {{validation.message}}</mat-error>-->
-                        <!--</mat-error>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="landing-page__enlist-row">-->
-                    <!--<div class="form-group landing-page__form-element">-->
-                        <!--<label for="sign-up-password">Password</label>-->
-                        <!--<input type="password" class="form-control" id="sign-up-password" aria-describedby="sign-up-password-help" placeholder="Enter password" formControlName="password" required>-->
-                        <!--<small id="sign-up-password-help" class="form-text text-muted">Must be at least 7 characters long</small>-->
-                        <!--<mat-error *ngFor="let validation of messages.password">-->
-                            <!--<mat-error class="landing-page__error-message"-->
-                                       <!--*ngIf="signupForm.get('password').hasError(validation.type) &&-->
-                                       <!--(signupForm.get('password').dirty ||-->
-                                       <!--signupForm.get('password').touched)">* {{validation.message}}</mat-error>-->
-                        <!--</mat-error>-->
-                    <!--</div>-->
-                    <!--<div class="form-group landing-page__form-element">-->
-                        <!--<label for="sign-up-password-repeat">Repeat password</label>-->
-                        <!--<input type="password" class="form-control" id="sign-up-password-repeat" placeholder="Repeat password" formControlName="password_confirmation" required>-->
-                        <!--<mat-error *ngFor="let validation of messages.password_confirmation">-->
-                            <!--<mat-error class="landing-page__error-message"-->
-                                       <!--*ngIf="signupForm.get('password_confirmation').hasError(validation.type) &&-->
-                                       <!--(signupForm.get('password_confirmation').dirty ||-->
-                                       <!--signupForm.get('password_confirmation').touched)">* {{validation.message}}</mat-error>-->
-                        <!--</mat-error>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="landing-page__enlist-row">-->
-                    <!--<div class="form-group landing-page__form-element">-->
-                        <!--<label for="country-select">Country</label>-->
-                        <!--<select [formControl]="signupForm.controls.country" class="form-control" id="country-select">-->
-                            <!--<option *ngFor="let country of countryList" [ngValue]="country">{{ country }}</option>-->
-                        <!--</select>-->
-                        <!--<mat-error *ngFor="let validation of messages.country">-->
-                            <!--<mat-error class="landing-page__error-message"-->
-                                       <!--*ngIf="signupForm.get('country').hasError(validation.type) &&-->
-                                       <!--(signupForm.get('country').dirty ||-->
-                                       <!--signupForm.get('country').touched)">* {{validation.message}}</mat-error>-->
-                        <!--</mat-error>-->
-                    <!--</div>-->
-                    <!--<div class="landing-page__form-element landing-page__sign-up-button-container">-->
-                        <!--<button id="sign-up-button" class="btn button-primary landing-page__button" type="submit" [disabled]="!signupForm.valid">Sign up <i class="fa fa-chevron-right"></i></button>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
+        <ng-template #signup>
+            <div>
+                <!-- Sign up -->
+                <h2 class="landing-page__login-item__header">Sign up</h2>
+                <div class="landing-page__spacer landing-page__spacer--small"></div>
+                <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+                    <div class="landing-page__row">
+                        <div class="form-group landing-page__form-element">
+                            <input type="email" class="input" id="sign-up-email" aria-describedby="sign-up-email-help"
+                                   formControlName="email" required>
+                            <label for="sign-up-email">Enter email address</label>
+                            <small id="sign-up-email-help" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            <mat-error *ngFor="let validation of messages.email">
+                                <mat-error class="landing-page__error-message"
+                                           *ngIf="signupForm.get('email').hasError(validation.type) &&
+                                       (signupForm.get('email').dirty ||
+                                       signupForm.get('email').touched)">* {{validation.message}}</mat-error>
+                            </mat-error>
+                        </div>
+                        <div class="form-group landing-page__form-element">
+                            <input type="text" class="input" id="sign-up-username" aria-describedby="sign-up-username-help"
+                                   formControlName="username" required>
+                            <label for="sign-up-username">Enter username</label>
+                            <small id="sign-up-username-help" class="form-text text-muted">Username must be unique</small>
+                            <mat-error *ngFor="let validation of messages.username">
+                                <mat-error class="landing-page__error-message"
+                                           *ngIf="signupForm.get('username').hasError(validation.type) &&
+                                       (signupForm.get('username').dirty ||
+                                       signupForm.get('username').touched)">* {{validation.message}}</mat-error>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="landing-page__row">
+                        <div class="form-group landing-page__form-element">
+                            <input type="text" class="input" id="sign-up-firstname" formControlName="firstname" required>
+                            <label for="sign-up-firstname">Enter firstname</label>
+                            <mat-error *ngFor="let validation of messages.firstname">
+                                <mat-error class="landing-page__error-message"
+                                           *ngIf="signupForm.get('firstname').hasError(validation.type) &&
+                                       (signupForm.get('firstname').dirty ||
+                                       signupForm.get('firstname').touched)">* {{validation.message}}</mat-error>
+                            </mat-error>
+                        </div>
+                        <div class="form-group landing-page__form-element">
+                            <input type="text" class="input" id="sign-up-surname" formControlName="surname">
+                            <label for="sign-up-surname">Enter surname</label>
+                            <mat-error *ngFor="let validation of messages.surname">
+                                <mat-error class="landing-page__error-message"
+                                           *ngIf="signupForm.get('surname').hasError(validation.type) &&
+                                       (signupForm.get('surname').dirty ||
+                                       signupForm.get('surname').touched)">* {{validation.message}}</mat-error>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="landing-page__row">
+                        <div class="form-group landing-page__form-element">
+                            <input type="password" class="input" id="sign-up-password" aria-describedby="sign-up-password-help"
+                                   formControlName="password" required>
+                            <label for="sign-up-password">Enter password</label>
+                            <small id="sign-up-password-help" class="form-text text-muted">Must be at least 7 characters long</small>
+                            <mat-error *ngFor="let validation of messages.password">
+                                <mat-error class="landing-page__error-message"
+                                           *ngIf="signupForm.get('password').hasError(validation.type) &&
+                                       (signupForm.get('password').dirty ||
+                                       signupForm.get('password').touched)">* {{validation.message}}</mat-error>
+                            </mat-error>
+                        </div>
+                        <div class="form-group landing-page__form-element">
+                            <input type="password" class="input" id="sign-up-password-repeat"
+                                   formControlName="password_confirmation" required>
+                            <label for="sign-up-password-repeat">Repeat password</label>
+                            <mat-error *ngFor="let validation of messages.password_confirmation">
+                                <mat-error class="landing-page__error-message"
+                                           *ngIf="signupForm.get('password_confirmation').hasError(validation.type) &&
+                                       (signupForm.get('password_confirmation').dirty ||
+                                       signupForm.get('password_confirmation').touched)">* {{validation.message}}</mat-error>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="landing-page__row">
+                        <div class="form-group landing-page__form-element">
+                            <select [formControl]="signupForm.controls.country" class="input" id="country-select">
+                                <option *ngFor="let country of countryList" [ngValue]="country">{{ country }}</option>
+                            </select>
+                            <label for="country-select">Country</label>
+                            <mat-error *ngFor="let validation of messages.country">
+                                <mat-error class="landing-page__error-message"
+                                           *ngIf="signupForm.get('country').hasError(validation.type) &&
+                                       (signupForm.get('country').dirty ||
+                                       signupForm.get('country').touched)">* {{validation.message}}</mat-error>
+                            </mat-error>
+                        </div>
+                        <div class="landing-page__form-element landing-page__sign-up-button-container">
+                            <button id="sign-up-button" class="button-primary landing-page__button landing-page__button--inline" type="submit" [disabled]="!signupForm.valid">Sign up <i class="fa fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="landing-page__spacer landing-page__spacer--small"></div>
+                <div class="landing-page__alternative-actions">
+                    <div class="landing-page__alternative-actions--left-aligned" (click)="onToggle()">login</div>
+                    <div class="landing-page__alternative-actions--right-aligned">forgot password</div>
+                </div>
+            </div>
+        </ng-template>
     </div>
 </div>

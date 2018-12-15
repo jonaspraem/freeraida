@@ -14,7 +14,12 @@
         margin: 40px auto;
         width: 400px;
         padding: 50px;
-        height: 500px;
+        min-height: 500px;
+        transition: all $timing-medium ease-in-out;
+
+        &--wide {
+            width: 800px;
+        }
     }
 
     &__spacer {
@@ -27,7 +32,19 @@
         }
     }
 
+    &__row {
+        height: 100px;
+        display: flex;
+
+        > .landing-page__form-element {
+            &:first-child {
+                margin-right: 50px;
+            }
+        }
+    }
+
     &__form-element {
+        flex: 1;
         position: relative;
         z-index: 2;
     }
@@ -68,14 +85,12 @@
         }
     }
 
-    // Make shared
     &__button {
-        width: 100%;
-        background-color: $color-primary-light;
-        color: black;
-        text-transform: uppercase;
-        font-weight: 800;
         margin-top: 20px;
+
+        &--inline {
+            margin-top: 7px;
+        }
     }
 
     &__sign-up-button-container {
@@ -94,10 +109,10 @@
     }
 
     &__error-message {
-        color: red;
-        font-weight: 700;
+        color: $color-tertiary;
+        font-weight: 100;
         margin: 2px 0 0 10px;
-        font-size: 14px;
+        font-size: 8px;
         display: block;
     }
 }
