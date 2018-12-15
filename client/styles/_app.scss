@@ -1,8 +1,8 @@
 @import 'lib/colors';
 @import 'lib/effects';
 
-$background-color: rgba(#fff, 1);
-$background-image: url("https://www.transparenttextures.com/patterns/blizzard.png");
+$background-color: rgba(0,0,0, 1);
+$background-image: url("https://www.transparenttextures.com/patterns/rocky-wall.png");
 $sidenav-width: 220px;
 
 .app-header {
@@ -65,7 +65,7 @@ $sidenav-width: 220px;
     background: $background-color $background-image;
     left: 0;
     right: -17px;
-    padding-top: 64px;
+    padding-top: 100px;
     padding-right: 220px;
     overflow-y: scroll;
     max-height: 100vh;

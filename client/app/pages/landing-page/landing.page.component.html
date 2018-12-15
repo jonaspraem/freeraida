@@ -4,20 +4,23 @@
         <div class="landing-page__login-item">
             <!-- Credential login -->
             <h2 class="landing-page__login-item__header">Login</h2>
-            <hr>
+            <div class="landing-page__spacer"></div>
             <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                     <div class="form-group landing-page__form-element">
-                        <label for="login-username-email">Username or email address</label>
                         <input type="text" class="input input--dark" id="login-username-email" placeholder="Enter username or email" formControlName="user_input" (focusout)="reColor()" required>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="input input--dark" id="exampleInputPassword1" placeholder="Password" formControlName="password" (focusout)="reColor()" required>
+                        <input type="password" class="input input--dark" id="exampleInputPassword1" placeholder="Enter password" formControlName="password" (focusout)="reColor()" required>
                     </div>
                     <div class="landing-page__sign-up-button-container">
                         <button type="submit" class="btn landing-page__button">Login</button>
                     </div>
             </form>
+            <div class="landing-page__spacer landing-page__spacer--small"></div>
+            <div class="landing-page__alternative-actions">
+                <div class="landing-page__alternative-actions--left-aligned">sign up</div>
+                <div class="landing-page__alternative-actions--right-aligned">forgot password</div>
+            </div>
         </div>
         <!--<hr>-->
         <!--<div class="landing-page__login-item">-->

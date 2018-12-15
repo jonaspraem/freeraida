@@ -17,6 +17,39 @@
         height: 500px;
     }
 
+    &__spacer {
+        margin: 30px 0;
+        background-color: $color-primary-light;
+        height: 2px;
+
+        &--small {
+            margin-bottom: 10px;
+        }
+    }
+
+    &__alternative-actions {
+        display: flex;
+
+        > div {
+            flex: 1;
+            color: $color-primary-light;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+                text-decoration-color: $color-primary-light;
+            }
+        }
+
+        &--right-aligned {
+            text-align: right;
+        }
+
+        &--left-aligned {
+            text-align: left;
+        }
+    }
+
     &__login-item {
         min-height: 100px;
         width: 100%;
@@ -33,10 +66,21 @@
     &__button {
         width: 100%;
         background-color: $color-primary-light;
-        color: $color-white;
+        color: black;
         text-transform: uppercase;
         font-weight: 800;
         margin-top: 20px;
+
+        &:hover {
+            * &:after {
+                content: "";
+                position: absolute;
+                height: 2px;
+                background-color: white;
+                bottom: 5px;
+                width: 100%;
+            }
+        }
     }
 
     &__sign-up-button-container {

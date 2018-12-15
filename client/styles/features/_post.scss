@@ -28,7 +28,7 @@ $writer-transition: 0.35s ease-in-out;
 .post-writer {
     width: 100%;
     max-height: 65px;
-    background-color: #1B1E1B;
+    background-color: $color-primary-light;
     display: flex;
     transition: max-height $writer-transition;
 
