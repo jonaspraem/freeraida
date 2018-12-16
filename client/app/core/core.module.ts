@@ -3,6 +3,7 @@ import { AuthenticationService } from "./services/authentication.service";
 import { AuthGuardService } from "./services/auth-guard.service";
 import { SocialService } from "./services/social.service";
 import { ProfileService } from "./services/profile.service";
+import { NotEmptyDirective } from "./directives/not-empty.directive";
 
 @NgModule({
     providers: [
@@ -10,6 +11,7 @@ import { ProfileService } from "./services/profile.service";
         AuthGuardService,
         ProfileService,
         SocialService,
+        NotEmptyDirective
     ]
 })
 

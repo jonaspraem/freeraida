@@ -26,7 +26,7 @@ export class LandingPageComponent implements OnInit {
     public messages;
     public isLogin: boolean = true;
     public loginForm = new FormGroup({
-        user_input: new FormControl('', Validators.required),
+        userInput: new FormControl('', Validators.required),
         password: new FormControl('', Validators.required)
     });
     public signupForm = new FormGroup({
@@ -71,14 +71,14 @@ export class LandingPageComponent implements OnInit {
     onLogin() {
         console.log('logging in..');
         let request: ILogin;
-        if (this.loginForm.controls.user_input.value.includes('@')) {
+        if (this.loginForm.controls.userInput.value.includes('@')) {
             request = {
-                email: this.loginForm.controls.user_input.value,
+                email: this.loginForm.controls.userInput.value,
                 password: this.loginForm.controls.password.value
             };
         } else {
             request = {
-                username: this.loginForm.controls.user_input.value,
+                username: this.loginForm.controls.userInput.value,
                 password: this.loginForm.controls.password.value
             };
         }

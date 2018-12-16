@@ -18,8 +18,8 @@ $input-label-transition: font $input-timing ease,top $input-timing ease,transfor
         background: #454545;
 
         + label {
-            top: 10px;
-            font-size: 8px;
+            top: 5px;
+            font-size: 10px;
         }
     }
 
@@ -31,9 +31,20 @@ $input-label-transition: font $input-timing ease,top $input-timing ease,transfor
         color: #8c8c8c;
         transition: $input-label-transition;
     }
+
+    &--active {
+        + label {
+            top: 5px;
+            font-size: 10px;
+        }
+    }
 }
 
 .ng-invalid .ng-touched {
     outline-offset: -2px;
     outline: $color-tertiary auto 5px;
+}
+
+.ng-valid {
+    outline-color: $color-primary-light !important;
 }
