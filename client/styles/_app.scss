@@ -1,8 +1,9 @@
 @import 'lib/colors';
 @import 'lib/effects';
 
-$background-color: rgba(0,0,0, 1);
-$background-image: url("https://www.transparenttextures.com/patterns/rocky-wall.png");
+$navigation-height: 54px;
+$background-color: $color-opaque-overlay-black;
+$background-image: url("https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/12/2015/08/18.08.2014-02.53.58-05.18.07.jpg");
 $sidenav-width: 220px;
 
 .app-navigation {
@@ -50,7 +51,6 @@ $sidenav-width: 220px;
 .app-container {
     position: absolute;
     width: 100%;
-    background: $background-color $background-image;
     height: auto;
     min-height: 100vh;
     left: 220px;
@@ -59,26 +59,24 @@ $sidenav-width: 220px;
 
 .page-container {
     position: absolute;
-    background: $background-color $background-image;
     left: 0;
     right: -17px;
-    padding-top: 100px;
+    padding-top: 90px;
     padding-right: 220px;
     overflow-y: scroll;
-    max-height: 100vh;
+    height: calc(100vh - #{$navigation-height});
 }
 
 .sidenav {
-    &__container {
-        background: $background-color $background-image;
-        position: sticky;
-        top: 0;
-        left: 0;
-        padding: 250px 20px;
-        width: $sidenav-width;
-        height: 100%;
-        z-index: 2;
-    }
+    background: no-repeat center $background-color $background-image;
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 190px 30px;
+    width: $sidenav-width;
+    height: calc(100vh - #{$navigation-height});
+    box-shadow: effect('header-box-shadow');
+    z-index: 2;
 
     &__list {
         list-style: none;
@@ -108,13 +106,13 @@ $sidenav-width: 220px;
         }
     }
 
-    &__border {
-        position: absolute;
-        right: 0;
-        top: 0;
-        background-color: $color-primary;
-        width: 1px;
-        height: 78%;
-        margin-top: 64%;
-    }
+    //&__border {
+    //    position: absolute;
+    //    right: 0;
+    //    top: 0;
+    //    background-color: $color-primary;
+    //    width: 1px;
+    //    height: 78%;
+    //    margin-top: 64%;
+    //}
 }
