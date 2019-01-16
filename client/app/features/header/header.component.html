@@ -1,5 +1,5 @@
-<div class="app-header__container" [class.app-header__container_expanded]="isExpanded" [class.app-header__container_collapsed]="!isExpanded">
-    <h1 class="app-header__header">FREERAIDA</h1>
+<div class="app-navigation" [ngClass]="{'app-header--expanded': isExpanded, 'app-header--collapsed': !isExpanded}">
+    <h1 class="app-navigation__header">FREERAIDA</h1>
     <span class="spacer"></span>
     <!--<div class="user-container" (click)="onToggle()">-->
 

@@ -49,10 +49,11 @@ export class AuthenticationService {
     }
 
     private isTokenExpired(token: string) {
+        console.log(token);
         if (token === null) {
             return true;
         }
-        // check experation
+        // check expiration
         return false;
     }
 
