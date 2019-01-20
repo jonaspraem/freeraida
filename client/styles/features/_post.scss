@@ -33,11 +33,15 @@ $writer-transition: 0.35s ease-in-out;
     box-shadow: effect('element-shadow');
     transition: max-height $writer-transition;
 
-    &_open {
+    &--open {
         max-height: $writer-max-height;
 
         .post-writer__actions {
             display: block;
+        }
+
+        .post-writer__textwriter {
+            min-height: 100px;
         }
     }
 
@@ -82,10 +86,6 @@ $writer-transition: 0.35s ease-in-out;
 
         &:focus {
             outline: $color-primary;
-        }
-
-        &_open {
-            min-height: 100px;
         }
 
         &__container {

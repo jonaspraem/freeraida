@@ -23,13 +23,13 @@ export class PostWriterComponent {
     ) {}
 
     public expand(): void {
-        this.writerContainer.nativeElement.className = 'post-writer post-writer_open';
-        this.writer.nativeElement.className = 'post-writer__textwriter post-writer__textwriter_open';
+        this.writerContainer.nativeElement.className = 'post-writer post-writer--open';
+        // this.writer.nativeElement.className = 'post-writer__textwriter post-writer__textwriter_open';
     }
 
     public close(): void {
         this.writerContainer.nativeElement.className = 'post-writer';
-        this.writer.nativeElement.className = 'post-writer__textwriter';
+        // this.writer.nativeElement.className = 'post-writer__textwriter';
     }
 
     // On click outside component
