@@ -49,22 +49,14 @@ $sidenav-width: 220px;
 }
 
 .app-container {
-    position: absolute;
-    width: 100%;
-    height: auto;
     min-height: 100vh;
-    left: 220px;
-    top: 0;
 }
 
 .page-container {
-    position: absolute;
-    left: 0;
-    right: -17px;
-    padding-top: 90px;
-    padding-right: 220px;
-    overflow-y: scroll;
     height: calc(100vh - #{$navigation-height});
+    max-width: 1200px;
+    padding: 15px;
+    margin: auto;
 }
 
 .sidenav {
