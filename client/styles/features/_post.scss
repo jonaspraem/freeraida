@@ -15,7 +15,7 @@ $writer-transition: 0.35s ease-in-out;
     border-top-left-radius: $writer-size / 2;
     height: $writer-size * 1.2;
     width: $writer-size * 1.8;
-    box-shadow: effect('element-shadow');
+    box-shadow: $effect-element-shadow;
 
     fa-icon {
         position: absolute;
@@ -30,7 +30,7 @@ $writer-transition: 0.35s ease-in-out;
     max-height: 65px;
     border-radius: 5px;
     display: flex;
-    box-shadow: effect('element-shadow');
+    box-shadow: $effect-element-shadow;
     transition: max-height $writer-transition;
 
     &--open {
