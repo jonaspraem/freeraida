@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { HomePageComponent } from "./home.page.component";
-import { PostWriterComponent } from "../../features/post-writer/post-writer.component";
+import { PostWriterComponent } from "../../components/post-writer/post-writer.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CommonModule } from "@angular/common";
-import { ProfileCardComponent } from "../../features/profile-card/profile-card.component";
+import { ProfileCardComponent } from "../../components/profile-card/profile-card.component";
 
 @NgModule({
     declarations: [

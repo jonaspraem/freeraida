@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { FeatureModule } from "../features/features.module";
 import { HomePageModule } from "./home-page/home.page.module";
 import { ProfilePageModule } from "./profile/profile.page.module";
 
@@ -7,7 +6,6 @@ import { ProfilePageModule } from "./profile/profile.page.module";
     imports: [
         HomePageModule,
         ProfilePageModule,
-        FeatureModule,
     ]
 })
 

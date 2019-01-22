@@ -6,28 +6,32 @@ import { CONFIG } from "../../dictionary/config";
 import { Router } from "@angular/router";
 import { IUserProfile } from "../../models/interfaces/types";
 import { IUserProfileResponse } from "../../models/interfaces/responses";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable()
 
 export class ProfileService {
-    public userProfile: IUserProfile;
+    private _userProfile: BehaviorSubject<IUserProfile> = new BehaviorSubject<IUserProfile>(null);
+    public userProfile$ = this._userProfile.asObservable();
 
     constructor(
         private http: HttpClient,
         private config: CONFIG,
-    ) {}
+    ) {
+        this.getProfileWithToken();
+    }
 
     getProfile(username: string) {
         return this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/user-profile/user/'+username);
     }
 
-    getProfileWithToken(): void {
+    private getProfileWithToken(): void {
         const token = localStorage.getItem('api_token');
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/user-profile/user-info', {headers: headers, params: new HttpParams().set('token', token)})
             .subscribe(
                 (data) => {
-                    this.userProfile = data.obj;
+                    this._userProfile.next(data.obj);
                     localStorage.setItem('username', data.obj.username);
                 },
                 err => {}

@@ -14,15 +14,14 @@ import { CONFIG } from "./dictionary/config";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from "./core/core.module";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
-import { HeaderComponent } from "./features/header/header.component";
-import { UserOptionsDropdownComponent } from "./features/header/user-options/user-options-dropdown.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { UserOptionsDropdownComponent } from "./components/header/user-options/user-options-dropdown.component";
 import { CommonModule } from "@angular/common";
 import { LineModule } from "./legacy/lines/line.module";
 import { TrackPageModule } from "./legacy/tracker/track.module";
 import { PostModule } from "./legacy/posts/post.module";
 import { RidesModule } from "./legacy/lines/line-history/line-history.module";
 import { ComingSoonModule } from "./legacy/coming-soon/coming-soon.module";
-import { FeatureModule } from "./features/features.module";
 import { PageModule } from './pages/pages.module';
 import {
     MatButtonToggleModule,
@@ -60,7 +59,6 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
         PostModule,
         RidesModule,
         ComingSoonModule,
-        FeatureModule,
         PageModule,
         FontAwesomeModule,
         // Material design modules:
