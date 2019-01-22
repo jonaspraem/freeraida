@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
             }
         });
         FLAG_DICTIONARY.initialize();
-        this.profileService.getProfileWithToken();
+        // this.profileService.getProfileWithToken();
     }
 
     getState(outlet) {
