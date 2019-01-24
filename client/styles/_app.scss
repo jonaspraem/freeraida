@@ -7,46 +7,23 @@ $sidenav-width: 220px;
     position: sticky;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
     height: 56px;
-    max-height: 64px;
-    padding-top: 5px;
-    opacity: 1;
-    background-color: $color-primary;
+    background-color: $color-secondary;
     z-index: 10;
-    box-shadow: $effect-header-box-shadow;
-    transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    -webkit-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
-
-    &--expanded {
-        height: 64px;
-        max-height: 64px;
-    }
-
-    &--collapsed {
-        max-height: 56px;
-        opacity: 0.85;
-        padding-top: 0;
-    }
+    text-align: center;
 
     &__header {
         font-weight: 700;
         text-transform: uppercase;
         font-family: "Berlin Sans FB", sans-serif;
-        margin-left: 30px;
-        color: white;
-        text-shadow: $effect-header-text-shadow;
-        transition: all 0.4s ease-in-out;
-        -moz-transition: all 0.4s ease-in-out;
-        -webkit-transition: all 0.4s ease-in-out;
-        -o-transition: all 0.4s ease-in-out;
+        line-height: 56px;
+        color: $color-white;
     }
 }
 
 .app-container {
-    background-color: $color-gray;
+    background-color: $color-ice;
     min-height: 100vh;
 }
 

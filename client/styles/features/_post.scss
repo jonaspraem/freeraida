@@ -4,6 +4,7 @@ $writer-size: 45px;
 $writer-icon-size: 25px;
 $writer-max-height: 600px;
 $writer-transition: 0.35s ease-in-out;
+$writer-border: none;
 
 .post-writer-icon {
     position: fixed;
@@ -29,7 +30,7 @@ $writer-transition: 0.35s ease-in-out;
     width: 100%;
     max-height: 65px;
     display: flex;
-    background-color: rgba($color-primary-light, .5);
+    background-color: $color-secondary;
     transition: max-height $writer-transition;
 
     &--open {
@@ -49,12 +50,12 @@ $writer-transition: 0.35s ease-in-out;
         width: 100%;
         border-radius: 50%;
         background-color: white;
-        border: 2px solid $color-secondary;
+        border: $writer-border;
 
         &__container {
             width: 45px;
             height: 45px;
-            margin: 10px 10px 0 20px;
+            margin: 7px 7px 0 20px;
         }
     }
 
@@ -73,7 +74,7 @@ $writer-transition: 0.35s ease-in-out;
         padding: 12px;
         resize: none;
         overflow: hidden;
-        border: 2px solid $color-secondary;
+        border: $writer-border;
         cursor: text;
         background-color: white;
         transition: min-height $writer-transition;
