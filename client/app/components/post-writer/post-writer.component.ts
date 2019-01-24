@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { faFeatherAlt} from "@fortawesome/free-solid-svg-icons";
 
-const default_image = require('../../../images/rider/default-image.png');
+const default_image = require('../../../images/rider/profile-image.jpg');
 
 @Component({
     host: {
