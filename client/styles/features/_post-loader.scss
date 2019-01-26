@@ -1,0 +1,12 @@
+.post-loader {
+    width: 100%;
+    background-color: rgba($color-primary-light, .5);
+    color: $color-white;
+    height: 42px;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba($color-primary-light, .7);
+    }
+}

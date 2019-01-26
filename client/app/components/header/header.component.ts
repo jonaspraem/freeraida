@@ -5,6 +5,7 @@ import { WINDOW } from "../../core/services/window.service";
 import { AuthenticationService } from "../../core/services/authentication.service";
 
 const logoImage = require('../../../images/logo/favicon.png');
+const defaultProfileImage = require('../../../images/rider/profile-image.jpg');
 
 @Component({
     host: {
@@ -12,13 +13,13 @@ const logoImage = require('../../../images/logo/favicon.png');
     },
     selector: 'app-header',
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css']
 })
 
 export class HeaderComponent {
     @Input() userProfile: any;
     @Input() profile: Profile;
     public logo = logoImage;
+    public defaultProfileImage = defaultProfileImage;
     public isOpen: boolean = false;
     public isExpanded: boolean = true;
     private previousScrollPosition: number;

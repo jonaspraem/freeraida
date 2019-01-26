@@ -1,6 +1,16 @@
 <div class="app-navigation" [ngClass]="{'app-header--expanded': isExpanded, 'app-header--collapsed': !isExpanded}">
-    <h1 class="app-navigation__header">FREERAIDA</h1>
-    <span class="spacer"></span>
+    <div class="width-container" [ngStyle]="{display: 'flex'}">
+        <div class="grid-left">
+
+        </div>
+        <div class="grid-main">
+            <h1 class="app-navigation__header">FREERAIDA</h1>
+        </div>
+        <div class="grid-right grid-right--align">
+            <img class="app-navigation__user-icon" [src]="defaultProfileImage" >
+            <i class="material-icons">add</i>
+        </div>
+    </div>
     <!--<div class="user-container" (click)="onToggle()">-->
 
         <!--<div *ngIf="hasImage(); then original_img else default_img"></div>-->

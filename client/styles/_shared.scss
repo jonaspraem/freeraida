@@ -1,0 +1,26 @@
+$side-width: 285px;
+$side-padding: 15px;
+
+.width-container {
+    padding: 0 15px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.grid-main {
+    flex: 1;
+}
+
+.grid-right {
+    width: $side-width;
+    padding-left: $side-padding;
+
+    &--align {
+        text-align: right;
+    }
+}
+
+.grid-left {
+    width: $side-width;
+    padding-right: $side-padding;
+}

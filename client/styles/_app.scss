@@ -1,4 +1,4 @@
-$navigation-height: 54px;
+$navigation-height: 56px;
 $background-color: $color-opaque-overlay-black;
 $background-image: url("https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/12/2015/08/18.08.2014-02.53.58-05.18.07.jpg");
 $sidenav-width: 220px;
@@ -8,18 +8,36 @@ $sidenav-width: 220px;
     top: 0;
     left: 0;
     right: 0;
-    height: 56px;
+    height: $navigation-height;
     background-color: $color-white;
     border-bottom: 1px solid $color-primary;
     z-index: 10;
     text-align: center;
 
+    i {
+        cursor: pointer;
+        line-height: $navigation-height;
+        font-size: 40px;
+        color: $color-primary;
+    }
+
     &__header {
         font-weight: 700;
         text-transform: uppercase;
         font-family: "Berlin Sans FB", sans-serif;
-        line-height: 56px;
+        line-height: $navigation-height;
+        margin: 0;
         color: $color-primary;
+    }
+
+    &__user-icon {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        border: 2px solid $color-primary;
+        vertical-align: unset;
+        margin-right: 20px;
+        cursor: pointer;
     }
 }
 
@@ -73,14 +91,4 @@ $sidenav-width: 220px;
             }
         }
     }
-
-    //&__border {
-    //    position: absolute;
-    //    right: 0;
-    //    top: 0;
-    //    background-color: $color-primary;
-    //    width: 1px;
-    //    height: 78%;
-    //    margin-top: 64%;
-    //}
 }
