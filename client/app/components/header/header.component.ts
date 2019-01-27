@@ -3,6 +3,7 @@ import { Profile } from "../../legacy/objects/models/profile.model";
 import { DOCUMENT, NgClass } from "@angular/common";
 import { WINDOW } from "../../core/services/window.service";
 import { AuthenticationService } from "../../core/services/authentication.service";
+import { ProfileService } from "../../core/services/profile.service";
 
 const logoImage = require('../../../images/logo/favicon.png');
 const defaultProfileImage = require('../../../images/rider/profile-image.jpg');
@@ -28,7 +29,8 @@ export class HeaderComponent {
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) private window,
         private _eref: ElementRef,
-        private authService: AuthenticationService
+        private authService: AuthenticationService,
+        public profileService: ProfileService
     ) {}
 
     @HostListener("window:scroll", [])

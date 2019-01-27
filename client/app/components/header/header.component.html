@@ -7,8 +7,11 @@
             <h1 class="app-navigation__header">FREERAIDA</h1>
         </div>
         <div class="grid-right grid-right--align">
-            <img class="app-navigation__user-icon" [src]="defaultProfileImage" >
             <i class="material-icons">add</i>
+            <div class="app-navigation__user-button" *ngIf="profileService.userProfile$ | async; let user">
+                <img class="app-navigation__user-icon" [src]="defaultProfileImage" >
+                <span>{{user.firstname}} {{user.surname}}</span>
+            </div>
         </div>
     </div>
     <!--<div class="user-container" (click)="onToggle()">-->

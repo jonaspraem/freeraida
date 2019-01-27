@@ -30,11 +30,29 @@ $sidenav-width: 220px;
         color: $color-primary;
     }
 
+    &__user-button {
+        display: inline-flex;
+        padding-right: 20px;
+        margin-left: 20px;
+        border-radius: 20px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba($color-primary-light, .4);
+        }
+
+        > span {
+            display: inline-block;
+            line-height: 40px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+    }
+
     &__user-icon {
         height: 40px;
         width: 40px;
         border-radius: 50%;
-        border: 2px solid $color-primary;
         vertical-align: unset;
         margin-right: 20px;
         cursor: pointer;
