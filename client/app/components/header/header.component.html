@@ -11,13 +11,12 @@
                 <i class="material-icons">add</i>
             </div>
             <div class="app-navigation__user-button"
+                 *ngIf="profileService.userProfile$ | async; let user"
                  (click)="onToggleUserMenu()"
                  [ngClass]="{isUserMenuOpen: 'app-navigation__user-button--active'}"
             >
-                <!--*ngIf="profileService.userProfile$ | async; let user"-->
                 <img class="app-navigation__user-icon" [src]="defaultProfileImage" >
-                <!--<span>{{user.firstname}} {{user.surname}}</span>-->
-                <span>Jonas Praem</span>
+                <span>{{user.firstname}} {{user.surname}}</span>
                 <ng-container *ngIf="isUserMenuOpen">
                     <app-user-nav-menu></app-user-nav-menu>
                 </ng-container>

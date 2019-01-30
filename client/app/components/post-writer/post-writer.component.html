@@ -1,13 +1,13 @@
 <div #writerContainer class="post-writer">
-    <div class="post-writer__image__container">
+    <div class="post-writer__image-container">
         <img [src]="defaultImage" class="post-writer__image">
     </div>
-    <div class="post-writer__textwriter__container">
+    <div class="post-writer__container">
         <div contentEditable="true"
              (input)="userInput=$event.target.textContent"
              #writer
              placeholder="Whats happening?"
-             class="post-writer__textwriter"
+             class="post-writer__text-writer"
              (click)="expand()"></div>
         <div class="post-writer__actions">
             <button class="button-action">Video <i class="fa fa-video"></i></button>

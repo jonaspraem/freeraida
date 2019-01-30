@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { faFeatherAlt} from "@fortawesome/free-solid-svg-icons";
 
-const default_image = require('../../../images/rider/profile-image.jpg');
+const defaultImage = require('../../../images/rider/profile-image.jpg');
 
 @Component({
     host: {
@@ -14,7 +14,7 @@ const default_image = require('../../../images/rider/profile-image.jpg');
 export class PostWriterComponent {
     @ViewChild('writerContainer') writerContainer: ElementRef;
     @ViewChild('writer') writer: ElementRef;
-    public defaultImage = default_image;
+    public defaultImage = defaultImage;
     public icon = faFeatherAlt;
     public userInput: string = '';
 
@@ -24,12 +24,10 @@ export class PostWriterComponent {
 
     public expand(): void {
         this.writerContainer.nativeElement.className = 'post-writer post-writer--open';
-        // this.writer.nativeElement.className = 'post-writer__textwriter post-writer__textwriter_open';
     }
 
     public close(): void {
         this.writerContainer.nativeElement.className = 'post-writer';
-        // this.writer.nativeElement.className = 'post-writer__textwriter';
     }
 
     // On click outside component
