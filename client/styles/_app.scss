@@ -31,13 +31,14 @@ $sidenav-width: 220px;
     }
 
     &__user-button {
+        position: relative;
         display: inline-flex;
         padding-right: 20px;
-        margin-left: 20px;
+        margin: 8px 0 0 20px;
         border-radius: 20px;
         cursor: pointer;
 
-        &:hover {
+        &:hover, &--active {
             background-color: rgba($color-primary-light, .4);
         }
 
@@ -107,6 +108,36 @@ $sidenav-width: 220px;
                     opacity: 1;
                 }
             }
+        }
+    }
+}
+
+.user-nav-menu {
+    position: absolute;
+    border-radius: 2px;
+    top: 60px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 200px;
+    padding: 10px 0;
+    background-color: $color-white;
+    box-shadow: $effect-element-shadow;
+
+    > hr {
+        margin: 8px 0;
+    }
+
+    &__row {
+        text-align: center;
+        line-height: 26px;
+        font-size: 16px;
+        height: 26px;
+
+        &:hover {
+            background-color: rgba($color-primary-light, .4); // TODO save
+            border-left: 1px solid $color-secondary;
+            border-right: 1px solid $color-secondary;
         }
     }
 }

@@ -10,7 +10,7 @@ const defaultProfileImage = require('../../../images/rider/profile-image.jpg');
 
 @Component({
     host: {
-        '(document:click)': 'onClick($event)',
+        '(document:click)': 'onOutsideClick($event)',
     },
     selector: 'app-header',
     templateUrl: './header.component.html',
@@ -21,7 +21,7 @@ export class HeaderComponent {
     @Input() profile: Profile;
     public logo = logoImage;
     public defaultProfileImage = defaultProfileImage;
-    public isOpen: boolean = false;
+    public isUserMenuOpen: boolean = false;
     public isExpanded: boolean = true;
     private previousScrollPosition: number;
 
@@ -29,48 +29,24 @@ export class HeaderComponent {
         @Inject(DOCUMENT) private document: Document,
         @Inject(WINDOW) private window,
         private _eref: ElementRef,
-        private authService: AuthenticationService,
         public profileService: ProfileService
     ) {}
 
-    @HostListener("window:scroll", [])
-    onWindowScroll() {
-        let scrollPosition = this.window.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
-        const isElasticScroll = this.previousScrollPosition < 0;
-        this.isExpanded = !(scrollPosition > this.previousScrollPosition || isElasticScroll);
-        this.previousScrollPosition = scrollPosition;
-    }
-
     // On click outside component
-    onClick(event) {
+    onOutsideClick(event) {
         if (!this._eref.nativeElement.contains(event.target)) this.onClose();
     }
 
-    hasImage(): boolean {
-        if (this.userProfile) {
-            return (this.userProfile.picture);
-        }
-        return false;
-    }
-
-    isLoggedIn() {
-        // return this.authService.isAuthenticated();
-    }
-
-    onLogout() {
-        // this.authService.logout();
-    }
-
     onOpen() {
-        this.isOpen = true;
+        this.isUserMenuOpen = true;
     }
 
     onClose() {
-        this.isOpen = false;
+        this.isUserMenuOpen = false;
     }
 
-    onToggle() {
-        this.isOpen = !this.isOpen;
+    onToggleUserMenu() {
+        this.isUserMenuOpen = !this.isUserMenuOpen;
     }
 
 

@@ -15,7 +15,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from "./core/core.module";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { HeaderComponent } from "./components/header/header.component";
-import { UserOptionsDropdownComponent } from "./components/header/user-options/user-options-dropdown.component";
+import { UserNavMenuComponent } from "./components/header/user-nav-menu/user-nav-menu.component";
 import { CommonModule } from "@angular/common";
 import { LineModule } from "./legacy/lines/line.module";
 import { TrackPageModule } from "./legacy/tracker/track.module";
@@ -41,7 +41,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
     declarations: [
         AppComponent,
         HeaderComponent,
-        UserOptionsDropdownComponent
+        UserNavMenuComponent
     ],
     imports: [
         BrowserModule,

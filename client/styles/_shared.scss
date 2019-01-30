@@ -12,7 +12,7 @@ $side-padding: 15px;
 }
 
 .grid-right {
-    width: $side-width;
+    min-width: $side-width;
     padding-left: $side-padding;
 
     &--align {
@@ -21,6 +21,6 @@ $side-padding: 15px;
 }
 
 .grid-left {
-    width: $side-width;
+    min-width: $side-width;
     padding-right: $side-padding;
 }
