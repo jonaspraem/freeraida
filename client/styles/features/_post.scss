@@ -1,100 +1,3 @@
-$writer-size: 45px;
-$writer-icon-size: 25px;
-$writer-max-height: 600px;
-$writer-transition: 0.35s ease-in-out;
-$writer-border: 2px solid $color-primary;
-
-.post-writer-icon {
-    position: fixed;
-    cursor: pointer;
-    background-color: $color-primary;
-    right: 0;
-    top: 20%;
-    border-bottom-left-radius: $writer-size / 2;
-    border-top-left-radius: $writer-size / 2;
-    height: $writer-size * 1.2;
-    width: $writer-size * 1.8;
-    box-shadow: $effect-element-shadow;
-
-    fa-icon {
-        position: absolute;
-        right: 25px;
-        top: ($writer-size * 1.2) / 5;
-        color: white;
-    }
-}
-
-.post-writer {
-    width: 100%;
-    max-height: 65px;
-    display: flex;
-    background-color: $color-white;
-    transition: max-height $writer-transition;
-
-    &--open {
-        max-height: $writer-max-height;
-
-        .post-writer__actions {
-            display: block;
-        }
-
-        .post-writer__text-writer {
-            min-height: 100px;
-        }
-    }
-
-    &__image {
-        height: 100%;
-        width: 100%;
-        border-radius: 50%;
-        background-color: white;
-        border: $writer-border;
-    }
-
-    &__image-container {
-        width: 45px;
-        height: 45px;
-        margin: 7px 7px 0 20px;
-    }
-
-    &__actions {
-        display: none;
-        width: 100%;
-        text-align: right;
-        padding: 15px;
-    }
-
-    &__text-writer {
-        max-height: $writer-max-height - 48px;
-        min-height: 45px;
-        width: 100%;
-        border-radius: 10px;
-        padding: 12px;
-        resize: none;
-        overflow: hidden;
-        border: $writer-border;
-        cursor: text;
-        background-color: white;
-        transition: min-height $writer-transition;
-
-        &[contenteditable=true]:empty:before {
-            content: attr(placeholder);
-            display: block; /* For Firefox */
-        }
-
-        &:focus {
-            outline: none;
-        }
-    }
-
-    &__container {
-        flex: 1;
-        margin: auto 5px auto 5px;
-        padding: 5px 10px;
-        width: 100%;
-    }
-}
-
 .post {
     display: flex;
 
@@ -103,7 +6,6 @@ $writer-border: 2px solid $color-primary;
         width: 100%;
         border-radius: 50%;
         background-color: white;
-        border: $writer-border;
     }
 
     &__image-container {

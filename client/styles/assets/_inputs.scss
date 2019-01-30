@@ -1,5 +1,3 @@
-@import "../lib/animations";
-
 $input-timing: $timing-quick;
 $input-label-transition: font $input-timing ease,top $input-timing ease,transform .1s ease,-webkit-transform $input-timing ease,-moz-transform $input-timing ease,-o-transform $input-timing ease;
 

@@ -3,23 +3,11 @@ $fa-font-path: '../../node_modules/font-awesome/fonts';
 @import '../../node_modules/font-awesome/scss/font-awesome';
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
+@import 'packages/libraries';
+@import 'packages/assets';
+@import 'packages/features';
+@import 'packages/pages';
+
 @import 'shared';
 @import 'config';
-
-@import 'lib/colors';
-@import 'lib/effects';
-@import 'lib/fonts';
-
-@import 'assets/buttons';
-@import 'assets/inputs';
-
-@import 'pages/profile.page';
-@import 'pages/home.page';
-@import 'pages/landing.page';
-
 @import 'app';
-
-@import 'features/profile';
-@import 'features/post';
-@import 'features/profile-card';
-@import 'features/post-loader';
