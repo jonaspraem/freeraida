@@ -4,14 +4,13 @@ import { PostService } from "../../core/services/post.service";
 import { COLOR_DICTIONARY } from "../../dictionary/color-dictionary";
 import { Router } from "@angular/router";
 import { Profile } from "../objects/models/profile.model";
-import { PostModel } from "../../models/viewmodels/post.model";
 
 const gnarly_primary = require('../../../images/gnarly/gnarly_primary.png');
 const gnarly_secondary = require('../../../images/gnarly/gnarly_secondary.png');
 const gnarly_secondary_light = require('../../../images/gnarly/gnarly_secondary_light.png');
 
 @Component({
-    selector: 'app-post',
+    selector: 'app-postw213312',
     templateUrl: './post.component.html',
     styleUrls: ['./post.component.css']
 })

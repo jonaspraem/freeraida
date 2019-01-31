@@ -5,13 +5,15 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CommonModule } from "@angular/common";
 import { ProfileCardComponent } from "../../components/profile-card/profile-card.component";
 import { PostLoaderComponent } from "../../components/post-loader/post-loader.component";
+import { PostComponent } from "../../components/post/post.component";
 
 @NgModule({
     declarations: [
         HomePageComponent,
         PostWriterComponent,
         ProfileCardComponent,
-        PostLoaderComponent
+        PostLoaderComponent,
+        PostComponent
     ],
     exports: [
         HomePageComponent

@@ -10,11 +10,11 @@ const defaultImage = require('../../../images/rider/profile-image.jpg');
 })
 
 export class PostComponent implements OnInit {
-    @Input() private readonly _post: IPost;
+    @Input() private readonly postModel: IPost;
     public defaultImage = defaultImage;
     public post: PostViewModel;
 
-    ngOnInit(): void {
-        this.post = new PostViewModel(this._post);
+    public ngOnInit(): void {
+        this.post = new PostViewModel(this.postModel);
     }
 }

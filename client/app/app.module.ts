@@ -19,7 +19,6 @@ import { UserNavMenuComponent } from "./components/header/user-nav-menu/user-nav
 import { CommonModule } from "@angular/common";
 import { LineModule } from "./legacy/lines/line.module";
 import { TrackPageModule } from "./legacy/tracker/track.module";
-import { PostModule } from "./legacy/posts/post.module";
 import { RidesModule } from "./legacy/lines/line-history/line-history.module";
 import { ComingSoonModule } from "./legacy/coming-soon/coming-soon.module";
 import { PageModule } from './pages/pages.module';
@@ -56,7 +55,6 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
         CommonModule,
         LineModule,
         TrackPageModule,
-        PostModule,
         RidesModule,
         ComingSoonModule,
         PageModule,
