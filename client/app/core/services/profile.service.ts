@@ -17,6 +17,7 @@ export class ProfileService {
     constructor(
         private http: HttpClient,
         private config: CONFIG,
+        private _router: Router
     ) {
         this.getProfileWithToken();
     }
@@ -34,7 +35,9 @@ export class ProfileService {
                     this._userProfile.next(data.obj);
                     localStorage.setItem('username', data.obj.username);
                 },
-                err => {}
+                err => {
+                    this._router.navigate(['/landing-page']);
+                }
             );
     }
 

@@ -13,7 +13,7 @@
             <div class="app-navigation__user-button"
                  *ngIf="profileService.userProfile$ | async; let user"
                  (click)="onToggleUserMenu()"
-                 [ngClass]="{isUserMenuOpen: 'app-navigation__user-button--active'}"
+                 [ngClass]="{'app-navigation__user-button--active': isUserMenuOpen}"
             >
                 <img class="app-navigation__user-icon" [src]="defaultProfileImage" >
                 <span>{{user.firstname}} {{user.surname}}</span>

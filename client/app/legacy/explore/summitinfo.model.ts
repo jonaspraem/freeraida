@@ -1,1 +1,0 @@
-type SummitInfo = Array<{peak: string, elevation: number, prominence: number, continent: string, range: string, country: string[]}>;

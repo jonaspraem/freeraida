@@ -4,10 +4,6 @@ import { LandingPageComponent } from "./pages/landing-page/landing.page.componen
 import { RegisterLineComponent } from "./legacy/lines/register/register-line.component";
 import { LineHistoryComponent } from "./legacy/lines/line-history/line-history.component";
 import { TrackPageComponent } from "./legacy/tracker/track.component";
-import { BeginnersGuideComponent } from "./legacy/coming-soon/beginners-guide/beginners-guide.component";
-import { WikiComponent } from "./legacy/coming-soon/wiki/wiki.component";
-import { ForumsComponent } from "./legacy/coming-soon/forums/forums.component";
-import { EventsComponent } from "./legacy/coming-soon/events/events.component";
 import { AfterRegistrationComponent } from "./legacy/lines/after-registration/after-registration.component";
 import { HomePageComponent } from "./pages/home-page/home.page.component";
 import { ProfilePageComponent } from "./pages/profile/profile.page.component";
@@ -19,10 +15,6 @@ const APP_ROUTES: Routes = [
     { path: 'register-line', component: RegisterLineComponent, canActivate: [AuthGuard], data: { state: 'new-line' }},
     { path: 'line-history', component: LineHistoryComponent},
     { path: 'track', component: TrackPageComponent},
-    { path: 'school', component: BeginnersGuideComponent},
-    { path: 'wiki', component: WikiComponent},
-    { path: 'forums', component: ForumsComponent},
-    { path: 'events', component: EventsComponent},
     { path: 'user', children: [
             { path: '', redirectTo: localStorage.getItem('username'), pathMatch: 'full' },
             { path: ':username', component: ProfilePageComponent }]

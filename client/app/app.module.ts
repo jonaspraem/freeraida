@@ -20,7 +20,6 @@ import { CommonModule } from "@angular/common";
 import { LineModule } from "./legacy/lines/line.module";
 import { TrackPageModule } from "./legacy/tracker/track.module";
 import { RidesModule } from "./legacy/lines/line-history/line-history.module";
-import { ComingSoonModule } from "./legacy/coming-soon/coming-soon.module";
 import { PageModule } from './pages/pages.module';
 import {
     MatButtonToggleModule,
@@ -56,7 +55,6 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
         LineModule,
         TrackPageModule,
         RidesModule,
-        ComingSoonModule,
         PageModule,
         FontAwesomeModule,
         // Material design modules:
