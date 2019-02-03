@@ -55,7 +55,8 @@ export class PostWriterComponent {
             };
             this._postService.addPost(post);
             this.writer.nativeElement.innerText = '';
-            // Set carret position
+            this.writer.nativeElement.blur();
+            this.close();
         }
     }
 }
