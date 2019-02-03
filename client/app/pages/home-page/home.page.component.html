@@ -1,9 +1,9 @@
 <div class="page-container" [ngStyle]="{'display': 'flex'}">
     <div class="home-page__side-left">
-        <app-profile-card [userProfile]="userProfile"></app-profile-card>
+        <app-profile-card [user]="userProfile"></app-profile-card>
     </div>
     <div class="home-page__main">
-        <app-post-writer></app-post-writer>
+        <app-post-writer [user]="userProfile"></app-post-writer>
         <app-post-loader></app-post-loader>
         <app-post *ngFor="let post of postList"
                   [postModel]="post"></app-post>

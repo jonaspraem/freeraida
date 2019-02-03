@@ -10,7 +10,7 @@ const defaultProfileImage = require('../../../images/rider/profile-image.jpg');
 })
 
 export class ProfileCardComponent {
-    @Input() userProfile: IUserProfile;
+    @Input() user: IUserProfile;
     public mockImage = mockImage;
     public defaultProfileImage = defaultProfileImage;
 }
