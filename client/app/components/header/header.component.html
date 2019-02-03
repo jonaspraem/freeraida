@@ -18,7 +18,7 @@
                 <img class="app-navigation__user-icon" [src]="defaultProfileImage" >
                 <span>{{user.firstname}} {{user.surname}}</span>
                 <ng-container *ngIf="isUserMenuOpen">
-                    <app-user-nav-menu></app-user-nav-menu>
+                    <app-user-nav-menu [userProfile]="user"></app-user-nav-menu>
                 </ng-container>
             </div>
         </div>

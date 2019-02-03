@@ -1,5 +1,7 @@
 <div class="user-nav-menu">
-    <div class="user-nav-menu__row">profile</div>
+    <a [routerLink]="['/user/' + userProfile.username]">
+        <div class="user-nav-menu__row">profile</div>
+    </a>
     <hr>
     <div class="user-nav-menu__row">settings</div>
     <div class="user-nav-menu__row">log out</div>
