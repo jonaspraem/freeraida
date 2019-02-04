@@ -6,12 +6,9 @@ import { Post } from "../../legacy/objects/models/post.model";
 import { PostObject } from "../../legacy/objects/interfaces/post-object";
 import { CONFIG } from "../../dictionary/config";
 import { PostTransferModel } from "../../legacy/objects/models/transfer-models/post-transfer.model";
-import { IPost } from "../../models/interfaces/types";
-
-interface PostListResponse {
-    message: string;
-    obj: PostObject[];
-}
+import { IPost, IUserProfile } from "../../models/interfaces/types";
+import { BehaviorSubject } from "rxjs";
+import { PostListResponse } from "../../models/interfaces/responses";
 
 interface UserListResponse {
     message: string,
@@ -21,34 +18,39 @@ interface UserListResponse {
 @Injectable()
 
 export class PostService {
-    posts: Post[] = [];
-    postIsEdit = new EventEmitter<Post>();
+    private _userFeed: BehaviorSubject<IPost[]> = new BehaviorSubject<IPost[]>([]);
+    public userFeed$ = this._userFeed.asObservable();
 
     constructor(private http: HttpClient,
                 private config: CONFIG
-    ) {}
+    ) {
+        this.getFeed();
+    }
 
     addPost(post: IPost) {
         const body = JSON.stringify(post);
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('api_token');
-        this.http.post(this.config.getEndpoint() + '/api/post', body, {headers: headers, params: new HttpParams().set('token', token)})
+        this.http.post(this.config.getEndpoint() + '/api/post/new', body, {headers: headers, params: new HttpParams().set('token', token)})
             .subscribe((res) => {
                 console.log('post posted', res);
             });
     }
 
     getUsers() {
-        return this.http.get<UserListResponse>(this.config.getEndpoint() + '/profile/user-list/');
+        return this.http.get<UserListResponse>(this.config.getEndpoint() + '/api/profile/user-list/');
     }
 
     getPosts(username: string) {
-        return this.http.get<PostListResponse>(this.config.getEndpoint() + '/post/profile-feed/'+username);
+        return this.http.get<PostListResponse>(this.config.getEndpoint() + '/api/post/profile-feed/'+username);
     }
 
     getFeed() {
-        const token = localStorage.getItem('id_token');
-        return this.http.get<PostListResponse>(this.config.getEndpoint() + '/post/feed', {params: new HttpParams().set('token', token)});
+        const token = localStorage.getItem('api_token');
+        this.http.get<PostListResponse>(this.config.getEndpoint() + '/api/post/feed', {params: new HttpParams().set('token', token)}).subscribe(
+            (data) => {
+                this._userFeed.next(data.obj);
+            });
     }
 
     // gnarlyPost(post_id: string) {

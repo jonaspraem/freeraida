@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { IPost, IUserProfile } from "../../models/interfaces/types";
 import { ProfileService } from "../../core/services/profile.service";
+import { PostService } from "../../core/services/post.service";
 
 @Component({
     selector: 'app-home-page',
@@ -9,41 +10,18 @@ import { ProfileService } from "../../core/services/profile.service";
 
 export class HomePageComponent implements OnInit {
     public userProfile: IUserProfile;
-    public postList: IPost[] = [
-        {
-            content: "Lorem ipsum",
-            username: "joedijazz",
-            firstname: "Joey",
-            surname: "Diaz",
-            fullname: "Joey Diaz",
-            timestamp: new Date(),
-        },
-        {
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pulvinar quam in ex cursus, quis pretium est lobortis. Donec vestibulum augue ex, sit amet mollis libero aliquam gravida. Cras malesuada, sem in luctus dignissim, dolor magna posuere sapien, a molestie lorem orci in ex. Fusce laoreet laoreet turpis, condimentum pellentesque velit mattis eget.",
-            username: "joedijazz",
-            firstname: "Joey",
-            surname: "Diaz",
-            fullname: "Joey Diaz",
-            timestamp: new Date(),
-        },
-        {
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pulvinar quam in ex cursus, quis pretium est lobortis. Donec vestibulum augue ex, sit amet mollis libero aliquam gravida. Cras malesuada, sem in luctus dignissim, dolor magna posuere sapien, a molestie lorem orci in ex. Fusce laoreet laoreet turpis, condimentum pellentesque velit mattis eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pulvinar quam in ex cursus, quis pretium est lobortis. Donec vestibulum augue ex, sit amet mollis libero aliquam gravida. Cras malesuada, sem in luctus dignissim, dolor magna posuere sapien, a molestie lorem orci in ex. Fusce laoreet laoreet turpis, condimentum pellentesque velit mattis eget.",
-            username: "joedijazz",
-            firstname: "Joey",
-            surname: "Diaz",
-            fullname: "Joey Diaz",
-            timestamp: new Date(),
-        }
-    ];
+    public homeFeed: IPost[] = [];
 
     constructor(
-        private _profileService: ProfileService
+        private _profileService: ProfileService,
+        private _postService: PostService
     ) {}
 
     public ngOnInit(): void {
         this._profileService.userProfile$.subscribe(profile => {
             this.userProfile = profile;
         });
+        this._postService.userFeed$.subscribe(data => this.homeFeed = data);
     }
 
 }

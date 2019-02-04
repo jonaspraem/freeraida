@@ -1,6 +1,6 @@
 import * as express from 'express';
 import Post from '../models/schemas/post';
-import UserProfile from '../models/schemas/user-profile';
+import UserProfile, { IUserProfile } from '../models/schemas/user-profile';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
@@ -15,18 +15,26 @@ const sortList = async (list) => {
     }
 };
 
-const getFeed = async (profile) => {
+const getFeed = async (profile: IUserProfile) => {
     const feed = [];
+    // Loop followers
     if (profile.following !== null && profile.following.length !== 0) {
-        for (const user_id of profile.following) {
+        for (const userId of profile.following) {
             try {
-                const user_profile = await UserProfile.findById(user_id);
-                const user_posts = await getUserFeed(user_profile);
-                feed.push.apply(feed, user_posts);
+                const userProfile = await UserProfile.findById(userId);
+                const userPosts = await getUserFeed(userProfile);
+                feed.push.apply(feed, userPosts);
             } catch (e) {
                 throw new e;
             }
         }
+    }
+    // Get own posts
+    try {
+        const ownPosts = await getUserFeed(profile);
+        feed.push.apply(feed, ownPosts);
+    } catch (e) {
+        throw new e;
     }
     return feed;
 };
@@ -84,6 +92,7 @@ router.get('/feed', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
     let feed;
+    console.log("made it here");
     try {
         profile = await UserProfile.findById(decoded.id);
     } catch (e) {
@@ -94,6 +103,7 @@ router.get('/feed', async (req, res, next) => {
     }
     try {
         feed = await getFeed(profile);
+        console.log("feed", feed);
         feed = await sortList(feed);
     } catch (e) {
         return res.status(404).json({
@@ -108,7 +118,7 @@ router.get('/feed', async (req, res, next) => {
 });
 
 // Post new post
-router.post('/', async (req, res, next) => {
+router.post('/new', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
     try {

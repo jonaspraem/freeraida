@@ -57,9 +57,7 @@ router.get('/user-info', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
     try {
-        console.log('decoded', decoded);
         profile = await UserProfile.findById(decoded.id);
-        console.log('user-info', profile);
         if (!profile) throw new Error();
     } catch (e) {
         return res.status(404).json({
@@ -67,7 +65,6 @@ router.get('/user-info', async (req, res, next) => {
             message: 'No profile matching the id'
         });
     }
-    console.log('user-info', profile);
     return res.status(200).json({
         message: 'UserProfile successfully received',
         obj: profile

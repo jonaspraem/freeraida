@@ -5,7 +5,7 @@
     <div class="home-page__main">
         <app-post-writer [user]="userProfile"></app-post-writer>
         <app-post-loader></app-post-loader>
-        <app-post *ngFor="let post of postList"
+        <app-post *ngFor="let post of homeFeed"
                   [postModel]="post"></app-post>
     </div>
     <div class="home-page__side-right">
