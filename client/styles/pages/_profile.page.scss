@@ -5,12 +5,44 @@ $hero-image-size: 250px;
 
     &__hero {
         position: relative;
-        height: 400px;
+        z-index: 20;
+        height: 420px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
-        box-shadow: $effect-box-shadow-standard;
-        margin: 0 70px;
+    }
+
+    &__stat-bar {
+        position: relative;
+        z-index: 10;
+        height: 60px;
+        background-color: $color-white;
+        box-shadow: $effect-element-shadow;
+
+        > div {
+            // container
+            display: flex;
+        }
+    }
+
+    &__stat-menu {
+        @extend .list-reset;
+
+        > li {
+            padding: 6px 20px;
+            font-weight: 500;
+            display: inline-block;
+            line-height: 22px;
+
+            span {
+                display: block;
+                font-weight: 600;
+                font-size: 20px;
+                text-align: center;
+            }
+        }
+    }
+
 
         &__content {
             position: absolute;
@@ -95,9 +127,6 @@ $hero-image-size: 250px;
             font-size: $font-size-large;
             color: $color-tertiary;
         }
-
-
-    }
 
     &__header {
         color: $color-primary;

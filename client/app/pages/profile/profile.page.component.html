@@ -1,99 +1,136 @@
-<div class="page-container profile">
-    <div class="profile__hero" [ngStyle]="{'background-image': 'url('+hero+')'}">
-        <div class="profile__hero__content">
-            <div class="profile__hero__header__container">
-                <div class="profile__hero__header__side"></div>
-                <div class="profile__hero__header">
-                    <div class="profile__hero__image__side-container">
-                        <img [src]="getFlag(profile?.country)" class="profile__hero__flag">
-                    </div>
-                    <div>
-                        <img class="profile__hero__image" [src]="profile_image">
-                        <div class="profile__hero__username">@{{ profile?.username }}</div>
-                    </div>
-                    <div class="profile__hero__image__side-container" *ngIf="profile">
-                        <button *ngIf="!isSelf" class="button--inverted profile__hero__button" (click)="onToggleFollow()">{{ getFollowButtonText() }}</button>
-                    </div>
-                </div>
-                <div class="profile__hero__header__side"></div>
-                <div class="profile__hero__header__right">
-                    <div class="profile__hero__header__right__item">
-                        <div class="profile__hero__header__right__item__label">Following</div>
-                        <div class="profile__hero__header__right__item__value">{{ profile?.following?.length }}</div>
-                    </div>
-                    <div class="profile__hero__header__right__item">
-                        <div class="profile__hero__header__right__item__label">Followers</div>
-                        <div class="profile__hero__header__right__item__value">{{ profile?.followers?.length }}</div>
-                    </div>
-                    <div class="profile__hero__header__right__item">
-                        <div class="profile__hero__header__right__item__label">Lines</div>
-                        <div class="profile__hero__header__right__item__value">{{ profile?.lines?.length }}</div>
-                    </div>
-                </div>
+<div class="profile">
+    <div class="profile__hero" [ngStyle]="{'background-image': 'url('+hero+')'}"></div>
+    <div class="profile__stat-bar">
+        <div class="width-container">
+            <div class="grid-left">
+                hello
             </div>
+            <div class="grid-main">
+                <ul class="profile__stat-menu">
+                    <li>
+                        Posts
+                        <span>{{ profile?.posts.length }}</span>
+                    </li>
+                    <li>
+                        Reputation
+                        <span>150.050</span>
+                    </li>
+                    <li>
+                        Lines
+                        <span>{{ profile?.lines?.length }}</span>
+                    </li>
+                    <li>
+                        Following
+                        <span>{{ profile?.following?.length }}</span>
+                    </li>
+                    <li>
+                        Followers
+                        <span>{{ profile?.followers?.length }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="grid-right"></div>
         </div>
     </div>
-    <div class="profile__header">
-        <div class="profile__header__text">
-            <h1>{{ profile?.fullname }}</h1>
-        </div>
-        <div class="profile__header__spacer"></div>
-    </div>
-
-    <div class="profile__info">
-        <div class="profile__info__column">
-            <div>
-                <span class="profile__info__label">Firstname</span>
-                <span class="profile__info__value">{{ profile?.firstname }}</span>
-            </div>
-            <div>
-                <span class="profile__info__label">Surname</span>
-                <span class="profile__info__value">{{ profile?.surname }}</span>
-            </div>
-            <div>
-                <span class="profile__info__label">Country</span>
-                <span class="profile__info__value">{{ profile?.country }}</span>
-            </div>
-            <div>
-                <span class="profile__info__label">Reputation</span>
-                <span class="profile__info__value">150.050</span>
-            </div>
-        </div>
-        <div class="profile__info__column">
-            <div>
-                <span class="profile__info__label">Followers</span>
-                <span class="profile__info__value">{{ profile?.followers.length }}</span>
-            </div>
-            <div>
-                <span class="profile__info__label">Following</span>
-                <span class="profile__info__value">{{ profile?.following.length }}</span>
-            </div>
-            <div>
-                <span class="profile__info__label">Lines</span>
-                <span class="profile__info__value">{{ profile?.lines.length }}</span>
-            </div>
-            <div>
-                <span class="profile__info__label">Posts</span>
-                <span class="profile__info__value">{{ profile?.posts.length }}</span>
-            </div>
-        </div>
-        <div class="profile__info__column">
-            <div>
-                <span class="profile__info__label">Km traveled</span>
-                <span class="profile__info__value">15.000 km</span>
-            </div>
-            <div>
-                <span class="profile__info__label">Achievements gathered</span>
-                <span class="profile__info__value">14</span>
-            </div>
-            <div>
-                <span class="profile__info__label">Images uploaded</span>
-                <span class="profile__info__value">157</span>
-            </div>
-            <div>
-                <span class="profile__info__label">Videos uploaded</span>
-                <span class="profile__info__value">24</span>
-            </div>
-        </div>
-    </div>
+    <div class="width-container"></div>
 </div>
+
+<!--<div class="page-container profile">-->
+    <!--<div class="profile__hero" [ngStyle]="{'background-image': 'url('+hero+')'}">-->
+        <!--<div class="profile__hero__content">-->
+            <!--<div class="profile__hero__header__container">-->
+                <!--<div class="profile__hero__header__side"></div>-->
+                <!--<div class="profile__hero__header">-->
+                    <!--<div class="profile__hero__image__side-container">-->
+                        <!--<img [src]="getFlag(profile?.country)" class="profile__hero__flag">-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<img class="profile__hero__image" [src]="profile_image">-->
+                        <!--<div class="profile__hero__username">@{{ profile?.username }}</div>-->
+                    <!--</div>-->
+                    <!--<div class="profile__hero__image__side-container" *ngIf="profile">-->
+                        <!--<button *ngIf="!isSelf" class="button&#45;&#45;inverted profile__hero__button" (click)="onToggleFollow()">{{ getFollowButtonText() }}</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="profile__hero__header__side"></div>-->
+                <!--<div class="profile__hero__header__right">-->
+                    <!--<div class="profile__hero__header__right__item">-->
+                        <!--<div class="profile__hero__header__right__item__label">Following</div>-->
+                        <!--<div class="profile__hero__header__right__item__value">{{ profile?.following?.length }}</div>-->
+                    <!--</div>-->
+                    <!--<div class="profile__hero__header__right__item">-->
+                        <!--<div class="profile__hero__header__right__item__label">Followers</div>-->
+                        <!--<div class="profile__hero__header__right__item__value">{{ profile?.followers?.length }}</div>-->
+                    <!--</div>-->
+                    <!--<div class="profile__hero__header__right__item">-->
+                        <!--<div class="profile__hero__header__right__item__label">Lines</div>-->
+                        <!--<div class="profile__hero__header__right__item__value">{{ profile?.lines?.length }}</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="profile__header">-->
+        <!--<div class="profile__header__text">-->
+            <!--<h1>{{ profile?.fullname }}</h1>-->
+        <!--</div>-->
+        <!--<div class="profile__header__spacer"></div>-->
+    <!--</div>-->
+
+    <!--<div class="profile__info">-->
+        <!--<div class="profile__info__column">-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Firstname</span>-->
+                <!--<span class="profile__info__value">{{ profile?.firstname }}</span>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Surname</span>-->
+                <!--<span class="profile__info__value">{{ profile?.surname }}</span>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Country</span>-->
+                <!--<span class="profile__info__value">{{ profile?.country }}</span>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Reputation</span>-->
+                <!--<span class="profile__info__value">150.050</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="profile__info__column">-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Followers</span>-->
+                <!--<span class="profile__info__value">{{ profile?.followers.length }}</span>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Following</span>-->
+                <!--<span class="profile__info__value">{{ profile?.following.length }}</span>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Lines</span>-->
+                <!--<span class="profile__info__value">{{ profile?.lines.length }}</span>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Posts</span>-->
+                <!--<span class="profile__info__value">{{ profile?.posts.length }}</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="profile__info__column">-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Km traveled</span>-->
+                <!--<span class="profile__info__value">15.000 km</span>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Achievements gathered</span>-->
+                <!--<span class="profile__info__value">14</span>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Images uploaded</span>-->
+                <!--<span class="profile__info__value">157</span>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<span class="profile__info__label">Videos uploaded</span>-->
+                <!--<span class="profile__info__value">24</span>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
