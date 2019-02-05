@@ -3,27 +3,27 @@
     <div class="profile__stat-bar">
         <div class="width-container">
             <div class="grid-left">
-                hello
+                <img [src]="profile_image" class="profile__image">
             </div>
             <div class="grid-main">
                 <ul class="profile__stat-menu">
-                    <li>
+                    <li [ngClass]="{'profile__tab--active': activeTab === 0}" (click)="activeTab = 0">
                         Posts
                         <span>{{ profile?.posts.length }}</span>
                     </li>
-                    <li>
+                    <li [ngClass]="{'profile__tab--active': activeTab === 1}" (click)="activeTab = 1">
                         Reputation
                         <span>150.050</span>
                     </li>
-                    <li>
+                    <li [ngClass]="{'profile__tab--active': activeTab === 2}" (click)="activeTab = 2">
                         Lines
                         <span>{{ profile?.lines?.length }}</span>
                     </li>
-                    <li>
+                    <li [ngClass]="{'profile__tab--active': activeTab === 3}" (click)="activeTab = 3">
                         Following
                         <span>{{ profile?.following?.length }}</span>
                     </li>
-                    <li>
+                    <li [ngClass]="{'profile__tab--active': activeTab === 4}" (click)="activeTab = 4">
                         Followers
                         <span>{{ profile?.followers?.length }}</span>
                     </li>

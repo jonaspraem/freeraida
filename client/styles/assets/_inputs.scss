@@ -40,7 +40,7 @@ $input-label-transition: font $input-timing ease,top $input-timing ease,transfor
 
 .ng-invalid .ng-touched {
     outline-offset: -2px;
-    outline: $color-tertiary auto 5px;
+    outline: $color-accent auto 5px;
 }
 
 .ng-valid {
