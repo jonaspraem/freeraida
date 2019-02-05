@@ -1,19 +1,14 @@
 import { NgModule } from "@angular/core";
 import { HomePageComponent } from "./home.page.component";
-import { PostWriterComponent } from "../../components/post-writer/post-writer.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CommonModule } from "@angular/common";
 import { ProfileCardComponent } from "../../components/profile-card/profile-card.component";
-import { PostLoaderComponent } from "../../components/post-loader/post-loader.component";
-import { PostComponent } from "../../components/post/post.component";
+import { PostModule } from "../../components/post-module/post.module";
 
 @NgModule({
     declarations: [
         HomePageComponent,
-        PostWriterComponent,
         ProfileCardComponent,
-        PostLoaderComponent,
-        PostComponent
     ],
     exports: [
         HomePageComponent
@@ -23,7 +18,8 @@ import { PostComponent } from "../../components/post/post.component";
     ],
     imports: [
         FontAwesomeModule,
-        CommonModule
+        CommonModule,
+        PostModule
     ]
 })
 

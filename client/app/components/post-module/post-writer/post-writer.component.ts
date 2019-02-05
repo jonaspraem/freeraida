@@ -1,9 +1,9 @@
 import { Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
 import { faFeatherAlt} from "@fortawesome/free-solid-svg-icons";
-import { IPost, IUserProfile } from "../../models/interfaces/types";
-import { PostService } from "../../core/services/post.service";
+import { IPost, IUserProfile } from "../../../models/interfaces/types";
+import { PostService } from "../../../core/services/post.service";
 
-const defaultImage = require('../../../images/rider/profile-image.jpg');
+const defaultImage = require('../../../../images/rider/profile-image.jpg');
 
 @Component({
     host: {

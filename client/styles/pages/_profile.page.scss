@@ -19,9 +19,8 @@ $hero-image-size: 250px;
         background-color: $color-white;
         box-shadow: $effect-element-shadow;
 
-        > div {
-            // container
-            display: flex;
+        .width-container-flex {
+            height: 60px;
         }
     }
 
@@ -65,6 +64,10 @@ $hero-image-size: 250px;
         border-radius: 50%;
         border: 5px solid $color-white;
         margin-top: -($hero-image-size / 2);
+    }
+
+    &__page-container {
+        margin-top: 100px;
     }
 
 

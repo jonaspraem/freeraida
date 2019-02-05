@@ -41,8 +41,8 @@ export class PostService {
         return this.http.get<UserListResponse>(this.config.getEndpoint() + '/api/profile/user-list/');
     }
 
-    getPosts(username: string) {
-        return this.http.get<PostListResponse>(this.config.getEndpoint() + '/api/post/profile-feed/'+username);
+    getUserFeed(username: string) {
+        return this.http.get<PostListResponse>(this.config.getEndpoint() + '/api/post/user-feed/'+username);
     }
 
     getFeed() {

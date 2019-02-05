@@ -7,6 +7,13 @@ $side-padding: 15px;
     margin: auto;
 }
 
+.width-container-flex {
+    display: flex;
+    padding: 0 15px;
+    max-width: 1200px;
+    margin: auto;
+}
+
 .grid-main {
     flex: 1;
 }

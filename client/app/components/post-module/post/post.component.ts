@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { IPost } from "../../models/interfaces/types";
-import { PostViewModel } from "../../models/viewmodels/post.model";
+import { IPost } from "../../../models/interfaces/types";
+import { PostViewModel } from "../../../models/viewmodels/post.model";
 
-const defaultImage = require('../../../images/rider/profile-image.jpg');
+const defaultImage = require('../../../../images/rider/profile-image.jpg');
 
 @Component({
     selector: 'app-post',

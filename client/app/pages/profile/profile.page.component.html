@@ -1,7 +1,7 @@
 <div class="profile">
     <div class="profile__hero" [ngStyle]="{'background-image': 'url('+hero+')'}"></div>
     <div class="profile__stat-bar">
-        <div class="width-container">
+        <div class="width-container-flex">
             <div class="grid-left">
                 <img [src]="profile_image" class="profile__image">
             </div>
@@ -32,7 +32,18 @@
             <div class="grid-right"></div>
         </div>
     </div>
-    <div class="width-container"></div>
+    <div class="width-container-flex profile__page-container">
+        <div class="grid-left">
+            h
+        </div>
+        <div class="grid-main">
+            <app-post *ngFor="let post of userFeed"
+                      [postModel]="post"></app-post>
+        </div>
+        <div class="grid-right">
+            h
+        </div>
+    </div>
 </div>
 
 <!--<div class="page-container profile">-->
