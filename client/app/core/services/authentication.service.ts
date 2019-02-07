@@ -1,14 +1,16 @@
 import { Injectable } from "@angular/core";
 import { CONFIG } from "../../dictionary/config";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-// Interfaces
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ILogin } from "../../models/interfaces/requests/authentication/login.interface";
 import { IRegister } from "../../models/interfaces/requests/authentication/register.interface";
 import { Router } from "@angular/router";
+import { ProfileService } from "./profile.service";
 
 @Injectable()
 
 export class AuthenticationService {
+    private helper: JwtHelperService = new JwtHelperService();
 
     constructor(
         private http: HttpClient,
@@ -49,12 +51,10 @@ export class AuthenticationService {
     }
 
     private isTokenExpired(token: string) {
-        console.log(token);
-        if (token === null) {
-            return true;
+        if (token != null) {
+            return this.helper.isTokenExpired(token);
         }
-        // check expiration
-        return false;
+        return true;
     }
 
 }
