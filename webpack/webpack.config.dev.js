@@ -4,6 +4,7 @@ const commonConfig = require('./webpack.config.common.js');
 
 module.exports = webpackMerge(commonConfig, {
     devtool: 'cheap-module-eval-source-map',
+    mode: 'development',
 
     output: {
         path: path.resolve(__dirname + '/../public/js/app'),
@@ -15,13 +16,18 @@ module.exports = webpackMerge(commonConfig, {
         rules: [
             {
                 test: /\.ts$/,
-                use: [
-                    {loader: 'awesome-typescript-loader', options: {
-                        transpileOnly: true
-                    }},
-                    {loader: 'angular2-template-loader'},
-                    {loader: 'angular-router-loader'}
-                ]
+                loaders: [
+                    'babel-loader',
+                    {
+                        loader: 'awesome-typescript-loader',
+                        options: {
+                            configFileName: 'tsconfig.json'
+                        }
+                    },
+                    'angular2-template-loader',
+                    'angular-router-loader'
+                ],
+                exclude: [/node_modules/]
             }
         ]
 

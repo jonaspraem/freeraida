@@ -1,4 +1,4 @@
-const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
+import { AngularCompilerPlugin } from '@ngtools/webpack';
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');

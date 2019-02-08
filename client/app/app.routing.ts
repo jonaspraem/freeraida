@@ -9,8 +9,7 @@ import { HomePageComponent } from "./pages/home-page/home.page.component";
 import { ProfilePageComponent } from "./pages/profile/profile.page.component";
 
 const APP_ROUTES: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full'},
-    { path: 'home', component: HomePageComponent, canActivate: [AuthGuard], data: { state: 'home' }},
+    { path: '', component: HomePageComponent, canActivate: [AuthGuard], data: { state: 'home' }},
     { path: 'landing-page', component: LandingPageComponent },
     { path: 'register-line', component: RegisterLineComponent, canActivate: [AuthGuard], data: { state: 'new-line' }},
     { path: 'line-history', component: LineHistoryComponent},

@@ -11,7 +11,7 @@
   "scripts": {
     "start": "del-cli server/dist && tsc && node ./server/dist/www",
     "node-build": "tsc",
-    "build": "del-cli public/js/app && webpack --config webpack/webpack.config.dev.js --progress --profile --watch",
+    "build": "del-cli public/js/app && webpack --config webpack/webpack.config.dev.js --progress --hot --profile --watch",
     "build:prod": "del-cli public/js/app && ngc -p tsconfig.aot.json && ngc -p tsconfig.aot.json && webpack --config webpack/webpack.config.prod.js --progress --profile --bail && del-cli 'public/js/app/**/*.js' 'public/js/app/**/*.js.map' '!public/js/app/bundle.js' '!public/js/app/*.chunk.js' 'assets/app/**/*.*.ngfactory.ts' 'assets/app/**/*.shim.ts' 'assets/app/**/*.ngsummary.json' 'assets/app/**/*.ngstyle.ts'",
     "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_MODULES_CACHE=false; NODE_ENV=development; npm install --only=dev --dev",
     "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production; del-cli public/js/app && npm run build:prod"
@@ -90,6 +90,8 @@
     "angular-router-loader": "^0.8.5",
     "angular2-template-loader": "^0.6.2",
     "awesome-typescript-loader": "^3.5.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^0.28.11",
     "del-cli": "^1.1.0",
