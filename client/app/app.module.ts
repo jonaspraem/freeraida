@@ -17,9 +17,7 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { HeaderComponent } from "./components/header/header.component";
 import { UserNavMenuComponent } from "./components/header/user-nav-menu/user-nav-menu.component";
 import { CommonModule } from "@angular/common";
-import { LineModule } from "./legacy/lines/line.module";
 import { TrackPageModule } from "./legacy/tracker/track.module";
-import { RidesModule } from "./legacy/lines/line-history/line-history.module";
 import { PageModule } from './pages/pages.module';
 import {
     MatButtonToggleModule,
@@ -33,6 +31,7 @@ import {
 import { WINDOW_PROVIDERS } from "./core/services/window.service";
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { LineModule } from "./components/line-module/line.module";
 
 // TODO: Organize
 @NgModule({
@@ -54,7 +53,6 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
         CommonModule,
         LineModule,
         TrackPageModule,
-        RidesModule,
         PageModule,
         FontAwesomeModule,
         // Material design modules:

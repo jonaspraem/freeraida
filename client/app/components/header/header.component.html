@@ -4,11 +4,16 @@
 
         </div>
         <div class="grid-main">
-            <h1 class="app-navigation__header">FREERAIDA</h1>
+
+                <h1 class="app-navigation__header">
+                    <a [routerLink]="['/']">FREERAIDA</a>
+                </h1>
         </div>
         <div class="grid-right grid-right--align">
             <div [ngStyle]="{display: 'inline-block'}">
-                <i class="material-icons">add</i>
+                <a [routerLink]="['/line-creator']">
+                    <i class="material-icons">add</i>
+                </a>
             </div>
             <div class="app-navigation__user-button"
                  *ngIf="profileService.userProfile$ | async; let user"

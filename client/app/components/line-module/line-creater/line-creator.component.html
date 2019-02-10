@@ -1,0 +1,17 @@
+<div class="line-creator width-container">
+    <agm-map class="line-creator__map"
+             [latitude]="55.0"
+             [longitude]="55.0"
+             [disableDefaultUI]="false"
+    >
+    </agm-map>
+    <canvas baseChart width="400" height="100"
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+</div>
