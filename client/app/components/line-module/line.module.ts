@@ -1,16 +1,16 @@
 import { NgModule } from "@angular/core";
 import { AgmCoreModule } from "@agm/core";
-import { LineCreatorComponent } from "./line-creater/line-creater.component";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../../shared/shared.module";
 import { ChartsModule } from "ng2-charts";
+import { LineCreatorPageComponent } from "../../pages/line-creater-page/line-creater.page.component";
 
 @NgModule({
     declarations: [
-        LineCreatorComponent
+        LineCreatorPageComponent
     ],
     exports: [
-        LineCreatorComponent
+        LineCreatorPageComponent
     ],
     imports: [
         CommonModule,

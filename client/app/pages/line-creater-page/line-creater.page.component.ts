@@ -1,13 +1,13 @@
 import { Component } from "@angular/core";
-import { ILocation } from "../../../models/interfaces/types";
-import { PolylineCoords } from "../../../legacy/lines/path.model";
+import { ILocation } from "../../models/interfaces/types";
+import { PolylineCoords } from "../../legacy/lines/path.model";
 
 @Component({
     selector: 'app-line-creator',
-    templateUrl: './line-creator.component.html'
+    templateUrl: './line-creator.page.component.html'
 })
 
-export class LineCreatorComponent {
+export class LineCreatorPageComponent {
     public line: ILocation[] = [];
     polyCords: PolylineCoords[];
 

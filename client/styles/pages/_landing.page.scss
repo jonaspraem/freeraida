@@ -1,3 +1,5 @@
+$feature-color: $color-primary;
+
 .landing-page {
     &__background-container {
         min-height: 100vh;
@@ -22,7 +24,7 @@
 
     &__spacer {
         margin: 30px 0;
-        background-color: $color-primary-light;
+        background-color: $feature-color;
         height: 2px;
 
         &--small {
@@ -52,12 +54,12 @@
 
         > div {
             flex: 1;
-            color: $color-primary-light;
+            color: $feature-color;
 
             &:hover {
                 cursor: pointer;
                 text-decoration: underline;
-                text-decoration-color: $color-primary-light;
+                text-decoration-color: $feature-color;
             }
         }
 

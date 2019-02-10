@@ -23,7 +23,6 @@ export class AuthenticationService {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         this.http.post(this.config.getEndpoint() + '/api/authentication/login/', body, {headers: headers})
             .subscribe((data: any) => {
-                console.log("login", data);
                 localStorage.setItem('api_token', data.token);
                 this.router.navigate(['/']);
             });

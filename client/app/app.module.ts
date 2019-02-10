@@ -32,6 +32,7 @@ import { WINDOW_PROVIDERS } from "./core/services/window.service";
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { LineModule } from "./components/line-module/line.module";
+import { ChartsModule } from "ng2-charts";
 
 // TODO: Organize
 @NgModule({
@@ -55,6 +56,7 @@ import { LineModule } from "./components/line-module/line.module";
         TrackPageModule,
         PageModule,
         FontAwesomeModule,
+        ChartsModule,
         // Material design modules:
         MatSidenavModule,
         MatCardModule,
