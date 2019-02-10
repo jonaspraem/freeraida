@@ -4,8 +4,32 @@
              [latitude]="45.9764324"
              [longitude]="7.6583424"
              [disableDefaultUI]="true"
-             [zoom]="11"
+             [zoom]="13"
+             (mapClick)="mapClicked($event)"
     >
+        <agm-marker
+                *ngFor="let loc of line; let i = index"
+                (markerClick)="clickedMarker(loc, i)"
+                [latitude]="loc.latitude"
+                [longitude]="loc.longitude"
+                [markerDraggable]="true"
+                (dragEnd)="markerDragEnd(loc, i, $event)"
+        >
+            <agm-info-window>
+                <strong>{{loc.latitude}} {{loc.longitude}}</strong>
+                <br>
+                <!--<a class="delete" (click)="removeMarker(m)">delete</a>-->
+            </agm-info-window>
+            <agm-polyline *ngFor="let item of polyCords"
+                          [editable]="false"
+                          strokeColor=""
+                          strokeWeight="3"
+                          [geodesic]="true"
+            >
+                <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
+                <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
+            </agm-polyline>
+        </agm-marker>
     </agm-map>
     <canvas baseChart width="400" height="100"
             [datasets]="lineChartData"

@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { ILocation } from "../../../models/interfaces/types";
+import { PolylineCoords } from "../../../legacy/lines/path.model";
 
 @Component({
     selector: 'app-line-creator',
@@ -6,6 +8,42 @@ import { Component } from "@angular/core";
 })
 
 export class LineCreatorComponent {
+    public line: ILocation[] = [];
+    polyCords: PolylineCoords[];
+
+    mapClicked($event:any) {
+        const location: ILocation = {
+            latitude: $event.coords.lat,
+            longitude: $event.coords.lng
+        };
+        this.line.push(location);
+        console.log(this.line);
+        this.updatePolyCords();
+    }
+
+    updatePolyCords() {
+        let cords: PolylineCoords[] = [];
+        let prev_lat;
+        let prev_lng;
+        for (let loc of this.line) {
+            if (prev_lat && prev_lng) cords.push(new PolylineCoords(prev_lat, prev_lng, loc.latitude, loc.longitude));
+            prev_lat = loc.latitude;
+            prev_lng = loc.longitude;
+        }
+        this.polyCords =  cords;
+    }
+
+    clickedMarker(loc: ILocation, index: number) {
+        console.log('Clicked marker ', loc);
+    }
+
+    markerDragEnd(location: ILocation, index: number, $event: any) {
+        this.line[index] = ({
+            latitude: $event.coords.lat,
+            longitude: $event.coords.lng
+        });
+        this.updatePolyCords();
+    }
     // lineChart
     public lineChartData:Array<any> = [
         {data: [65, 59, 80, 81, 56, 55, 40]},

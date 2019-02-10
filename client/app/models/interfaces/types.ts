@@ -24,3 +24,9 @@ export interface IUserProfile {
     following?: string[],
     followers?: string[],
 }
+
+export interface ILocation {
+    latitude: number,
+    longitude: number,
+    height?: number,
+}

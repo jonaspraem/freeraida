@@ -1,156 +1,156 @@
-<!--<div class="page-container">-->
-    <!--<div>-->
-        <!--<h3>Select type of line</h3>-->
-        <!--<div class="line-type">-->
-            <!--<select class="form-control form-control-lg" [(ngModel)]="selectedLineType">-->
-                <!--<option>Climb</option>-->
-                <!--<option>Backcountry</option>-->
-                <!--<option>Tour</option>-->
-            <!--</select>-->
-            <!--<div class="line-type-indicator" [ngStyle]="{'background-color': color_dictionary.get(getLineType())}"></div>-->
-        <!--</div>-->
-    <!--</div>-->
+<div class="page-container">
+    <div>
+        <h3>Select type of line</h3>
+        <div class="line-type">
+            <select class="form-control form-control-lg" [(ngModel)]="selectedLineType">
+                <option>Climb</option>
+                <option>Backcountry</option>
+                <option>Tour</option>
+            </select>
+            <div class="line-type-indicator" [ngStyle]="{'background-color': color_dictionary.get(getLineType())}"></div>
+        </div>
+    </div>
 
-    <!--<hr>-->
+    <hr>
 
-    <!--<mat-card class="map-container">-->
-        <!--<agm-map [mapTypeId]="mapType"-->
-                 <!--[latitude]="lat"-->
-                 <!--[longitude]="lng"-->
-                 <!--[disableDefaultUI]="false"-->
-                 <!--[backgroundColor]="color_dictionary.get(getLineType())"-->
-                 <!--(mapClick)="mapClicked($event)"-->
-        <!--&gt;-->
-            <!--<agm-marker-->
-                    <!--*ngFor="let m of markers;let i = index"-->
-                    <!--(markerClick)="clickedMarker(m, i)"-->
-                    <!--[latitude]="m.location.lat"-->
-                    <!--[longitude]="m.location.lng"-->
-                    <!--[markerDraggable]="true"-->
-                    <!--(dragEnd)="markerDragEnd(m, $event)"-->
-            <!--&gt;-->
-                <!--<agm-info-window>-->
-                    <!--<strong>{{m.name}}</strong>-->
-                    <!--<br>-->
-                    <!--<a class="delete" (click)="removeMarker(m)">delete</a>-->
-                <!--</agm-info-window>-->
-            <!--</agm-marker>-->
+    <mat-card class="map-container">
+        <agm-map [mapTypeId]="mapType"
+                 [latitude]="lat"
+                 [longitude]="lng"
+                 [disableDefaultUI]="false"
+                 [backgroundColor]="color_dictionary.get(getLineType())"
+                 (mapClick)="mapClicked($event)"
+        >
+            <agm-marker
+                    *ngFor="let m of markers;let i = index"
+                    (markerClick)="clickedMarker(m, i)"
+                    [latitude]="m.location.lat"
+                    [longitude]="m.location.lng"
+                    [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd(m, $event)"
+            >
+                <agm-info-window>
+                    <strong>{{m.name}}</strong>
+                    <br>
+                    <a class="delete" (click)="removeMarker(m)">delete</a>
+                </agm-info-window>
+            </agm-marker>
 
-            <!--<agm-polyline *ngFor="let item of polyCords"-->
-                          <!--[editable]="false"-->
-                          <!--strokeColor="color_dictionary.get(getLineType())"-->
-                          <!--strokeWeight="3"-->
-                          <!--[geodesic]="true"-->
-            <!--&gt;-->
-                <!--<agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>-->
-                <!--<agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>-->
-            <!--</agm-polyline>-->
+            <agm-polyline *ngFor="let item of polyCords"
+                          [editable]="false"
+                          strokeColor="'#508065'"
+                          strokeWeight="3"
+                          [geodesic]="false"
+            >
+                <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
+                <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
+            </agm-polyline>
 
-        <!--</agm-map>-->
-    <!--</mat-card>-->
-    <!--<hr>-->
+        </agm-map>
+    </mat-card>
+    <hr>
 
-    <!--<div>-->
-        <!--<h4>Checkpoints</h4>-->
-        <!--<div class="list-delete">-->
-            <!--<button class="list-delete-item" mat-icon-button (click)="markerDeleteAll()" [ngStyle]="{'background-color': color_dictionary.get('primary')}">-->
-                <!--<mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete_sweep</mat-icon>-->
-            <!--</button>-->
-        <!--</div>-->
-        <!--<div class="list-delete2">-->
-            <!--<button class="list-delete-item" mat-icon-button (click)="markerDeleteLast()" [ngStyle]="{'background-color': color_dictionary.get('primary')}">-->
-                <!--<mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete</mat-icon>-->
-            <!--</button>-->
-        <!--</div>-->
-        <!--<div class="marker-list">-->
-            <!--<ul class="list-group">-->
-                <!--<li class="list-group-item" *ngFor="let m of markers">-->
-                    <!--{{m.name}}-->
-                    <!--<p class="marker-list-p" [ngStyle]="{'color': color_dictionary.get(getLineType())}">{{m.location.lat.toFixed(2)}}, {{m.location.lng.toFixed(2)}}</p>-->
-                    <!--<div class="list-delete2">-->
-                        <!--<button class="list-item-delete-single" mat-icon-button (click)="markerDeleteSingle(m)" [ngStyle]="{'background-color': color_dictionary.get('primary')}">-->
-                            <!--<mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete</mat-icon>-->
-                        <!--</button>-->
-                    <!--</div>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div>
+        <h4>Checkpoints</h4>
+        <div class="list-delete">
+            <button class="list-delete-item" mat-icon-button (click)="markerDeleteAll()" [ngStyle]="{'background-color': color_dictionary.get('primary')}">
+                <mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete_sweep</mat-icon>
+            </button>
+        </div>
+        <div class="list-delete2">
+            <button class="list-delete-item" mat-icon-button (click)="markerDeleteLast()" [ngStyle]="{'background-color': color_dictionary.get('primary')}">
+                <mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete</mat-icon>
+            </button>
+        </div>
+        <div class="marker-list">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let m of markers">
+                    {{m.name}}
+                    <p class="marker-list-p" [ngStyle]="{'color': color_dictionary.get(getLineType())}">{{m.location.lat.toFixed(2)}}, {{m.location.lng.toFixed(2)}}</p>
+                    <div class="list-delete2">
+                        <button class="list-item-delete-single" mat-icon-button (click)="markerDeleteSingle(m)" [ngStyle]="{'background-color': color_dictionary.get('primary')}">
+                            <mat-icon [ngStyle]="{'color': color_dictionary.get('white')}">delete</mat-icon>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-    <!--<hr>-->
+    <hr>
 
-    <!--<div>-->
-        <!--<h4>Height map</h4>-->
-        <!--<div class="line-profile">-->
-            <!--<div id="chartdiv" [style.width.%]="100" [style.height.px]="300"></div>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div>
+        <h4>Height map</h4>
+        <div class="line-profile">
+            <div id="chartdiv" [style.width.%]="100" [style.height.px]="300"></div>
+        </div>
+    </div>
 
-    <!--<hr>-->
+    <hr>
 
-    <!--<div>-->
-        <!--<h4>Line Information</h4>-->
-        <!--<div class="line-information">-->
-            <!--<label for="name">Name of line</label>-->
-            <!--<input type="text" class="form-control" id="name" [(ngModel)]="selectedLineName" placeholder="Tour de Mont Blanc">-->
+    <div>
+        <h4>Line Information</h4>
+        <div class="line-information">
+            <label for="name">Name of line</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="selectedLineName" placeholder="Tour de Mont Blanc">
 
-            <!--<br>-->
+            <br>
 
-            <!--<label for="name">Overall danger level</label>-->
-            <!--<select class="form-control" id="danger" [(ngModel)]="selectedDangerLevel">-->
-                <!--<option>Safe</option>-->
-                <!--<option>Caution</option>-->
-                <!--<option>Danger</option>-->
-                <!--<option>Extreme</option>-->
-            <!--</select>-->
-            <!--<div class="circle" *ngIf="selectedDangerLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedDangerLevel?.toLowerCase())}"></div>-->
+            <label for="name">Overall danger level</label>
+            <select class="form-control" id="danger" [(ngModel)]="selectedDangerLevel">
+                <option>Safe</option>
+                <option>Caution</option>
+                <option>Danger</option>
+                <option>Extreme</option>
+            </select>
+            <div class="circle" *ngIf="selectedDangerLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedDangerLevel?.toLowerCase())}"></div>
 
-            <!--<br>-->
+            <br>
 
-            <!--<label for="tree">Level of trees</label>-->
-            <!--<select class="form-control"  id="tree" [(ngModel)]="selectedTreeLevel">-->
-                <!--<option>Safe</option>-->
-                <!--<option>Caution</option>-->
-                <!--<option>Danger</option>-->
-                <!--<option>Extreme</option>-->
-            <!--</select>-->
-            <!--<div class="circle" *ngIf="selectedTreeLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedTreeLevel?.toLowerCase())}"></div>-->
+            <label for="tree">Level of trees</label>
+            <select class="form-control"  id="tree" [(ngModel)]="selectedTreeLevel">
+                <option>Safe</option>
+                <option>Caution</option>
+                <option>Danger</option>
+                <option>Extreme</option>
+            </select>
+            <div class="circle" *ngIf="selectedTreeLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedTreeLevel?.toLowerCase())}"></div>
 
-            <!--<br>-->
+            <br>
 
-            <!--<label for="rock">Level of rocks</label>-->
-            <!--<select class="form-control"  id="rock" [(ngModel)]="selectedRockLevel">-->
-                <!--<option>Safe</option>-->
-                <!--<option>Caution</option>-->
-                <!--<option>Danger</option>-->
-                <!--<option>Extreme</option>-->
-            <!--</select>-->
-            <!--<div class="circle" *ngIf="selectedRockLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedRockLevel?.toLowerCase())}"></div>-->
+            <label for="rock">Level of rocks</label>
+            <select class="form-control"  id="rock" [(ngModel)]="selectedRockLevel">
+                <option>Safe</option>
+                <option>Caution</option>
+                <option>Danger</option>
+                <option>Extreme</option>
+            </select>
+            <div class="circle" *ngIf="selectedRockLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedRockLevel?.toLowerCase())}"></div>
 
-            <!--<br>-->
+            <br>
 
-            <!--<label for="cliff">Level of cliffs</label>-->
-            <!--<select class="form-control"  id="cliff" [(ngModel)]="selectedCliffLevel">-->
-                <!--<option>Safe</option>-->
-                <!--<option>Caution</option>-->
-                <!--<option>Danger</option>-->
-                <!--<option>Extreme</option>-->
-            <!--</select>-->
-            <!--<div class="circle" *ngIf="selectedCliffLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedCliffLevel?.toLowerCase())}"></div>-->
-        <!--</div>-->
-    <!--</div>-->
+            <label for="cliff">Level of cliffs</label>
+            <select class="form-control"  id="cliff" [(ngModel)]="selectedCliffLevel">
+                <option>Safe</option>
+                <option>Caution</option>
+                <option>Danger</option>
+                <option>Extreme</option>
+            </select>
+            <div class="circle" *ngIf="selectedCliffLevel" [ngStyle]="{'background-color': color_dictionary.get(selectedCliffLevel?.toLowerCase())}"></div>
+        </div>
+    </div>
 
-    <!--<hr>-->
+    <hr>
 
-    <!--<div id="submit">-->
-        <!--<button type="button" class="btn btn-primary" (click)="onSubmit()">SUBMIT</button>-->
-        <!--<div *ngIf="isTriedToSubmit">-->
-            <!--<p [ngStyle]="{'color': 'red'}">*The form hasn't been completely filled out</p>-->
-        <!--</div>-->
-        <!--<div *ngIf="isSubmitted">-->
-            <!--<p [ngStyle]="{'color': color_dictionary.get('address')}">*The has successfully been saved</p>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div id="submit">
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">SUBMIT</button>
+        <div *ngIf="isTriedToSubmit">
+            <p [ngStyle]="{'color': 'red'}">*The form hasn't been completely filled out</p>
+        </div>
+        <div *ngIf="isSubmitted">
+            <p [ngStyle]="{'color': color_dictionary.get('address')}">*The has successfully been saved</p>
+        </div>
+    </div>
 
-    <!--<hr>-->
-<!--</div>-->
+    <hr>
+</div>
