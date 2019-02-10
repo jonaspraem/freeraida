@@ -3,6 +3,7 @@ import { Router, CanActivate } from '@angular/router';
 import { AuthenticationService } from "./authentication.service";
 
 @Injectable()
+
 export class AuthGuardService implements CanActivate {
 
     constructor(
@@ -11,7 +12,6 @@ export class AuthGuardService implements CanActivate {
     ) {}
 
     canActivate(): boolean {
-        console.log(this.authService.isAuthenticated());
         if (!this.authService.isAuthenticated()) {
             this.router.navigate(['/landing-page']);
             return false;
