@@ -21,6 +21,4 @@ import { PostModule } from "../../components/post-module/post.module";
     ]
 })
 
-export class ProfilePageModule {
-
-}
+export class ProfilePageModule {}
