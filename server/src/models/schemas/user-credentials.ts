@@ -38,7 +38,6 @@ schema.pre<IUserCredentials>("save", function(next) {
 });
 
 schema.methods.validPassword = async function(password) {
-    console.log('comparing password');
     return await bcrypt.compare(password, this.password);
 };
 

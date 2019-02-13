@@ -2,12 +2,14 @@ import { NgModule } from "@angular/core";
 import { AgmCoreModule } from "@agm/core";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../../shared/shared.module";
-import { ChartsModule } from "ng2-charts";
 import { LineCreatorPageComponent } from "../../pages/line-creater-page/line-creater.page.component";
+import { HeightMapComponent } from "./height-map/height-map.component";
+import { Ng2GoogleChartsModule } from "ng2-google-charts";
 
 @NgModule({
     declarations: [
-        LineCreatorPageComponent
+        LineCreatorPageComponent,
+        HeightMapComponent
     ],
     exports: [
         LineCreatorPageComponent
@@ -15,7 +17,7 @@ import { LineCreatorPageComponent } from "../../pages/line-creater-page/line-cre
     imports: [
         CommonModule,
         SharedModule,
-        ChartsModule,
+        Ng2GoogleChartsModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM' // TODO Move
         }),

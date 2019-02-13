@@ -33,9 +33,17 @@ export interface ILocation {
 }
 
 export interface ILineLocation extends ILocation {
-    lineIndex: number;
-    timeFromStart: string; // hh:mm:ss format
-    timeFromLast: string; // hh:mm:ss format
-    distanceFromStart: number;
-    distanceFromLast: number;
+    lineIndex?: number;
+    timeFromStart?: string; // hh:mm:ss format
+    timeFromLast?: string; // hh:mm:ss format
+    distanceFromStart?: number;
+    distanceFromLast?: number;
+}
+
+export interface ILine {
+    name: string,
+    username: string,
+    type: string,
+    locations: ILineLocation[],
+    timestamp: Date
 }

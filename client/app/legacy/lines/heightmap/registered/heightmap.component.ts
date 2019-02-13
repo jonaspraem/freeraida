@@ -8,7 +8,7 @@ import { COLOR_DICTIONARY } from "../../../../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-height-map',
-    templateUrl: './heightmap.component.html'
+    templateUrl: './height-map.component.html'
 })
 
 export class HeightMapComponent implements OnInit {
