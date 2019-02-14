@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component } from "@angular/core";
 import { ILineLocation, ILocation } from "../../models/interfaces/types";
 import { PolylineCoords } from "../../legacy/lines/path.model";
+import { LineService } from "../../core/services/line.service";
 
 @Component({
     selector: 'app-line-creator',
@@ -8,18 +9,12 @@ import { PolylineCoords } from "../../legacy/lines/path.model";
 })
 
 export class LineCreatorPageComponent {
-    public line: ILineLocation[] = [
-        {
-            latitude: 2,
-            longitude: 3,
-            distanceFromStart: 0,
-            elevation: 0
-        },
-    ];
+    public line: ILineLocation[] = [];
     polyCords: PolylineCoords[];
     public counter: number = 1;
 
     constructor(
+        private _lineService: LineService,
         private _cdRef: ChangeDetectorRef
     ) {}
 
@@ -37,6 +32,14 @@ export class LineCreatorPageComponent {
         this.line = prevLocations;
         this._cdRef.detectChanges();
         // console.log(this.line);
+        this.updateLine();
+    }
+
+    public updateLine() {
+        this._lineService.getLineInfo(this.line).subscribe(
+            (data) => {
+                this.line = data.obj;
+            });
         this.updatePolyCords();
     }
 

@@ -5,6 +5,7 @@ import { SocialService } from "./services/social.service";
 import { ProfileService } from "./services/profile.service";
 import { NotEmptyDirective } from "./directives/not-empty.directive";
 import { PostService } from "./services/post.service";
+import { LineService } from "./services/line.service";
 
 @NgModule({
     providers: [
@@ -12,6 +13,7 @@ import { PostService } from "./services/post.service";
         AuthGuardService,
         ProfileService,
         PostService,
+        LineService,
         SocialService,
         NotEmptyDirective
     ]

@@ -2,14 +2,23 @@ import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs';
 import { CONFIG } from "../../dictionary/config";
+import { ILine, ILineLocation } from "../../models/interfaces/types";
+import { Observable } from "rxjs";
 
 @Injectable()
 
 export class LineService {
 
-    // constructor(private http: HttpClient,
-    //             private config: CONFIG
-    // ) {}
+    constructor(private http: HttpClient,
+                private config: CONFIG
+    ) {}
+
+    public getLineInfo(line: ILineLocation[]): Observable<any> {
+        const body = JSON.stringify(line);
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('api_token');
+        return this.http.post(this.config.getEndpoint() + '/api/location-service/', body, {headers: headers, params: new HttpParams().set('token', token)})
+    }
     //
     // addLine(line: Line) {
     //     const body = JSON.stringify(line);
