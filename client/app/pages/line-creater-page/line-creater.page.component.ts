@@ -10,17 +10,11 @@ import { PolylineCoords } from "../../legacy/lines/path.model";
 export class LineCreatorPageComponent {
     public line: ILineLocation[] = [
         {
-            latitude: 5,
-            longitude: 12
+            latitude: 2,
+            longitude: 3,
+            distanceFromStart: 0,
+            elevation: 0
         },
-        {
-            latitude: 9,
-            longitude: 3
-        },
-        {
-            latitude: 6,
-            longitude: 5
-        }
     ];
     polyCords: PolylineCoords[];
     public counter: number = 1;
@@ -30,13 +24,17 @@ export class LineCreatorPageComponent {
     ) {}
 
     mapClicked($event:any) {
+        // Ensure new object spawn
+        const prevLocations: ILineLocation[] = Object.assign([], this.line);
+        // Push new
         const location: ILineLocation = {
             latitude: $event.coords.lat,
             longitude: $event.coords.lng,
             elevation: 20,
             distanceFromStart: this.counter+=this.counter
         };
-        this.line.push(location);
+        prevLocations.push(location);
+        this.line = prevLocations;
         this._cdRef.detectChanges();
         // console.log(this.line);
         this.updatePolyCords();

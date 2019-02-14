@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
-import { ILine, ILineLocation } from "../../../models/interfaces/types";
+import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges, ViewChild } from "@angular/core";
+import { ILineLocation } from "../../../models/interfaces/types";
 import { GoogleChartInterface } from "ng2-google-charts/google-charts-interfaces";
 
 @Component({
@@ -15,7 +15,7 @@ import { GoogleChartInterface } from "ng2-google-charts/google-charts-interfaces
 export class HeightMapComponent implements OnChanges {
     @Input() lineLocations: ILineLocation[];
     public chart: GoogleChartInterface = {
-        chartType: 'Scatter',
+        chartType: 'AreaChart',
         dataTable: [['X', 'Y'],
             [1, 3],
             [2, 2.5],
@@ -30,7 +30,7 @@ export class HeightMapComponent implements OnChanges {
         options: {
             title: 'Height map',
             legend: 'none',
-            hAxis: {
+            vAxis: {
                 minValue: 0,
                 maxValue: 20
             },
@@ -38,6 +38,10 @@ export class HeightMapComponent implements OnChanges {
             pointSize: 2
         },
     };
+
+    constructor(
+        private _cdRef: ChangeDetectorRef
+    ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         console.log('changes', changes);
@@ -50,13 +54,12 @@ export class HeightMapComponent implements OnChanges {
 
     private reMapChart(): void {
         const newData: any[] = [['X', 'Y']];
-        console.log('input line', this.lineLocations);
         for(let i = 0; i < this.lineLocations.length; i++) {
             const location = this.lineLocations[i];
-            newData.push([location.latitude, location.longitude]
-            );
+            newData.push([location.distanceFromStart, location.elevation]);
         }
-        console.log('hello', newData);
         this.chart.dataTable = newData;
+        this._cdRef.detectChanges();
+        this.chart.component.draw();
     }
 }
