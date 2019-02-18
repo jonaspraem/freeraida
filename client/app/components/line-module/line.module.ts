@@ -5,6 +5,7 @@ import { SharedModule } from "../../shared/shared.module";
 import { LineCreatorPageComponent } from "../../pages/line-creater-page/line-creater.page.component";
 import { HeightMapComponent } from "./height-map/height-map.component";
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
+import { MatIconModule, MatListModule } from "@angular/material";
 
 @NgModule({
     declarations: [
@@ -21,6 +22,8 @@ import { Ng2GoogleChartsModule } from "ng2-google-charts";
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM' // TODO Move
         }),
+        MatListModule,
+        MatIconModule
     ]
 })
 

@@ -1,35 +1,57 @@
-<div class="line-creator width-container">
-    <agm-map class="line-creator__map"
-             [mapTypeId]="'terrain'"
-             [latitude]="45.9764324"
-             [longitude]="7.6583424"
-             [disableDefaultUI]="true"
-             [zoom]="13"
-             (mapClick)="mapClicked($event)"
-    >
-        <agm-marker
-                *ngFor="let loc of line; let i = index"
-                (markerClick)="clickedMarker(loc, i)"
-                [latitude]="loc.latitude"
-                [longitude]="loc.longitude"
-                [markerDraggable]="true"
-                (dragEnd)="markerDragEnd(loc, i, $event)"
+<div class="line-creator width-container-flex">
+    <div class="grid-main">
+        <agm-map class="line-creator__map"
+                 [mapTypeId]="'terrain'"
+                 [latitude]="45.8326222"
+                 [longitude]="6.8649248"
+                 [disableDefaultUI]="true"
+                 [zoom]="13"
+                 (mapClick)="mapClicked($event)"
         >
-            <agm-info-window>
-                <strong>{{loc.latitude}} {{loc.longitude}}</strong>
-                <br>
-                <!--<a class="delete" (click)="removeMarker(m)">delete</a>-->
-            </agm-info-window>
-            <agm-polyline *ngFor="let item of polyCords"
-                          [editable]="false"
-                          strokeColor=""
-                          strokeWeight="3"
-                          [geodesic]="true"
+            <agm-marker
+                    *ngFor="let loc of line; let i = index"
+                    (markerClick)="clickedMarker(loc, i)"
+                    [latitude]="loc.latitude"
+                    [longitude]="loc.longitude"
+                    [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd(loc, i, $event)"
             >
-                <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
-                <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
-            </agm-polyline>
-        </agm-marker>
-    </agm-map>
-    <app-height-map [lineLocations]="line"></app-height-map>
+                <agm-info-window>
+                    <strong>{{loc.latitude}} {{loc.longitude}}</strong>
+                    <br>
+                    <!--<a class="delete" (click)="removeMarker(m)">delete</a>-->
+                </agm-info-window>
+                <agm-polyline *ngFor="let item of polyCords"
+                              [editable]="false"
+                              strokeColor=""
+                              strokeWeight="3"
+                              [geodesic]="true"
+                >
+                    <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
+                    <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
+                </agm-polyline>
+            </agm-marker>
+        </agm-map>
+    </div>
+    <div class="grid-main">
+        <app-height-map [lineLocations]="line"></app-height-map>
+    </div>
+</div>
+<div class="width-container-flex">
+    <div class="line-creator__actions">
+        <div class="line-creator__button-group">
+            <button class="button-primary">CLEAR</button>
+            <button class="button-primary">SAVE</button>
+        </div>
+    </div>
+    <div class="grid-main">
+        <mat-list class="line-creator__line-list">
+            <h3 mat-subheader>Line waypoints</h3>
+            <mat-list-item *ngFor="let location of line; let i = index">
+                <mat-icon mat-list-icon class="line-creator__list-icon">location_on</mat-icon>
+                <h4 mat-line>{{location.distanceFromStart}}</h4>
+                <p mat-line> {{location.elevation}} </p>
+            </mat-list-item>
+        </mat-list>
+    </div>
 </div>

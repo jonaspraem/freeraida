@@ -5,4 +5,36 @@
         height: 500px;
         max-height: 100vh;
     }
+
+    &__line-list {
+        background-color: $color-white;
+
+        > mat-list-item {
+            border-bottom: 1px solid lightgray;
+        }
+    }
+
+    &__list-icon {
+        font-size: 30px;
+        height: 30px;
+        width: 30px;
+    }
+
+    &__actions {
+        width: 400px;
+        margin-right: 20px;
+        background-color: $color-white;
+    }
+
+    &__button-group {
+        display: flex;
+
+        > button {
+            flex: 1;
+
+            &:first-child {
+                margin-right: 20px;
+            }
+        }
+    }
 }

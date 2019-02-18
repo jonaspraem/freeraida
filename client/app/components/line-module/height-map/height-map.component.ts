@@ -34,8 +34,17 @@ export class HeightMapComponent implements OnChanges {
                 minValue: 0,
                 maxValue: 20
             },
+            height: 500,
             curveType: 'function',
-            pointSize: 2
+            pointSize: 5,
+            colors: ['#508065', '#94CCAD'],
+            backgroundColor: 'none',
+            chartArea: {
+                left: 80,
+                top: 5,
+                right: 5,
+                bottom: 5,
+            }
         },
     };
 
@@ -44,7 +53,6 @@ export class HeightMapComponent implements OnChanges {
     ) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
-        console.log('changes', changes);
         this.reMapChart();
     }
 
