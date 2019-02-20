@@ -39,17 +39,18 @@
 </div>
 <div class="width-container-flex" *ngIf="line.length > 1">
     <div class="line-creator__actions">
-        <form>
+        <form [formGroup]="registerForm">
             <div class="form-group landing-page__form-element">
                 <input type="text"
                        class="input"
                        id="inputName"
-                       formControlName="userInput"
+                       formControlName="lineName"
+                       [ngClass]="registerForm.get('lineName').value.length !== 0 ? 'input--active' : ''"
                        required>
                 <label for="inputName">Enter name of the line</label>
             </div>
             <div class="form-group landing-page__form-element">
-                <select
+                <select [formControl]="registerForm.controls.lineSport"
                         class="input"
                         [ngClass]="'input--active'"
                         id="sport-select">
@@ -58,7 +59,7 @@
                 <label for="sport-select">Sport</label>
             </div>
             <div class="form-group landing-page__form-element">
-                <select
+                <select [formControl]="registerForm.controls.lineType"
                         class="input"
                         [ngClass]="'input--active'"
                         id="type-select">

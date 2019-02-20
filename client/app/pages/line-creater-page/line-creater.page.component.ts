@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component } from "@angular/core";
 import { ILineLocation, ILocation } from "../../models/interfaces/types";
 import { PolylineCoords } from "../../legacy/lines/path.model";
 import { LineService } from "../../core/services/line.service";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
     selector: 'app-line-creator',
@@ -10,8 +11,13 @@ import { LineService } from "../../core/services/line.service";
 
 export class LineCreatorPageComponent {
     public line: ILineLocation[] = [];
-    polyCords: PolylineCoords[];
-    public counter: number = 1;
+    public polyCords: PolylineCoords[];
+    public counter: number = 0;
+    public registerForm = new FormGroup({
+        lineName: new FormControl('', Validators.required),
+        lineSport: new FormControl('', Validators.required),
+        lineType: new FormControl('', Validators.required)
+    });
 
     // TODO move - make enum
     public sportsTypes = [
