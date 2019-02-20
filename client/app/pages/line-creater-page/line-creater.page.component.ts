@@ -13,6 +13,20 @@ export class LineCreatorPageComponent {
     polyCords: PolylineCoords[];
     public counter: number = 1;
 
+    // TODO move - make enum
+    public sportsTypes = [
+        'Skiing',
+        'Snowboarding',
+        'Free climbing',
+        'Mountaineering',
+        'Mountain biking'
+    ];
+    public lineTypes = [
+        'Trip',
+        'Whole day',
+        'Backcountry'
+    ];
+
     constructor(
         private _lineService: LineService,
         private _cdRef: ChangeDetectorRef
@@ -64,6 +78,6 @@ export class LineCreatorPageComponent {
             latitude: $event.coords.lat,
             longitude: $event.coords.lng
         });
-        this.updatePolyCords();
+        this.updateLine();
     }
 }

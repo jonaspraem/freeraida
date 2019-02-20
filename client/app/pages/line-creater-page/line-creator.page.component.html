@@ -34,11 +34,39 @@
         </agm-map>
     </div>
     <div class="grid-main">
-        <app-height-map [lineLocations]="line"></app-height-map>
+        <app-height-map *ngIf="line.length > 1" [lineLocations]="line"></app-height-map>
     </div>
 </div>
-<div class="width-container-flex">
+<div class="width-container-flex" *ngIf="line.length > 1">
     <div class="line-creator__actions">
+        <form>
+            <div class="form-group landing-page__form-element">
+                <input type="text"
+                       class="input"
+                       id="inputName"
+                       formControlName="userInput"
+                       required>
+                <label for="inputName">Enter name of the line</label>
+            </div>
+            <div class="form-group landing-page__form-element">
+                <select
+                        class="input"
+                        [ngClass]="'input--active'"
+                        id="sport-select">
+                    <option *ngFor="let type of sportsTypes" [ngValue]="type">{{ type }}</option>
+                </select>
+                <label for="sport-select">Sport</label>
+            </div>
+            <div class="form-group landing-page__form-element">
+                <select
+                        class="input"
+                        [ngClass]="'input--active'"
+                        id="type-select">
+                    <option *ngFor="let type of lineTypes" [ngValue]="type">{{ type }}</option>
+                </select>
+                <label for="type-select">Line type</label>
+            </div>
+        </form>
         <div class="line-creator__button-group">
             <button class="button-primary">CLEAR</button>
             <button class="button-primary">SAVE</button>
@@ -49,8 +77,8 @@
             <h3 mat-subheader>Line waypoints</h3>
             <mat-list-item *ngFor="let location of line; let i = index">
                 <mat-icon mat-list-icon class="line-creator__list-icon">location_on</mat-icon>
-                <h4 mat-line>{{location.distanceFromStart}}</h4>
-                <p mat-line> {{location.elevation}} </p>
+                <h4 mat-line>{{location.distanceFromStart}} km</h4>
+                <p mat-line> {{location.elevation}} m</p>
             </mat-list-item>
         </mat-list>
     </div>

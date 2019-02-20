@@ -47,6 +47,7 @@ export class HeightMapComponent implements OnChanges {
             }
         },
     };
+    private _isLoaded: boolean = false;
 
     constructor(
         private _cdRef: ChangeDetectorRef
@@ -56,7 +57,10 @@ export class HeightMapComponent implements OnChanges {
         this.reMapChart();
     }
 
-    public ngOnInit(): void {
+    public ngOnInit(): void {}
+
+    public onChartReady(): void {
+        this._isLoaded = true;
         this.reMapChart();
     }
 
@@ -66,8 +70,13 @@ export class HeightMapComponent implements OnChanges {
             const location = this.lineLocations[i];
             newData.push([location.distanceFromStart, location.elevation]);
         }
-        this.chart.dataTable = newData;
+        // let copyChart = this.chart;
+        // copyChart.dataTable = newData;
+        // this.chart.component.data = copyChart;
         this._cdRef.detectChanges();
-        this.chart.component.draw();
+        if (this._isLoaded) {
+            this.chart.dataTable = newData;
+            this.chart.component.draw();
+        }
     }
 }

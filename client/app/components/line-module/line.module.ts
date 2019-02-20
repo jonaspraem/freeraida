@@ -6,6 +6,7 @@ import { LineCreatorPageComponent } from "../../pages/line-creater-page/line-cre
 import { HeightMapComponent } from "./height-map/height-map.component";
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
 import { MatIconModule, MatListModule } from "@angular/material";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -23,7 +24,9 @@ import { MatIconModule, MatListModule } from "@angular/material";
             apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM' // TODO Move
         }),
         MatListModule,
-        MatIconModule
+        MatIconModule,
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 
