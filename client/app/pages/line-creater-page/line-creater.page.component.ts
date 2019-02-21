@@ -16,7 +16,7 @@ export class LineCreatorPageComponent {
     public registerForm = new FormGroup({
         lineName: new FormControl('', Validators.required),
         lineSport: new FormControl('', Validators.required),
-        lineType: new FormControl('', Validators.required)
+        lineType: new FormControl({value: '', disabled: true}, Validators.required)
     });
 
     // TODO move - make enum
@@ -51,7 +51,6 @@ export class LineCreatorPageComponent {
         prevLocations.push(location);
         this.line = prevLocations;
         this._cdRef.detectChanges();
-        // console.log(this.line);
         this.updateLine();
     }
 

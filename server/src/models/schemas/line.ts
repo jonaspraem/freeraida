@@ -6,7 +6,8 @@ const Location = require('./location');
 export interface ILine extends mongoose.Document {
     name: string,
     username: string,
-    type: string,
+    sport: string,
+    discipline: string,
     locations: ILocation[],
     timestamp: Date
 }
@@ -14,7 +15,8 @@ export interface ILine extends mongoose.Document {
 const schema = new mongoose.Schema({
     name: {type: String, required: true},
     username: {type: String, required: true},
-    type: {type: String, required: true},
+    sport: {type: String, required: true},
+    discipline: {type: String, required: true},
     locations: [{type: mongoose.Schema.Types.ObjectId, ref: 'Location'}],
     timestamp: {type: Date, required: true}
 });

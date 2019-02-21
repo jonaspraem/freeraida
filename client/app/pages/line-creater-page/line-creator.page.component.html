@@ -52,7 +52,7 @@
             <div class="form-group landing-page__form-element">
                 <select [formControl]="registerForm.controls.lineSport"
                         class="input"
-                        [ngClass]="'input--active'"
+                        [ngClass]="registerForm.get('lineSport').value.length !== 0 ? 'input--active' : ''"
                         id="sport-select">
                     <option *ngFor="let type of sportsTypes" [ngValue]="type">{{ type }}</option>
                 </select>
@@ -61,7 +61,7 @@
             <div class="form-group landing-page__form-element">
                 <select [formControl]="registerForm.controls.lineType"
                         class="input"
-                        [ngClass]="'input--active'"
+                        [ngClass]="registerForm.get('lineType').value.length !== 0 ? 'input--active' : ''"
                         id="type-select">
                     <option *ngFor="let type of lineTypes" [ngValue]="type">{{ type }}</option>
                 </select>
