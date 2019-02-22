@@ -19,6 +19,13 @@ export class LineService {
         const token = localStorage.getItem('api_token');
         return this.http.post(this.config.getEndpoint() + '/api/location-service/', body, {headers: headers, params: new HttpParams().set('token', token)})
     }
+
+    public saveLine(line: ILine): Observable<any> {
+        const body = JSON.stringify(line);
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('api_token');
+        return this.http.post(this.config.getEndpoint() + '/api/line/new', body, {headers: headers, params: new HttpParams().set('token', token)})
+    }
     //
     // addLine(line: Line) {
     //     const body = JSON.stringify(line);

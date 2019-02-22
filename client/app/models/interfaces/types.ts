@@ -41,9 +41,12 @@ export interface ILineLocation extends ILocation {
 }
 
 export interface ILine {
-    name: string,
-    username: string,
-    type: string,
-    locations: ILineLocation[],
-    timestamp: Date
+    name: string;
+    sport: string;
+    discipline: string;
+    locations: ILineLocation[];
+    username?: string;
+    timestamp?: Date;
+    peak?: number;
+    slope?: number;
 }

@@ -34,12 +34,12 @@
         </agm-map>
     </div>
     <div class="grid-main">
-        <app-height-map *ngIf="line.length > 1" [lineLocations]="line"></app-height-map>
+        <app-height-map [lineLocations]="line"></app-height-map>
     </div>
 </div>
-<div class="width-container-flex" *ngIf="line.length > 1">
+<div class="width-container-flex">
     <div class="line-creator__actions">
-        <form [formGroup]="registerForm">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="form-group landing-page__form-element">
                 <input type="text"
                        class="input"
@@ -67,11 +67,11 @@
                 </select>
                 <label for="type-select">Line type</label>
             </div>
+            <div class="line-creator__button-group">
+                <button type="submit" class="button-primary">CLEAR</button>
+                <button class="button-primary">SAVE</button>
+            </div>
         </form>
-        <div class="line-creator__button-group">
-            <button class="button-primary">CLEAR</button>
-            <button class="button-primary">SAVE</button>
-        </div>
     </div>
     <div class="grid-main">
         <mat-list class="line-creator__line-list">

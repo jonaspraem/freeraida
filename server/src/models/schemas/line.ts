@@ -4,12 +4,14 @@ const UserProfile = require('./user-profile');
 const Location = require('./location');
 
 export interface ILine extends mongoose.Document {
-    name: string,
-    username: string,
-    sport: string,
-    discipline: string,
-    locations: ILocation[],
-    timestamp: Date
+    name: string;
+    username: string;
+    sport: string;
+    discipline: string;
+    locations: ILocation[];
+    timestamp: Date;
+    peak: number;
+    slope: number;
 }
 
 const schema = new mongoose.Schema({
@@ -17,8 +19,10 @@ const schema = new mongoose.Schema({
     username: {type: String, required: true},
     sport: {type: String, required: true},
     discipline: {type: String, required: true},
-    locations: [{type: mongoose.Schema.Types.ObjectId, ref: 'Location'}],
-    timestamp: {type: Date, required: true}
+    locations: [{type: mongoose.Schema.Types.ObjectId, ref: 'Location', required: true}],
+    timestamp: {type: Date, required: true},
+    peak: {type: Number},
+    slope: {type: Number},
 });
 
 schema.pre('remove', async (next) => {
@@ -28,17 +32,13 @@ schema.pre('remove', async (next) => {
         locations.forEach((location) => {
             location.remove((err) => {});
         });
-    } catch (e) {
-
-    }
+    } catch (e) {}
     try {
         const userProfile = await UserProfile.findOne({user_id: model.user_id});
         userProfile.lines.pull(model._id);
         userProfile.save();
 
-    } catch (e) {
-
-    }
+    } catch (e) {}
     next();
 });
 

@@ -26,7 +26,7 @@ class Application {
         const postRoutes = require('./routes/posts');
         const socialRoutes = require('./routes/social');
         const userProfileRoutes = require('./routes/user-profile');
-        //const lineRoutes = require('./routes/lines');
+        const lineRoutes = require('./routes/lines');
         const locationServiceRoutes = require('./routes/location-service');
 
         mongoose.connect('mongodb://test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database', {
@@ -83,7 +83,7 @@ class Application {
         this.express.use('/api/user-profile', userProfileRoutes);
         this.express.use('/api/post', postRoutes);
         this.express.use('/api/social', socialRoutes);
-        // this.express.use('/api/lineservice', lineRoutes);
+        this.express.use('/api/line', lineRoutes);
         this.express.use('/api/location-service', locationServiceRoutes);
         this.express.use('/', index);
 

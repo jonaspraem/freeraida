@@ -3,10 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppComponent } from './app.component';
 import { appRouting } from "./app.routing";
-
 import { LandingPageModule } from "./pages/landing-page/landing.page.module";
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
 import { COLOR_DICTIONARY } from "./dictionary/color-dictionary";
@@ -76,4 +74,5 @@ import { ChartsModule } from "ng2-charts";
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {}
