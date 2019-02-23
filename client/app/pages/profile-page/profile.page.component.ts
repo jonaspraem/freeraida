@@ -12,11 +12,11 @@ const hero = require('../../../images/licensed/iStock-01.jpg');
 const profile_image = require('../../../images/rider/profile-image.jpg');
 
 export enum ProfileTab {
-    POSTS = 0,
-    REPUTATION = 1,
-    LINES = 2,
-    FOLLOWING = 3,
-    FOLLOWERS = 4
+    FEED,
+    REPUTATION,
+    LINES,
+    FOLLOWING,
+    FOLLOWERS
 }
 
 @Component({
@@ -25,13 +25,14 @@ export enum ProfileTab {
 })
 
 export class ProfilePageComponent implements OnInit, OnDestroy {
+    public ProfileTab = ProfileTab;
     public isSelf: boolean = false;
     public isFollowing: boolean;
     public profile: IUserProfile;
     public hero = hero;
     public profile_image = profile_image;
     public userFeed: IPost[] = [];
-    public activeTab: ProfileTab = 0;
+    public activeTab: ProfileTab = ProfileTab.FEED;
     private _subscriptionRoutes: Subscription;
     private _subscriptionProfile: Subscription;
     private _subscriptionSocial: Subscription;

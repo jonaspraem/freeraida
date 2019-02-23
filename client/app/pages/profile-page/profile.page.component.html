@@ -34,14 +34,21 @@
     </div>
     <div class="width-container-flex profile__page-container">
         <div class="grid-left">
-            h
         </div>
-        <div class="grid-main">
-            <app-post *ngFor="let post of userFeed"
-                      [postModel]="post"></app-post>
+        <div class="grid-main" [ngSwitch]="activeTab">
+            <ng-template [ngSwitchCase]="ProfileTab.FEED">
+                <app-post *ngFor="let post of userFeed"
+                          [postModel]="post"></app-post>
+            </ng-template>
+            <ng-template [ngSwitchCase]="ProfileTab.REPUTATION"></ng-template>
+            <ng-template [ngSwitchCase]="ProfileTab.LINES">
+                <app-line-summary></app-line-summary>
+            </ng-template>
+            <ng-template [ngSwitchCase]="ProfileTab.FOLLOWING"></ng-template>
+            <ng-template [ngSwitchCase]="ProfileTab.FOLLOWERS"></ng-template>
+
         </div>
         <div class="grid-right">
-            h
         </div>
     </div>
 </div>

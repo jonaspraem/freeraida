@@ -7,14 +7,17 @@ import { HeightMapComponent } from "./height-map/height-map.component";
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
 import { MatIconModule, MatListModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { LineSummaryComponent } from "./line-summary/line-summary.component";
 
 @NgModule({
     declarations: [
         LineCreatorPageComponent,
-        HeightMapComponent
+        HeightMapComponent,
+        LineSummaryComponent
     ],
     exports: [
-        LineCreatorPageComponent
+        LineCreatorPageComponent,
+        LineSummaryComponent
     ],
     imports: [
         CommonModule,

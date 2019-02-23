@@ -7,6 +7,32 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
+router.get('/user/:username', async (req, res, next) => {
+    let userProfile;
+    let lines;
+    try {
+        userProfile = await UserProfile.findOne({username: req.params.username});
+    } catch (e) {
+        return res.status(404).json({
+            title: 'Error finding user profile',
+            message: 'Could find the user profile'
+        });
+    }
+    try {
+        lines = Line.find({'_id': {$in: userProfile.lines}});
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({
+            title: 'An error occurred',
+            message: 'Error saving the line'
+        });
+    }
+    return res.status(201).json({
+        message: 'Line saved',
+        obj: lines
+    });
+});
+
 // Verify token
 router.use('/', async (req, res, next) => {
     try {
@@ -88,6 +114,8 @@ router.post('/new/', async (req, res, next) => {
         obj: line
     });
 });
+
+
 
 // router.post('/newline/', (req, res, next) => {
 //     const decoded = jwt.decode(req.query.token);

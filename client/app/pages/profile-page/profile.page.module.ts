@@ -3,6 +3,7 @@ import { ProfilePageComponent } from "./profile.page.component";
 import { ProfileHeaderComponent } from "../../components/profile-header/profile-header.component";
 import { SharedModule } from "../../shared/shared.module";
 import { PostModule } from "../../components/post-module/post.module";
+import { LineModule } from "../../components/line-module/line.module";
 
 @NgModule({
     declarations: [
@@ -10,8 +11,9 @@ import { PostModule } from "../../components/post-module/post.module";
         ProfileHeaderComponent,
     ],
     imports: [
-      SharedModule,
-        PostModule
+        SharedModule,
+        PostModule,
+        LineModule
     ],
     exports: [
         ProfilePageComponent
