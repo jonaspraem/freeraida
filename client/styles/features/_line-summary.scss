@@ -1,17 +1,20 @@
 .line-summary {
     display: flex;
-    height: 250px;
+    height: 200px;
+    background-color: $color-white;
 
     &__map {
         width: 250px;
         height: 100%;
+        background-color: $color-secondary-rock;
+        border-left: 10px solid;
     }
 
     &__content {
         flex: 1;
     }
 
-    &__bandaid {
+    &__band-aid {
         margin: 10px 0;
         height: 5px;
     }
