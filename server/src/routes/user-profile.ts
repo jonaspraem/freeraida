@@ -16,7 +16,6 @@ router.get('/user/:username', async (req, res, next) => {
             message: 'Error looking up user'
         });
     }
-    console.log(profile);
     return res.status(200).json({
         message: 'UserProfile successfully received',
         obj: profile

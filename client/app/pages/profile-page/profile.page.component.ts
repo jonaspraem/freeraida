@@ -2,11 +2,12 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { ProfileService } from "../../core/services/profile.service";
-import { IPost, IUserProfile } from "../../models/interfaces/types";
+import { ILine, IPost, IUserProfile } from "../../models/interfaces/types";
 import { IUserProfileResponse } from "../../models/interfaces/responses";
 import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { SocialService } from "../../core/services/social.service";
 import { PostService } from "../../core/services/post.service";
+import { LineService } from "../../core/services/line.service";
 
 const hero = require('../../../images/licensed/iStock-01.jpg');
 const profile_image = require('../../../images/rider/profile-image.jpg');
@@ -32,17 +33,20 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     public hero = hero;
     public profile_image = profile_image;
     public userFeed: IPost[] = [];
+    public lineList: ILine[] = [];
     public activeTab: ProfileTab = ProfileTab.FEED;
     private _subscriptionRoutes: Subscription;
     private _subscriptionProfile: Subscription;
     private _subscriptionSocial: Subscription;
     private _subscriptionUserFeed: Subscription;
+    private _subscriptionUserLines: Subscription;
 
     constructor(
         private _route: ActivatedRoute,
         private _profileService: ProfileService,
         private _postService: PostService,
-        private _socialService: SocialService
+        private _socialService: SocialService,
+        private _lineService: LineService
     ) {}
 
     public ngOnInit(): void {
@@ -55,11 +59,20 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
                 });
             });
 
-            this._subscriptionUserFeed = this._postService.getUserFeed(params.username).subscribe(
-                data => {
-                    console.log(data);
-                    this.userFeed = data.obj
-                });
+            this._subscriptionUserFeed = this._postService.getUserFeed(params.username)
+                .subscribe(
+                    data => {
+                        this.userFeed = data.obj
+                    }
+                );
+
+            this._subscriptionUserLines = this._lineService.getUserLines(params.username)
+                .subscribe(
+                    data => {
+                        console.log(data.obj);
+                        this.lineList = data.obj;
+                    }
+                )
         });
     }
 

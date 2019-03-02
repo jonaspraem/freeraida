@@ -70,10 +70,7 @@ export class HeightMapComponent implements OnChanges {
             const location = this.lineLocations[i];
             newData.push([location.distanceFromStart, location.elevation]);
         }
-        // let copyChart = this.chart;
-        // copyChart.dataTable = newData;
-        // this.chart.component.data = copyChart;
-        this._cdRef.detectChanges();
+        // this._cdRef.detectChanges();
         if (this._isLoaded) {
             this.chart.dataTable = newData;
             this.chart.component.draw();

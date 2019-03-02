@@ -1,5 +1,7 @@
 <div class="line-summary">
-    <div class="line-summary__map" [ngStyle]="{borderColor: colors.SPORT_TYPE_CLIMBING}"></div>
+    <div class="line-summary__map" [ngStyle]="{borderColor: COLOR_DICTIONARY.get(line.sport)}">
+        <app-line-map-list [line]="line"></app-line-map-list>
+    </div>
     <div class="line-summary__content">
         <div class="line-summary__band-aid" [ngStyle]="{backgroundColor: colors.SPORT_TYPE_CLIMBING}"></div>
     </div>

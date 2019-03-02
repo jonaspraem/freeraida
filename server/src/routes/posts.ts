@@ -92,7 +92,6 @@ router.get('/feed', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
     let feed;
-    console.log("made it here");
     try {
         profile = await UserProfile.findById(decoded.id);
     } catch (e) {
@@ -103,7 +102,6 @@ router.get('/feed', async (req, res, next) => {
     }
     try {
         feed = await getFeed(profile);
-        console.log("feed", feed);
         feed = await sortList(feed);
     } catch (e) {
         return res.status(404).json({

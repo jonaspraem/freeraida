@@ -1,15 +1,15 @@
 import * as express from 'express';
-import UserProfile from "../models/schemas/user-profile";
+import UserProfile, { IUserProfile } from "../models/schemas/user-profile";
 import Location from "../models/schemas/location";
 import { ILocation } from "../models/schemas/location";
-import Line from "../models/schemas/line";
+import Line, { ILine } from "../models/schemas/line";
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
 router.get('/user/:username', async (req, res, next) => {
-    let userProfile;
-    let lines;
+    let userProfile: IUserProfile;
+    let lines: ILine[];
     try {
         userProfile = await UserProfile.findOne({username: req.params.username});
     } catch (e) {
@@ -19,7 +19,20 @@ router.get('/user/:username', async (req, res, next) => {
         });
     }
     try {
-        lines = Line.find({'_id': {$in: userProfile.lines}});
+        lines = await Line.find({'_id': {$in: userProfile.lines}});
+        const promises = await lines.map(async (line: ILine) => {
+            console.log("ids", line.locations);
+            const locations = await Location.find({'_id': {$in: line.locations}});
+            console.log("locations", locations);
+            line.locations = locations;
+            return line;
+        });
+        console.log("promise", promises);
+        await Promise.all(promises).then(transformedLines => {
+            console.log(transformedLines);
+            lines = transformedLines;
+        });
+        console.log("line", lines);
     } catch (e) {
         console.log(e);
         return res.status(500).json({
@@ -61,7 +74,7 @@ router.post('/new/', async (req, res, next) => {
         });
     }
     try {
-       locationList = await req.body.locations.forEach(async (loc: ILocation, index: number) => {
+       const promises = await req.body.locations.map(async (loc: ILocation, index: number) => {
             let tempLoc = new Location({
                 latitude: loc.latitude,
                 longitude: loc.longitude,
@@ -80,12 +93,14 @@ router.post('/new/', async (req, res, next) => {
             tempLoc = await tempLoc.save();
             return tempLoc;
        });
+       await Promise.all(promises).then(list => locationList = list);
     } catch (e) {
         return res.status(500).json({
             title: 'An error occurred',
             message: 'Error saving the locations'
         });
     }
+    console.log("location list", locationList);
     let line = new Line({
         locations: locationList,
         name: req.body.name,
@@ -97,10 +112,10 @@ router.post('/new/', async (req, res, next) => {
         slope: highestSlope
     });
     try {
-        console.log(line);
+
         line = await line.save();
-        console.log(userProfile);
-        userProfile.lines.push(line);
+        console.log("line saved", line);
+        userProfile.lines.push(line); // TODO Hook post save
         await userProfile.save();
     } catch (e) {
         console.log(e);

@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { ILine } from "../../../models/interfaces/types";
 import { COLORS } from "../../../dictionary/colors";
+import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-line-summary',
@@ -9,5 +10,6 @@ import { COLORS } from "../../../dictionary/colors";
 
 export class LineSummaryComponent {
     @Input() line: ILine;
+    public COLOR_DICTIONARY = COLOR_DICTIONARY;
     public colors = COLORS;
 }

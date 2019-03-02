@@ -8,12 +8,14 @@ import { Ng2GoogleChartsModule } from "ng2-google-charts";
 import { MatIconModule, MatListModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LineSummaryComponent } from "./line-summary/line-summary.component";
+import { LineMapListComponent } from "./line-map-list/line-map-list.component";
 
 @NgModule({
     declarations: [
         LineCreatorPageComponent,
         HeightMapComponent,
-        LineSummaryComponent
+        LineSummaryComponent,
+        LineMapListComponent,
     ],
     exports: [
         LineCreatorPageComponent,

@@ -5,12 +5,12 @@
 // import { AgmMap } from '@agm/core';
 //
 // @Component({
-//     selector: 'app-line-map',
-//     templateUrl: './line-map.component.html',
-//     styleUrls: ['./line-map.component.css']
+//     selector: 'app-line-map-list',
+//     templateUrl: './line-map-list.component.html',
+//     styleUrls: ['./line-map-list.component.css']
 // })
 //
-// export class LineMapComponent implements OnInit {
+// export class LineMapListComponent implements OnInit {
 //     @Input() line: Line;
 //     public polyCords: PolylineCoords[];
 //     mapType: string;

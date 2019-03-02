@@ -48,7 +48,7 @@
         <ng-template [ngSwitchCase]="ProfileTab.REPUTATION"></ng-template>
         <ng-template [ngSwitchCase]="ProfileTab.LINES">
             <div class="width-container">
-                <app-line-summary></app-line-summary>
+                <app-line-summary *ngFor="let line of lineList" [line]="line"></app-line-summary>
             </div>
         </ng-template>
         <ng-template [ngSwitchCase]="ProfileTab.FOLLOWING"></ng-template>

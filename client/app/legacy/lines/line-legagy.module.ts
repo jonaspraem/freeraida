@@ -22,8 +22,8 @@
 // import { RegisterLineComponent } from "./register/register-line.component";
 // import { AmChartsModule } from "@amcharts/amcharts3-angular";
 // import { HeightMapComponent } from "./heightmap/registered/heightmap.component";
-// import { LineMapComponent } from "./map/registered/line-map.component";
-// import { LineMapUnregisteredComponent } from "./map/un-registered/line-map-unregistered.component";
+// import { LineMapListComponent } from "./map/registered/line-map-list.component";
+// import { LineMapUnregisteredComponent } from "./map/un-registered/line-map-list-unregistered.component";
 // import { HeightmapUnregisteredComponent } from "./heightmap/un-registered/heightmap-unregistered.component";
 // import { AfterRegistrationComponent } from "./after-registration/after-registration.component";
 //
@@ -33,7 +33,7 @@
 //         MapContentComponent,
 //         RegisterLineComponent,
 //         HeightMapComponent,
-//         LineMapComponent,
+//         LineMapListComponent,
 //         LineMapUnregisteredComponent,
 //         HeightmapUnregisteredComponent,
 //         AfterRegistrationComponent
@@ -53,7 +53,7 @@
 //     exports: [
 //         RegisterLineComponent,
 //         HeightMapComponent,
-//         LineMapComponent,
+//         LineMapListComponent,
 //         LineMapUnregisteredComponent,
 //         HeightmapUnregisteredComponent
 //     ],

@@ -1,7 +1,8 @@
 import 'rxjs';
 import 'rxjs/add/operator/map'
-
 import { Injectable } from "@angular/core";
+import { COLORS } from "./colors";
+import { LINE_TYPE } from "./line-types";
 
 @Injectable()
 
@@ -10,11 +11,20 @@ export class COLOR_DICTIONARY {
     private static ALIAS: Map<string, string> = new Map<string, string>();
 
     constructor() {
+        COLOR_DICTIONARY.COLOR_MAP.set(LINE_TYPE.SKI, COLORS.SPORT_TYPE_SKIING);
+        COLOR_DICTIONARY.COLOR_MAP.set(LINE_TYPE.SNOWBOARD, COLORS.SPORT_TYPE_SNOWBOARDING);
+        COLOR_DICTIONARY.COLOR_MAP.set(LINE_TYPE.CLIMB, COLORS.SPORT_TYPE_CLIMBING);
+        COLOR_DICTIONARY.COLOR_MAP.set(LINE_TYPE.MOUNTAINEERING, COLORS.SPORT_TYPE_MOUNTAINEERING);
+        COLOR_DICTIONARY.COLOR_MAP.set(LINE_TYPE.MOUNTAIN_BIKE, COLORS.SPORT_TYPE_MOUNTAIN_BIKE);
+
+        // LEGACY
         // Main
         COLOR_DICTIONARY.COLOR_MAP.set('primary', '#052a02');
         COLOR_DICTIONARY.COLOR_MAP.set('secondary', '#1B1E1B');
         COLOR_DICTIONARY.COLOR_MAP.set('secondary_light', '#829480');
         COLOR_DICTIONARY.COLOR_MAP.set('third', '#D3EEDF');
+
+
 
         // Blues
         COLOR_DICTIONARY.COLOR_MAP.set('blue_primary', '#141D2F');
@@ -55,11 +65,11 @@ export class COLOR_DICTIONARY {
         COLOR_DICTIONARY.ALIAS.set('climb', 'ascent');
     }
 
-    get(key: string) {
+    static get(key: string) {
         return COLOR_DICTIONARY.COLOR_MAP.get(key);
     }
 
-    getAlias(key: string) {
+    static getAlias(key: string) {
         return COLOR_DICTIONARY.ALIAS.get(key);
     }
 }
