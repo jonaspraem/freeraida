@@ -37,7 +37,7 @@ export class LineMapListComponent implements OnInit {
 
         // OPTIONS
         const weight = 3;
-        const color = COLOR_DICTIONARY.get(this.line.sport);
+        const color = COLOR_DICTIONARY.getEncoded(this.line.sport);
         const startColor = 'green';
         const startLabel = 'S';
         const finishColor = 'black';
@@ -45,7 +45,7 @@ export class LineMapListComponent implements OnInit {
 
         // PARAMS
         const sizeParam = '?size=250x200';
-        const pathParam = '&path=weight:' + weight + '%7Ccolor:' + color + '%7Cenc:' + polyline;
+        const pathParam = '&path=weight:' + weight + '%7Ccolor:0x' + color + '%7Cenc:' + polyline;
         const startMarkerParam = '&markers=' + 'color:' + startColor + '%7Clabel:' + startLabel + '%7C' + markerStart;
         const finishMarkerParam = '&markers=' + 'color:' + finishColor + '%7Clabel:' + finishLabel + '%7C' + markerFinish;
         const apiKeyParam = '&key=' + apiKey;

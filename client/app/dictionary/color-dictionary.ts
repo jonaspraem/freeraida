@@ -69,7 +69,19 @@ export class COLOR_DICTIONARY {
         return COLOR_DICTIONARY.COLOR_MAP.get(key);
     }
 
+    static getEncoded(key: string) {
+        return COLOR_DICTIONARY.COLOR_MAP.get(key).slice(1);
+    }
+
     static getAlias(key: string) {
+        return COLOR_DICTIONARY.ALIAS.get(key);
+    }
+
+    get(key: string) {
+        return COLOR_DICTIONARY.COLOR_MAP.get(key);
+    }
+
+    getAlias(key: string) {
         return COLOR_DICTIONARY.ALIAS.get(key);
     }
 }

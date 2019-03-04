@@ -10,6 +10,10 @@ import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 
 export class LineSummaryComponent {
     @Input() line: ILine;
-    public COLOR_DICTIONARY = COLOR_DICTIONARY;
     public colors = COLORS;
+
+    constructor(
+        public COLOR_DICTIONARY: COLOR_DICTIONARY
+    ) {}
+
 }
