@@ -1,6 +1,5 @@
-<div class="line-creator width-container-flex">
-    <div class="grid-main">
-        <agm-map class="line-creator__map"
+<div class="line-creator width-container">
+    <agm-map class="line-creator__map"
                  [mapTypeId]="'terrain'"
                  [latitude]="45.8326222"
                  [longitude]="6.8649248"
@@ -32,10 +31,6 @@
                 </agm-polyline>
             </agm-marker>
         </agm-map>
-    </div>
-    <div class="grid-main">
-        <app-height-map *ngIf="false" [lineLocations]="line"></app-height-map>
-    </div>
 </div>
 <div class="width-container-flex">
     <div class="line-creator__actions">
@@ -45,14 +40,14 @@
                        class="input"
                        id="inputName"
                        formControlName="lineName"
-                       [ngClass]="registerForm.get('lineName').value.length !== 0 ? 'input--active' : ''"
+                       [ngClass]="registerForm?.get('lineName').value?.length !== 0 ? 'input--active' : ''"
                        required>
                 <label for="inputName">Enter name of the line</label>
             </div>
             <div class="form-group landing-page__form-element">
                 <select [formControl]="registerForm.controls.lineSport"
                         class="input"
-                        [ngClass]="registerForm.get('lineSport').value.length !== 0 ? 'input--active' : ''"
+                        [ngClass]="registerForm.get('lineSport').value?.length !== 0 ? 'input--active' : ''"
                         id="sport-select">
                     <option *ngFor="let type of sportsTypes" [ngValue]="type">{{ type }}</option>
                 </select>
@@ -61,7 +56,7 @@
             <div class="form-group landing-page__form-element">
                 <select [formControl]="registerForm.controls.lineType"
                         class="input"
-                        [ngClass]="registerForm.get('lineType').value.length !== 0 ? 'input--active' : ''"
+                        [ngClass]="registerForm?.get('lineType').value?.length !== 0 ? 'input--active' : ''"
                         id="type-select">
                     <option *ngFor="let type of lineTypes" [ngValue]="type">{{ type }}</option>
                 </select>

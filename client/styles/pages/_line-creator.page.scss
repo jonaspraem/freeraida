@@ -2,7 +2,7 @@
     padding: 15px;
 
     &__map {
-        height: 500px;
+        height: 600px;
         max-height: 100vh;
     }
 
@@ -10,6 +10,7 @@
         background-color: $color-white;
         box-shadow: $effect-box-shadow-standard;
         margin-bottom: 100px;
+        min-height: 400px;
 
         > mat-list-item {
             border-bottom: 1px solid lightgray;
