@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { ILine, ILineLocation, ILocation } from "../../models/interfaces/types";
-import { PolylineCoords } from "../../legacy/lines/path.model";
+import { ILine, ILineLocation, ILocation, PolylineCoordinates } from "../../models/interfaces/types";
 import { LineService } from "../../core/services/line.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
@@ -11,7 +10,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 export class LineCreatorPageComponent implements OnInit{
     public line: ILineLocation[] = [];
-    public polyCords: PolylineCoords[];
+    public polyCords: PolylineCoordinates[];
     public counter: number = 0;
     public registerForm = new FormGroup({
         lineName: new FormControl('', Validators.required),
@@ -67,11 +66,17 @@ export class LineCreatorPageComponent implements OnInit{
     }
 
     updatePolyCords() {
-        let cords: PolylineCoords[] = [];
+        let cords: PolylineCoordinates[] = [];
         let prev_lat;
         let prev_lng;
         for (let loc of this.line) {
-            if (prev_lat && prev_lng) cords.push(new PolylineCoords(prev_lat, prev_lng, loc.latitude, loc.longitude));
+            if (prev_lat && prev_lng) cords.push(
+                {
+                    org_lat: prev_lat,
+                    org_lng: prev_lng,
+                    destination_lat: loc.latitude,
+                    destination_lng: loc.longitude
+                });
             prev_lat = loc.latitude;
             prev_lng = loc.longitude;
         }
@@ -104,7 +109,6 @@ export class LineCreatorPageComponent implements OnInit{
             locations: this.line
         });
         this._lineService.saveLine(line).subscribe((res) => {
-            console.log(res);
             this.onClear();
         });
     }

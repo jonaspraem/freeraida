@@ -42,15 +42,16 @@ export class LineMapListComponent implements OnInit {
         const startLabel = 'S';
         const finishColor = 'black';
         const finishLabel = 'F';
+        const mapType = 'terrain';
 
         // PARAMS
         const sizeParam = '?size=250x200';
         const pathParam = '&path=weight:' + weight + '%7Ccolor:0x' + color + '%7Cenc:' + polyline;
         const startMarkerParam = '&markers=' + 'color:' + startColor + '%7Clabel:' + startLabel + '%7C' + markerStart;
         const finishMarkerParam = '&markers=' + 'color:' + finishColor + '%7Clabel:' + finishLabel + '%7C' + markerFinish;
+        const optionsParam = '&maptype=' + mapType;
         const apiKeyParam = '&key=' + apiKey;
 
         this.request = staticMapUrl + sizeParam + pathParam + startMarkerParam + finishMarkerParam + apiKeyParam;
-        console.log(this.request);
     }
 }

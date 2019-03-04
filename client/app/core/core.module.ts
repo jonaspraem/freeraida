@@ -8,6 +8,9 @@ import { PostService } from "./services/post.service";
 import { LineService } from "./services/line.service";
 
 @NgModule({
+    declarations: [
+        NotEmptyDirective,
+    ],
     providers: [
         AuthenticationService,
         AuthGuardService,
@@ -15,7 +18,7 @@ import { LineService } from "./services/line.service";
         PostService,
         LineService,
         SocialService,
-        NotEmptyDirective
+        NotEmptyDirective,
     ]
 })
 

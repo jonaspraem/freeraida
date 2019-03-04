@@ -1,11 +1,7 @@
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import 'rxjs';
-
-import { Post } from "../../legacy/objects/models/post.model";
-import { PostObject } from "../../legacy/objects/interfaces/post-object";
 import { CONFIG } from "../../dictionary/config";
-import { PostTransferModel } from "../../legacy/objects/models/transfer-models/post-transfer.model";
 import { IPost, IUserProfile } from "../../models/interfaces/types";
 import { BehaviorSubject } from "rxjs";
 import { PostListResponse } from "../../models/interfaces/responses";

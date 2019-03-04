@@ -15,7 +15,6 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { HeaderComponent } from "./components/header/header.component";
 import { UserNavMenuComponent } from "./components/header/user-nav-menu/user-nav-menu.component";
 import { CommonModule } from "@angular/common";
-import { TrackPageModule } from "./legacy/tracker/track.module";
 import { PageModule } from './pages/pages.module';
 import {
     MatButtonToggleModule,
@@ -31,13 +30,16 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { LineModule } from "./components/line-module/line.module";
 import { ChartsModule } from "ng2-charts";
+import { SidenavComponent } from "./components/sidenav/sidenav.component";
+import { NotEmptyDirective } from "./core/directives/not-empty.directive";
 
 // TODO: Organize
 @NgModule({
     declarations: [
         AppComponent,
         HeaderComponent,
-        UserNavMenuComponent
+        UserNavMenuComponent,
+        SidenavComponent
     ],
     imports: [
         BrowserModule,
@@ -51,7 +53,6 @@ import { ChartsModule } from "ng2-charts";
         CoreModule,
         CommonModule,
         LineModule,
-        TrackPageModule,
         PageModule,
         FontAwesomeModule,
         ChartsModule,

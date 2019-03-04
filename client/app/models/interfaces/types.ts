@@ -50,3 +50,10 @@ export interface ILine {
     peak?: number;
     slope?: number;
 }
+
+export interface PolylineCoordinates {
+    org_lat: number;
+    org_lng: number;
+    destination_lat: number;
+    destination_lng: number;
+}

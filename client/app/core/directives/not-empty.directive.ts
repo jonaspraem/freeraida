@@ -1,4 +1,4 @@
-import { Directive, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Directive, OnDestroy, ElementRef } from '@angular/core';
 import { FormControlName } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';

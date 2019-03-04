@@ -1,9 +1,8 @@
-import { Component, ElementRef, HostListener, Inject, Input } from "@angular/core";
-import { Profile } from "../../legacy/objects/models/profile.model";
+import { Component, ElementRef, Inject, Input } from "@angular/core";
 import { DOCUMENT, NgClass } from "@angular/common";
 import { WINDOW } from "../../core/services/window.service";
-import { AuthenticationService } from "../../core/services/authentication.service";
 import { ProfileService } from "../../core/services/profile.service";
+import { IUserProfile } from "../../models/interfaces/types";
 
 const logoImage = require('../../../images/logo/favicon.png');
 const defaultProfileImage = require('../../../images/rider/profile-image.jpg');
@@ -18,7 +17,7 @@ const defaultProfileImage = require('../../../images/rider/profile-image.jpg');
 
 export class HeaderComponent {
     @Input() userProfile: any;
-    @Input() profile: Profile;
+    @Input() profile: IUserProfile;
     public logo = logoImage;
     public defaultProfileImage = defaultProfileImage;
     public isUserMenuOpen: boolean = false;
@@ -48,6 +47,5 @@ export class HeaderComponent {
     onToggleUserMenu() {
         this.isUserMenuOpen = !this.isUserMenuOpen;
     }
-
 
 }

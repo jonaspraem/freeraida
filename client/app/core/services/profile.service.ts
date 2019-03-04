@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import 'rxjs';
-import { Profile } from "../../legacy/objects/models/profile.model";
 import { CONFIG } from "../../dictionary/config";
 import { Router } from "@angular/router";
 import { IUserProfile } from "../../models/interfaces/types";
@@ -46,25 +45,25 @@ export class ProfileService {
     //     return this.http.get<AddressResponse>(this.config.getEndpoint() + '/profile/user-address/'+address, {params: new HttpParams().set('token', token)});
     // }
 
-    submitSettings(profile: Profile) {
-        console.log('Submitting settings... '+profile.toString());
-        const body = JSON.stringify(profile);
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('id_token');
-        return this.http.patch(this.config.getEndpoint() + '/profile/edit-profile', body, {headers: headers, params: new HttpParams().set('token', token)});
-    }
-
-    followUser(user_address: string) {
-        const body = '';
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('id_token');
-        return this.http.post<IUserProfileResponse>(this.config.getEndpoint() + '/connect/follow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)});
-    }
-
-    unfollowUser(user_address: string) {
-        const body = '';
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const token = localStorage.getItem('id_token');
-        return this.http.post<IUserProfileResponse>(this.config.getEndpoint() + '/connect/unfollow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)})
-    }
+    // submitSettings(profile: Profile) {
+    //     console.log('Submitting settings... '+profile.toString());
+    //     const body = JSON.stringify(profile);
+    //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    //     const token = localStorage.getItem('id_token');
+    //     return this.http.patch(this.config.getEndpoint() + '/profile/edit-profile', body, {headers: headers, params: new HttpParams().set('token', token)});
+    // }
+    //
+    // followUser(user_address: string) {
+    //     const body = '';
+    //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    //     const token = localStorage.getItem('id_token');
+    //     return this.http.post<IUserProfileResponse>(this.config.getEndpoint() + '/connect/follow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)});
+    // }
+    //
+    // unfollowUser(user_address: string) {
+    //     const body = '';
+    //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    //     const token = localStorage.getItem('id_token');
+    //     return this.http.post<IUserProfileResponse>(this.config.getEndpoint() + '/connect/unfollow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)})
+    // }
 }
