@@ -47,7 +47,7 @@ module.exports = webpackMerge.smart(commonConfig, {
         }),
         new AngularCompilerPlugin({
             tsConfigPath: './tsconfig.aot.json',
-            entryModule: './assets/app/app.module#AppModule',
+            entryModule: './client/app/app.module#AppModule',
             sourceMap: true
         })
     ]
