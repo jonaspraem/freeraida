@@ -10,7 +10,6 @@ const APP_ROUTES: Routes = [
     { path: 'landing-page', component: LandingPageComponent },
     { path: 'line-creator', component: LineCreatorPageComponent, canActivate: [AuthGuard]},
     { path: 'user', children: [
-            { path: '', redirectTo: localStorage.getItem('username'), pathMatch: 'full' },
             { path: ':username', component: ProfilePageComponent }]
     },
 ];
