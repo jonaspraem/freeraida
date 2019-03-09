@@ -14,7 +14,7 @@
     "build": "del-cli public/js/app && webpack --config webpack/webpack.config.dev.js --progress --hot --profile --watch",
     "build:prod": "del-cli public/js/app && ngc -p tsconfig.aot.json && ngc -p tsconfig.aot.json && webpack --config webpack/webpack.config.prod.js --progress --profile --bail && del-cli 'public/js/app/**/*.js' 'public/js/app/**/*.js.map' '!public/js/app/bundle.js' '!public/js/app/*.chunk.js' 'assets/app/**/*.*.ngfactory.ts' 'assets/app/**/*.shim.ts' 'assets/app/**/*.ngsummary.json' 'assets/app/**/*.ngstyle.ts'",
     "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_MODULES_CACHE=false; NODE_ENV=development; npm install --only=dev --dev",
-    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=production; del-cli public/js/app && npm run build:prod"
+    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production; del-cli public/js/app && npm run build:prod"
   },
   "dependencies": {
     "@agm/core": "^1.0.0-beta.5",
