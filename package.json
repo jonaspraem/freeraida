@@ -115,6 +115,7 @@
     "ts-loader": "^3.5.0",
     "typescript": "3.2.4",
     "typings": "^2.1.1",
+    "uglifyjs-3-webpack-plugin": "^1.2.4",
     "url-loader": "^1.1.2",
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3",
