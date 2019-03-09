@@ -1,0 +1,26 @@
+<div class="line-summary">
+    <div class="line-summary__map" [ngStyle]="{borderColor: COLOR_DICTIONARY.get(line.sport)}">
+        <app-line-map-list [line]="line"></app-line-map-list>
+    </div>
+    <div class="line-summary__content">
+        <div class="line-summary__band-aid" [ngStyle]="{backgroundColor: COLOR_DICTIONARY.get(line.sport)}"></div>
+        <div class="line-summary__container">
+            <div class="line-summary__height-map">
+                <app-height-map [lineLocations]="line.locations" [color]="COLOR_DICTIONARY.get(line.sport)"></app-height-map>
+            </div>
+            <div class="line-summary__info">
+                <div class="flex-1 line-summary__main-info">
+                    <h5>{{ line.name}} </h5>
+                    <h6>{{ line.sport }}</h6>
+                    <h6>{{ line.discipline }}</h6>
+                </div>
+                <div class="flex-1">
+                    <div>peak: {{ line.peak }}</div>
+                    <div>slope: {{ line.slope }}</div>
+                    <div>date: {{ line.timestamp }}</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

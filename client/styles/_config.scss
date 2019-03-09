@@ -1,0 +1,13 @@
+body {
+    margin-right: -17px;
+    padding-right: -17px;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    &:hover {
+        text-decoration: none;
+        color: unset;
+    }
+}

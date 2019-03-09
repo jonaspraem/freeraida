@@ -1,0 +1,81 @@
+<div class="line-creator width-container">
+    <agm-map class="line-creator__map"
+                 [mapTypeId]="'terrain'"
+                 [latitude]="45.8326222"
+                 [longitude]="6.8649248"
+                 [disableDefaultUI]="true"
+                 [zoom]="13"
+                 (mapClick)="mapClicked($event)"
+        >
+            <agm-marker
+                    *ngFor="let loc of line; let i = index"
+                    (markerClick)="clickedMarker(loc, i)"
+                    [latitude]="loc.latitude"
+                    [longitude]="loc.longitude"
+                    [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd(loc, i, $event)"
+            >
+                <agm-info-window>
+                    <strong>{{loc.latitude}} {{loc.longitude}}</strong>
+                    <br>
+                    <!--<a class="delete" (click)="removeMarker(m)">delete</a>-->
+                </agm-info-window>
+                <agm-polyline *ngFor="let item of polyCords"
+                              [editable]="false"
+                              strokeColor=""
+                              strokeWeight="3"
+                              [geodesic]="true"
+                >
+                    <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
+                    <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
+                </agm-polyline>
+            </agm-marker>
+        </agm-map>
+</div>
+<div class="width-container-flex">
+    <div class="line-creator__actions">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group landing-page__form-element">
+                <input type="text"
+                       class="input"
+                       id="inputName"
+                       formControlName="lineName"
+                       [ngClass]="registerForm?.get('lineName').value?.length !== 0 ? 'input--active' : ''"
+                       required>
+                <label for="inputName">Enter name of the line</label>
+            </div>
+            <div class="form-group landing-page__form-element">
+                <select [formControl]="registerForm.controls.lineSport"
+                        class="input"
+                        [ngClass]="registerForm.get('lineSport').value?.length !== 0 ? 'input--active' : ''"
+                        id="sport-select">
+                    <option *ngFor="let type of sportsTypes" [ngValue]="type">{{ type }}</option>
+                </select>
+                <label for="sport-select">Sport</label>
+            </div>
+            <div class="form-group landing-page__form-element">
+                <select [formControl]="registerForm.controls.lineType"
+                        class="input"
+                        [ngClass]="registerForm?.get('lineType').value?.length !== 0 ? 'input--active' : ''"
+                        id="type-select">
+                    <option *ngFor="let type of lineTypes" [ngValue]="type">{{ type }}</option>
+                </select>
+                <label for="type-select">Line type</label>
+            </div>
+            <div class="line-creator__button-group">
+                <button type="submit" class="button-primary">CLEAR</button>
+                <button class="button-primary">SAVE</button>
+            </div>
+        </form>
+    </div>
+    <div class="grid-main">
+        <mat-list class="line-creator__line-list">
+            <h3 mat-subheader>Line waypoints</h3>
+            <mat-list-item *ngFor="let location of line; let i = index">
+                <mat-icon mat-list-icon class="line-creator__list-icon">location_on</mat-icon>
+                <h4 mat-line>{{location.distanceFromStart}} km</h4>
+                <p mat-line> {{location.elevation}} m</p>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</div>

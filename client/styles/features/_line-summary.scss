@@ -1,0 +1,38 @@
+.line-summary {
+    display: flex;
+    background-color: $color-white;
+    margin-bottom: 10px;
+
+    &__map {
+        height: 100%;
+        background-color: $color-secondary-rock;
+        border-left: 10px solid;
+    }
+
+    &__content {
+        flex: 1;
+    }
+
+    &__band-aid {
+        margin: 10px 0;
+        height: 5px;
+    }
+
+    &__container {
+        display: flex;
+    }
+
+    &__height-map {
+        width: 300px;
+    }
+
+    &__info {
+        flex: 1;
+        display: flex;
+        margin-left: 15px;
+    }
+
+    &__main-info {
+        margin-right: 20px;
+    }
+}

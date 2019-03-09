@@ -1,9 +1,0 @@
-<ng-container *ngIf="isComponentApp; else noApp">
-    <app-header></app-header>
-    <div [ngStyle]="{'padding-top': '70px'}">
-        <router-outlet></router-outlet>
-    </div>
-</ng-container>
-<ng-template #noApp>
-    <router-outlet></router-outlet>
-</ng-template>

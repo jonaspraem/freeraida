@@ -1,0 +1,16 @@
+<div class="profile-header">
+    <div class="profile-header__image-container">
+        <img class="profile-header__image" [src]="image">
+    </div>
+    <div class="profile-header__description">
+        <h1>{{ profile?.fullname }}</h1>
+        <a class="link">@{{ profile?.username }}</a>
+        <div class="profile-header__spacer"></div>
+        <div class="profile-header__description__item">
+            <img [src]=" getFlag(profile?.country)" class="profile-header__description__image">
+            <h5 class="profile-header__description__image__text">{{ profile?.country }}</h5>
+        </div>
+
+        <h5>{{ profile?.bio }}</h5>
+    </div>
+</div>

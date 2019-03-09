@@ -1,0 +1,18 @@
+<div #writerContainer class="post-writer">
+    <div class="post-writer__image-container">
+        <img [src]="defaultImage" class="post-writer__image">
+    </div>
+    <div class="post-writer__container">
+        <div contentEditable="true"
+             (input)="userInput=$event.target.textContent"
+             #writer
+             placeholder="Whats happening?"
+             class="post-writer__text-writer"
+             (click)="expand()"></div>
+        <div class="post-writer__actions">
+            <i class="material-icons">videocam</i>
+            <i class="material-icons">image</i>
+            <i class="material-icons" (click)="addPost()">add_circle</i>
+        </div>
+    </div>
+</div>

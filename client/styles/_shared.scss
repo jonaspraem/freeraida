@@ -1,0 +1,38 @@
+$side-width: 285px;
+$side-padding: 15px;
+
+.width-container {
+    padding: 0 15px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.width-container-flex {
+    display: flex;
+    padding: 0 15px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.grid-main {
+    flex: 1;
+}
+
+.grid-right {
+    min-width: $side-width;
+    padding-left: $side-padding;
+
+    &--align {
+        text-align: right;
+    }
+}
+
+.grid-left {
+    min-width: $side-width;
+    padding-right: $side-padding;
+}
+
+.list-reset {
+    margin: 0;
+    padding: 0;
+}

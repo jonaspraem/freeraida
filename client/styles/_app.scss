@@ -1,0 +1,143 @@
+$navigation-height: 56px;
+$background-color: $color-opaque-overlay-black;
+$background-image: url("https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/12/2015/08/18.08.2014-02.53.58-05.18.07.jpg");
+$sidenav-width: 220px;
+
+.app-navigation {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $navigation-height;
+    background-color: $color-white;
+    border-bottom: 1px solid $color-primary;
+    z-index: 10;
+    text-align: center;
+
+    i {
+        cursor: pointer;
+        line-height: $navigation-height;
+        font-size: 40px;
+        color: $color-primary;
+    }
+
+    &__header {
+        font-weight: 700;
+        text-transform: uppercase;
+        font-family: "Berlin Sans FB", sans-serif;
+        line-height: $navigation-height;
+        margin: 0;
+        color: $color-primary;
+    }
+
+    &__user-button {
+        position: relative;
+        display: inline-flex;
+        padding-right: 20px;
+        margin: 8px 0 0 20px;
+        border-radius: 20px;
+        cursor: pointer;
+
+        &:hover, &--active {
+            background-color: rgba($color-primary-light, .4);
+        }
+
+        > span {
+            display: inline-block;
+            line-height: 40px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+    }
+
+    &__user-icon {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        vertical-align: unset;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+}
+
+.app-container {
+    background-color: $color-ice;
+    min-height: 100vh;
+}
+
+.page-container {
+    height: calc(100vh - #{$navigation-height});
+    max-width: 1200px;
+    padding: 15px;
+    margin: auto;
+}
+
+.sidenav {
+    background: no-repeat center $background-color $background-image;
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 190px 30px;
+    width: $sidenav-width;
+    height: calc(100vh - #{$navigation-height});
+    box-shadow: $effect-header-box-shadow;
+    z-index: 2;
+
+    &__list {
+        list-style: none;
+        text-align: right;
+        font-weight: 500;
+        font-size: 16px;
+        color: $color-primary;
+        transition: color 0.35s ease-in-out;
+
+        li {
+            cursor: pointer;
+            text-transform: lowercase;
+
+            i {
+                opacity: 0;
+                transition: opacity 0.35s ease-in-out;
+            }
+
+            &:hover, &:focus, &.active {
+                outline: none;
+                color: $color-primary-light;
+
+                i {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+.user-nav-menu {
+    position: absolute;
+    border-radius: 2px;
+    top: 60px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 200px;
+    padding: 10px 0;
+    background-color: $color-white;
+    box-shadow: $effect-element-shadow;
+
+    > hr {
+        margin: 8px 0;
+    }
+
+    &__row {
+        text-align: center;
+        line-height: 26px;
+        font-size: 16px;
+        height: 26px;
+
+        &:hover {
+            background-color: rgba($color-primary-light, .4); // TODO save
+            border-left: 1px solid $color-secondary-colorado;
+            border-right: 1px solid $color-secondary-colorado;
+        }
+    }
+}

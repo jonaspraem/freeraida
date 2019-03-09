@@ -1,0 +1,34 @@
+.post {
+    background-color: $color-white;
+    display: flex;
+    padding: 9px 12px;
+    border-bottom: 1px solid lightgray;
+
+    &__image {
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        background-color: white;
+    }
+
+    &__image-container {
+        width: 45px;
+        height: 45px;
+        margin-right: 20px;
+    }
+
+    &__content {
+
+    }
+
+    &__header {
+        > .name {
+            font-weight: 600;
+            color: $color-primary;
+        }
+
+        > .username {
+            color: lightgray;
+        }
+    }
+}

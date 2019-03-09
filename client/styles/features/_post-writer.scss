@@ -1,0 +1,111 @@
+$writer-size: 45px;
+$writer-icon-size: 25px;
+$writer-max-height: 600px;
+$writer-transition: 0.35s ease-in-out;
+
+.post-writer-icon {
+    position: fixed;
+    cursor: pointer;
+    background-color: $color-primary;
+    right: 0;
+    top: 20%;
+    border-bottom-left-radius: $writer-size / 2;
+    border-top-left-radius: $writer-size / 2;
+    height: $writer-size * 1.2;
+    width: $writer-size * 1.8;
+    box-shadow: $effect-element-shadow;
+
+    fa-icon {
+        position: absolute;
+        right: 25px;
+        top: ($writer-size * 1.2) / 5;
+        color: white;
+    }
+}
+
+.post-writer {
+    width: 100%;
+    max-height: 65px;
+    overflow: hidden;
+    display: flex;
+    background-color: rgba($color-primary, .8);
+    transition: max-height $writer-transition;
+
+    &--open {
+        max-height: $writer-max-height;
+
+        .post-writer__actions {
+            display: block;
+        }
+
+        .post-writer__text-writer {
+            min-height: 100px;
+        }
+    }
+
+    &__image {
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        background-color: white;
+    }
+
+    &__image-container {
+        width: 45px;
+        height: 45px;
+        margin: 7px 7px 0 20px;
+    }
+
+    &__actions {
+        display: none;
+        width: 100%;
+        padding: 15px 0;
+        height: 70px;
+
+        > i {
+            font-size: 30px;
+            vertical-align: middle;
+            color: $color-white;
+            cursor: pointer;
+            line-height: 40px;
+
+            &:last-child {
+                float: right;
+                font-size: 40px;
+            }
+
+            &:not(:last-child) {
+                margin-right: 5px;
+            }
+        }
+    }
+
+    &__text-writer {
+        max-height: $writer-max-height - 48px;
+        min-height: 45px;
+        width: 100%;
+        border-radius: 10px;
+        padding: 12px;
+        resize: none;
+        overflow: hidden;
+        cursor: text;
+        background-color: white;
+        transition: min-height $writer-transition;
+
+        &[contenteditable=true]:empty:before {
+            content: attr(placeholder);
+            display: block; /* For Firefox */
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__container {
+        flex: 1;
+        margin: auto 5px auto 5px;
+        padding: 5px 10px;
+        width: 100%;
+    }
+}
