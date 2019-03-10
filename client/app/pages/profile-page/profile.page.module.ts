@@ -4,11 +4,13 @@ import { ProfileHeaderComponent } from "../../components/profile-header/profile-
 import { SharedModule } from "../../shared/shared.module";
 import { PostModule } from "../../components/post-module/post.module";
 import { LineModule } from "../../components/line-module/line.module";
+import { ProfileInfoCardComponent } from "../../components/profile-module/profile-info-card/profile-info-card.component";
 
 @NgModule({
     declarations: [
         ProfilePageComponent,
         ProfileHeaderComponent,
+        ProfileInfoCardComponent
     ],
     imports: [
         SharedModule,

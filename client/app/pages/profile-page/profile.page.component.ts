@@ -82,10 +82,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         if (this._subscriptionSocial) this._subscriptionSocial.unsubscribe();
     }
 
-    public getFlag(key: string): any {
-        return FLAG_DICTIONARY.get(key);
-    }
-
     public getFollowButtonText(): string {
         if (this.isFollowing) {
             return 'Following';

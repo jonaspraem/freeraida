@@ -36,6 +36,7 @@
         <ng-template [ngSwitchCase]="ProfileTab.FEED">
             <div class="width-container-flex">
                 <div class="grid-left">
+                    <app-profile-info-card [userProfile]="profile" [isFollowing]="isFollowing"></app-profile-info-card>
                 </div>
                 <div class="grid-main">
                     <app-post *ngFor="let post of userFeed"

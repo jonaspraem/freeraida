@@ -1,0 +1,9 @@
+<div class="profile-info-card">
+    <div class="profile-info-card__row">
+        <div class="profile-info-card__flag-container">
+            <img [src]="flagDictionary.get(userProfile?.country)" class="profile-info-card__flag">
+        </div>
+        <div class="profile-info-card__name">{{ userProfile?.fullname }}</div>
+    </div>
+    <button class="button-primary" (click)="onToggle()">FOLLOW</button>
+</div>

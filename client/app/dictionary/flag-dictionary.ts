@@ -637,7 +637,7 @@ export class FLAG_DICTIONARY {
         FLAG_DICTIONARY.flagmap.set('Zimbabwe', zimbabwe);
     }
 
-    static get(key: string) {
+    get(key: string) {
         return FLAG_DICTIONARY.flagmap.get(key);
     }
 
