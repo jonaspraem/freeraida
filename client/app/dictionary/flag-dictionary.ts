@@ -641,6 +641,10 @@ export class FLAG_DICTIONARY {
         return FLAG_DICTIONARY.flagmap.get(key);
     }
 
+    static get(key: string) {
+        return FLAG_DICTIONARY.flagmap.get(key);
+    }
+
     static toList(): string[] {
         let output: string[] = [];
         for (let key of Array.from(FLAG_DICTIONARY.flagmap.keys())) {

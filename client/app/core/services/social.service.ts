@@ -13,20 +13,27 @@ export class SocialService {
     constructor(
         private _http: HttpClient,
         private _config: CONFIG,
+        private _profileService: ProfileService
     ) {}
 
-    public followUser(username: string): Observable<IUserProfileResponse> {
+    public followUser(username: string): void {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('api_token');
-        return this._http.post<IUserProfileResponse>(this._config.getEndpoint() + '/api/social/follow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)});
+        this._http.post<IUserProfileResponse>(this._config.getEndpoint() + '/api/social/follow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)})
+            .subscribe(data => {
+                this._profileService.updateUserProfile(data.obj);
+            });
     }
 
-    public unfollowUser(username: string): Observable<IUserProfileResponse> {
+    public unfollowUser(username: string): void {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('api_token');
-        return this._http.post<IUserProfileResponse>(this._config.getEndpoint() + '/api/social/unfollow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)})
+        this._http.post<IUserProfileResponse>(this._config.getEndpoint() + '/api/social/unfollow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)})
+            .subscribe(data => {
+                this._profileService.updateUserProfile(data.obj);
+            });
     }
 
     public isFollowing(self: IUserProfile, username: string): boolean {

@@ -21,8 +21,12 @@ export class ProfileService {
         this.getProfileWithToken();
     }
 
-    getProfile(username: string) {
+    public getProfile(username: string) {
         return this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/user-profile/user/'+username);
+    }
+
+    public updateUserProfile(profile: IUserProfile) {
+        this._userProfile.next(profile);
     }
 
     private getProfileWithToken(): void {
@@ -40,23 +44,23 @@ export class ProfileService {
             );
     }
 
-    public followUser(username: string): void {
-        const token = localStorage.getItem('api_token');
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/social/follow/' + username, {headers: headers, params: new HttpParams().set('token', token)})
-            .subscribe(
-                (data) => this._userProfile.next(data.obj)
-            );
-    }
-
-    public unfollowUser(username: string): void {
-        const token = localStorage.getItem('api_token');
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/social/unfollow/' + username, {headers: headers, params: new HttpParams().set('token', token)})
-            .subscribe(
-                (data) => this._userProfile.next(data.obj)
-            );
-    }
+    // public followUser(username: string): void {
+    //     const token = localStorage.getItem('api_token');
+    //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    //     this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/social/follow/' + username, {headers: headers, params: new HttpParams().set('token', token)})
+    //         .subscribe(
+    //             (data) => this._userProfile.next(data.obj)
+    //         );
+    // }
+    //
+    // public unfollowUser(username: string): void {
+    //     const token = localStorage.getItem('api_token');
+    //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    //     this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/social/unfollow/' + username, {headers: headers, params: new HttpParams().set('token', token)})
+    //         .subscribe(
+    //             (data) => this._userProfile.next(data.obj)
+    //         );
+    // }
 
     // addressIsAvailable(address: string) {
     //     const token = localStorage.getItem('id_token');

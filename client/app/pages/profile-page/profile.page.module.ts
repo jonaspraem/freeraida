@@ -5,23 +5,33 @@ import { SharedModule } from "../../shared/shared.module";
 import { PostModule } from "../../components/post-module/post.module";
 import { LineModule } from "../../components/line-module/line.module";
 import { ProfileInfoCardComponent } from "../../components/profile-module/profile-info-card/profile-info-card.component";
+import { ProfilePageService } from "./profile-page.service";
+import { profileRoutes } from "./profile.routing";
+import { ProfileTabLineHistoryComponent } from "./tabs/profile-tab-line-history.component";
+import { ProfileTabHomeComponent } from "./tabs/profile-tab-home.component";
 
 @NgModule({
     declarations: [
         ProfilePageComponent,
         ProfileHeaderComponent,
-        ProfileInfoCardComponent
+        ProfileInfoCardComponent,
+        ProfileTabLineHistoryComponent,
+        ProfileTabHomeComponent
     ],
     imports: [
         SharedModule,
         PostModule,
-        LineModule
+        LineModule,
+        profileRoutes,
     ],
     exports: [
         ProfilePageComponent
     ],
     entryComponents: [
         ProfilePageComponent
+    ],
+    providers: [
+        ProfilePageService
     ]
 })
 

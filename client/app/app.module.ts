@@ -32,6 +32,7 @@ import { LineModule } from "./components/line-module/line.module";
 import { ChartsModule } from "ng2-charts";
 import { SidenavComponent } from "./components/sidenav/sidenav.component";
 import { NotEmptyDirective } from "./core/directives/not-empty.directive";
+import { ProfilePageModule } from "./pages/profile-page/profile.page.module";
 
 // TODO: Organize
 @NgModule({

@@ -6,10 +6,14 @@ import { ProfileService } from "./services/profile.service";
 import { NotEmptyDirective } from "./directives/not-empty.directive";
 import { PostService } from "./services/post.service";
 import { LineService } from "./services/line.service";
+import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
     declarations: [
         NotEmptyDirective,
+    ],
+    imports: [
+        BrowserModule
     ],
     providers: [
         AuthenticationService,

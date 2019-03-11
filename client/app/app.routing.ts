@@ -9,9 +9,7 @@ const APP_ROUTES: Routes = [
     { path: '', component: HomePageComponent, canActivate: [AuthGuard], data: { state: 'home' }},
     { path: 'landing-page', component: LandingPageComponent },
     { path: 'line-creator', component: LineCreatorPageComponent, canActivate: [AuthGuard]},
-    { path: 'user', children: [
-            { path: ':username', component: ProfilePageComponent }]
-    },
+    { path: 'user/:username', component: ProfilePageComponent, loadChildren: './pages/profile-page/profile.page.module#ProfilePageModule' },
 ];
 
 export const appRouting = RouterModule.forRoot(APP_ROUTES, {preloadingStrategy: PreloadAllModules});

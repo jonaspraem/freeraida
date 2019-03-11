@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ProfileService } from "../../core/services/profile.service";
 import { ILine, IPost, IUserProfile } from "../../models/interfaces/types";
 import { IUserProfileResponse } from "../../models/interfaces/responses";
@@ -8,6 +8,7 @@ import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
 import { SocialService } from "../../core/services/social.service";
 import { PostService } from "../../core/services/post.service";
 import { LineService } from "../../core/services/line.service";
+import { ProfilePageService } from "./profile-page.service";
 
 const hero = require('../../../images/licensed/iStock-01.jpg');
 const profile_image = require('../../../images/rider/profile-image.jpg');
@@ -32,48 +33,27 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     public profile: IUserProfile;
     public hero = hero;
     public profile_image = profile_image;
-    public userFeed: IPost[] = [];
-    public lineList: ILine[] = [];
     public activeTab: ProfileTab = ProfileTab.FEED;
     private _subscriptionRoutes: Subscription;
     private _subscriptionProfile: Subscription;
     private _subscriptionSocial: Subscription;
-    private _subscriptionUserFeed: Subscription;
-    private _subscriptionUserLines: Subscription;
 
     constructor(
         private _route: ActivatedRoute,
         private _profileService: ProfileService,
         private _postService: PostService,
         private _socialService: SocialService,
-        private _lineService: LineService
+        private _lineService: LineService,
+        private _profilePageService: ProfilePageService,
+        private _router: Router
     ) {}
 
     public ngOnInit(): void {
         this._subscriptionRoutes = this._route.params.subscribe(params => {
-            this._subscriptionProfile = this._profileService.getProfile(params.username).subscribe((data: IUserProfileResponse) => {
-                this._profileService.userProfile$.subscribe( self => {
-                    this.profile = data.obj;
-                    if (this.profile.username === self.username) this.isSelf = true;
-                    this.isFollowing = this._socialService.isFollowing(self, this.profile.username);
-                });
-            });
-
-            this._subscriptionUserFeed = this._postService.getUserFeed(params.username)
-                .subscribe(
-                    data => {
-                        this.userFeed = data.obj
-                    }
-                );
-
-            this._subscriptionUserLines = this._lineService.getUserLines(params.username)
-                .subscribe(
-                    data => {
-                        console.log(data.obj);
-                        this.lineList = data.obj;
-                    }
-                )
+            this._profilePageService.setActiveUsername(params.username);
         });
+
+        this._profileService.userProfile$.subscribe(profile => this.profile = profile);
     }
 
     public ngOnDestroy(): void {
@@ -82,31 +62,16 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         if (this._subscriptionSocial) this._subscriptionSocial.unsubscribe();
     }
 
-    public getFollowButtonText(): string {
-        if (this.isFollowing) {
-            return 'Following';
-        }
-        else {
-            return 'Follow';
-        }
-    }
-
-    public onToggleFollow(): void {
-        if (this.isFollowing) {
-            this._socialService.unfollowUser(this.profile.username).subscribe(
-                (data: IUserProfileResponse) => {
-                    this.profile = data.obj;
-                    this.isFollowing = false;
-                }
-            );
-        }
-        else {
-            this._socialService.followUser(this.profile.username).subscribe(
-                (data: IUserProfileResponse) => {
-                    this.profile = data.obj;
-                    this.isFollowing = true;
-                }
-            );
+    public onNavigate(tab: number): void {
+        switch (tab) {
+            case ProfileTab.FEED: {
+                this._router.navigate(['user/' + this.profile.username + '/']);
+                break;
+            }
+            case ProfileTab.LINES: {
+                this._router.navigate(['user/' + this.profile.username + '/lines']);
+                break;
+            }
         }
     }
 }
