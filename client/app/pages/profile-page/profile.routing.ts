@@ -1,10 +1,15 @@
 import { RouterModule, Routes } from "@angular/router";
 import { ProfileTabHomeComponent } from "./tabs/profile-tab-home.component";
 import { ProfileTabLineHistoryComponent } from "./tabs/profile-tab-line-history.component";
+import { ProfilePageComponent } from "./profile.page.component";
 
 const PROFILE_ROUTES: Routes = [
-    { path: '', component: ProfileTabHomeComponent, outlet: 'profile-outlet' },
-    { path: 'lines', component: ProfileTabLineHistoryComponent, outlet: 'profile-outlet' }
+    {
+        path: '', component: ProfilePageComponent, children: [
+            {path: '', component: ProfileTabHomeComponent},
+            {path: 'lines', component: ProfileTabLineHistoryComponent, outlet: 'profile-outlet'}
+        ]
+    },
 ];
 
-export const profileRoutes = RouterModule.forChild(PROFILE_ROUTES);
+export default PROFILE_ROUTES;

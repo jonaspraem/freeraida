@@ -6,7 +6,10 @@ import { ProfilePageModule } from "./profile-page/profile.page.module";
     imports: [
         HomePageModule,
         ProfilePageModule,
-    ]
+    ],
+    exports: [
+        ProfilePageModule,
+    ],
 })
 
 export class PageModule {}

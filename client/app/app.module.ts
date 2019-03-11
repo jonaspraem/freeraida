@@ -15,7 +15,6 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
 import { HeaderComponent } from "./components/header/header.component";
 import { UserNavMenuComponent } from "./components/header/user-nav-menu/user-nav-menu.component";
 import { CommonModule } from "@angular/common";
-import { PageModule } from './pages/pages.module';
 import {
     MatButtonToggleModule,
     MatCardModule,
@@ -26,13 +25,15 @@ import {
     MatToolbarModule
 } from "@angular/material";
 import { WINDOW_PROVIDERS } from "./core/services/window.service";
-import { RouterModule } from '@angular/router';
+import { PreloadAllModules, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { LineModule } from "./components/line-module/line.module";
 import { ChartsModule } from "ng2-charts";
 import { SidenavComponent } from "./components/sidenav/sidenav.component";
 import { NotEmptyDirective } from "./core/directives/not-empty.directive";
 import { ProfilePageModule } from "./pages/profile-page/profile.page.module";
+import { HomePageModule } from "./pages/home-page/home.page.module";
+import APP_ROUTES from "./app.routing";
 
 // TODO: Organize
 @NgModule({
@@ -54,7 +55,13 @@ import { ProfilePageModule } from "./pages/profile-page/profile.page.module";
         CoreModule,
         CommonModule,
         LineModule,
-        PageModule,
+        RouterModule.forRoot(
+            APP_ROUTES,
+            {
+                enableTracing: true
+            }),
+        ProfilePageModule,
+        HomePageModule,
         FontAwesomeModule,
         ChartsModule,
         // Material design modules:
@@ -65,6 +72,9 @@ import { ProfilePageModule } from "./pages/profile-page/profile.page.module";
         MatListModule,
         MatToolbarModule,
         MatButtonToggleModule
+    ],
+    exports: [
+        RouterModule,
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
     providers: [

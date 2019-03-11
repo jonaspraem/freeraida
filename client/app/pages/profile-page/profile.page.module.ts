@@ -22,7 +22,7 @@ import { ProfileTabHomeComponent } from "./tabs/profile-tab-home.component";
         SharedModule,
         PostModule,
         LineModule,
-        profileRoutes,
+        RouterModule.forChild(PROFILE_ROUTES)
     ],
     exports: [
         ProfilePageComponent
