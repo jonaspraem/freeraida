@@ -5,11 +5,11 @@ import { ProfilePageComponent } from "./profile.page.component";
 
 const PROFILE_ROUTES: Routes = [
     {
-        path: '', component: ProfilePageComponent, children: [
-            {path: '', component: ProfileTabHomeComponent},
-            {path: 'lines', component: ProfileTabLineHistoryComponent, outlet: 'profile-outlet'}
+        path: ':username', component: ProfilePageComponent, children: [
+            {path: '', component: ProfileTabHomeComponent },
+            {path: 'lines', component: ProfileTabLineHistoryComponent }
         ]
     },
 ];
 
-export default PROFILE_ROUTES;
+export const profileRoutes = RouterModule.forChild(PROFILE_ROUTES);
