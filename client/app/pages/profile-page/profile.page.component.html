@@ -7,23 +7,23 @@
             </div>
             <div class="grid-main">
                 <ul class="profile__stat-menu">
-                    <li [ngClass]="{'profile__tab--active': activeTab === 0}" [routerLink]="['']">
+                    <li [routerLink]="['./'] " routerLinkActive="profile__tab--active" [routerLinkActiveOptions]="{exact: true}">
                         Posts
                         <span>{{ profile?.posts.length }}</span>
                     </li>
-                    <li [ngClass]="{'profile__tab--active': activeTab === 1}" (click)="activeTab = 1">
+                    <li>
                         Reputation
                         <span>150.050</span>
                     </li>
-                    <li [ngClass]="{'profile__tab--active': activeTab === 2}" (click)="activeTab = 2">
+                    <li [routerLink]="['lines']" routerLinkActive="profile__tab--active">
                         Lines
                         <span>{{ profile?.lines?.length }}</span>
                     </li>
-                    <li [ngClass]="{'profile__tab--active': activeTab === 3}" [routerLink]="['lines']">
+                    <li>
                         Following
                         <span>{{ profile?.following?.length }}</span>
                     </li>
-                    <li [ngClass]="{'profile__tab--active': activeTab === 4}" (click)="activeTab = 4">
+                    <li>
                         Followers
                         <span>{{ profile?.followers?.length }}</span>
                     </li>

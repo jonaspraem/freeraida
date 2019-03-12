@@ -61,17 +61,4 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         if (this._subscriptionProfile) this._subscriptionProfile.unsubscribe();
         if (this._subscriptionSocial) this._subscriptionSocial.unsubscribe();
     }
-
-    public onNavigate(tab: number): void {
-        switch (tab) {
-            case ProfileTab.FEED: {
-                this._router.navigate(['user/' + this.profile.username + '/']);
-                break;
-            }
-            case ProfileTab.LINES: {
-                this._router.navigate(['user/' + this.profile.username + '/lines']);
-                break;
-            }
-        }
-    }
 }

@@ -28,13 +28,14 @@ export class ProfileTabLineHistoryComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this._profilePageService.activeUserProfile$.subscribe(
             userProfile => {
-                this.userProfile = userProfile;
-                this._subscriptions['lines'] = this._lineService.getUserLines(userProfile.username)
-                    .subscribe(
-                        data => {
-                            this.lineList = data.obj;
-                        }
-                    )
+                if (userProfile) {
+                    this.userProfile = userProfile;
+                    this._subscriptions['lines'] = this._lineService.getUserLines(userProfile.username)
+                        .subscribe(
+                            data => {
+                                this.lineList = data.obj;
+                            })
+                }
             });
     }
 
