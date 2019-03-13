@@ -1,6 +1,10 @@
 # freeraida
 
 
+### Development
+#### Good to remember
+- Don't import modules into modules that are lazy loaded
+
 ### AoT
 The following are some things that will make AOT compile fail.
 
