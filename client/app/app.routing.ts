@@ -6,8 +6,8 @@ import { LineCreatorPageComponent } from "./pages/line-creater-page/line-creater
 
 const APP_ROUTES: Routes = [
     { path: '', component: HomePageComponent, canActivate: [AuthGuard], data: { state: 'home' }},
-    { path: 'landing-page', component: LandingPageComponent },
-    { path: 'line-creator', component: LineCreatorPageComponent, canActivate: [AuthGuard]},
+    { path: 'landing-page', component: LandingPageComponent, data: {preload: true } },
+    { path: 'line-creator', component: LineCreatorPageComponent, canActivate: [AuthGuard], data: {preload: true }},
     { path: 'user', loadChildren: './pages/profile-page/profile.page.module#ProfilePageModule' },
 ];
 

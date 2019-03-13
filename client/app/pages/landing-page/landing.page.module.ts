@@ -23,6 +23,12 @@ import { MDBBootstrapModule } from "angular-bootstrap-md";
         MatFormFieldModule,
         MatInputModule,
         MatTabsModule
+    ],
+    entryComponents: [
+        LandingPageComponent
+    ],
+    exports: [
+        LandingPageComponent
     ]
 })
 

@@ -33,7 +33,6 @@ import { SidenavComponent } from "./components/sidenav/sidenav.component";
 import { ProfilePageModule } from "./pages/profile-page/profile.page.module";
 import { HomePageModule } from "./pages/home-page/home.page.module";
 
-// TODO: Organize
 @NgModule({
     declarations: [
         AppComponent,
@@ -42,18 +41,17 @@ import { HomePageModule } from "./pages/home-page/home.page.module";
         SidenavComponent
     ],
     imports: [
+        appRouting,
         BrowserModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
         RouterModule,
-        appRouting,
         MDBBootstrapModule.forRoot(),
         HttpClientModule,
         LandingPageModule,
         CoreModule,
         CommonModule,
         LineModule,
-        ProfilePageModule,
         HomePageModule,
         FontAwesomeModule,
         ChartsModule,

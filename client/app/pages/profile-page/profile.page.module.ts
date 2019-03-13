@@ -9,6 +9,7 @@ import { ProfilePageService } from "./profile-page.service";
 import { profileRoutes } from "./profile.routing";
 import { ProfileTabLineHistoryComponent } from "./tabs/profile-tab-line-history.component";
 import { ProfileTabHomeComponent } from "./tabs/profile-tab-home.component";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
     declarations: [
@@ -19,13 +20,14 @@ import { ProfileTabHomeComponent } from "./tabs/profile-tab-home.component";
         ProfileTabHomeComponent
     ],
     imports: [
+        profileRoutes,
         SharedModule,
         PostModule,
         LineModule,
-        profileRoutes
     ],
     exports: [
-        ProfilePageComponent
+        ProfilePageComponent,
+        RouterModule
     ],
     entryComponents: [
         ProfilePageComponent
