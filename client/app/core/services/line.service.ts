@@ -32,6 +32,11 @@ export class LineService {
         const token = localStorage.getItem('api_token');
         return this.http.get(this.config.getEndpoint() + '/api/line/user/'+username, {headers: headers, params: new HttpParams().set('token', token)})
     }
+
+    public getLine(id: string): Observable<any> {
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        return this.http.get<ILine>(this.config.getEndpoint() + '/api/line/get/'+id, {headers: headers})
+    }
     //
     // addLine(line: Line) {
     //     const body = JSON.stringify(line);

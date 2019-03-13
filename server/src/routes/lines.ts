@@ -7,6 +7,58 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
+router.get('/get/:id', async (req, res, next) => {
+    let line;
+    try {
+        line = await Line.findById(req.params.id);
+    } catch (e) {
+        return res.status(404).json({
+            title: 'Error finding line',
+            message: 'Could find the line'
+        });
+    }
+    return res.status(200).json(line);
+});
+
+router.get('/user/:username', async (req, res, next) => {
+    let userProfile: IUserProfile;
+    let lines: ILine[];
+    try {
+        userProfile = await UserProfile.findOne({username: req.params.username});
+    } catch (e) {
+        return res.status(404).json({
+            title: 'Error finding user profile',
+            message: 'Could find the user profile'
+        });
+    }
+    try {
+        lines = await Line.find({'_id': {$in: userProfile.lines}});
+        const promises = await lines.map(async (line: ILine) => {
+            console.log("ids", line.locations);
+            const locations = await Location.find({'_id': {$in: line.locations}});
+            console.log("locations", locations);
+            line.locations = locations;
+            return line;
+        });
+        console.log("promise", promises);
+        await Promise.all(promises).then(transformedLines => {
+            console.log(transformedLines);
+            lines = transformedLines;
+        });
+        console.log("line", lines);
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({
+            title: 'An error occurred',
+            message: 'Error saving the line'
+        });
+    }
+    return res.status(201).json({
+        message: 'Line saved',
+        obj: lines
+    });
+});
+
 router.get('/user/:username', async (req, res, next) => {
     let userProfile: IUserProfile;
     let lines: ILine[];
@@ -100,7 +152,6 @@ router.post('/new/', async (req, res, next) => {
             message: 'Error saving the locations'
         });
     }
-    console.log("location list", locationList);
     let line = new Line({
         locations: locationList,
         name: req.body.name,
@@ -112,13 +163,10 @@ router.post('/new/', async (req, res, next) => {
         slope: highestSlope
     });
     try {
-
         line = await line.save();
-        console.log("line saved", line);
         userProfile.lines.push(line); // TODO Hook post save
         await userProfile.save();
     } catch (e) {
-        console.log(e);
         return res.status(500).json({
             title: 'An error occurred',
             message: 'Error saving the line'
