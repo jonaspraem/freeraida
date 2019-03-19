@@ -8,27 +8,47 @@ import { ILine, IPolylineCoordinates } from "../../../models/interfaces/types";
 
 export class LineMapComponent implements OnInit {
     @Input() line: ILine;
-    public polyCords: IPolylineCoordinates[];
+    @Input() height: number;
+    public polyCoords: IPolylineCoordinates[];
+    public latitude: number;
+    public longitude: number;
 
     public ngOnInit(): void {
+        this.latitude = this.getAverageLat();
+        this.longitude = this.getAverageLng();
         this.updatePolyCords();
     }
 
     updatePolyCords() {
-        let cords: IPolylineCoordinates[] = [];
+        let coords: IPolylineCoordinates[] = [];
         let prev_lat;
         let prev_lng;
         for (let loc of this.line.locations) {
-            if (prev_lat && prev_lng) cords.push(
-                {
-                    org_lat: prev_lat,
-                    org_lng: prev_lng,
-                    destination_lat: loc.latitude,
-                    destination_lng: loc.longitude
-                });
+            if (prev_lat && prev_lng) coords.push({
+                org_lat: prev_lat,
+                org_lng: prev_lng,
+                destination_lat: loc.latitude,
+                destination_lng: loc.longitude
+            });
             prev_lat = loc.latitude;
             prev_lng = loc.longitude;
         }
-        this.polyCords =  cords;
+        this.polyCoords =  coords;
+    }
+
+    getAverageLat() {
+        let lat = 0;
+        for (let loc of this.line.locations) {
+            lat += loc.latitude;
+        }
+        return lat / this.line.locations.length;
+    }
+
+    getAverageLng() {
+        let lng = 0;
+        for (let loc of this.line.locations) {
+            lng += loc.longitude;
+        }
+        return lng / this.line.locations.length;
     }
 }

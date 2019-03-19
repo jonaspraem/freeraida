@@ -1,13 +1,12 @@
-<agm-map class="line-creator__map"
+<agm-map [ngStyle]="{height: height + 'px'}"
          [mapTypeId]="'terrain'"
-         [latitude]="45.8326222"
-         [longitude]="6.8649248"
+         [latitude]="latitude"
+         [longitude]="longitude"
          [disableDefaultUI]="true"
          [zoom]="13"
 >
     <agm-marker
-            *ngFor="let loc of line.locations; let i = index"
-            (markerClick)="clickedMarker(loc, i)"
+            *ngFor="let loc of line.locations"
             [latitude]="loc.latitude"
             [longitude]="loc.longitude"
             [markerDraggable]="false"
@@ -17,11 +16,11 @@
             <br>
             <!--<a class="delete" (click)="removeMarker(m)">delete</a>-->
         </agm-info-window>
-        <agm-polyline *ngFor="let item of polyCords"
+        <agm-polyline *ngFor="let item of polyCoords"
                       [editable]="false"
-                      strokeColor=""
+                      strokeColor="#000000"
                       strokeWeight="3"
-                      [geodesic]="true"
+                      [geodesic]="false"
         >
             <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
             <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
