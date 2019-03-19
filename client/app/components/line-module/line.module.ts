@@ -9,6 +9,7 @@ import { MatIconModule, MatListModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LineSummaryComponent } from "./line-summary/line-summary.component";
 import { LineMapListComponent } from "./line-map-list/line-map-list.component";
+import { LineMapComponent } from "./line-map/line-map.component";
 
 @NgModule({
     declarations: [
@@ -16,10 +17,12 @@ import { LineMapListComponent } from "./line-map-list/line-map-list.component";
         HeightMapComponent,
         LineSummaryComponent,
         LineMapListComponent,
+        LineMapComponent,
     ],
     exports: [
         LineCreatorPageComponent,
-        LineSummaryComponent
+        LineSummaryComponent,
+        LineMapComponent
     ],
     imports: [
         CommonModule,

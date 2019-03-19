@@ -51,7 +51,7 @@ export interface ILine {
     slope?: number;
 }
 
-export interface PolylineCoordinates {
+export interface IPolylineCoordinates {
     org_lat: number;
     org_lng: number;
     destination_lat: number;

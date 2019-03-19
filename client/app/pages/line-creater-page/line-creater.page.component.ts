@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { ILine, ILineLocation, ILocation, PolylineCoordinates } from "../../models/interfaces/types";
+import { ILine, ILineLocation, ILocation, IPolylineCoordinates } from "../../models/interfaces/types";
 import { LineService } from "../../core/services/line.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 export class LineCreatorPageComponent implements OnInit{
     public line: ILineLocation[] = [];
-    public polyCords: PolylineCoordinates[];
+    public polyCords: IPolylineCoordinates[];
     public counter: number = 0;
     public registerForm = new FormGroup({
         lineName: new FormControl('', Validators.required),
@@ -66,7 +66,7 @@ export class LineCreatorPageComponent implements OnInit{
     }
 
     updatePolyCords() {
-        let cords: PolylineCoordinates[] = [];
+        let cords: IPolylineCoordinates[] = [];
         let prev_lat;
         let prev_lng;
         for (let loc of this.line) {

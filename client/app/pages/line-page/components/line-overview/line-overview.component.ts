@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { ILine } from "../../../../models/interfaces/types";
 
 @Component({
     selector: 'app-line-overview',
@@ -6,5 +7,5 @@ import { Component } from "@angular/core";
 })
 
 export class LineOverviewComponent {
-    
+    @Input() line: ILine;
 }
