@@ -4,6 +4,7 @@ import { lineRoutes } from "./line.routing";
 import { LineModule } from "../../components/line-module/line.module";
 import { LineOverviewComponent } from "./components/line-overview/line-overview.component";
 import { LineHeightMapComponent } from "./components/line-height-map/line-height-map.component";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { LineHeightMapComponent } from "./components/line-height-map/line-height
     ],
     imports: [
         lineRoutes,
-        LineModule
+        LineModule,
+        CommonModule
     ]
 })
 

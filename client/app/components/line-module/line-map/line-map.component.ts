@@ -14,6 +14,7 @@ export class LineMapComponent implements OnInit {
     public longitude: number;
 
     public ngOnInit(): void {
+        console.log("here we are");
         this.latitude = this.getAverageLat();
         this.longitude = this.getAverageLng();
         this.updatePolyCords();

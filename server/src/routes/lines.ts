@@ -11,11 +11,9 @@ router.get('/get/:id', async (req, res, next) => {
     let line;
     try {
         line = await Line.findById(req.params.id);
+        line.locations = await Location.find({'_id': {$in: line.locations}});
     } catch (e) {
-        return res.status(404).json({
-            title: 'Error finding line',
-            message: 'Could find the line'
-        });
+        return res.status(404);
     }
     return res.status(200).json(line);
 });
@@ -34,10 +32,7 @@ router.get('/user/:username', async (req, res, next) => {
     try {
         lines = await Line.find({'_id': {$in: userProfile.lines}});
         const promises = await lines.map(async (line: ILine) => {
-            console.log("ids", line.locations);
-            const locations = await Location.find({'_id': {$in: line.locations}});
-            console.log("locations", locations);
-            line.locations = locations;
+            line.locations = await Location.find({'_id': {$in: line.locations}});
             return line;
         });
         console.log("promise", promises);

@@ -1,11 +1,17 @@
 .line-overview {
     height: 100vh;
+    position: relative;
 
     &__map-container {
-        float: right;
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        top: 20%;
     }
 
     &__map {
-
+        float: right;
+        width: 400px;
     }
 }
