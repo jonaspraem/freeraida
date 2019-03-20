@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ILine, ILocation, IPolylineCoordinates } from "../../../models/interfaces/types";
+import { COLOR_DICTIONARY } from "../../../dictionary/color-dictionary";
 
 @Component({
     selector: 'app-line-map',
@@ -14,6 +15,10 @@ export class LineMapComponent implements OnInit {
     public longitude: number;
     public startLocation: ILocation;
     public endLocation: ILocation;
+
+    constructor(
+        public colorDictionary: COLOR_DICTIONARY
+    ) {}
 
     public ngOnInit(): void {
         this.latitude = this.getAverageLat();

@@ -7,11 +7,54 @@
         right: 0;
         left: 0;
         bottom: 0;
-        top: 20%;
+        top: 100px;
     }
 
     &__map {
         float: right;
         width: 500px;
+    }
+
+    &__header {
+        position: absolute;
+        top: 150px;
+        left: 0;
+        right: 0;
+        color: $color-white;
+
+        > h1 {
+            font-weight: 600;
+            font-size: 40px;
+        }
+
+        > h3 {
+            margin-top: 10px;
+            font-size: 20px;
+            color: $color-secondary-colorado;
+        }
+    }
+
+    &__color-box {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        height: 200px;
+    }
+
+    &__color-box-second {
+        position: absolute;
+        top: 315px;
+        left: 0;
+        right: 0;
+        height: 30px;
+    }
+
+    &__color-box-third {
+        position: absolute;
+        top: 350px;
+        left: 60%;
+        right: 0;
+        height: 20px;
     }
 }
