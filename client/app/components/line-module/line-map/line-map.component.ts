@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { ILine, IPolylineCoordinates } from "../../../models/interfaces/types";
+import { ILine, ILocation, IPolylineCoordinates } from "../../../models/interfaces/types";
 
 @Component({
     selector: 'app-line-map',
@@ -12,11 +12,14 @@ export class LineMapComponent implements OnInit {
     public polyCoords: IPolylineCoordinates[];
     public latitude: number;
     public longitude: number;
+    public startLocation: ILocation;
+    public endLocation: ILocation;
 
     public ngOnInit(): void {
-        console.log("here we are");
         this.latitude = this.getAverageLat();
         this.longitude = this.getAverageLng();
+        this.startLocation = this.line.locations[0];
+        this.endLocation = this.line.locations[this.line.locations.length-1];
         this.updatePolyCords();
     }
 
