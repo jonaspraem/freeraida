@@ -1,3 +1,4 @@
-<div class="line-page">
-    <app-line-overview *ngIf="!!line" [line]="line"></app-line-overview>
+<div class="line-page" *ngIf="!!line">
+    <app-line-overview [line]="line"></app-line-overview>
+    <app-line-height-map [line]="line"></app-line-height-map>
 </div>
