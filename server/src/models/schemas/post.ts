@@ -2,13 +2,13 @@ import * as mongoose from 'mongoose';
 const UserProfile = require('./user-profile');
 
 export interface IPost extends mongoose.Document {
-    content: string,
-    username: string,
-    firstname: string,
-    surname: string,
-    fullname: string,
-    timestamp: Date,
-    gnarly: mongoose.Schema.Types.ObjectId[]
+    content: string;
+    username: string;
+    firstname: string;
+    surname: string;
+    fullname: string;
+    timestamp: Date;
+    gnarly: mongoose.Schema.Types.ObjectId[];
 }
 
 const schema = new mongoose.Schema({

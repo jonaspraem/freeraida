@@ -2,19 +2,19 @@ import * as mongoose from 'mongoose';
 const mongooseUniqueValidator = require('mongoose-unique-validator');
 
 export interface IUserProfile extends mongoose.Document {
-    username: string,
-    firstname: string,
-    surname: string,
-    fullname: string,
-    country: string,
-    bio: string,
-    social_twitter: string,
-    social_instagram: string,
-    posts: mongoose.Schema.Types.ObjectId[],
-    lines: mongoose.Schema.Types.ObjectId[],
-    tracked_lines: mongoose.Schema.Types.ObjectId[],
-    following: string[],
-    followers: string[],
+    username: string;
+    firstname: string;
+    surname: string;
+    fullname: string;
+    country: string;
+    bio: string;
+    social_twitter: string;
+    social_instagram: string;
+    posts: mongoose.Schema.Types.ObjectId[];
+    lines: mongoose.Schema.Types.ObjectId[];
+    tracked_lines: mongoose.Schema.Types.ObjectId[];
+    following: string[];
+    followers: string[];
 }
 
 const schema = new mongoose.Schema({

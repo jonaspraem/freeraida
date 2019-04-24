@@ -1,14 +1,15 @@
 import * as mongoose from 'mongoose';
 
 export interface ILocation extends mongoose.Document {
-    latitude: number,
-    longitude: number,
-    elevation: number,
-    lineIndex: number,
-    timeFromStart: string,
-    timeFromLast: string,
-    distanceFromStart: number,
-    distanceFromLast: number
+    latitude: number;
+    longitude: number;
+    elevation: number;
+    lineIndex: number;
+    timeFromStart: string;
+    timeFromLast: string;
+    distanceFromStart: number;
+    distanceFromLast: number;
+    images?: string[];
 }
 
 const schema = new mongoose.Schema({
