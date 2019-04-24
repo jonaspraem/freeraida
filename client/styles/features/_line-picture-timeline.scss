@@ -1,4 +1,4 @@
-.line-picture-timeline {
+.photo-timeline {
     height: 500px;
     margin-bottom: 50px;
 
@@ -13,10 +13,21 @@
     }
 
     &__timeline {
+        position: relative;
         width: 4px;
         border-radius: 2px;
         height: 100%;
         background-color: $color-opaque-overlay-black;
         margin: auto;
+    }
+
+    &__timeline-location {
+        position: absolute; // top% dependent on distance from start location
+        z-index: 1;
+        width: 12px;
+        height: 12px;
+        left: -4px; // Dependent on height & width
+        border-radius: 50%;
+        background-color: $color-accent;
     }
 }

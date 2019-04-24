@@ -38,6 +38,7 @@ export interface ILineLocation extends ILocation {
     timeFromLast?: string; // hh:mm:ss format
     distanceFromStart?: number;
     distanceFromLast?: number;
+    images?: string[];
 }
 
 export interface ILine {

@@ -1,10 +1,15 @@
-<div class="line-picture-timeline">
+<div class="photo-timeline">
     <div class="width-container-flex">
-        <div class="line-picture-timeline__timeline-container">
-            <div class="line-picture-timeline__timeline"></div>
+        <div class="photo-timeline__timeline-container">
+            <div class="photo-timeline__timeline">
+                <div *ngFor="let loc of imageAttachedLocations"
+                     class="photo-timeline__timeline-location"
+                     [ngStyle]="{top: percentOnRoute(loc) + '%'}">
+                </div>
+            </div>
         </div>
-        <div class="line-picture-timeline__image-container">
-
+        <div class="photo-timeline__image-container">
+            
         </div>
     </div>
 </div>
