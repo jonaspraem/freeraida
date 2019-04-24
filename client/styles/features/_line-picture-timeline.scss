@@ -1,0 +1,22 @@
+.line-picture-timeline {
+    height: 500px;
+    margin-bottom: 50px;
+
+    &__timeline-container {
+        width: 20%;
+        height: 500px;
+    }
+
+    &__image-container {
+        flex: 1;
+        height: 500px;
+    }
+
+    &__timeline {
+        width: 4px;
+        border-radius: 2px;
+        height: 100%;
+        background-color: $color-opaque-overlay-black;
+        margin: auto;
+    }
+}

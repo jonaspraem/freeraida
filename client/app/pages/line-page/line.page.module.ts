@@ -6,12 +6,14 @@ import { LineOverviewComponent } from "./components/line-overview/line-overview.
 import { LineHeightMapComponent } from "./components/line-height-map/line-height-map.component";
 import { CommonModule } from "@angular/common";
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
+import { LinePictureTimelineComponent } from "./components/line-picture-timeline/line-picture-timeline.component";
 
 @NgModule({
     declarations: [
         LinePageComponent,
         LineOverviewComponent,
-        LineHeightMapComponent
+        LineHeightMapComponent,
+        LinePictureTimelineComponent
     ],
     entryComponents: [
         LinePageComponent
