@@ -9,19 +9,39 @@ import { ILine, ILineLocation } from "../../../../models/interfaces/types";
 export class LinePictureTimelineComponent implements OnInit {
     @Input() line: ILine;
     public imageAttachedLocations: ILineLocation[];
-    // TODO move to base model
-    public startLocation: ILineLocation;
-    public endLocation: ILineLocation;
+    public activeImageUrl: string;
+    public currentIndex: number = 0;
+    private imageCount: number = 0;
 
     public ngOnInit(): void {
         this.imageAttachedLocations = this.line.locations.filter(loc => Array.isArray(loc.images));
-        this.startLocation = this.line.locations[0];
-        this.endLocation = this.line.locations[this.line.locations.length - 1];
-        console.log(this.imageAttachedLocations);
+        this.imageAttachedLocations.map(loc => this.imageCount += loc.images.length);
+        this.activeImageUrl = this.imageAttachedLocations[0].images[0];
+        setInterval(() => {
+            this.toggleImage();
+        }, 5000);
     }
 
     public percentOnRoute(location: ILineLocation): number {
-        return location.distanceFromStart / this.endLocation.distanceFromStart * 100;
+        return location.distanceFromStart / this.line.endLocation.distanceFromStart * 100;
+    }
+
+    private toggleImage(): void {
+        if (this.currentIndex === this.imageCount) {
+            this.currentIndex = 0;
+        }
+        let counter = 0;
+        for(let i = 0; i < this.imageAttachedLocations.length; i++) {
+            let location = this.imageAttachedLocations[i];
+            for (let image of location.images) {
+                if (counter === this.currentIndex) {
+                    this.activeImageUrl = image;
+                    this.currentIndex++;
+                    return;
+                }
+                counter++;
+            }
+        }
     }
 
 }

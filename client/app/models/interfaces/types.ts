@@ -50,6 +50,8 @@ export interface ILine {
     timestamp?: Date;
     peak?: number;
     slope?: number;
+    startLocation?: ILineLocation;
+    endLocation?: ILineLocation;
 }
 
 export interface IPolylineCoordinates {

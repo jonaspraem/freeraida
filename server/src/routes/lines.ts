@@ -8,10 +8,15 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
 router.get('/get/:id', async (req, res, next) => {
-    let line;
+    let line: ILine;
     try {
+        // TODO Move to function
         line = await Line.findById(req.params.id);
         line.locations = await Location.find({'_id': {$in: line.locations}});
+        line = line.toObject(); // To make the line mutable
+        line.startLocation = line.locations[0];
+        line.endLocation = line.locations[line.locations.length - 1];
+        console.log(line);
     } catch (e) {
         return res.status(404);
     }

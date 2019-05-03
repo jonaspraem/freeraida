@@ -12,6 +12,8 @@ export interface ILine extends mongoose.Document {
     timestamp: Date;
     peak: number;
     slope: number;
+    startLocation?: ILocation;
+    endLocation?: ILocation;
 }
 
 const schema = new mongoose.Schema({

@@ -35,7 +35,7 @@ export class LineService {
 
     public getLine(id: string): Observable<any> {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        return this.http.get<ILine>(this.config.getEndpoint() + '/api/line/get/'+id, {headers: headers})
+        return this.http.get<ILine>(this.config.getEndpoint() + '/api/line/get/' + id, {headers: headers})
     }
     //
     // addLine(line: Line) {
