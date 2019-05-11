@@ -4,14 +4,15 @@
             <div class="photo-timeline__timeline">
                 <div class="photo-timeline__timeline-location photo-timeline__timeline-location--start"></div>
                 <div class="photo-timeline__timeline-location photo-timeline__timeline-location--end"></div>
-                <div *ngFor="let loc of imageAttachedLocations"
+                <div *ngFor="let loc of imageAttachedLocations; let i = index"
                      class="photo-timeline__timeline-location"
                      [ngStyle]="{top: percentOnRoute(loc) + '%'}">
+                    <div *ngIf="i === locationIndex" class="photo-timeline__timeline-location-arrow"></div>
                 </div>
             </div>
         </div>
         <div class="photo-timeline__image-container">
-            <img [src]="activeImageUrl" class="photo-timeline__image-container">
+            <img #image [src]="activeImageUrl" class="photo-timeline__image">
         </div>
     </div>
 </div>
