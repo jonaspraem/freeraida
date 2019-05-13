@@ -32,6 +32,8 @@ import { ChartsModule } from "ng2-charts";
 import { SidenavComponent } from "./components/sidenav/sidenav.component";
 import { ProfilePageModule } from "./pages/profile-page/profile.page.module";
 import { HomePageModule } from "./pages/home-page/home.page.module";
+import { ArrowsModule } from "./components/arrows/arrows.module";
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
     declarations: [
@@ -70,6 +72,7 @@ import { HomePageModule } from "./pages/home-page/home.page.module";
     schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
     providers: [
         CONFIG,
+        SharedModule,
         FontAwesomeModule,
         FLAG_DICTIONARY,
         COLOR_DICTIONARY,

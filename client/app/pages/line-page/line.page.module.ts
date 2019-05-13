@@ -7,6 +7,7 @@ import { LineHeightMapComponent } from "./components/line-height-map/line-height
 import { CommonModule } from "@angular/common";
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
 import { LinePictureTimelineComponent } from "./components/line-picture-timeline/line-picture-timeline.component";
+import { ArrowsModule } from "../../components/arrows/arrows.module";
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { LinePictureTimelineComponent } from "./components/line-picture-timeline
     imports: [
         lineRoutes,
         LineModule,
+        ArrowsModule,
         CommonModule,
         Ng2GoogleChartsModule,
     ]

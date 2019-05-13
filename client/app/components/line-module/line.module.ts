@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { AgmCoreModule } from "@agm/core";
-import { CommonModule } from "@angular/common";
 import { SharedModule } from "../../shared/shared.module";
 import { LineCreatorPageComponent } from "../../pages/line-creater-page/line-creater.page.component";
 import { HeightMapComponent } from "./height-map/height-map.component";
@@ -25,7 +24,6 @@ import { LineMapComponent } from "./line-map/line-map.component";
         LineMapComponent
     ],
     imports: [
-        CommonModule,
         SharedModule,
         Ng2GoogleChartsModule,
         AgmCoreModule.forRoot({

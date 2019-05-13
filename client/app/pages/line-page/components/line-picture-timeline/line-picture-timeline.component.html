@@ -7,12 +7,16 @@
                 <div *ngFor="let loc of imageAttachedLocations; let i = index"
                      class="photo-timeline__timeline-location"
                      [ngStyle]="{top: percentOnRoute(loc) + '%'}">
-                    <div *ngIf="i === locationIndex" class="photo-timeline__timeline-location-arrow"></div>
+                    <div *ngIf="i === locationIndex" class="photo-timeline__timeline-location-arrow">
+                        <arrow-action-left></arrow-action-left>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="photo-timeline__image-container">
-            <img #image [src]="activeImageUrl" class="photo-timeline__image">
+            <div class="photo-timeline__image-box">
+                <img #image [src]="activeImageUrl" class="photo-timeline__image">
+            </div>
         </div>
     </div>
 </div>
