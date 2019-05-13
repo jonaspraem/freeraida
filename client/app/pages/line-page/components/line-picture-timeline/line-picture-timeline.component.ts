@@ -12,13 +12,16 @@ export class LinePictureTimelineComponent implements OnInit {
     public imageAttachedLocations: ILineLocation[];
     public activeImageUrl: string;
     public currentIndex: number = 0;
+    // For looping the images
     public locationIndex: number = 0;
+    private imageOnLocationIndex: number = 0;
     private imageCount: number = 0;
 
     public ngOnInit(): void {
         this.imageAttachedLocations = this.line.locations.filter(loc => Array.isArray(loc.images));
         this.imageAttachedLocations.map(loc => this.imageCount += loc.images.length);
         this.activeImageUrl = this.imageAttachedLocations[0].images[0];
+        console.log(this.imageAttachedLocations);
         setInterval(() => {
             this.toggleImage();
         }, 5000);
@@ -29,34 +32,28 @@ export class LinePictureTimelineComponent implements OnInit {
     }
 
     private toggleImage(): void {
+        this.currentIndex++;
         if (this.currentIndex === this.imageCount) {
             this.currentIndex = 0;
             this.locationIndex = 0;
+            this.imageOnLocationIndex = 0;
         }
-        let counter = 0;
-        for(let i = 0; i < this.imageAttachedLocations.length; i++) {
-            let location = this.imageAttachedLocations[i];
-
-            for (let j = 0; j < location.images.length; j++) {
-                let image = location.images[j];
-                let isLast: boolean = !location.images[j + 1];
-                if (counter === this.currentIndex) {
-                    this.imageElement.nativeElement.className = 'photo-timeline__image photo-timeline__image--fade-out';
-                    this.delay(1000).then(() => {
-                        this.activeImageUrl = image;
-                        this.currentIndex++;
-                        this.imageElement.nativeElement.className = 'photo-timeline__image';
-
-                        if (isLast) {
-                            this.locationIndex++;
-                        }
-                        console.log(isLast, this.locationIndex, this.currentIndex);
-                        return;
-                    });
-                }
-                counter++;
-            }
+        if (this.currentIndex === 0) {
+            // do nothing
+        } else if (!this.imageAttachedLocations[this.locationIndex].images[this.imageOnLocationIndex + 1]) {
+            this.locationIndex++;
+            this.imageOnLocationIndex = 0;
+        } else {
+            this.imageOnLocationIndex++;
         }
+        console.log(this.currentIndex, this.locationIndex, this.imageOnLocationIndex);
+        // Set image element
+        this.imageElement.nativeElement.className = 'photo-timeline__image photo-timeline__image--fade-out';
+        this.delay(1000).then(() => {
+            this.activeImageUrl = this.imageAttachedLocations[this.locationIndex].images[this.imageOnLocationIndex];
+            this.imageElement.nativeElement.className = 'photo-timeline__image';
+            return;
+        });
     }
 
     async delay(ms: number) {
