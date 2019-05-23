@@ -1,6 +1,24 @@
 .line-overview {
-    height: 100vh;
-    position: relative;
+    padding-bottom: 100px;
+
+    &__rubric {
+        height: 450px;
+        position: relative;
+    }
+
+    &__table {
+        h4 {
+            margin-top: 20px;
+        }
+
+        h5 {
+            font-weight: 600;
+            opacity: .6;
+            margin-top: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+    }
 
     &__map-container {
         position: absolute;
