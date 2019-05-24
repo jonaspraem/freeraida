@@ -24,7 +24,7 @@ export class LineMapComponent implements OnInit {
         this.latitude = this.getAverageLat();
         this.longitude = this.getAverageLng();
         this.startLocation = this.line.locations[0];
-        this.endLocation = this.line.locations[this.line.locations.length-1];
+        this.endLocation = this.line.locations[this.line.locations.length - 1];
         this.updatePolyCords();
     }
 

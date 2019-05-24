@@ -19,10 +19,7 @@ export class LinePageComponent implements OnInit {
     public ngOnInit(): void {
         this._activatedRoute.params.subscribe(params => {
             const id = params['id'];
-            this._lineService.getLine(id).subscribe(line => {
-                this.line = line;
-                console.log(id, this.line);
-            });
+            this._lineService.getLine(id).subscribe(line => this.line = line);
         });
     }
 }
