@@ -9,4 +9,8 @@
     &:hover {
         background-color: rgba($color-primary-light, .7);
     }
+
+    &:focus {
+        outline: none;
+    }
 }

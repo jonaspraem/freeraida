@@ -17,19 +17,18 @@
         margin-right: 20px;
     }
 
-    &__content {
+    &__username {
+        display: block;
+        margin-bottom: 5px;
+        color: $color-secondary-colorado;
 
+        &:focus, &:hover {
+            text-decoration: underline;
+        }
     }
 
-    &__header {
-        > .name {
-            font-weight: 600;
-            color: $color-primary;
-        }
-
-        > .username {
-            margin-left: 10px;
-            color: $color-secondary-colorado;
-        }
+    &__name {
+        font-weight: 600;
+        color: $color-primary;
     }
 }

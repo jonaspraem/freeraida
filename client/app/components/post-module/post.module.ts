@@ -4,6 +4,7 @@ import { PostLoaderComponent } from "./post-loader/post-loader.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { CommonModule } from "@angular/common";
 import { PostComponent } from "./post/post.component";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { PostComponent } from "./post/post.component";
     ],
     imports: [
         FontAwesomeModule,
+        RouterModule,
         CommonModule
     ]
 })

@@ -3,10 +3,8 @@
         <img [src]="defaultImage" class="post__image">
     </div>
     <div [ngStyle]="{flex: 1}">
-        <div class="post__header">
-            <span class="name">{{post?.fullname}}</span>
-            <span class="username">@{{post?.username}}</span>
-        </div>
+        <div class="post__name">{{post?.fullname}}</div>
+        <a class="post__username" [routerLink]="'user/' + post.username">@{{post?.username}}</a>
         <div [innerHTML]="post?.content" class="post__content"></div>
     </div>
 </div>
