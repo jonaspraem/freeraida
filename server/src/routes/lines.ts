@@ -53,49 +53,7 @@ router.get('/user/:username', async (req, res, next) => {
             message: 'Error saving the line'
         });
     }
-    return res.status(201).json({
-        message: 'Line saved',
-        obj: lines
-    });
-});
-
-router.get('/user/:username', async (req, res, next) => {
-    let userProfile: IUserProfile;
-    let lines: ILine[];
-    try {
-        userProfile = await UserProfile.findOne({username: req.params.username});
-    } catch (e) {
-        return res.status(404).json({
-            title: 'Error finding user profile',
-            message: 'Could find the user profile'
-        });
-    }
-    try {
-        lines = await Line.find({'_id': {$in: userProfile.lines}});
-        const promises = await lines.map(async (line: ILine) => {
-            console.log("ids", line.locations);
-            const locations = await Location.find({'_id': {$in: line.locations}});
-            console.log("locations", locations);
-            line.locations = locations;
-            return line;
-        });
-        console.log("promise", promises);
-        await Promise.all(promises).then(transformedLines => {
-            console.log(transformedLines);
-            lines = transformedLines;
-        });
-        console.log("line", lines);
-    } catch (e) {
-        console.log(e);
-        return res.status(500).json({
-            title: 'An error occurred',
-            message: 'Error saving the line'
-        });
-    }
-    return res.status(201).json({
-        message: 'Line saved',
-        obj: lines
-    });
+    return res.status(201).json(lines);
 });
 
 // Verify token

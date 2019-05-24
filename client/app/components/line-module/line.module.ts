@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LineSummaryComponent } from "./line-summary/line-summary.component";
 import { LineMapListComponent } from "./line-map-list/line-map-list.component";
 import { LineMapComponent } from "./line-map/line-map.component";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
     declarations: [
@@ -25,6 +26,7 @@ import { LineMapComponent } from "./line-map/line-map.component";
     ],
     imports: [
         SharedModule,
+        RouterModule,
         Ng2GoogleChartsModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM' // TODO Move

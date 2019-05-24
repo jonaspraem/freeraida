@@ -27,10 +27,10 @@ export class LineService {
         return this.http.post(this.config.getEndpoint() + '/api/line/new', body, {headers: headers, params: new HttpParams().set('token', token)})
     }
 
-    public getUserLines(username: string): Observable<any> {
+    public getUserLines(username: string): Observable<ILine[]> {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('api_token');
-        return this.http.get(this.config.getEndpoint() + '/api/line/user/'+username, {headers: headers, params: new HttpParams().set('token', token)})
+        return this.http.get<ILine[]>(this.config.getEndpoint() + '/api/line/user/'+username, {headers: headers, params: new HttpParams().set('token', token)})
     }
 
     public getLine(id: string): Observable<any> {

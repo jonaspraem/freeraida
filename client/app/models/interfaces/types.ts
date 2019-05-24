@@ -42,6 +42,7 @@ export interface ILineLocation extends ILocation {
 }
 
 export interface ILine {
+    _id: string;
     name: string;
     sport: string;
     discipline: string;

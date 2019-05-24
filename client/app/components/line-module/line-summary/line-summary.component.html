@@ -1,4 +1,4 @@
-<div class="line-summary">
+<a class="line-summary" [routerLink]="'/line/' + line._id">
     <div class="line-summary__map" [ngStyle]="{borderColor: COLOR_DICTIONARY.get(line.sport)}">
         <app-line-map-list [line]="line"></app-line-map-list>
     </div>
@@ -23,4 +23,4 @@
             </div>
         </div>
     </div>
-</div>
+</a>

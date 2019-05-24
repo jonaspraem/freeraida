@@ -31,10 +31,7 @@ export class ProfileTabLineHistoryComponent implements OnInit, OnDestroy {
                 if (userProfile) {
                     this.userProfile = userProfile;
                     this._subscriptions['lines'] = this._lineService.getUserLines(userProfile.username)
-                        .subscribe(
-                            data => {
-                                this.lineList = data.obj;
-                            })
+                        .subscribe(data => this.lineList = data)
                 }
             });
     }

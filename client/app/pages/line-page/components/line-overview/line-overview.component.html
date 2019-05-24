@@ -4,7 +4,7 @@
         <div class="line-overview__color-box-second" [ngStyle]="{backgroundColor: colorDictionary.get(line.sport)}"></div>
         <div class="line-overview__map-container width-container">
             <div class="line-overview__map">
-                <app-line-map [line]="line" [height]="350"></app-line-map>
+                <app-line-map [line]="line" [height]="500"></app-line-map>
             </div>
         </div>
         <div class="line-overview__header width-container">
@@ -14,26 +14,26 @@
     </div>
     <div class="width-container">
         <table class="line-overview__table">
+            <h5>Stats</h5>
             <tr>
-                <td>Distance</td>
+                <td>distance</td>
                 <td>{{ line.locations[line.locations.length - 1].distanceFromStart }}</td>
             </tr>
             <tr>
-                <td>Duration</td>
+                <td>duration</td>
                 <td>{{ line.locations[line.locations.length - 1].timeFromStart }}</td>
             </tr>
             <tr>
-                <td>Highest peak</td>
+                <td>highest peak</td>
                 <td>{{ line.peak }}</td>
             </tr>
             <tr>
-                <td>Steepness</td>
+                <td>steepness</td>
                 <td>{{ line.slope }}</td>
             </tr>
-            <h4>Geographics</h4>
-            <h5>Starting location</h5>
+            <h5>starting location</h5>
             <tr>
-                <td>Country</td>
+                <td>country</td>
                 <td>@Denmark</td>
             </tr>
             <tr>
@@ -47,7 +47,7 @@
 
             <h5>End location</h5>
             <tr>
-                <td>Country</td>
+                <td>country</td>
                 <td>@Denmark</td>
             </tr>
             <tr>
