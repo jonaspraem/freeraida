@@ -6,8 +6,9 @@ body {
 
 a {
     color: inherit;
-    &:hover {
+
+    &:hover, &:focus {
         text-decoration: none;
-        color: unset;
+        color: inherit;
     }
 }
