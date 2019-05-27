@@ -38,14 +38,14 @@ export class PostService {
     }
 
     getUserFeed(username: string) {
-        return this.http.get<PostListResponse>(this.config.getEndpoint() + '/api/post/user-feed/'+username);
+        return this.http.get<IPost[]>(this.config.getEndpoint() + '/api/post/user-feed/' + username);
     }
 
     getFeed() {
         const token = localStorage.getItem('api_token');
-        this.http.get<PostListResponse>(this.config.getEndpoint() + '/api/post/feed', {params: new HttpParams().set('token', token)}).subscribe(
-            (data) => {
-                this._userFeed.next(data.obj);
+        this.http.get<IPost[]>(this.config.getEndpoint() + '/api/post/feed', {params: new HttpParams().set('token', token)}).subscribe(
+            (feed) => {
+                this._userFeed.next(feed);
             });
     }
 

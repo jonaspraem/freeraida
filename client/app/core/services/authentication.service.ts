@@ -5,7 +5,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ILogin } from "../../models/interfaces/requests/authentication/login.interface";
 import { IRegister } from "../../models/interfaces/requests/authentication/register.interface";
 import { Router } from "@angular/router";
-import { ProfileService } from "./profile.service";
 
 @Injectable()
 

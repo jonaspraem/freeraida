@@ -18,10 +18,10 @@ const sortList = async (list) => {
 const getFeed = async (profile: IUserProfile) => {
     const feed = [];
     // Loop followers
-    if (profile.following !== null && profile.following.length !== 0) {
+    if (Array.isArray(profile.following)) {
         for (const userId of profile.following) {
             try {
-                const userProfile = await UserProfile.findById(userId);
+                const userProfile = await UserProfile.findOne({username: userId});
                 const userPosts = await getUserFeed(userProfile);
                 feed.push.apply(feed, userPosts);
             } catch (e) {
@@ -68,10 +68,7 @@ router.get('/user-feed/:username', async (req, res, next) => {
             message: 'Error creating the user feed'
         });
     }
-    return res.status(200).json({
-        message: 'User feed successfully generated',
-        obj: feed
-    });
+    return res.status(200).json(feed);
 });
 
 // Verify token
@@ -106,13 +103,11 @@ router.get('/feed', async (req, res, next) => {
     } catch (e) {
         return res.status(404).json({
             title: 'Error creating user feed',
-            message: 'Something went wrong trying to create the user feed'
+            message: 'Something went wrong trying to create the user feed',
+            error: e
         });
     }
-    return res.status(200).json({
-        message: 'User feed received',
-        obj: feed
-    });
+    return res.status(200).json(feed);
 });
 
 // Post new post
@@ -146,10 +141,7 @@ router.post('/new', async (req, res, next) => {
             message: 'Error saving the post'
         });
     }
-    return res.status(201).json({
-        message: 'Post saved',
-        obj: post
-    });
+    return res.status(201).json(post);
 });
 
 // gnarly post

@@ -1,11 +1,8 @@
 <ng-container *ngIf="isComponentApp; else noApp">
     <app-header></app-header>
-    <div [ngStyle]="{display: flex}">
-        <!--<app-sidenav></app-sidenav>-->
-        <main [@routerTransition]="getState(o)" class="app-container">
-            <router-outlet #o="outlet"></router-outlet>
-        </main>
-    </div>
+    <main class="app-container">
+        <router-outlet #o="outlet"></router-outlet>
+    </main>
 </ng-container>
 <ng-template #noApp>
     <router-outlet></router-outlet>

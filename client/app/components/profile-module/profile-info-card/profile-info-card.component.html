@@ -5,5 +5,5 @@
         </div>
         <div class="profile-info-card__name">{{ userProfile?.fullname }}</div>
     </div>
-    <button *ngIf="isSelf" class="button-primary" (click)="onToggle()">FOLLOW</button>
+    <button *ngIf="!userProfile?.isSelf" class="button-primary" (click)="onToggle()">{{ userProfile?.isFollowing ? 'UNFOLLOW' : 'FOLLOW'}}</button>
 </div>

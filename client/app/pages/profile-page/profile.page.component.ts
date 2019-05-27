@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ProfileService } from "../../core/services/profile.service";
-import { ILine, IPost, IUserProfile } from "../../models/interfaces/types";
-import { IUserProfileResponse } from "../../models/interfaces/responses";
-import { FLAG_DICTIONARY } from "../../dictionary/flag-dictionary";
+import { IUserProfile } from "../../models/interfaces/types";
 import { SocialService } from "../../core/services/social.service";
 import { PostService } from "../../core/services/post.service";
 import { LineService } from "../../core/services/line.service";
@@ -45,7 +43,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         private _socialService: SocialService,
         private _lineService: LineService,
         private _profilePageService: ProfilePageService,
-        private _router: Router
     ) {}
 
     public ngOnInit(): void {

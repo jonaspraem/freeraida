@@ -3,8 +3,6 @@ import { LineService } from "../../../core/services/line.service";
 import { ProfilePageService } from "../profile-page.service";
 import { Subscription } from "rxjs";
 import { ILine, IUserProfile } from "../../../models/interfaces/types";
-import { IUserProfileResponse } from "../../../models/interfaces/responses";
-import { SocialService } from "../../../core/services/social.service";
 
 @Component({
     selector: 'app-profile-tab-line-history',

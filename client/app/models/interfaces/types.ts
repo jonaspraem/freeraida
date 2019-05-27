@@ -8,8 +8,8 @@ export interface IPost {
     gnarly?: string[];
 }
 
-export interface IUserProfile {
-    _id: string;
+export interface IUserProfile extends IProfileRelativeInfo {
+    _id?: string;
     username: string;
     firstname: string;
     surname: string;
@@ -23,6 +23,11 @@ export interface IUserProfile {
     tracked_lines?: string[];
     following?: string[];
     followers?: string[];
+}
+
+export interface IProfileRelativeInfo {
+    isSelf: boolean;
+    isFollowing?: boolean;
 }
 
 export interface ILocation {
@@ -42,7 +47,7 @@ export interface ILineLocation extends ILocation {
 }
 
 export interface ILine {
-    _id: string;
+    _id?: string;
     name: string;
     sport: string;
     discipline: string;

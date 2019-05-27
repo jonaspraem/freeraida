@@ -10,16 +10,14 @@ router.get('/user/:username', async (req, res, next) => {
     try {
         profile = await UserProfile.findOne({username: req.params.username});
         if (!profile) throw new Error();
+        profile = profile.toObject(); // To make the line mutable
     } catch (e) {
         return res.status(404).json({
             title: 'An error occurred',
             message: 'Error looking up user'
         });
     }
-    return res.status(200).json({
-        message: 'UserProfile successfully received',
-        obj: profile
-    });
+    return res.status(200).json(profile);
 });
 
 // Check availability of user address
@@ -64,10 +62,7 @@ router.get('/user-info', async (req, res, next) => {
             message: 'No profile matching the id'
         });
     }
-    return res.status(200).json({
-        message: 'UserProfile successfully received',
-        obj: profile
-    });
+    return res.status(200).json(profile);
 });
 
 // Edit profile
@@ -95,10 +90,7 @@ router.patch('/edit-profile', async (req, res, next) => {
             message: 'Something happened when saving the user'
         });
     }
-    return res.status(201).json({
-        message: 'User created',
-        obj: profile
-    });
+    return res.status(201).json(profile);
 });
 
 module.exports = router;

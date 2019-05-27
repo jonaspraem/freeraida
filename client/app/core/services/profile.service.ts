@@ -4,7 +4,6 @@ import 'rxjs';
 import { CONFIG } from "../../dictionary/config";
 import { Router } from "@angular/router";
 import { IUserProfile } from "../../models/interfaces/types";
-import { IUserProfileResponse } from "../../models/interfaces/responses";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable()
@@ -22,7 +21,7 @@ export class ProfileService {
     }
 
     public getProfile(username: string) {
-        return this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/user-profile/user/'+username);
+        return this.http.get<IUserProfile>(this.config.getEndpoint() + '/api/user-profile/user/' + username);
     }
 
     public updateUserProfile(profile: IUserProfile) {
@@ -32,11 +31,11 @@ export class ProfileService {
     private getProfileWithToken(): void {
         const token = localStorage.getItem('api_token');
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/user-profile/user-info', {headers: headers, params: new HttpParams().set('token', token)})
+        this.http.get<IUserProfile>(this.config.getEndpoint() + '/api/user-profile/user-info', {headers: headers, params: new HttpParams().set('token', token)})
             .subscribe(
-                (data) => {
-                    this._userProfile.next(data.obj);
-                    localStorage.setItem('username', data.obj.username);
+                (profile) => {
+                    this._userProfile.next(profile);
+                    localStorage.setItem('username', profile.username);
                 },
                 err => {
                     this._router.navigate(['/landing-page']);

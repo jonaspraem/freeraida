@@ -1,9 +1,4 @@
-import { IPost, IUserProfile } from "./types";
-
-export interface IUserProfileResponse {
-    message: string;
-    obj: IUserProfile;
-}
+import { IPost } from "./types";
 
 export interface PostListResponse {
     message: string;
