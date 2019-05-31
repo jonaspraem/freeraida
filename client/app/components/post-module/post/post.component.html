@@ -4,7 +4,7 @@
     </div>
     <div [ngStyle]="{flex: 1}">
         <div class="post__name">{{post?.fullname}}</div>
-        <a class="post__username" [routerLink]="'user/' + post.username">@{{post?.username}}</a>
+        <a *ngIf="isLinked" class="post__username" [routerLink]="'user/' + post.username">@{{post?.username}}</a>
         <div [innerHTML]="post?.content" class="post__content"></div>
     </div>
 </div>

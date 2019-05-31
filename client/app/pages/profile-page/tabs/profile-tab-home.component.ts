@@ -13,7 +13,9 @@ import { Subscription } from "rxjs";
             </div>
             <div class="grid-main">
                 <app-post *ngFor="let post of userFeed"
-                          [postModel]="post"></app-post>
+                          [postModel]="post"
+                          [isLinked]="false"
+                ></app-post>
             </div>
             <div class="grid-right">
             </div>

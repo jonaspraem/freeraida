@@ -11,6 +11,7 @@ const defaultImage = require('../../../../images/rider/profile-image.jpg');
 
 export class PostComponent implements OnInit {
     @Input() private readonly postModel: IPost;
+    @Input() public readonly isLinked: boolean = true;
     public defaultImage = defaultImage;
     public post: PostViewModel;
 
