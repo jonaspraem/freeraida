@@ -43,12 +43,8 @@ router.post('/follow/:username', async (req, res, next) => {
     self.following.push(username);
     toFollow.followers.push(self.username);
     try {
-        console.log("self", self);
-        console.log("toFollow", toFollow);
         await self.save();
-        console.log("made it here");
         toFollow = await toFollow.save();
-        console.log("made it here");
     } catch (e) {
         console.log(e);
         return res.status(500).json({

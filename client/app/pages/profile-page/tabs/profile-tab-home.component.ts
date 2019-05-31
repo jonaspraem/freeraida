@@ -37,6 +37,7 @@ export class ProfileTabHomeComponent implements OnDestroy {
         this._subscriptions['activeUser'] = this._profilePageService.activeUserProfile$.subscribe(
             profile => {
                 if (!!profile) {
+                    // TODO check for feed changes
                     this.userProfile = profile;
                     this._subscriptions['feed'] = this._postService.getUserFeed(profile.username).subscribe(
                         feed => this.userFeed = feed);

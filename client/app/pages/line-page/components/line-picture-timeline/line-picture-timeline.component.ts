@@ -21,7 +21,6 @@ export class LinePictureTimelineComponent implements OnInit {
         this.imageAttachedLocations = this.line.locations.filter(loc => Array.isArray(loc.images));
         this.imageAttachedLocations.map(loc => this.imageCount += loc.images.length);
         this.activeImageUrl = this.imageAttachedLocations[0].images[0];
-        console.log(this.imageAttachedLocations);
         setInterval(() => {
             this.toggleImage();
         }, 5000);

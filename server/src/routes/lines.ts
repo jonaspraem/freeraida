@@ -40,12 +40,10 @@ router.get('/user/:username', async (req, res, next) => {
             line.locations = await Location.find({'_id': {$in: line.locations}});
             return line;
         });
-        console.log("promise", promises);
         await Promise.all(promises).then(transformedLines => {
             console.log(transformedLines);
             lines = transformedLines;
         });
-        console.log("line", lines);
     } catch (e) {
         console.log(e);
         return res.status(500).json({

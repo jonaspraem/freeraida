@@ -23,7 +23,7 @@ export class ProfilePageService implements OnDestroy {
 
     public updateUserProfile(profile: IUserProfile) {
         profile.isSelf = profile.username === this.selfUserProfile.username;
-        profile.isFollowing = this._socialService.isFollowing(this.selfUserProfile, profile.username);
+        profile.isFollowing = this._socialService.isFollowed(profile, this.selfUserProfile.username);
         this._activeUserProfile.next(profile);
     }
 

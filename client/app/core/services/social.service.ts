@@ -27,6 +27,10 @@ export class SocialService {
         return this._http.post<IUserProfile>(this._config.getEndpoint() + '/api/social/unfollow/' + username, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
+    public isFollowed(toCheck: IUserProfile, username: string): boolean {
+        return toCheck.followers.indexOf(username) > -1;
+    }
+
     public isFollowing(self: IUserProfile, username: string): boolean {
         return self.following.indexOf(username) > -1;
     }

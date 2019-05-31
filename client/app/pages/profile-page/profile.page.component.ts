@@ -51,7 +51,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         });
 
         this._profilePageService.activeUserProfile$.subscribe(profile => {
-            console.log("new profile", profile);
             this.profile = profile;
         });
     }
