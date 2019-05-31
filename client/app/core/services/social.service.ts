@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { CONFIG } from "../../dictionary/config";
 import { IUserProfile } from "../../models/interfaces/types";
-import { ProfileService } from "./profile.service";
+import { Observable } from "rxjs";
 
 @Injectable()
 
@@ -11,27 +11,20 @@ export class SocialService {
     constructor(
         private _http: HttpClient,
         private _config: CONFIG,
-        private _profileService: ProfileService
     ) {}
 
-    public followUser(username: string): void {
+    public followUser(username: string): Observable<IUserProfile> {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('api_token');
-        this._http.post<IUserProfile>(this._config.getEndpoint() + '/api/social/follow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)})
-            .subscribe(profile => {
-                this._profileService.updateUserProfile(profile);
-            });
+        return this._http.post<IUserProfile>(this._config.getEndpoint() + '/api/social/follow/' + username, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
-    public unfollowUser(username: string): void {
+    public unfollowUser(username: string): Observable<IUserProfile> {
         const body = '';
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const token = localStorage.getItem('api_token');
-        this._http.post<IUserProfile>(this._config.getEndpoint() + '/api/social/unfollow/'+username, body, {headers: headers, params: new HttpParams().set('token', token)})
-            .subscribe(profile => {
-                this._profileService.updateUserProfile(profile);
-            });
+        return this._http.post<IUserProfile>(this._config.getEndpoint() + '/api/social/unfollow/' + username, body, {headers: headers, params: new HttpParams().set('token', token)});
     }
 
     public isFollowing(self: IUserProfile, username: string): boolean {

@@ -25,6 +25,7 @@ $hero-image-size: 250px;
     }
 
     &__tab--active {
+        outline: none;
         cursor: pointer;
         border-bottom: 2px solid $color-accent;
 

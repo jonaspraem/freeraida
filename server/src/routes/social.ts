@@ -56,10 +56,7 @@ router.post('/follow/:username', async (req, res, next) => {
             message: 'Error saving the user profiles'
         });
     }
-    return res.status(200).json({
-        message: 'User successfully followed',
-        obj: toFollow
-    });
+    return res.status(200).json(toFollow);
 });
 
 // Un-follow user
@@ -96,10 +93,7 @@ router.post('/unfollow/:username', async (req, res, next) => {
             message: 'Error saving the user profiles'
         });
     }
-    return res.status(200).json({
-        message: 'User successfully unfollowed',
-        obj: toUnfollow
-    });
+    return res.status(200).json(toUnfollow);
 });
 
 module.exports = router;

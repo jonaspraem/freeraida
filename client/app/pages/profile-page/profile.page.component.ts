@@ -50,7 +50,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
             this._profilePageService.setActiveUsername(params.username);
         });
 
-        this._profileService.userProfile$.subscribe(profile => this.profile = profile);
+        this._profilePageService.activeUserProfile$.subscribe(profile => {
+            console.log("new profile", profile);
+            this.profile = profile;
+        });
     }
 
     public ngOnDestroy(): void {

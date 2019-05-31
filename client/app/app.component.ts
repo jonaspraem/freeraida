@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import '../styles/styles.scss';
 import { FLAG_DICTIONARY } from "./dictionary/flag-dictionary";
-import { Event, NavigationStart, Router } from "@angular/router";
-import { ProfileService } from "./core/services/profile.service";
+import { Event, NavigationEnd, NavigationStart, Router } from "@angular/router";
 import { routerTransition } from "./shared/animations/router-transition.animation";
 
 @Component({
@@ -16,13 +15,20 @@ export class AppComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private profileService: ProfileService
     ) {}
 
     ngOnInit() {
         this.router.events.subscribe((event: Event) => {
             if(event instanceof NavigationStart) {
                 this.isComponentApp = !(this.nonAppUrls.indexOf(event.url) > -1);
+            }
+            if (event instanceof NavigationEnd) {
+                // Scroll to top on route change
+                if (event.url.startsWith('/user/') && event.urlAfterRedirects.startsWith('/user/')) {
+                    // Exceptions
+                    return;
+                }
+                window.scrollTo(0, 0)
             }
         });
         FLAG_DICTIONARY.initialize();

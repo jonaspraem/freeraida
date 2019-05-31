@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy } from "@angular/core";
 import { IPost, IProfileRelativeInfo, IUserProfile } from "../../../models/interfaces/types";
 import { ProfilePageService } from "../profile-page.service";
 import { PostService } from "../../../core/services/post.service";
@@ -29,6 +29,7 @@ export class ProfileTabHomeComponent implements OnDestroy {
     constructor(
         private _profilePageService: ProfilePageService,
         private _postService: PostService,
+        private _cdRef: ChangeDetectorRef
     ) {}
 
     public ngOnInit(): void {
@@ -36,6 +37,8 @@ export class ProfileTabHomeComponent implements OnDestroy {
             profile => {
                 if (!!profile) {
                     this.userProfile = profile;
+                    console.log("new profile from tab", this.userProfile);
+                    this._cdRef.detectChanges();
                     this._subscriptions['feed'] = this._postService.getUserFeed(profile.username).subscribe(
                         feed => this.userFeed = feed);
                 }

@@ -16,8 +16,11 @@
     text-transform: uppercase;
     border-radius: 5px;
 
-    &:hover, &:focus {
+    &:hover {
         background-color: rgba($color-primary, .85);
+    }
+
+    &:focus {
         outline: none;
     }
 
