@@ -11,6 +11,7 @@ import { ProfilePageService } from "../../../pages/profile-page/profile-page.ser
 
 export class ProfileInfoCardComponent {
     @Input() userProfile: IUserProfile;
+    public isWaiting: boolean = false;
 
     constructor(
         private _socialService: SocialService,
@@ -19,11 +20,25 @@ export class ProfileInfoCardComponent {
     ) {}
 
     public onToggle(): void {
+        if (this.isWaiting) {
+            return;
+        }
+        this.isWaiting = true;
         this.userProfile.isFollowing ?
             this._socialService.unfollowUser(this.userProfile.username)
-                .subscribe(profile => this._profilePageService.updateUserProfile(profile))
+                .subscribe(profile => {
+                    this._profilePageService.updateUserProfile(profile);
+                    this.isWaiting = false;
+                })
             :
             this._socialService.followUser(this.userProfile.username)
-                .subscribe(profile => this._profilePageService.updateUserProfile(profile));
+                .subscribe(profile => {
+                    this._profilePageService.updateUserProfile(profile);
+                    this.isWaiting = false;
+                });
+    }
+
+    private wait(): void {
+
     }
 }

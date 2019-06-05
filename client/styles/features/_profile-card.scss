@@ -45,7 +45,8 @@ $card-border: 2px solid $color-white;
     }
 
     &__stat-number {
-        font-weight: 500;
+        font-weight: 600;
+        font-size: 20px;
         color: $color-accent
     }
 }

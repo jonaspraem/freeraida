@@ -5,5 +5,31 @@
         </div>
         <div class="profile-info-card__name">{{ userProfile?.fullname }}</div>
     </div>
-    <button *ngIf="!userProfile?.isSelf" class="button-primary" (click)="onToggle()">{{ userProfile?.isFollowing ? 'FOLLOWING' : 'FOLLOW'}}</button>
+    <div class="profile-info-card__row">
+        <h5 class="profile-info-card__username">@{{ userProfile?.username }}</h5>
+    </div>
+    <div class="profile-info-card__row">
+        <button *ngIf="!userProfile?.isSelf"
+                class="button-primary"
+                (click)="onToggle()"
+                [ngClass]="userProfile?.isFollowing ? 'button-primary--active' : ''"
+        >{{ userProfile?.isFollowing ? 'FOLLOWING' : 'FOLLOW'}}</button>
+    </div>
+    <hr>
+    <div class="profile-info-card__row">
+        <div class="profile-info-card__stats">
+            <div>
+                <div>Posts</div>
+                <div class="profile-card__stat-number">{{userProfile?.posts?.length}}</div>
+            </div>
+            <div>
+                <div>Following</div>
+                <div class="profile-card__stat-number">{{userProfile?.following?.length}}</div>
+            </div>
+            <div>
+                <div>Followers</div>
+                <div class="profile-card__stat-number">{{userProfile?.followers?.length}}</div>
+            </div>
+        </div>
+    </div>
 </div>

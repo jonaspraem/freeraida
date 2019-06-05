@@ -27,6 +27,10 @@
     &:disabled {
         opacity: 0.65;
     }
+
+    &--active {
+        background-color: rgba($color-secondary-rock, 1);
+    }
 }
 
 .button {
