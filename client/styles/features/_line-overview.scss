@@ -52,6 +52,13 @@
         }
     }
 
+    &__edit-button {
+        position: absolute;
+        bottom: 195px;
+        right: 55%;
+        z-index: 11;
+    }
+
     &__color-box {
         position: absolute;
         top: 80px;

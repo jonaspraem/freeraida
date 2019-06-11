@@ -59,6 +59,27 @@
     }
 }
 
+.button-edit {
+    padding: 10px 35px;
+    color: $color-primary;
+    border: 3px solid $color-primary;
+    background: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 8px;
+
+    &:focus {
+        outline: none;
+    }
+
+    &--white {
+        color: $color-white;
+        border: 3px solid $color-white;
+    }
+}
+
 .button-action {
     height: 40px;
     width: 100px;
