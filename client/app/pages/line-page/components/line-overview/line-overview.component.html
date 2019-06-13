@@ -7,11 +7,11 @@
                 <app-line-map [line]="line" [height]="500"></app-line-map>
             </div>
             <div class="line-overview__edit-button" *ngIf="isOwn">
-                <button class="button-edit button-edit--white">Edit</button>
+                <button class="button-edit button-edit--white" (click)="setEdit()">Edit</button>
             </div>
         </div>
         <div class="line-overview__header width-container">
-            <h1>{{ line.name }}</h1>
+            <h1 [contentEditable]="isEdit">{{ line.name + isEdit }}</h1>
             <h3>{{ line.sport }}</h3>
         </div>
     </div>

@@ -8,13 +8,15 @@ import { CommonModule } from "@angular/common";
 import { Ng2GoogleChartsModule } from "ng2-google-charts";
 import { LinePictureTimelineComponent } from "./components/line-picture-timeline/line-picture-timeline.component";
 import { ArrowsModule } from "../../components/arrows/arrows.module";
+import { LineEditOverlayComponent } from "./components/line-edit-overlay/line-edit-overlay.component";
 
 @NgModule({
     declarations: [
         LinePageComponent,
         LineOverviewComponent,
         LineHeightMapComponent,
-        LinePictureTimelineComponent
+        LinePictureTimelineComponent,
+        LineEditOverlayComponent
     ],
     entryComponents: [
         LinePageComponent

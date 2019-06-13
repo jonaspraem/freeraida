@@ -11,6 +11,7 @@ import { ILine } from "../../models/interfaces/types";
 export class LinePageComponent implements OnInit {
     public line: ILine;
     public hasImages: boolean = false;
+    public isEdit: boolean = false;
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -28,7 +29,15 @@ export class LinePageComponent implements OnInit {
     }
 
     private checkImages(line: ILine): void {
-        const imageAttachedLocations = this.line.locations.filter(loc => Array.isArray(loc.images));
+        const imageAttachedLocations = line.locations.filter(loc => Array.isArray(loc.images));
         this.hasImages = imageAttachedLocations.length > 0;
+    }
+
+    public toggleEdit(value?: boolean): void {
+        if (value != null) {
+            this.isEdit = value;
+        } else {
+            this.isEdit = !this.isEdit;
+        }
     }
 }
