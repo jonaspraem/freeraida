@@ -33,10 +33,18 @@ export class LineService {
         return this.http.get<ILine[]>(this.config.getEndpoint() + '/api/line/user/'+username, {headers: headers, params: new HttpParams().set('token', token)})
     }
 
-    public getLine(id: string): Observable<any> {
+    public getLine(id: string): Observable<ILine> {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         return this.http.get<ILine>(this.config.getEndpoint() + '/api/line/get/' + id, {headers: headers})
     }
+
+    public updateLine(line: ILine): Observable<ILine> {
+        const body = JSON.stringify(line);
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('api_token');
+        return this.http.patch<ILine>(this.config.getEndpoint() + '/api/line/' + line._id, body, {headers: headers, params: new HttpParams().set('token', token)});
+    }
+
     //
     // addLine(line: Line) {
     //     const body = JSON.stringify(line);

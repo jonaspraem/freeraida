@@ -9,6 +9,7 @@ export interface ILocation extends mongoose.Document {
     timeFromLast: string;
     distanceFromStart: number;
     distanceFromLast: number;
+    country?: string;
     images?: string[];
 }
 
@@ -21,6 +22,10 @@ const schema = new mongoose.Schema({
     timeFromLast: {type: String},
     distanceFromStart: {type: Number},
     distanceFromLast: {type: Number}
+});
+
+schema.pre<ILocation>("save", function(next) {
+    // Lookup country
 });
 
 const Location = mongoose.model<ILocation>('Location', schema);

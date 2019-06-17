@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="line-overview__header width-container">
-            <h1 [contentEditable]="isEdit">{{ line.name + isEdit }}</h1>
+            <h1 [contentEditable]="isEdit" (blur)="line.name = $event.target.innerText">{{ line.name }}</h1>
             <h3>{{ line.sport }}</h3>
         </div>
     </div>

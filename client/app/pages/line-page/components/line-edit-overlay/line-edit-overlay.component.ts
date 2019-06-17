@@ -7,10 +7,10 @@ import { Component, EventEmitter, Output } from "@angular/core";
 
 export class LineEditOverlayComponent {
     @Output() notifyEdit: EventEmitter<boolean> = new EventEmitter();
+    @Output() saveEdit: EventEmitter<any> = new EventEmitter();
 
     public finishEdit(): void {
-        // save
-        this.notifyEdit.emit(false);
+        this.saveEdit.emit();
     }
 
     public cancelEdit(): void {
