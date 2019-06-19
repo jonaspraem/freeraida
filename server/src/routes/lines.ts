@@ -142,17 +142,14 @@ router.patch('/:id', async (req, res, next) => {
         return res.status(404);
     }
     const lineFromProfile = userProfile.lines.indexOf(id) > -1;
-    console.log("patching line " + req.params.id, userProfile.lines, lineFromProfile);
     if (!lineFromProfile) {
         // not owned by requester
         return res.status(403);
     }
     const newLine: ILine = req.body;
-    console.log("newline", newLine);
     // Only override allowed properties
     line.name = newLine.name;
     line.discipline = newLine.discipline;
-    console.log("made it here");
 
     await line.save();
     return res.status(200).json(line);

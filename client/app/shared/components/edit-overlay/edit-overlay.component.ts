@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 
 @Component({
-    selector: 'app-line-edit-overlay',
-    templateUrl: './line-edit-overlay.component.html'
+    selector: 'app-edit-overlay',
+    templateUrl: './edit-overlay.component.html'
 })
 
-export class LineEditOverlayComponent {
+export class EditOverlayComponent {
     @Output() notifyEdit: EventEmitter<boolean> = new EventEmitter();
     @Output() saveEdit: EventEmitter<any> = new EventEmitter();
 

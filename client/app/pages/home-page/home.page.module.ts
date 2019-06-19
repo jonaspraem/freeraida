@@ -1,14 +1,13 @@
 import { NgModule } from "@angular/core";
 import { HomePageComponent } from "./home.page.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { CommonModule } from "@angular/common";
-import { ProfileCardComponent } from "../../components/profile-card/profile-card.component";
-import { PostModule } from "../../components/post-module/post.module";
+import { PostModule } from "../../shared-modules/post-module/post.module";
+import { SharedModule } from "../../shared/shared.module";
+import { ProfileModule } from "../../shared-modules/profile-module/profile.module";
 
 @NgModule({
     declarations: [
         HomePageComponent,
-        ProfileCardComponent,
     ],
     exports: [
         HomePageComponent
@@ -18,8 +17,9 @@ import { PostModule } from "../../components/post-module/post.module";
     ],
     imports: [
         FontAwesomeModule,
-        CommonModule,
-        PostModule
+        PostModule,
+        SharedModule,
+        ProfileModule
     ]
 })
 

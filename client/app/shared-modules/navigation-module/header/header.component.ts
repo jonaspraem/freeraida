@@ -1,11 +1,11 @@
 import { Component, ElementRef, Inject, Input } from "@angular/core";
 import { DOCUMENT, NgClass } from "@angular/common";
-import { WINDOW } from "../../core/services/window.service";
-import { ProfileService } from "../../core/services/profile.service";
-import { IUserProfile } from "../../models/interfaces/types";
+import { WINDOW } from "../../../core/services/window.service";
+import { ProfileService } from "../../../core/services/profile.service";
+import { IUserProfile } from "../../../models/interfaces/types";
 
-const logoImage = require('../../../images/logo/favicon.png');
-const defaultProfileImage = require('../../../images/rider/profile-image.jpg');
+const logoImage = require('../../../../images/logo/favicon.png');
+const defaultProfileImage = require('../../../../images/rider/profile-image.jpg');
 
 @Component({
     host: {

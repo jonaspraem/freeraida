@@ -1,16 +1,26 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ActionArrowLeftComponent } from "../components/arrows/action-arrow-left.component";
-import { ArrowsModule } from "../components/arrows/arrows.module";
+import { EditOverlayComponent } from "./components/edit-overlay/edit-overlay.component";
+import { ActionArrowLeftComponent } from "./components/action-arrow-left.component";
+
+/**
+ * @author JP
+ * Purpose of this module is to hold all shared components which doesn't not match with any of the packaged shared modules.
+ * A module package is always preferred over having the component declared here.
+ */
 
 @NgModule({
+    declarations: [
+        ActionArrowLeftComponent,
+        EditOverlayComponent,
+    ],
     imports: [
         CommonModule,
-        ArrowsModule,
     ],
     exports: [
         CommonModule,
-        ArrowsModule
+        ActionArrowLeftComponent,
+        EditOverlayComponent
     ]
 })
 

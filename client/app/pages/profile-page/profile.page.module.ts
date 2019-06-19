@@ -1,21 +1,18 @@
 import { NgModule } from "@angular/core";
 import { ProfilePageComponent } from "./profile.page.component";
-import { ProfileHeaderComponent } from "../../components/profile-header/profile-header.component";
 import { SharedModule } from "../../shared/shared.module";
-import { PostModule } from "../../components/post-module/post.module";
-import { LineModule } from "../../components/line-module/line.module";
-import { ProfileInfoCardComponent } from "../../components/profile-module/profile-info-card/profile-info-card.component";
 import { ProfilePageService } from "./profile-page.service";
 import { profileRoutes } from "./profile.routing";
 import { ProfileTabLineHistoryComponent } from "./tabs/profile-tab-line-history.component";
 import { ProfileTabHomeComponent } from "./tabs/profile-tab-home.component";
 import { RouterModule } from "@angular/router";
+import { PostModule } from "../../shared-modules/post-module/post.module";
+import { LineModule } from "../../shared-modules/line-module/line.module";
+import { ProfileModule } from "../../shared-modules/profile-module/profile.module";
 
 @NgModule({
     declarations: [
         ProfilePageComponent,
-        ProfileHeaderComponent,
-        ProfileInfoCardComponent,
         ProfileTabLineHistoryComponent,
         ProfileTabHomeComponent
     ],
@@ -24,6 +21,7 @@ import { RouterModule } from "@angular/router";
         SharedModule,
         PostModule,
         LineModule,
+        ProfileModule,
     ],
     exports: [
         ProfilePageComponent,

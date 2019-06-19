@@ -12,8 +12,6 @@ import { CONFIG } from "./dictionary/config";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CoreModule } from "./core/core.module";
 import { MDBBootstrapModule } from "angular-bootstrap-md";
-import { HeaderComponent } from "./components/header/header.component";
-import { UserNavMenuComponent } from "./components/header/user-nav-menu/user-nav-menu.component";
 import { CommonModule } from "@angular/common";
 import {
     MatButtonToggleModule,
@@ -27,20 +25,15 @@ import {
 import { WINDOW_PROVIDERS } from "./core/services/window.service";
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { LineModule } from "./components/line-module/line.module";
 import { ChartsModule } from "ng2-charts";
-import { SidenavComponent } from "./components/sidenav/sidenav.component";
-import { ProfilePageModule } from "./pages/profile-page/profile.page.module";
 import { HomePageModule } from "./pages/home-page/home.page.module";
-import { ArrowsModule } from "./components/arrows/arrows.module";
 import { SharedModule } from "./shared/shared.module";
+import { LineModule } from "./shared-modules/line-module/line.module";
+import { NavigationModule } from "./shared-modules/navigation-module/navigation.module";
 
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent,
-        UserNavMenuComponent,
-        SidenavComponent
     ],
     imports: [
         appRouting,
@@ -54,6 +47,8 @@ import { SharedModule } from "./shared/shared.module";
         CoreModule,
         CommonModule,
         LineModule,
+        NavigationModule,
+        SharedModule,
         HomePageModule,
         FontAwesomeModule,
         ChartsModule,

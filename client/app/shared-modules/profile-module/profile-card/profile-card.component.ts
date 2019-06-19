@@ -1,8 +1,8 @@
 import { Component, Input } from "@angular/core";
-import { IUserProfile } from "../../models/interfaces/types";
+import { IUserProfile } from "../../../models/interfaces/types";
 
-const mockImage = require('../../../images/backgrounds/nevada-drawing.jpg');
-const defaultProfileImage = require('../../../images/rider/profile-image.jpg');
+const mockImage = require('../../../../images/backgrounds/nevada-drawing.jpg');
+const defaultProfileImage = require('../../../../images/rider/profile-image.jpg');
 
 @Component({
     selector: 'app-profile-card',
