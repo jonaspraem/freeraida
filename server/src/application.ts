@@ -29,6 +29,9 @@ class Application {
         const lineRoutes = require('./routes/lines');
         const locationServiceRoutes = require('./routes/location-service');
 
+        // Carabiner
+        const carabinerRoutes = require('./routes/carabiner');
+
         mongoose.connect('mongodb://test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database', {
             useMongoClient: true
         });
@@ -79,12 +82,17 @@ class Application {
             next();
         });
 
+        // Web app
         this.express.use('/api/authentication', authRoutes);
         this.express.use('/api/user-profile', userProfileRoutes);
         this.express.use('/api/post', postRoutes);
         this.express.use('/api/social', socialRoutes);
         this.express.use('/api/line', lineRoutes);
         this.express.use('/api/location-service', locationServiceRoutes);
+
+        // Carabiner
+        this.express.use('/api/carabiner', carabinerRoutes);
+
         this.express.use('/', index);
 
         // catch 404 and forward to error handler
