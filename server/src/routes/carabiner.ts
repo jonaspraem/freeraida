@@ -22,34 +22,42 @@ const calculateDistance = (p1, p2) => {
 router.get('/', async (req, res, next) => {
     const temp: IProblem[] = [
         {
+            id: 'ic01',
             latitude: 37.7340673,
             longitude: -119.6397086,
         },
         {
+            id: 'ic02',
             latitude: 37.730942,
             longitude:  -119.633964,
         },
         {
+            id: 'ic03',
             latitude: 37.731694,
             longitude: -119.640278,
         },
         {
+            id: 'ic04',
             latitude: 37.734545,
             longitude:  -119.641812,
         },
         {
+            id: 'ic05',
             latitude: 37.730012,
             longitude:  -119.638239,
         },
         {
+            id: 'ic06',
             latitude: 37.730880,
             longitude: -119.632914,
         },
         {
+            id: 'ic07',
             latitude: 37.729170,
             longitude: -119.627435,
         },
         {
+            id: 'ic08',
             latitude: 37.731135,
             longitude:  -119.639949,
         },
@@ -59,45 +67,60 @@ router.get('/', async (req, res, next) => {
 
 router.get('/from-location/', async (req, res, next) => {
     const myLocation: IProblem = {
+        id: 'mas',
         latitude: 37.729264,
         longitude:  -119.640230
     };
     const savedLocation: IProblem[] = [
         {
+            id: 'ic01',
             latitude: 37.7340673,
             longitude: -119.6397086,
         },
         {
-            latitude: 27.795849,
-            longitude: -103.963623,
-        },
-        {
+            id: 'ic02',
             latitude: 37.730942,
             longitude:  -119.633964,
         },
         {
+            id: 'ic03',
             latitude: 37.731694,
             longitude: -119.640278,
         },
         {
+            id: 'ic04',
             latitude: 37.734545,
             longitude:  -119.641812,
         },
         {
+            id: 'ic05',
             latitude: 37.730012,
             longitude:  -119.638239,
         },
         {
+            id: 'ic06',
             latitude: 37.730880,
             longitude: -119.632914,
         },
         {
+            id: 'ic07',
             latitude: 37.729170,
             longitude: -119.627435,
         },
         {
+            id: 'ic08',
             latitude: 37.731135,
             longitude:  -119.639949,
+        },
+        {
+            id: 'ic09',
+            latitude: 37.229170,
+            longitude: -112.627435,
+        },
+        {
+            id: 'ic10',
+            latitude: 35.731135,
+            longitude:  -112.639949,
         },
     ];
 
