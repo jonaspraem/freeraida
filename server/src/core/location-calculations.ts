@@ -15,7 +15,7 @@ const rad = (deg) => {
  * Returning distance in km
  * using the haversine formula
  */
-const calculateDistanceBetween = (p1: ICoordinate, p2: ICoordinate): number => {
+export const calculateDistanceBetween = (p1: ICoordinate, p2: ICoordinate): number => {
     const R = 6371; // Radius of the earth in km
     const dLat = rad(p2.latitude - p1.latitude);
     const dLon = rad(p2.longitude - p1.longitude);

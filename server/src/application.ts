@@ -30,7 +30,7 @@ class Application {
         const locationServiceRoutes = require('./routes/location-service');
 
         // Carabiner
-        const carabinerRoutes = require('./routes/carabiner');
+        const carabinerRoutes = require('./routes/carabiner/carabiner');
 
         mongoose.connect('mongodb://test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database', {
             useMongoClient: true
