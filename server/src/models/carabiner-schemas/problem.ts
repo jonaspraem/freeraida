@@ -1,6 +1,7 @@
-export interface IProblem {
+import { ICoordinate } from "../types/coordinate";
+
+export interface IProblem extends ICoordinate {
     id: string;
-    latitude: number;
-    longitude: number;
+    rawGrade: number;
 }
 
