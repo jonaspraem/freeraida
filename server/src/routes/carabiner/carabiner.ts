@@ -73,7 +73,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/from-location/', async (req, res, next) => {
     // get query parameters
-    const { latitude, longitude, gradeSystem } = req.query;
+    const { latitude, longitude, grading,  } = req.query;
 
     const myLocation: ICoordinate = {
         latitude,
