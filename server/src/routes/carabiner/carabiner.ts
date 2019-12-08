@@ -73,7 +73,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/from-location/', async (req, res, next) => {
     // get query parameters
-    const { latitude, longitude, grading,  } = req.query;
+    const { latitude, longitude, grading, searchRadius  } = req.query;
 
     const myLocation: ICoordinate = {
         latitude,
@@ -81,8 +81,7 @@ router.get('/from-location/', async (req, res, next) => {
     };
 
     const acceptedLocation: IProblem[] = [];
-    
-    const searchRadius = 2; // km
+
     // for alle savedLocations
     await savedLocation.forEach(item => {
         const distance = calculateDistanceBetween(item, myLocation);
