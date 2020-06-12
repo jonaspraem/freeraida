@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { SPORTS } from "../types/sports";
 const mongooseUniqueValidator = require('mongoose-unique-validator');
 
 export interface IUserProfile extends mongoose.Document {
@@ -8,6 +9,7 @@ export interface IUserProfile extends mongoose.Document {
     fullname: string;
     country: string;
     bio: string;
+    sports: SPORTS[];
     social_twitter: string;
     social_instagram: string;
     posts: mongoose.Schema.Types.ObjectId[];
@@ -24,6 +26,7 @@ const schema = new mongoose.Schema({
     fullname: {type: String, required: true},
     country: {type: String, required: false},
     bio: {type: String, required: false},
+    sports: [{type: String, required: false}],
     social_twitter: {type: String, required: false},
     social_instagram: {type: String, required: false},
     posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
@@ -36,5 +39,6 @@ const schema = new mongoose.Schema({
 });
 
 schema.plugin(mongooseUniqueValidator);
+
 const UserProfile = mongoose.model<IUserProfile>('UserProfile', schema);
 export default UserProfile;

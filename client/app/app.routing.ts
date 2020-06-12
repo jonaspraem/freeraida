@@ -10,6 +10,7 @@ const APP_ROUTES: Routes = [
     { path: 'line-creator', component: LineCreatorPageComponent, canActivate: [AuthGuard] },
     { path: 'user', loadChildren: './pages/profile-page/profile.page.module#ProfilePageModule' },
     { path: 'line', loadChildren: './pages/line-page/line.page.module#LinePageModule' },
+    { path: 'settings', loadChildren: './pages/settings-page/settings.page.module#SettingsPageModule' },
 ];
 
 export const appRouting = RouterModule.forRoot(APP_ROUTES);

@@ -7,16 +7,15 @@ const keys = require('../../config/keys');
 // Get user profile
 router.get('/user/:username', async (req, res, next) => {
     let profile;
+
     try {
         profile = await UserProfile.findOne({username: req.params.username});
         if (!profile) throw new Error();
         profile = profile.toObject(); // To make the line mutable
     } catch (e) {
-        return res.status(404).json({
-            title: 'An error occurred',
-            message: 'Error looking up user'
-        });
+        return res.status(404).json('Error looking up user');
     }
+
     return res.status(200).json(profile);
 });
 
@@ -46,6 +45,7 @@ router.use('/', async (req, res, next) => {
             message: 'Token couldn\'t be identified'
         });
     }
+
     next();
 });
 
@@ -69,6 +69,7 @@ router.get('/user-info', async (req, res, next) => {
 router.patch('/edit-profile', async (req, res, next) => {
     const decoded = jwt.decode(req.query.token);
     let profile;
+
     try {
         profile = await UserProfile.findById(decoded.id);
     } catch (e) {
@@ -77,11 +78,14 @@ router.patch('/edit-profile', async (req, res, next) => {
             message: 'No profile matching the id'
         });
     }
+
     // Edit variables
     profile.representation = req.body.representation;
     profile.bio = req.body.bio;
     profile.social_twitter = req.body.social_twitter;
     profile.social_instagram = req.body.social_instagram;
+    profile.sports = req.body.sports;
+
     try {
         await profile.save();
     } catch (e) {
@@ -90,6 +94,7 @@ router.patch('/edit-profile', async (req, res, next) => {
             message: 'Something happened when saving the user'
         });
     }
+
     return res.status(201).json(profile);
 });
 
