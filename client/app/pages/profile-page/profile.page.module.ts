@@ -9,12 +9,17 @@ import { RouterModule } from "@angular/router";
 import { PostModule } from "../../shared-modules/post-module/post.module";
 import { LineModule } from "../../shared-modules/line-module/line.module";
 import { ProfileModule } from "../../shared-modules/profile-module/profile.module";
+import { ProfileTabFollowersComponent } from "./tabs/profile-tab-followers.component";
+import { NgxMasonryModule } from "ngx-masonry";
+import { ProfileTabFollowingComponent } from "./tabs/profile-tab-following.component";
 
 @NgModule({
     declarations: [
         ProfilePageComponent,
         ProfileTabLineHistoryComponent,
-        ProfileTabHomeComponent
+        ProfileTabHomeComponent,
+        ProfileTabFollowingComponent,
+        ProfileTabFollowersComponent
     ],
     imports: [
         profileRoutes,
@@ -22,6 +27,7 @@ import { ProfileModule } from "../../shared-modules/profile-module/profile.modul
         PostModule,
         LineModule,
         ProfileModule,
+        NgxMasonryModule,
     ],
     exports: [
         ProfilePageComponent,

@@ -32,6 +32,23 @@ $side-padding: 15px;
     padding-right: $side-padding;
 }
 
+.grid-half {
+    width: 50%;
+}
+
+.grid-third {
+    width: 33.33%;
+}
+
+.masonry-item {
+    margin-bottom: 20px;
+    width: calc((100%  - 40px) / 3);
+}
+
+.flex {
+    display: flex;
+}
+
 .list-reset {
     margin: 0;
     padding: 0;

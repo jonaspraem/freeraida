@@ -34,4 +34,16 @@ export class SocialService {
     public isFollowing(self: IUserProfile, username: string): boolean {
         return self.following.indexOf(username) > -1;
     }
+
+    public getFollowers(username: string): Observable<IUserProfile[]> {
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('api_token');
+        return this._http.get<IUserProfile[]>(this._config.getEndpoint() + '/api/social/followers/' + username, {headers: headers, params: new HttpParams().set('token', token)})
+    }
+
+    public getFollowing(username: string): Observable<IUserProfile[]> {
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('api_token');
+        return this._http.get<IUserProfile[]>(this._config.getEndpoint() + '/api/social/following/' + username, {headers: headers, params: new HttpParams().set('token', token)})
+    }
 }

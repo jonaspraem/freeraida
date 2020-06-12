@@ -4,6 +4,7 @@ $card-border: 2px solid $color-white;
     position: relative;
     background-color: $color-white;
     padding-bottom: 20px;
+    box-shadow: $effect-box-shadow-card;
 
     &__cover-image {
         width: 100%;

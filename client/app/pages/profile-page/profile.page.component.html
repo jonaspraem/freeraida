@@ -19,11 +19,11 @@
                         Lines
                         <span>{{ profile?.lines?.length }}</span>
                     </li>
-                    <li>
+                    <li [routerLink]="['following']" routerLinkActive="profile__tab--active">
                         Following
                         <span>{{ profile?.following?.length }}</span>
                     </li>
-                    <li>
+                    <li [routerLink]="['followers']" routerLinkActive="profile__tab--active">
                         Followers
                         <span>{{ profile?.followers?.length }}</span>
                     </li>

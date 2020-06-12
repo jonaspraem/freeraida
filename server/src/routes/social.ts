@@ -1,5 +1,7 @@
 import * as express from 'express';
-import UserProfile from '../models/schemas/user-profile';
+import UserProfile, { IUserProfile } from '../models/schemas/user-profile';
+import {ILine} from "../models/schemas/line";
+import Location from "../models/schemas/location";
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
@@ -90,6 +92,60 @@ router.post('/unfollow/:username', async (req, res, next) => {
         });
     }
     return res.status(200).json(toUnfollow);
+});
+
+router.get('/followers/:username', async (req, res, next) => {
+    const username = req.params.username;
+    let user: IUserProfile;
+    let followers: IUserProfile[] = [];
+
+    try {
+        user = await UserProfile.findOne({username: username});
+    } catch (e) {
+        return res.status(404).json('No user found');
+    }
+
+    const promises = await user.followers.map(async (followerUsername) => {
+        let follower;
+
+        try {
+            follower = await UserProfile.findOne({username: followerUsername});
+            follower = follower.toObject(); // To make the line mutable
+            followers.push(follower);
+        } catch (e) {}
+    });
+
+    await Promise.all(promises);
+
+    return res.status(200).json(followers);
+});
+
+router.get('/following/:username', async (req, res, next) => {
+    const username = req.params.username;
+    let user: IUserProfile;
+    let followingUsers: IUserProfile[] = [];
+
+    try {
+        user = await UserProfile.findOne({username: username});
+    } catch (e) {
+        return res.status(404).json('No user found');
+    }
+
+
+    const promises = await user.following.map(async (followingUsername) => {
+        console.log(followingUsername);
+        let following;
+
+        try {
+            following = await UserProfile.findOne({username: followingUsername});
+            following = following.toObject(); // To make the line mutable
+            followingUsers.push(following);
+        } catch (e) {}
+    });
+
+    await Promise.all(promises);
+
+    return res.status(200).json(followingUsers);
 });
 
 module.exports = router;

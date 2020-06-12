@@ -3,6 +3,7 @@ import { ProfileCardComponent } from "./profile-card/profile-card.component";
 import { ProfileInfoCardComponent } from "./profile-info-card/profile-info-card.component";
 import { ProfileHeaderComponent } from "./profile-header/profile-header.component";
 import { CommonModule } from "@angular/common";
+import { NgxMasonryModule } from "ngx-masonry";
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { CommonModule } from "@angular/common";
         ProfileHeaderComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        NgxMasonryModule
     ]
 })
 
