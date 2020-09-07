@@ -1,14 +1,15 @@
 body {
-    margin-right: -17px;
-    padding-right: -17px;
-    overflow-x: hidden;
+  margin-right: -17px;
+  padding-right: -17px;
+  overflow-x: hidden;
 }
 
 a {
-    color: inherit;
+  color: inherit;
 
-    &:hover, &:focus {
-        text-decoration: none;
-        color: inherit;
-    }
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: inherit;
+  }
 }

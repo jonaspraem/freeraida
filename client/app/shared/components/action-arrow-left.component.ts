@@ -1,25 +1,22 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'arrow-action-left',
-    template: `
-        <div class="arrow-action-left">
-            <div class="arrowSliding">
-                <div class="arrow"></div>
-            </div>
-            <div class="arrowSliding delay1">
-                <div class="arrow"></div>
-            </div>
-            <div class="arrowSliding delay2">
-                <div class="arrow"></div>
-            </div>
-            <div class="arrowSliding delay3">
-                <div class="arrow"></div>
-            </div>
-        </div>
-    `,
+  selector: 'arrow-action-left',
+  template: `
+    <div class="arrow-action-left">
+      <div class="arrowSliding">
+        <div class="arrow"></div>
+      </div>
+      <div class="arrowSliding delay1">
+        <div class="arrow"></div>
+      </div>
+      <div class="arrowSliding delay2">
+        <div class="arrow"></div>
+      </div>
+      <div class="arrowSliding delay3">
+        <div class="arrow"></div>
+      </div>
+    </div>
+  `,
 })
-
-export class ActionArrowLeftComponent {
-
-}
+export class ActionArrowLeftComponent {}

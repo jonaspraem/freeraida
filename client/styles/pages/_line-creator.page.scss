@@ -1,51 +1,51 @@
 .line-creator {
-    padding: 15px;
+  padding: 15px;
 
-    &__map {
-        height: 600px;
-        max-height: 100vh;
+  &__map {
+    height: 600px;
+    max-height: 100vh;
+  }
+
+  &__line-list {
+    background-color: $color-white;
+    box-shadow: $effect-box-shadow-standard;
+    margin-bottom: 100px;
+    min-height: 400px;
+
+    > mat-list-item {
+      border-bottom: 1px solid lightgray;
     }
 
-    &__line-list {
-        background-color: $color-white;
-        box-shadow: $effect-box-shadow-standard;
-        margin-bottom: 100px;
-        min-height: 400px;
-
-        > mat-list-item {
-            border-bottom: 1px solid lightgray;
-        }
-
-        &.mat-list-base {
-            padding: 40px 0 0 0;
-        }
+    &.mat-list-base {
+      padding: 40px 0 0 0;
     }
+  }
 
-    &__list-icon {
-        font-size: 30px;
-        height: 30px;
-        width: 30px;
+  &__list-icon {
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+  }
+
+  &__actions {
+    width: 400px;
+    margin-right: 20px;
+    padding: 40px 0;
+
+    > h4 {
+      font-size: 30px;
     }
+  }
 
-    &__actions {
-        width: 400px;
+  &__button-group {
+    display: flex;
+
+    > button {
+      flex: 1;
+
+      &:first-child {
         margin-right: 20px;
-        padding: 40px 0;
-
-        > h4 {
-            font-size: 30px;
-        }
+      }
     }
-
-    &__button-group {
-        display: flex;
-
-        > button {
-            flex: 1;
-
-            &:first-child {
-                margin-right: 20px;
-            }
-        }
-    }
+  }
 }

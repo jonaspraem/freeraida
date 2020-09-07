@@ -1,31 +1,29 @@
-<div class="app-navigation" [ngClass]="{'app-header--expanded': isExpanded, 'app-header--collapsed': !isExpanded}">
-    <div class="width-container" [ngStyle]="{display: 'flex'}">
-        <div class="grid-left">
-
-        </div>
-        <div class="grid-main">
-
-                <h1 class="app-navigation__header">
-                    <a [routerLink]="['/']">FREERAIDA</a>
-                </h1>
-        </div>
-        <div class="grid-right grid-right--align">
-            <div [ngStyle]="{display: 'inline-block'}">
-                <a [routerLink]="['/line-creator']">
-                    <i class="material-icons">add</i>
-                </a>
-            </div>
-            <div class="app-navigation__user-button"
-                 *ngIf="profileService.userProfile$ | async; let user"
-                 (click)="onToggleUserMenu()"
-                 [ngClass]="{'app-navigation__user-button--active': isUserMenuOpen}"
-            >
-                <img class="app-navigation__user-icon" [src]="defaultProfileImage" >
-                <span>{{user.firstname}} {{user.surname}}</span>
-                <ng-container *ngIf="isUserMenuOpen">
-                    <app-user-nav-menu [userProfile]="user"></app-user-nav-menu>
-                </ng-container>
-            </div>
-        </div>
+<div class="app-navigation" [ngClass]="{ 'app-header--expanded': isExpanded, 'app-header--collapsed': !isExpanded }">
+  <div class="width-container" [ngStyle]="{ display: 'flex' }">
+    <div class="grid-left"></div>
+    <div class="grid-main">
+      <h1 class="app-navigation__header">
+        <a [routerLink]="['/']">FREERAIDA</a>
+      </h1>
     </div>
+    <div class="grid-right grid-right--align">
+      <div [ngStyle]="{ display: 'inline-block' }">
+        <a [routerLink]="['/line-creator']">
+          <i class="material-icons">add</i>
+        </a>
+      </div>
+      <div
+        class="app-navigation__user-button"
+        *ngIf="profileService.userProfile$ | async; let user"
+        (click)="onToggleUserMenu()"
+        [ngClass]="{ 'app-navigation__user-button--active': isUserMenuOpen }"
+      >
+        <img class="app-navigation__user-icon" [src]="defaultProfileImage" />
+        <span>{{ user.firstname }} {{ user.surname }}</span>
+        <ng-container *ngIf="isUserMenuOpen">
+          <app-user-nav-menu [userProfile]="user"></app-user-nav-menu>
+        </ng-container>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,49 +1,49 @@
 $header-height: 400px;
 
 .profile-header {
-    width: 100%;
-    height: $header-height;
-    display: flex;
+  width: 100%;
+  height: $header-height;
+  display: flex;
 
-    &__image-container {
-        height: 100%;
-        width: $header-height;
-        padding: 60px;
+  &__image-container {
+    height: 100%;
+    width: $header-height;
+    padding: 60px;
+  }
+
+  &__image {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    border: 5px solid $color-primary;
+    box-shadow: $effect-element-shadow;
+  }
+
+  &__spacer {
+    height: 2px;
+    width: 100%;
+    background-color: $color-primary;
+    margin: 0;
+  }
+
+  &__description {
+    padding-top: 60px;
+    flex: 1;
+
+    &__item {
+      margin-top: 20px;
     }
 
     &__image {
-        height: 100%;
-        width: 100%;
-        border-radius: 50%;
-        border: 5px solid $color-primary;
-        box-shadow: $effect-element-shadow;
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      box-shadow: $effect-element-shadow;
+
+      &__text {
+        display: inline-block;
+      }
     }
-
-    &__spacer {
-        height: 2px;
-        width: 100%;
-        background-color: $color-primary;
-        margin: 0 ;
-    }
-
-    &__description {
-        padding-top: 60px;
-        flex: 1;
-
-        &__item {
-            margin-top: 20px;
-        }
-
-        &__image {
-            display: inline-block;
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            box-shadow: $effect-element-shadow;
-
-            &__text {
-                display: inline-block;
-            }
-        }
-    }
+  }
 }

@@ -1,11 +1,13 @@
 # freeraida
 
-
 ### Development
+
 #### Good to remember
+
 - Don't import modules into modules that are lazy loaded
 
 ### AoT
+
 The following are some things that will make AOT compile fail.
 
 - Don’t use require statements for your templates or styles, use styleUrls and templateUrls, the angular2-template-loader plugin will change it to require at build time.

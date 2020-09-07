@@ -1,4 +1,3 @@
-import { IProblem } from "./problem";
+import { IProblem } from './problem';
 
-export interface ILeadProblem extends IProblem {
-}
+export interface ILeadProblem extends IProblem {}

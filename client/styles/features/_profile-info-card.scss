@@ -1,58 +1,58 @@
 .profile-info-card {
+  width: 100%;
+  padding: 10px;
+  background-color: $color-white;
+
+  hr {
+    margin: 0 -10px;
+  }
+
+  &__row {
+    display: flex;
     width: 100%;
-    padding: 10px;
-    background-color: $color-white;
+    margin-bottom: 10px;
+  }
 
-    hr {
-        margin: 0 -10px;
+  &__username {
+    color: $color-secondary-rock;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    width: 100%;
+    padding-left: 20px;
+    padding-top: 10px;
+  }
+
+  &__stats {
+    display: flex;
+    padding-top: 20px;
+    width: 100%;
+
+    > div {
+      flex: 1;
+
+      > div {
+        text-align: center;
+      }
     }
+  }
 
-    &__row {
-        display: flex;
-        width: 100%;
-        margin-bottom: 10px;
-    }
+  &__flag {
+    height: 100%;
+    width: 100%;
+  }
 
-    &__username {
-        color: $color-secondary-rock;
-        font-size: 14px;
-        text-transform: uppercase;
-        font-weight: 600;
-        width: 100%;
-        padding-left: 20px;
-        padding-top: 10px;
-    }
+  &__flag-container {
+    height: 50px;
+    width: 50px;
+    padding: 4px;
+  }
 
-    &__stats {
-        display: flex;
-        padding-top: 20px;
-        width: 100%;
-
-        > div {
-            flex: 1;
-
-            > div {
-                text-align: center;
-            }
-        }
-    }
-
-    &__flag {
-        height: 100%;
-        width: 100%;
-    }
-
-    &__flag-container {
-        height: 50px;
-        width: 50px;
-        padding: 4px;
-    }
-
-    &__name {
-        flex: 1;
-        padding-left: 20px;
-        font-size: 22px;
-        font-weight: 600;
-        line-height: 50px;
-    }
+  &__name {
+    flex: 1;
+    padding-left: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 50px;
+  }
 }

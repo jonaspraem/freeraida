@@ -1,22 +1,24 @@
 <div class="photo-timeline">
-    <div class="width-container-flex">
-        <div class="photo-timeline__timeline-container">
-            <div class="photo-timeline__timeline">
-                <div class="photo-timeline__timeline-location photo-timeline__timeline-location--start"></div>
-                <div class="photo-timeline__timeline-location photo-timeline__timeline-location--end"></div>
-                <div *ngFor="let loc of imageAttachedLocations; let i = index"
-                     class="photo-timeline__timeline-location"
-                     [ngStyle]="{top: percentOnRoute(loc) + '%'}">
-                    <div *ngIf="i === locationIndex" class="photo-timeline__timeline-location-arrow">
-                        <arrow-action-left></arrow-action-left>
-                    </div>
-                </div>
-            </div>
+  <div class="width-container-flex">
+    <div class="photo-timeline__timeline-container">
+      <div class="photo-timeline__timeline">
+        <div class="photo-timeline__timeline-location photo-timeline__timeline-location--start"></div>
+        <div class="photo-timeline__timeline-location photo-timeline__timeline-location--end"></div>
+        <div
+          *ngFor="let loc of imageAttachedLocations; let i = index"
+          class="photo-timeline__timeline-location"
+          [ngStyle]="{ top: percentOnRoute(loc) + '%' }"
+        >
+          <div *ngIf="i === locationIndex" class="photo-timeline__timeline-location-arrow">
+            <arrow-action-left></arrow-action-left>
+          </div>
         </div>
-        <div class="photo-timeline__image-container">
-            <div class="photo-timeline__image-box">
-                <img #image [src]="activeImageUrl" class="photo-timeline__image">
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="photo-timeline__image-container">
+      <div class="photo-timeline__image-box">
+        <img #image [src]="activeImageUrl" class="photo-timeline__image" />
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,8 +1,7 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-settings-page',
-    templateUrl: './settings.page.component.html'
+  selector: 'app-settings-page',
+  templateUrl: './settings.page.component.html',
 })
-
 export class SettingsPageComponent {}

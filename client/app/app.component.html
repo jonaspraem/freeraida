@@ -1,9 +1,9 @@
 <ng-container *ngIf="isComponentApp; else noApp">
-    <app-header></app-header>
-    <main class="app-container">
-        <router-outlet #o="outlet"></router-outlet>
-    </main>
+  <app-header></app-header>
+  <main class="app-container">
+    <router-outlet #o="outlet"></router-outlet>
+  </main>
 </ng-container>
 <ng-template #noApp>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </ng-template>
