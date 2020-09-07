@@ -110,9 +110,10 @@ $feature-color: $color-primary;
 
     &__error-message {
         color: $color-accent;
-        font-weight: 100;
+        font-weight: 600;
         margin: 2px 0 0 10px;
-        font-size: 8px;
+        font-size: 10px;
         display: block;
+        text-transform: uppercase;
     }
 }
