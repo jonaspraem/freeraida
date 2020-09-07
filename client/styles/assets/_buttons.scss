@@ -1,97 +1,99 @@
 .button-primary {
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    height: 40px;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    background-color: $color-primary;
-    color: $color-white;
-    text-transform: uppercase;
-    border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  height: 40px;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  background-color: $color-primary;
+  color: $color-white;
+  text-transform: uppercase;
+  border-radius: 5px;
 
-    &:hover {
-        background-color: rgba($color-primary, .85);
-    }
+  &:hover {
+    background-color: rgba($color-primary, 0.85);
+  }
 
-    &:focus {
-        outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 
-    &:disabled {
-        opacity: 0.65;
-    }
+  &:disabled {
+    opacity: 0.65;
+  }
 
-    &--active {
-        background-color: rgba($color-secondary-rock, 1);
-    }
+  &--active {
+    background-color: rgba($color-secondary-rock, 1);
+  }
 }
 
 .button {
-    border-radius: 5px;
-    height: 50px;
-    width: 150px;
-    font-size: $font-size-large;
-    font-weight: 800;
+  border-radius: 5px;
+  height: 50px;
+  width: 150px;
+  font-size: $font-size-large;
+  font-weight: 800;
 
-    &--inverted {
-        @extend .button;
-        background-color: $color-white;
-        border: none;
-        color: $color-primary;
-        cursor: pointer;
-        transition: box-shadow 0.5s ease;
-        box-shadow: inset 0 0 0 0 $color-white;
+  &--inverted {
+    @extend .button;
+    background-color: $color-white;
+    border: none;
+    color: $color-primary;
+    cursor: pointer;
+    transition: box-shadow 0.5s ease;
+    box-shadow: inset 0 0 0 0 $color-white;
 
-        &:hover, &:focus {
-            box-shadow: inset 150px 0 0 0 rgba($color-primary-light,.25);
-        }
-
-        &:disabled {
-            background-color: rgba($color-white-dark, 0.4);
-        }
+    &:hover,
+    &:focus {
+      box-shadow: inset 150px 0 0 0 rgba($color-primary-light, 0.25);
     }
+
+    &:disabled {
+      background-color: rgba($color-white-dark, 0.4);
+    }
+  }
 }
 
 .button-edit {
-    padding: 10px 35px;
-    color: $color-primary;
-    border: 3px solid $color-primary;
-    background: none;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 16px;
-    border-radius: 8px;
+  padding: 10px 35px;
+  color: $color-primary;
+  border: 3px solid $color-primary;
+  background: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 8px;
 
-    &:focus {
-        outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 
-    &--white {
-        color: $color-white;
-        border: 3px solid $color-white;
-    }
+  &--white {
+    color: $color-white;
+    border: 3px solid $color-white;
+  }
 }
 
 .button-action {
-    height: 40px;
-    width: 100%;
-    background-color: $color-accent;
-    color: $color-white;
-    border: none;
-    border-radius: 5px;
-    font-weight: 600;
-    cursor: pointer;
+  height: 40px;
+  width: 100%;
+  background-color: $color-accent;
+  color: $color-white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
 
-    &--highlighted {
-        background-color: $color-primary-light;
-    }
+  &--highlighted {
+    background-color: $color-primary-light;
+  }
 }

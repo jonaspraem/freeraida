@@ -13,8 +13,5 @@
     "lib": ["es6", "dom"],
     "allowSyntheticDefaultImports": true
   },
-  "exclude": [
-    "node_modules",
-    "client/*"
-  ]
+  "exclude": ["node_modules", "client/*"]
 }

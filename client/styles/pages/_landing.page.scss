@@ -1,118 +1,118 @@
 $feature-color: $color-primary;
 
 .landing-page {
-    &__background-container {
-        min-height: 100vh;
-        padding: 20px;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
+  &__background-container {
+    min-height: 100vh;
+    padding: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  &__container-card {
+    background-color: $color-opaque-overlay-black;
+    margin: 40px auto;
+    width: 400px;
+    padding: 50px;
+    min-height: 500px;
+    transition: all $timing-medium ease-in-out;
+
+    &--wide {
+      width: 800px;
+    }
+  }
+
+  &__spacer {
+    margin: 30px 0;
+    background-color: $feature-color;
+    height: 2px;
+
+    &--small {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__row {
+    height: 100px;
+    display: flex;
+
+    > .landing-page__form-element {
+      &:first-child {
+        margin-right: 50px;
+      }
+    }
+  }
+
+  &__form-element {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__alternative-actions {
+    display: flex;
+
+    > div {
+      flex: 1;
+      color: $feature-color;
+
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-color: $feature-color;
+      }
     }
 
-    &__container-card {
-        background-color: $color-opaque-overlay-black;
-        margin: 40px auto;
-        width: 400px;
-        padding: 50px;
-        min-height: 500px;
-        transition: all $timing-medium ease-in-out;
-
-        &--wide {
-            width: 800px;
-        }
+    &--right-aligned {
+      text-align: right;
     }
 
-    &__spacer {
-        margin: 30px 0;
-        background-color: $feature-color;
-        height: 2px;
-
-        &--small {
-            margin-bottom: 10px;
-        }
+    &--left-aligned {
+      text-align: left;
     }
+  }
 
-    &__row {
-        height: 100px;
-        display: flex;
+  &__login-item {
+    min-height: 100px;
+    width: 100%;
+    color: $color-white;
 
-        > .landing-page__form-element {
-            &:first-child {
-                margin-right: 50px;
-            }
-        }
+    &__header {
+      color: $color-white;
+      font-weight: 700;
+      font-size: 20px;
+      text-transform: uppercase;
     }
+  }
 
-    &__form-element {
-        flex: 1;
-        position: relative;
-        z-index: 2;
+  &__button {
+    margin-top: 20px;
+
+    &--inline {
+      margin-top: 7px;
     }
+  }
 
-    &__alternative-actions {
-        display: flex;
+  &__sign-up-button-container {
+    position: relative;
+    width: 100%;
+    height: 70px;
+  }
 
-        > div {
-            flex: 1;
-            color: $feature-color;
-
-            &:hover {
-                cursor: pointer;
-                text-decoration: underline;
-                text-decoration-color: $feature-color;
-            }
-        }
-
-        &--right-aligned {
-            text-align: right;
-        }
-
-        &--left-aligned {
-            text-align: left;
-        }
-    }
-
-    &__login-item {
-        min-height: 100px;
-        width: 100%;
-        color: $color-white;
-
-        &__header {
-            color: $color-white;
-            font-weight: 700;
-            font-size: 20px;
-            text-transform: uppercase;
-        }
-    }
+  &__social-item {
+    width: 50%;
+    padding: 10px 20px;
 
     &__button {
-        margin-top: 20px;
-
-        &--inline {
-            margin-top: 7px;
-        }
+      width: 100%;
     }
+  }
 
-    &__sign-up-button-container {
-        position: relative;
-        width: 100%;
-        height: 70px;
-    }
-
-    &__social-item {
-        width: 50%;
-        padding: 10px 20px;
-
-        &__button {
-            width: 100%;
-        }
-    }
-
-    &__error-message {
-        color: $color-accent;
-        font-weight: 100;
-        margin: 2px 0 0 10px;
-        font-size: 8px;
-        display: block;
-    }
+  &__error-message {
+    color: $color-accent;
+    font-weight: 100;
+    margin: 2px 0 0 10px;
+    font-size: 8px;
+    display: block;
+  }
 }

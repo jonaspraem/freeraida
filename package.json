@@ -110,6 +110,7 @@
     "live-server": "^1.2.1",
     "node-sass": "^4.14.1",
     "performance-now": "^2.1.0",
+    "prettier": "^2.1.1",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.6.3",
     "sass-loader": "^6.0.7",

@@ -1,22 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthenticationService } from "../../../core/services/authentication.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
-    selector: 'app-sidenav',
-    templateUrl: './sidenav.component.html'
+  selector: 'app-sidenav',
+  templateUrl: './sidenav.component.html',
 })
-
 export class SidenavComponent implements OnInit {
+  constructor(private auth_service: AuthenticationService) {}
 
-    constructor(
-        private auth_service: AuthenticationService
-    ) {}
+  public ngOnInit(): void {
+    console.log(this);
+  }
 
-    public ngOnInit(): void {
-        console.log(this);
-    }
-
-    public onLogout(): void {
-        this.auth_service.logout();
-    }
+  public onLogout(): void {
+    this.auth_service.logout();
+  }
 }

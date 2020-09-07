@@ -1,25 +1,25 @@
 <div class="profile-card">
-    <img [src]="mockImage" class="profile-card__cover-image">
-    <img [src]="defaultProfileImage" class="profile-card__profile-image">
-    <div class="profile-card__header">
-        <h3>{{user?.firstname}} {{user?.surname}}</h3>
-        <div>@{{user?.username}}</div>
+  <img [src]="mockImage" class="profile-card__cover-image" />
+  <img [src]="defaultProfileImage" class="profile-card__profile-image" />
+  <div class="profile-card__header">
+    <h3>{{ user?.firstname }} {{ user?.surname }}</h3>
+    <div>@{{ user?.username }}</div>
+  </div>
+  <hr />
+  <div [ngStyle]="{ opacity: 0.6 }">#sports</div>
+  <hr />
+  <div class="profile-card__stats">
+    <div>
+      <div>Posts</div>
+      <div class="profile-card__stat-number">{{ user?.posts?.length }}</div>
     </div>
-    <hr>
-    <div [ngStyle]="{opacity: .6}">#sports</div>
-    <hr>
-    <div class="profile-card__stats">
-        <div>
-            <div>Posts</div>
-            <div class="profile-card__stat-number">{{user?.posts?.length}}</div>
-        </div>
-        <div>
-            <div>Following</div>
-            <div class="profile-card__stat-number">{{user?.following?.length}}</div>
-        </div>
-        <div>
-            <div>Followers</div>
-            <div class="profile-card__stat-number">{{user?.followers?.length}}</div>
-        </div>
+    <div>
+      <div>Following</div>
+      <div class="profile-card__stat-number">{{ user?.following?.length }}</div>
     </div>
+    <div>
+      <div>Followers</div>
+      <div class="profile-card__stat-number">{{ user?.followers?.length }}</div>
+    </div>
+  </div>
 </div>

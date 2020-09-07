@@ -1,16 +1,16 @@
 .post-loader {
-    width: 100%;
-    background-color: rgba($color-primary-light, .5);
-    color: $color-white;
-    height: 42px;
-    border: none;
-    cursor: pointer;
+  width: 100%;
+  background-color: rgba($color-primary-light, 0.5);
+  color: $color-white;
+  height: 42px;
+  border: none;
+  cursor: pointer;
 
-    &:hover {
-        background-color: rgba($color-primary-light, .7);
-    }
+  &:hover {
+    background-color: rgba($color-primary-light, 0.7);
+  }
 
-    &:focus {
-        outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 }

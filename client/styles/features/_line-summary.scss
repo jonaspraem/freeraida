@@ -1,43 +1,43 @@
 .line-summary {
-    display: flex;
-    background-color: $color-white;
+  display: flex;
+  background-color: $color-white;
+  margin-bottom: 10px;
+  box-shadow: $effect-box-shadow-card;
+
+  &__map {
+    height: 100%;
+    background-color: $color-secondary-rock;
+    border-left: 10px solid;
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__band-aid {
     margin-bottom: 10px;
-    box-shadow: $effect-box-shadow-card;
+    height: 15px;
+  }
 
-    &__map {
-        height: 100%;
-        background-color: $color-secondary-rock;
-        border-left: 10px solid;
+  &__container {
+    display: flex;
+  }
+
+  &__height-map {
+    width: 300px;
+  }
+
+  &__info {
+    flex: 1;
+    display: flex;
+    margin-left: 15px;
+  }
+
+  &__main-info {
+    padding: 0 20px;
+
+    &:first-child {
+      width: 200px;
     }
-
-    &__content {
-        flex: 1;
-    }
-
-    &__band-aid {
-        margin-bottom: 10px;
-        height: 15px;
-    }
-
-    &__container {
-        display: flex;
-    }
-
-    &__height-map {
-        width: 300px;
-    }
-
-    &__info {
-        flex: 1;
-        display: flex;
-        margin-left: 15px;
-    }
-
-    &__main-info {
-        padding: 0 20px;
-
-        &:first-child {
-            width: 200px;
-        }
-    }
+  }
 }

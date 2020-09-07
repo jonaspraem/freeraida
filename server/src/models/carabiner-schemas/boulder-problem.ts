@@ -1,13 +1,13 @@
-import { IProblem } from "./problem";
+import { IProblem } from './problem';
 
 enum BoulderType {
-    SLAB,
-    ROOF,
-    OVERHANG,
-    CRACK,
-    DYNAMIC
+  SLAB,
+  ROOF,
+  OVERHANG,
+  CRACK,
+  DYNAMIC,
 }
 
-export interface IBoulderProblem extends IProblem  {
-    tags?: BoulderType[],
+export interface IBoulderProblem extends IProblem {
+  tags?: BoulderType[];
 }

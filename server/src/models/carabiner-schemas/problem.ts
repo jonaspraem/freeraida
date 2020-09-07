@@ -1,8 +1,7 @@
-import { ICoordinate } from "../types/coordinate";
+import { ICoordinate } from '../types/coordinate';
 
 export interface IProblem extends ICoordinate {
-    id: string;
-    rawGrade: number;
-    grade?: string;
+  id: string;
+  rawGrade: number;
+  grade?: string;
 }
-

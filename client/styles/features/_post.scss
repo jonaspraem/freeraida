@@ -1,35 +1,36 @@
 .post {
-    background-color: $color-white;
-    display: flex;
-    padding: 9px 12px;
-    border-bottom: 1px solid lightgray;
+  background-color: $color-white;
+  display: flex;
+  padding: 9px 12px;
+  border-bottom: 1px solid lightgray;
 
-    &__image {
-        height: 100%;
-        width: 100%;
-        border-radius: 50%;
-        background-color: white;
+  &__image {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    background-color: white;
+  }
+
+  &__image-container {
+    width: 45px;
+    height: 45px;
+    margin-right: 20px;
+  }
+
+  &__username {
+    display: block;
+    margin-bottom: 5px;
+    color: $color-secondary-colorado;
+
+    &:focus,
+    &:hover {
+      text-decoration: underline;
+      color: $color-secondary-colorado;
     }
+  }
 
-    &__image-container {
-        width: 45px;
-        height: 45px;
-        margin-right: 20px;
-    }
-
-    &__username {
-        display: block;
-        margin-bottom: 5px;
-        color: $color-secondary-colorado;
-
-        &:focus, &:hover {
-            text-decoration: underline;
-            color: $color-secondary-colorado;
-        }
-    }
-
-    &__name {
-        font-weight: 600;
-        color: $color-primary;
-    }
+  &__name {
+    font-weight: 600;
+    color: $color-primary;
+  }
 }

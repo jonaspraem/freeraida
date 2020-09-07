@@ -1,6 +1,6 @@
-import { IPost } from "./types";
+import { IPost } from './types';
 
 export interface PostListResponse {
-    message: string;
-    obj: IPost[];
+  message: string;
+  obj: IPost[];
 }

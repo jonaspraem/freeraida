@@ -2,17 +2,17 @@ $side-width: 285px;
 $side-padding: 15px;
 
 .home-page {
-    &__main {
-        flex: 1;
-    }
+  &__main {
+    flex: 1;
+  }
 
-    &__side-left {
-        width: $side-width;
-        padding-right: $side-padding;
-    }
+  &__side-left {
+    width: $side-width;
+    padding-right: $side-padding;
+  }
 
-    &__side-right {
-        width: $side-width;
-        padding-left: $side-padding;
-    }
+  &__side-right {
+    width: $side-width;
+    padding-left: $side-padding;
+  }
 }

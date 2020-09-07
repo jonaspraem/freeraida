@@ -1,27 +1,29 @@
-<agm-map [ngStyle]="{height: height + 'px'}"
-         [mapTypeId]="'terrain'"
-         [latitude]="latitude"
-         [longitude]="longitude"
-         [disableDefaultUI]="true"
-         [zoom]="12"
+<agm-map
+  [ngStyle]="{ height: height + 'px' }"
+  [mapTypeId]="'terrain'"
+  [latitude]="latitude"
+  [longitude]="longitude"
+  [disableDefaultUI]="true"
+  [zoom]="12"
 >
-    <agm-polyline *ngFor="let item of polyCoords"
-                  [editable]="false"
-                  [strokeColor]="colorDictionary.get(line.sport)"
-                  [strokeWeight]="3"
-                  [geodesic]="false"
-    >
-        <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
-        <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
-    </agm-polyline>
-    <agm-marker
-            [latitude]="startLocation.latitude"
-            [longitude]="startLocation.longitude"
-            [markerDraggable]="false"
-    ></agm-marker>
-    <agm-marker
-            [latitude]="endLocation.latitude"
-            [longitude]="endLocation.longitude"
-            [markerDraggable]="false"
-    ></agm-marker>
+  <agm-polyline
+    *ngFor="let item of polyCoords"
+    [editable]="false"
+    [strokeColor]="colorDictionary.get(line.sport)"
+    [strokeWeight]="3"
+    [geodesic]="false"
+  >
+    <agm-polyline-point [latitude]="item.org_lat" [longitude]="item.org_lng"></agm-polyline-point>
+    <agm-polyline-point [latitude]="item.destination_lat" [longitude]="item.destination_lng"></agm-polyline-point>
+  </agm-polyline>
+  <agm-marker
+    [latitude]="startLocation.latitude"
+    [longitude]="startLocation.longitude"
+    [markerDraggable]="false"
+  ></agm-marker>
+  <agm-marker
+    [latitude]="endLocation.latitude"
+    [longitude]="endLocation.longitude"
+    [markerDraggable]="false"
+  ></agm-marker>
 </agm-map>

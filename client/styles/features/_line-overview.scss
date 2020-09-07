@@ -1,91 +1,91 @@
 .line-overview {
-    padding-bottom: 100px;
+  padding-bottom: 100px;
 
-    &__rubric {
-        height: 450px;
-        position: relative;
+  &__rubric {
+    height: 450px;
+    position: relative;
+  }
+
+  &__table {
+    width: 450px;
+
+    h4 {
+      margin-top: 20px;
     }
 
-    &__table {
-        width: 450px;
+    h5 {
+      font-weight: 600;
+      opacity: 0.6;
+      margin-top: 10px;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+  }
 
-        h4 {
-            margin-top: 20px;
-        }
+  &__map-container {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 100px;
+  }
 
-        h5 {
-            font-weight: 600;
-            opacity: .6;
-            margin-top: 10px;
-            font-size: 12px;
-            text-transform: uppercase;
-        }
+  &__map {
+    float: right;
+    width: 600px;
+  }
+
+  &__header {
+    position: absolute;
+    top: 150px;
+    left: 0;
+    right: 0;
+    color: $color-white;
+
+    > h1 {
+      font-weight: 600;
+      font-size: 40px;
+
+      &:focus {
+        outline: none;
+      }
     }
 
-    &__map-container {
-        position: absolute;
-        right: 0;
-        left: 0;
-        bottom: 0;
-        top: 100px;
+    > h3 {
+      margin-top: 10px;
+      font-size: 20px;
+      color: $color-secondary-colorado;
     }
+  }
 
-    &__map {
-        float: right;
-        width: 600px;
-    }
+  &__edit-button {
+    position: absolute;
+    bottom: 195px;
+    right: 55%;
+    z-index: 11;
+  }
 
-    &__header {
-        position: absolute;
-        top: 150px;
-        left: 0;
-        right: 0;
-        color: $color-white;
+  &__color-box {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    height: 200px;
+  }
 
-        > h1 {
-            font-weight: 600;
-            font-size: 40px;
+  &__color-box-second {
+    position: absolute;
+    top: 315px;
+    left: 0;
+    right: 0;
+    height: 30px;
+  }
 
-            &:focus {
-                outline: none;
-            }
-        }
-
-        > h3 {
-            margin-top: 10px;
-            font-size: 20px;
-            color: $color-secondary-colorado;
-        }
-    }
-
-    &__edit-button {
-        position: absolute;
-        bottom: 195px;
-        right: 55%;
-        z-index: 11;
-    }
-
-    &__color-box {
-        position: absolute;
-        top: 80px;
-        left: 0;
-        right: 0;
-        height: 200px;
-    }
-
-    &__color-box-second {
-        position: absolute;
-        top: 315px;
-        left: 0;
-        right: 0;
-        height: 30px;
-    }
-
-    &__color-box-third {
-        position: absolute;
-        top: 350px;
-        left: 60%;
-        right: 0;
-        height: 20px;
-    }
+  &__color-box-third {
+    position: absolute;
+    top: 350px;
+    left: 60%;
+    right: 0;
+    height: 20px;
+  }
 }
