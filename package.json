@@ -17,7 +17,7 @@
     "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production; del-cli public/js/app && npm run build:prod"
   },
   "dependencies": {
-    "@agm/core": "^1.0.0-beta.5",
+    "@agm/core": "^3.0.0-beta.0",
     "@amcharts/amcharts3-angular": "^2.2.3",
     "@angular/animations": "7.2.4",
     "@angular/cdk": "^7.3.1",
@@ -45,7 +45,7 @@
     "angular-bootstrap-md": "^6.3.0",
     "angular-google-charts": "^0.1.3",
     "angular2-mentions": "^0.7.3",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.2.1",
