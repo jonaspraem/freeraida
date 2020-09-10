@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { AgmCoreModule } from '@agm/core';
 import { SharedModule } from '../../shared/shared.module';
 import { LineCreatorPageComponent } from '../../pages/line-creater-page/line-creater.page.component';
 import { HeightMapComponent } from './height-map/height-map.component';
@@ -10,6 +9,7 @@ import { LineSummaryComponent } from './line-summary/line-summary.component';
 import { LineMapListComponent } from './line-map-list/line-map-list.component';
 import { LineMapComponent } from './line-map/line-map.component';
 import { RouterModule } from '@angular/router';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     Ng2GoogleChartsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM', // TODO Move
+      apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM',
     }),
     MatListModule,
     MatIconModule,

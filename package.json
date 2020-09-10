@@ -17,7 +17,7 @@
     "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production; del-cli public/js/app && npm run build:prod"
   },
   "dependencies": {
-    "@agm/core": "^3.0.0-beta.0",
+    "@agm/core": "^1.0.0-beta.7",
     "@amcharts/amcharts3-angular": "^2.2.3",
     "@angular/animations": "7.2.4",
     "@angular/cdk": "^7.3.1",
