@@ -3,7 +3,7 @@
   <img [src]="defaultProfileImage" class="profile-card__profile-image" />
   <div class="profile-card__header">
     <h3>{{ user?.firstname }} {{ user?.surname }}</h3>
-    <div>@{{ user?.username }}</div>
+    <a class="profile-card__username" [routerLink]="'/user/' + user?.username">@{{ user?.username }}</a>
   </div>
   <hr />
   <div [ngStyle]="{ opacity: 0.6 }">#sports</div>

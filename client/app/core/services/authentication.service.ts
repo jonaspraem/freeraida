@@ -5,12 +5,18 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ILogin } from '../../models/interfaces/requests/authentication/login.interface';
 import { IRegister } from '../../models/interfaces/requests/authentication/register.interface';
 import { Router } from '@angular/router';
+import { ProfileService } from './profile.service';
 
 @Injectable()
 export class AuthenticationService {
   private helper: JwtHelperService = new JwtHelperService();
 
-  constructor(private http: HttpClient, private config: CONFIG, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private config: CONFIG,
+    private router: Router,
+    private profileService: ProfileService
+  ) {}
 
   login(request: ILogin) {
     const body = JSON.stringify(request);
@@ -19,6 +25,7 @@ export class AuthenticationService {
       .post(this.config.getEndpoint() + '/api/authentication/login/', body, { headers: headers })
       .subscribe((data: any) => {
         localStorage.setItem('api_token', data.token);
+        this.profileService.getProfileWithToken();
         this.router.navigate(['/']);
       });
   }
@@ -36,6 +43,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('api_token');
+    localStorage.removeItem('username');
     this.router.navigate(['/landing-page']);
   }
 

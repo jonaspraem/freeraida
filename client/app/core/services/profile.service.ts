@@ -23,7 +23,7 @@ export class ProfileService {
     this._userProfile.next(profile);
   }
 
-  private getProfileWithToken(): void {
+  public getProfileWithToken(): void {
     const token = localStorage.getItem('api_token');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
