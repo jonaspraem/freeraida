@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs';
 import { CONFIG } from '../../dictionary/config';
 import { IPost, IUserProfile } from '../../models/interfaces/types';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PostListResponse } from '../../models/interfaces/responses';
 
 interface UserListResponse {
@@ -51,19 +51,23 @@ export class PostService {
       });
   }
 
-  // gnarlyPost(post_id: string) {
-  //     const body = '';
-  //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-  //     const token = localStorage.getItem('id_token');
-  //     return this.http.post<SinglePostResponse>(this.config.getEndpoint() + '/post/gnarly/'+post_id, body, {headers: headers, params: new HttpParams().set('token', token)});
-  // }
+  gnarlyPost(postId: string): Observable<IPost> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const token = localStorage.getItem('api_token');
+    return this.http.post<IPost>(this.config.getEndpoint() + '/api/post/gnarly/' + postId, null, {
+      headers: headers,
+      params: new HttpParams().set('token', token),
+    });
+  }
 
-  // unGnarlyPost(post_id: string) {
-  //     const body = '';
-  //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-  //     const token = localStorage.getItem('id_token');
-  //     return this.http.post<SinglePostResponse>(this.config.getEndpoint() + '/post/un-gnarly/'+post_id, body, {headers: headers, params: new HttpParams().set('token', token)});
-  // }
+  unGnarlyPost(postId: string) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const token = localStorage.getItem('api_token');
+    return this.http.post<IPost>(this.config.getEndpoint() + '/api/post/un-gnarly/' + postId, null, {
+      headers: headers,
+      params: new HttpParams().set('token', token),
+    });
+  }
 
   // editPost(post: Post) {
   //     this.postIsEdit.emit(post);

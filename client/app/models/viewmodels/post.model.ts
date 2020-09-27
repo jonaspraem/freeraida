@@ -1,6 +1,7 @@
 import { IPost } from '../interfaces/types';
 
 class PostDataModel implements IPost {
+  id: string;
   content: string;
   username: string;
   firstname: string;
@@ -17,14 +18,16 @@ class PostDataModel implements IPost {
     this.fullname = post.fullname;
     this.timestamp = post.timestamp;
     this.gnarly = post.gnarly;
+    this.id = post._id;
   }
 }
 
 export class PostViewModel extends PostDataModel {
   content: string;
   expanded_content: string;
+  isLiked: boolean;
 
-  constructor(post: IPost) {
+  constructor(post: IPost, user?: string) {
     super(post);
     if (post.content.length > 500) {
       this.content = this.generateAnchors(post.content.substring(0, 499)) + '...';
@@ -32,6 +35,8 @@ export class PostViewModel extends PostDataModel {
     } else {
       this.content = this.generateAnchors(post.content);
     }
+
+    this.isLiked = this.gnarly.indexOf(user) > -1;
   }
 
   /**

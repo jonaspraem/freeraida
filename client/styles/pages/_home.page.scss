@@ -4,6 +4,8 @@ $side-padding: 15px;
 .home-page {
   &__main {
     flex: 1;
+    box-shadow: $effect-box-shadow-card;
+    height: fit-content;
   }
 
   &__side-left {

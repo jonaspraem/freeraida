@@ -1,8 +1,11 @@
 .post {
   background-color: $color-white;
-  display: flex;
   padding: 9px 12px;
   border-bottom: 1px solid lightgray;
+
+  &__container {
+    display: flex;
+  }
 
   &__image {
     height: 100%;
@@ -17,20 +20,60 @@
     margin-right: 20px;
   }
 
+  &__content {
+    flex: 1;
+  }
+
   &__username {
-    display: block;
+    display: inline-block;
     margin-bottom: 5px;
-    color: $color-secondary-colorado;
+    color: $color-accent;
 
     &:focus,
     &:hover {
-      text-decoration: underline;
-      color: $color-secondary-colorado;
+      color: rgba($color-accent, .8);
     }
   }
 
   &__name {
     font-weight: 600;
     color: $color-primary;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  &__footer {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: flex-end;
+    padding-right: 15px;
+  }
+
+  &__gnarly-counter {
+    margin: 0 10px 0 0;
+    color: $color-accent;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  &__gnarly {
+    cursor: pointer;
+    width: 20px;
+
+    &.active svg {
+      fill: $color-primary;
+    }
+
+    &:hover svg {
+      stroke: $color-primary-light;
+      fill: $color-primary-light;
+    }
+
+    svg {
+      stroke: $color-primary;
+      stroke-width: 5;
+      fill: transparent;
+      overflow: visible;
+    }
   }
 }

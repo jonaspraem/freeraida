@@ -141,6 +141,7 @@ router.post('/new', async (req, res, next) => {
       message: 'Error saving the post',
     });
   }
+
   return res.status(201).json(post);
 });
 
@@ -149,42 +150,33 @@ router.post('/gnarly/:id', async (req, res, next) => {
   const decoded = jwt.decode(req.query.token);
   let profile;
   let post;
+
   try {
     profile = await UserProfile.findById(decoded.id);
   } catch (e) {
-    return res.status(404).json({
-      title: 'Error finding user profile',
-      message: 'Could find the user profile',
-    });
+    return res.status(404);
   }
+
   try {
     post = await Post.findById(req.params.id);
+    post = post.toObject();
   } catch (e) {
-    return res.status(404).json({
-      title: 'Error finding the post',
-      message: 'No matching post with the provided id',
-    });
+    return res.status(404);
   }
-  // If user already gnarly post
+
   if (post.gnarly.indexOf(profile.username) > -1) {
-    return res.status(400).json({
-      title: 'Error gnarly the post',
-      message: 'The user is already on gnarly list',
-    });
+    return res.status(400);
   }
+
   post.gnarly.push(profile.username);
+
   try {
-    await post.save();
+    await Post.update({ _id: post._id }, { $set: { gnarly: post.gnarly } });
   } catch (e) {
-    return res.status(500).json({
-      title: 'An error occurred',
-      error: 'Error saving the post',
-    });
+    return res.status(500);
   }
-  return res.status(201).json({
-    message: 'Successfully gnarly post ' + req.params.id,
-    obj: post,
-  });
+
+  return res.status(201).json(post);
 });
 
 //un-gnarly post
@@ -192,41 +184,33 @@ router.post('/un-gnarly/:id', async (req, res, next) => {
   const decoded = jwt.decode(req.query.token);
   let profile;
   let post;
+
   try {
     profile = await UserProfile.findById(decoded.id);
   } catch (e) {
-    return res.status(404).json({
-      title: 'Error finding user profile',
-      message: 'Could find the user profile',
-    });
+    return res.status(404);
   }
+
   try {
     post = await Post.findById(req.params.id);
+    post = post.toObject();
   } catch (e) {
-    return res.status(404).json({
-      title: 'Error finding the post',
-      message: 'No matching post with the provided id',
-    });
+    return res.status(404);
   }
-  if (!(post.gnarly.indexOf(profile.username) > -1)) {
-    return res.status(400).json({
-      title: 'Error un-gnarly the post',
-      message: 'The user is not on gnarly list',
-    });
+
+  if (post.gnarly.indexOf(profile.username) === -1) {
+    return res.status(400).json({});
   }
+
   post.gnarly.splice(post.gnarly.indexOf(profile.username), 1);
+
   try {
-    await post.save();
+    await Post.update({ _id: post._id }, { $set: { gnarly: post.gnarly } });
   } catch (e) {
-    return res.status(500).json({
-      title: 'An error occurred',
-      error: 'Error saving the post',
-    });
+    return res.status(500);
   }
-  return res.status(201).json({
-    message: 'Successfully un-gnarly post ' + req.params.id,
-    obj: post,
-  });
+
+  return res.status(201).json(post);
 });
 
 // Edit post

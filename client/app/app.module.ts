@@ -30,6 +30,7 @@ import { HomePageModule } from './pages/home-page/home.page.module';
 import { SharedModule } from './shared/shared.module';
 import { LineModule } from './shared-modules/line-module/line.module';
 import { NavigationModule } from './shared-modules/navigation-module/navigation.module';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @NgModule({
   declarations: [AppComponent],

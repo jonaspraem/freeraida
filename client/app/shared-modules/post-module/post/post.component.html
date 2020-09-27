@@ -1,10 +1,18 @@
 <div class="post">
-  <div class="post__image-container">
-    <img [src]="defaultImage" class="post__image" />
+  <div class="post__container">
+    <div class="post__image-container">
+      <img [src]="defaultImage" class="post__image" />
+    </div>
+
+    <div class="post__content">
+      <div class="post__name">{{ post?.fullname }}</div>
+      <a *ngIf="isLinked" class="post__username" [routerLink]="'user/' + post.username">@{{ post?.username }}</a>
+      <div [innerHTML]="post?.content" class="post__content"></div>
+    </div>
   </div>
-  <div [ngStyle]="{ flex: 1 }">
-    <div class="post__name">{{ post?.fullname }}</div>
-    <a *ngIf="isLinked" class="post__username" [routerLink]="'user/' + post.username">@{{ post?.username }}</a>
-    <div [innerHTML]="post?.content" class="post__content"></div>
+
+  <div class="post__footer">
+    <p class="post__gnarly-counter">{{ post?.gnarly.length }}</p>
+    <svg-icon (click)="onGnarlyClick()" class="post__gnarly" [ngClass]="{active: post?.isLiked}" src="{{likeSvg.toString()}}"></svg-icon>
   </div>
 </div>

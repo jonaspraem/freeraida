@@ -8,7 +8,7 @@ export interface IPost extends mongoose.Document {
   surname: string;
   fullname: string;
   timestamp: Date;
-  gnarly: mongoose.Schema.Types.ObjectId[];
+  gnarly: string[];
 }
 
 const schema = new mongoose.Schema({
@@ -18,16 +18,16 @@ const schema = new mongoose.Schema({
   surname: { type: String, required: true },
   fullname: { type: String, required: true },
   timestamp: { type: Date, required: true },
-  gnarly: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserProfile' }],
+  gnarly: [{ type: String }],
 });
 
-schema.post('save', async () => {
-  try {
-    const profile = await UserProfile.findById(this.username);
-    profile.posts.push(this._id);
-    await profile.save();
-  } catch (e) {}
-});
+// schema.post('save', async () => {
+//   try {
+//     const profile = await UserProfile.findById(this.username);
+//     profile.posts.push(this._id);
+//     await profile.save();
+//   } catch (e) {}
+// });
 
 schema.pre('remove', async (next) => {
   try {

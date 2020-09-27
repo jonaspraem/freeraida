@@ -21,7 +21,7 @@ export interface IUserProfile extends mongoose.Document {
 
 const schema = new mongoose.Schema(
   {
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true, unique: true, lowercase: true },
     firstname: { type: String, required: true },
     surname: { type: String, required: true },
     fullname: { type: String, required: true },
