@@ -16,7 +16,9 @@ export class HomePageComponent implements OnInit {
   public ngOnInit(): void {
     this._profileService.userProfile$.subscribe((profile) => {
       this.userProfile = profile;
+      this._postService.getFeed();
     });
+
     this._postService.userFeed$.subscribe((data) => (this.homeFeed = data));
   }
 }

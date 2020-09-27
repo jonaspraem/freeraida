@@ -11,7 +11,7 @@ export class ProfileService {
   private _userProfile: BehaviorSubject<IUserProfile> = new BehaviorSubject<IUserProfile>(null);
   public userProfile$ = this._userProfile.asObservable();
 
-  constructor(private http: HttpClient, private config: CONFIG, private _router: Router) {
+  constructor(private http: HttpClient, private config: CONFIG, private router: Router) {
     this.getProfileWithToken();
   }
 
@@ -37,53 +37,8 @@ export class ProfileService {
           localStorage.setItem('username', profile.username);
         },
         (err) => {
-          this._router.navigate(['/landing-page']);
+          this.router.navigate(['/landing-page']);
         }
       );
   }
-
-  // public followUser(username: string): void {
-  //     const token = localStorage.getItem('api_token');
-  //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-  //     this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/social/follow/' + username, {headers: headers, params: new HttpParams().set('token', token)})
-  //         .subscribe(
-  //             (data) => this._userProfile.next(data.obj)
-  //         );
-  // }
-  //
-  // public unfollowUser(username: string): void {
-  //     const token = localStorage.getItem('api_token');
-  //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-  //     this.http.get<IUserProfileResponse>(this.config.getEndpoint() + '/api/social/unfollow/' + username, {headers: headers, params: new HttpParams().set('token', token)})
-  //         .subscribe(
-  //             (data) => this._userProfile.next(data.obj)
-  //         );
-  // }
-
-  // addressIsAvailable(address: string) {
-  //     const token = localStorage.getItem('id_token');
-  //     return this.http.get<AddressResponse>(this.config.getEndpoint() + '/profile/user-address/'+address, {params: new HttpParams().set('token', token)});
-  // }
-
-  // submitSettings(profile: Profile) {
-  //     console.log('Submitting settings... '+profile.toString());
-  //     const body = JSON.stringify(profile);
-  //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-  //     const token = localStorage.getItem('id_token');
-  //     return this.http.patch(this.config.getEndpoint() + '/profile/edit-profile', body, {headers: headers, params: new HttpParams().set('token', token)});
-  // }
-  //
-  // followUser(user_address: string) {
-  //     const body = '';
-  //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-  //     const token = localStorage.getItem('id_token');
-  //     return this.http.post<IUserProfileResponse>(this.config.getEndpoint() + '/connect/follow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)});
-  // }
-  //
-  // unfollowUser(user_address: string) {
-  //     const body = '';
-  //     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-  //     const token = localStorage.getItem('id_token');
-  //     return this.http.post<IUserProfileResponse>(this.config.getEndpoint() + '/connect/unfollow/'+user_address, body, {headers: headers, params: new HttpParams().set('token', token)})
-  // }
 }
