@@ -21,14 +21,6 @@ const schema = new mongoose.Schema({
   gnarly: [{ type: String }],
 });
 
-// schema.post('save', async () => {
-//   try {
-//     const profile = await UserProfile.findById(this.username);
-//     profile.posts.push(this._id);
-//     await profile.save();
-//   } catch (e) {}
-// });
-
 schema.pre('remove', async (next) => {
   try {
     const profile = await UserProfile.findById(this.username);

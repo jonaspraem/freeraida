@@ -17,7 +17,6 @@ export class NotEmptyDirective implements OnDestroy {
   ngOnInit() {
     // Listen value changes
     this.valueSub = this.formControlName.valueChanges.subscribe((value) => {
-      console.log(value);
       if (value !== '') {
         // Get label
         const inputId = this.el.nativeElement.getAttribute('id'),
