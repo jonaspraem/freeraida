@@ -96,7 +96,6 @@
     "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
-    "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^0.28.11",
