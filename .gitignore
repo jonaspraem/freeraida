@@ -5,4 +5,3 @@ npm.debug.log
 /node_modules
 /public/js
 /server/dist
-package-lock.json
