@@ -32,9 +32,9 @@ class Application {
     // Carabiner
     const carabinerRoutes = require('./routes/carabiner/carabiner');
 
-    mongoose.connect('mongodb://test-user:33rdlivgarden1995@ds249355.mlab.com:49355/freeraida-database', {
-      useMongoClient: true,
-    });
+    mongoose.connect(
+      'mongodb+srv://test-user:33rdlivgarden1995@freeraida-database.5milj.mongodb.net/freeraida-database?retryWrites=true&w=majority'
+    );
 
     // view engine setup
     this.express.set('views', path.join(__dirname, '../views'));
