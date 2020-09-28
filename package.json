@@ -108,7 +108,6 @@
     "live-server": "^1.2.1",
     "mongoose": "^5.10.7",
     "mongoose-unique-validator": "^1.0.6",
-    "node-sass": "^4.14.1",
     "performance-now": "^2.1.0",
     "prettier": "^2.1.1",
     "raw-loader": "^0.5.1",
