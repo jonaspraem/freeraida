@@ -40,11 +40,9 @@ router.get('/user/:username', async (req, res, next) => {
       return line;
     });
     await Promise.all(promises).then((transformedLines) => {
-      console.log(transformedLines);
       lines = transformedLines;
     });
   } catch (e) {
-    console.log(e);
     return res.status(500).json({
       title: 'An error occurred',
       message: 'Error saving the line',

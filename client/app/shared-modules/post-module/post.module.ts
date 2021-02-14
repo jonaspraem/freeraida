@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { PostComponent } from './post/post.component';
 import { RouterModule } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { IconModule } from '../icon-module/icon.module';
 
 @NgModule({
   declarations: [PostWriterComponent, PostLoaderComponent, PostComponent],
   exports: [PostWriterComponent, PostLoaderComponent, PostComponent],
-  imports: [FontAwesomeModule, RouterModule, CommonModule, AngularSvgIconModule],
+  imports: [FontAwesomeModule, RouterModule, CommonModule, AngularSvgIconModule, IconModule],
 })
 export class PostModule {}

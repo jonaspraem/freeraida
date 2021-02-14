@@ -5,11 +5,16 @@
     <h3>{{ user?.firstname }} {{ user?.surname }}</h3>
     <a class="profile-card__username" [routerLink]="'/user/' + user?.username">@{{ user?.username }}</a>
   </div>
+
   <hr />
-  <div [ngStyle]="{ opacity: 0.6 }">
-    
+
+  <div>
+    <icon-ski></icon-ski>
+    <icon-snowboard></icon-snowboard>
   </div>
+
   <hr />
+
   <div class="profile-card__stats">
     <div>
       <div>Posts</div>

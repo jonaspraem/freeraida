@@ -16,7 +16,7 @@ module.exports = {
         use: [{ loader: 'html-loader' }],
       },
       {
-        test: /\.css$/, // for legacy purposes
+        test: /\.(css|svg)$/, // for legacy purposes
         use: [{ loader: 'raw-loader' }],
       },
       {
@@ -38,7 +38,7 @@ module.exports = {
         loader: 'url-loader?limit=10000&mimetype=application/font-woff',
       },
       {
-        test: /\.(png|jpe?g|gif|svg|woff|woff2|tff|eot|ico)$/,
+        test: /\.(png|jpe?g|gif|woff|woff2|tff|eot|ico)$/,
         use: [{ loader: 'file-loader?name=assets/[name].[hash].[ext]' }],
       },
     ],

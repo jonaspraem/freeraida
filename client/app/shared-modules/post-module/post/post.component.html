@@ -13,6 +13,8 @@
 
   <div class="post__footer">
     <p class="post__gnarly-counter">{{ post?.gnarly.length }}</p>
-    <svg-icon (click)="onGnarlyClick()" class="post__gnarly" [ngClass]="{active: post?.isLiked}" src="{{likeSvg.toString()}}"></svg-icon>
+    <i (click)="onGnarlyClick()" class="post__gnarly" [ngClass]="{active: post?.isLiked}">
+      <icon-like></icon-like>
+    </i>
   </div>
 </div>

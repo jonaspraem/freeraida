@@ -30,7 +30,7 @@ import { HomePageModule } from './pages/home-page/home.page.module';
 import { SharedModule } from './shared/shared.module';
 import { LineModule } from './shared-modules/line-module/line.module';
 import { NavigationModule } from './shared-modules/navigation-module/navigation.module';
-import { AngularSvgIconModule } from 'angular-svg-icon';
+import { IconModule } from './shared-modules/icon-module/icon.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,6 +46,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
     CoreModule,
     CommonModule,
     LineModule,
+    IconModule,
     NavigationModule,
     SharedModule,
     HomePageModule,
@@ -62,7 +63,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
   ],
   exports: [RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-  providers: [CONFIG, SharedModule, FontAwesomeModule, FLAG_DICTIONARY, COLOR_DICTIONARY, WINDOW_PROVIDERS],
+  providers: [CONFIG, SharedModule, FontAwesomeModule, IconModule, FLAG_DICTIONARY, COLOR_DICTIONARY, WINDOW_PROVIDERS],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
