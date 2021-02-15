@@ -6,11 +6,10 @@
     <a class="profile-card__username" [routerLink]="'/user/' + user?.username">@{{ user?.username }}</a>
   </div>
 
-  <hr />
-
-  <div>
-    <icon-ski></icon-ski>
-    <icon-snowboard></icon-snowboard>
+  <div class="profile-card__sports-container">
+    <i class="profile-card__sport-icon"><icon-ski></icon-ski></i>
+    <i class="profile-card__sport-icon"><icon-snowboard></icon-snowboard></i>
+    <i class="profile-card__sport-icon"><icon-mountaineering></icon-mountaineering></i>
   </div>
 
   <hr />

@@ -12,6 +12,18 @@ $card-border: 2px solid $color-white;
     border-bottom: $card-border;
   }
 
+  &__sports-container {
+    display: flex;
+    padding: 20px;
+    justify-content: space-around;
+  }
+
+  &__sport-icon {
+    max-width: 50px;
+    fill: $color-black;
+    flex-basis: 26%;
+  }
+
   &__profile-image {
     position: absolute;
     border-radius: 50%;
