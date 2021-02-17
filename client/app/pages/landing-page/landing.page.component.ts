@@ -61,7 +61,7 @@ export class LandingPageComponent implements OnInit {
     }
   );
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService) {}
 
   ngOnInit(): void {
     this.authService.logout(); // Force logout
@@ -74,7 +74,6 @@ export class LandingPageComponent implements OnInit {
   }
 
   onLogin() {
-    console.log('logging in..');
     let request: ILogin;
     if (this.loginForm.controls.userInput.value.includes('@')) {
       request = {
@@ -91,7 +90,6 @@ export class LandingPageComponent implements OnInit {
   }
 
   onSignup() {
-    console.log('signing up..');
     let request: IRegister = {
       email: this.signupForm.controls.email.value,
       username: this.signupForm.controls.username.value,

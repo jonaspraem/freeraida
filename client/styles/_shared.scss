@@ -20,6 +20,7 @@ $side-padding: 15px;
 
 .grid-right {
   min-width: $side-width;
+  width: 15%;
   padding-left: $side-padding;
 
   &--align {
@@ -29,6 +30,7 @@ $side-padding: 15px;
 
 .grid-left {
   min-width: $side-width;
+  width: 15%;
   padding-right: $side-padding;
 }
 
@@ -38,6 +40,10 @@ $side-padding: 15px;
 
 .grid-third {
   width: 33.33%;
+}
+
+.grid-two-thirds {
+  width: 66.66%;
 }
 
 .masonry-item {

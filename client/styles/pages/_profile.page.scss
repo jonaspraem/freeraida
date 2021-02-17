@@ -24,6 +24,12 @@ $hero-image-size: 250px;
     }
   }
 
+  &__tab-button {
+    position: relative;
+    bottom: 11px;
+    margin-left: 120px;
+  }
+
   &__tab--active {
     outline: none;
     cursor: pointer;
@@ -68,7 +74,7 @@ $hero-image-size: 250px;
   }
 
   &__page-container {
-    margin-top: 100px;
+    padding-top: 100px;
     padding-bottom: 100px;
   }
 
@@ -175,4 +181,10 @@ $hero-image-size: 250px;
       font-weight: 600;
     }
   }
+}
+
+.profile-edit {
+  box-shadow: $effect-element-shadow;
+  background-color: $color-white;
+  padding: 60px;
 }
