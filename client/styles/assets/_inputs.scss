@@ -47,3 +47,26 @@ $input-label-transition: font $input-timing ease, top $input-timing ease, transf
 .ng-valid {
   outline-color: $color-primary-light !important;
 }
+
+.input-light {
+  background: $color-ice;
+  border-radius: 4px;
+  border: 0;
+  color: $color-black;
+  height: 50px;
+  line-height: 50px;
+  padding: 16px 20px 0;
+  width: 100%;
+
+  &--active {
+    border: 2px solid $color-black;
+  }
+
+  &:focus {
+    outline: 2px solid $color-accent;
+  }
+
+  &:disabled {
+    background: $color-gray;
+  }
+}

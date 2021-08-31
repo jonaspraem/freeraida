@@ -14,14 +14,16 @@ $card-border: 2px solid $color-white;
 
   &__sports-container {
     display: flex;
-    padding: 20px;
-    justify-content: space-around;
+    padding: 20px 30px 0;
   }
 
   &__sport-icon {
-    max-width: 50px;
     fill: $color-black;
-    flex-basis: 26%;
+    width: 30px;
+
+    & + & {
+      margin-left: 10px;
+    }
   }
 
   &__profile-image {

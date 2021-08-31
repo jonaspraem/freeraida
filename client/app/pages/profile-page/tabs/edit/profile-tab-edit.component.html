@@ -8,8 +8,8 @@
           <input
             notEmptyDirective
             type="text"
-            class="input"
-            [ngClass]="editProfileForm.get('username').value.length !== 0 ? 'input--active' : ''"
+            class="input-light"
+            [ngClass]="editProfileForm.get('username').value.length !== 0 ? 'input-light--active' : ''"
             id="profile-edit-username"
             aria-describedby="profile-edit-username-help"
             formControlName="username"
@@ -36,8 +36,8 @@
         <div class="grid-two-thirds">
           <input
             type="text"
-            class="input"
-            [ngClass]="editProfileForm.get('firstname').value.length !== 0 ? 'input--active' : ''"
+            class="input-light"
+            [ngClass]="editProfileForm.get('firstname').value.length !== 0 ? 'input-light--active' : ''"
             id="profile-edit-firstname"
             formControlName="firstname"
             required
@@ -62,8 +62,8 @@
         <div class="grid-two-thirds">
           <input
             type="text"
-            class="input"
-            [ngClass]="editProfileForm.get('surname').value.length !== 0 ? 'input--active' : ''"
+            class="input-light"
+            [ngClass]="editProfileForm.get('surname').value.length !== 0 ? 'input-light--active' : ''"
             id="profile-edit-surname"
             formControlName="surname"
           />
@@ -87,8 +87,8 @@
         <div class="grid-two-thirds">
           <select
             [formControl]="editProfileForm.controls.country"
-            class="input"
-            [ngClass]="editProfileForm.get('country').value.length !== 0 ? 'input--active' : ''"
+            class="input-light"
+            [ngClass]="editProfileForm.get('country').value.length !== 0 ? 'input-light--active' : ''"
             id="profile-edit-country-select"
           >
             <option *ngFor="let country of countryList" [ngValue]="country">{{ country }}</option>
