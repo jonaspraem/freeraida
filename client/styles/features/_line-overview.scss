@@ -2,7 +2,7 @@
   padding-bottom: 100px;
 
   &__rubric {
-    height: 450px;
+    height: 345px;
     position: relative;
   }
 
@@ -86,5 +86,10 @@
     left: 60%;
     right: 0;
     height: 20px;
+  }
+
+  &__height-map-container {
+    padding-top: 5px;
+    width: 40%;
   }
 }

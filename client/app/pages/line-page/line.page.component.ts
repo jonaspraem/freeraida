@@ -1,8 +1,8 @@
-import { LineOverviewComponent } from './components/line-overview/line-overview.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LineService } from '../../core/services/line.service';
 import { ILine } from '../../models/interfaces/types';
+import { LineOverviewComponent } from './components/line-overview/line-overview.component';
 
 @Component({
   selector: 'app-line-page',
