@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ILine } from '../../../../models/interfaces/types';
+import { ILine, ILineLocation } from '../../../../models/interfaces/types';
 import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
@@ -11,6 +11,7 @@ import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces
 export class LineOverviewComponent implements OnInit {
   @Input() line: ILine;
   @Input() isEdit: boolean;
+  @Input() hasImages: boolean;
   @Output() notifyEdit: EventEmitter<boolean> = new EventEmitter();
   public isOwn: boolean = false;
   public chart: GoogleChartInterface = {
@@ -19,6 +20,8 @@ export class LineOverviewComponent implements OnInit {
     //opt_firstRowIsData: true,
     options: {},
   };
+  public activeImage: string;
+  public imageAttachedLocations: ILineLocation[];
 
   constructor(public colorDictionary: COLOR_DICTIONARY, public profileService: ProfileService) {}
 
@@ -27,14 +30,17 @@ export class LineOverviewComponent implements OnInit {
       this.isOwn = this.line.username === profile.username;
     });
 
+    this.imageAttachedLocations = this.line.locations.filter((loc) => Array.isArray(loc.images));
+
     this.mapChart();
     this.chart.options = {
       title: 'Height map',
       legend: 'none',
       vAxis: {
-        gridlines: {
+      gridlines: {
           count: 0,
         },
+        minValue: 0,
         baselineColor: 'none',
       },
       hAxis: {
@@ -43,12 +49,12 @@ export class LineOverviewComponent implements OnInit {
         },
         baselineColor: 'none',
       },
-      axisFontSize: 0,
+      axisFontSize: 4,
       height: 250,
-      curveType: 'function',
-      pointSize: 1,
+      pointSize: 0,
+      areaOpacity: 1,
       colors: [this.colorDictionary.get(this.line.sport)],
-      backgroundColor: 'none',
+      backgroundColor: 'white',
       chartArea: {
         left: 0,
         top: 0,
@@ -60,6 +66,12 @@ export class LineOverviewComponent implements OnInit {
 
   public setEdit(): void {
     this.notifyEdit.emit(true);
+  }
+
+  public onHeightProfileMouseover(event): void {
+    if (Array.isArray(this.line.locations[event.position.row].images)) {
+      this.activeImage = this.line.locations[event.position.row].images[0];
+    }
   }
 
   private mapChart(): void {

@@ -51,7 +51,7 @@ import { IconModule } from './shared-modules/icon-module/icon.module';
     SharedModule,
     HomePageModule,
     FontAwesomeModule,
-    ChartsModule,
+    // ChartsModule,
     // Material design modules:
     MatSidenavModule,
     MatCardModule,

@@ -1,26 +1,33 @@
 <div class="line-overview">
   <div class="line-overview__rubric">
-    <div class="line-overview__color-box" [ngStyle]="{ backgroundColor: colorDictionary.get(line.sport) }"></div>
+    <div class="line-overview__color-box" [ngStyle]="{ backgroundColor: colorDictionary.get(line.sport) }">
+      <div class="line-overview__header width-container">
+        <h1 [contentEditable]="isEdit" (blur)="line.name = $event.target.innerText">{{ line.name }}</h1>
+        <h3>{{ line.sport }}</h3>
+      </div>
+
+      <div class="line-overview__edit-button" *ngIf="isOwn">
+        <button class="button-edit button-edit--white" (click)="setEdit()">Edit</button>
+      </div>
+    </div>
     <div class="line-overview__color-box-second" [ngStyle]="{ backgroundColor: colorDictionary.get(line.sport) }"></div>
     <div class="line-overview__map-container width-container">
       <div class="line-overview__map">
         <app-line-map [line]="line" [height]="500"></app-line-map>
       </div>
-      <div class="line-overview__edit-button" *ngIf="isOwn">
-        <button class="button-edit button-edit--white" (click)="setEdit()">Edit</button>
-      </div>
-    </div>
-    <div class="line-overview__header width-container">
-      <h1 [contentEditable]="isEdit" (blur)="line.name = $event.target.innerText">{{ line.name }}</h1>
-      <h3>{{ line.sport }}</h3>
-    </div>
-  </div>
-
-  <div class="width-container">
-    <div class="line-overview__height-map-container">
-      <google-chart id="chart" [data]="chart"></google-chart>
+      
     </div>
     
+  </div>
+
+  <div class="line-overview__height-map-container">
+    <google-chart id="chart" [data]="chart" (mouseOver)="onHeightProfileMouseover($event)"></google-chart>
+  </div>
+
+  <div class="line-overview__color-box-third" [ngStyle]="{ backgroundColor: colorDictionary.get(line.sport) }"></div>
+
+  <div class="width-container">
+    <img [src]="activeImage" class="line-overview__image">
   </div>
 
   <!-- <div class="width-container">

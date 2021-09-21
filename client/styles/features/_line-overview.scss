@@ -2,8 +2,8 @@
   padding-bottom: 100px;
 
   &__rubric {
-    height: 345px;
     position: relative;
+    z-index: 2;
   }
 
   &__table {
@@ -36,11 +36,12 @@
   }
 
   &__header {
-    position: absolute;
-    top: 150px;
-    left: 0;
-    right: 0;
     color: $color-white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 20px;
 
     > h1 {
       font-weight: 600;
@@ -60,36 +61,37 @@
 
   &__edit-button {
     position: absolute;
-    bottom: 195px;
+    bottom: 20px;
     right: 55%;
   }
 
   &__color-box {
-    position: absolute;
-    top: 80px;
-    left: 0;
-    right: 0;
     height: 200px;
+    position: relative;
   }
 
   &__color-box-second {
-    position: absolute;
-    top: 315px;
-    left: 0;
-    right: 0;
     height: 30px;
+    margin-top: 30px;
   }
 
   &__color-box-third {
-    position: absolute;
-    top: 350px;
-    left: 60%;
-    right: 0;
-    height: 20px;
+    height: 45px;
+    margin-top: -1px;
+    position: relative;
+    z-index: 0;
   }
 
   &__height-map-container {
     padding-top: 5px;
-    width: 40%;
+    width: calc(100% - 600px);
+    margin-left: -1px;
+  }
+
+  &__image {
+    width: 45%;
+    margin-top: -32px;
+    position: relative;
+    left: 20px;
   }
 }
