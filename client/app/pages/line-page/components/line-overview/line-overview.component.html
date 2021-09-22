@@ -13,7 +13,7 @@
     <div class="line-overview__color-box-second" [ngStyle]="{ backgroundColor: colorDictionary.get(line.sport) }"></div>
     <div class="line-overview__map-container width-container">
       <div class="line-overview__map">
-        <app-line-map [line]="line" [height]="500"></app-line-map>
+        <app-line-map [line]="line" [height]="400"></app-line-map>
       </div>
       
     </div>
@@ -25,57 +25,4 @@
   </div>
 
   <div class="line-overview__color-box-third" [ngStyle]="{ backgroundColor: colorDictionary.get(line.sport) }"></div>
-
-  <div class="width-container">
-    <img [src]="activeImage" class="line-overview__image">
-  </div>
-
-  <!-- <div class="width-container">
-    <table class="line-overview__table">
-      <h5>Stats</h5>
-      <tr>
-        <td>distance</td>
-        <td>{{ line.locations[line.locations.length - 1].distanceFromStart }}</td>
-      </tr>
-      <tr>
-        <td>duration</td>
-        <td>{{ line.locations[line.locations.length - 1].timeFromStart }}</td>
-      </tr>
-      <tr>
-        <td>highest peak</td>
-        <td>{{ line.peak }}</td>
-      </tr>
-      <tr>
-        <td>steepness</td>
-        <td>{{ line.slope }}</td>
-      </tr>
-      <h5>starting location</h5>
-      <tr>
-        <td>country</td>
-        <td>@Denmark</td>
-      </tr>
-      <tr>
-        <td>latitude</td>
-        <td>{{ line.locations[0].latitude }}</td>
-      </tr>
-      <tr>
-        <td>longitude</td>
-        <td>{{ line.locations[0].longitude }}</td>
-      </tr>
-
-      <h5>End location</h5>
-      <tr>
-        <td>country</td>
-        <td>@Denmark</td>
-      </tr>
-      <tr>
-        <td>latitude</td>
-        <td>{{ line.locations[line.locations.length - 1].latitude }}</td>
-      </tr>
-      <tr>
-        <td>longitude</td>
-        <td>{{ line.locations[line.locations.length - 1].longitude }}</td>
-      </tr>
-    </table>
-  </div> -->
 </div>

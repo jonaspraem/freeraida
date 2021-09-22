@@ -1,5 +1,5 @@
 .line-overview {
-  padding-bottom: 100px;
+  padding-bottom: 50px;
 
   &__rubric {
     position: relative;
@@ -31,8 +31,9 @@
   }
 
   &__map {
-    float: right;
-    width: 600px;
+    position: absolute;
+    right: 0;
+    width: 502px;
   }
 
   &__header {
@@ -84,7 +85,7 @@
 
   &__height-map-container {
     padding-top: 5px;
-    width: calc(100% - 600px);
+    width: calc(50% + 100px);
     margin-left: -1px;
   }
 

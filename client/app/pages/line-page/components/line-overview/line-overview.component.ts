@@ -37,7 +37,7 @@ export class LineOverviewComponent implements OnInit {
       title: 'Height map',
       legend: 'none',
       vAxis: {
-      gridlines: {
+        gridlines: {
           count: 0,
         },
         minValue: 0,
@@ -50,7 +50,7 @@ export class LineOverviewComponent implements OnInit {
         baselineColor: 'none',
       },
       axisFontSize: 4,
-      height: 250,
+      height: 150,
       pointSize: 0,
       areaOpacity: 1,
       colors: [this.colorDictionary.get(this.line.sport)],
