@@ -45,7 +45,7 @@ export class LineHeightMapComponent {
         titleTextStyle: {
           italic: false,
           fontName: 'K2D',
-          color: this.colorDictionary.get(this.line.sport),
+          color: "black",
           fontSize: 12,
         },
       },
@@ -60,7 +60,7 @@ export class LineHeightMapComponent {
         titleTextStyle: {
           italic: false,
           fontName: 'K2D',
-          color: this.colorDictionary.get(this.line.sport),
+          color: "black",
           fontSize: 12,
         },
       }

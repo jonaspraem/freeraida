@@ -13,7 +13,7 @@ const rad = (x) => {
 };
 
 const calculateDistance = (p1, p2) => {
-  const R = 6371; // km
+  const R = 6371;
   const dLat = rad(p2.lat - p1.lat);
   const dLon = rad(p2.lng - p1.lng);
   const lat1 = rad(p1.lat);
