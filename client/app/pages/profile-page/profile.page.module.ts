@@ -12,6 +12,10 @@ import { ProfileModule } from '../../shared-modules/profile-module/profile.modul
 import { ProfileTabFollowersComponent } from './tabs/profile-tab-followers.component';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { ProfileTabFollowingComponent } from './tabs/profile-tab-following.component';
+import { ProfileTabEditComponent } from './tabs/edit/profile-tab-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MatFormFieldModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -20,8 +24,18 @@ import { ProfileTabFollowingComponent } from './tabs/profile-tab-following.compo
     ProfileTabHomeComponent,
     ProfileTabFollowingComponent,
     ProfileTabFollowersComponent,
+    ProfileTabEditComponent,
   ],
-  imports: [profileRoutes, SharedModule, PostModule, LineModule, ProfileModule, NgxMasonryModule],
+  imports: [
+    profileRoutes, 
+    SharedModule, 
+    PostModule, 
+    LineModule, 
+    ProfileModule, 
+    NgxMasonryModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+  ],
   exports: [ProfilePageComponent, RouterModule],
   entryComponents: [ProfilePageComponent],
   providers: [ProfilePageService],

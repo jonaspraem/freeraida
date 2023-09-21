@@ -1,10 +1,13 @@
 <agm-map
   [ngStyle]="{ height: height + 'px' }"
   [mapTypeId]="'terrain'"
-  [latitude]="latitude"
-  [longitude]="longitude"
   [disableDefaultUI]="true"
-  [zoom]="12"
+  [mapDraggable]="false"
+  [disableDoubleClickZoom]="true"
+  [clickableIcons]="false"
+  [fitBounds]="true"
+  [streetViewControl]="false"
+  [zoomControl]="false"
 >
   <agm-polyline
     *ngFor="let item of polyCoords"
@@ -20,10 +23,12 @@
     [latitude]="startLocation.latitude"
     [longitude]="startLocation.longitude"
     [markerDraggable]="false"
+    [agmFitBounds]="true"
   ></agm-marker>
   <agm-marker
     [latitude]="endLocation.latitude"
     [longitude]="endLocation.longitude"
     [markerDraggable]="false"
+    [agmFitBounds]="true"
   ></agm-marker>
 </agm-map>

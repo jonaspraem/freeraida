@@ -28,13 +28,19 @@ export class HeightMapComponent implements OnInit {
       title: 'Height map',
       legend: 'none',
       vAxis: {
-        minValue: 0,
-        maxValue: 20,
+        gridlines: {
+          count: 0,
+        },
+      },
+      hAxis: {
+        gridlines: {
+          count: 0,
+        },
       },
       axisFontSize: 0,
       height: 170,
-      curveType: 'function',
-      pointSize: 5,
+      pointSize: 0,
+      // areaOpacity: 0.5,
       colors: [this.color],
       backgroundColor: 'none',
       chartArea: {

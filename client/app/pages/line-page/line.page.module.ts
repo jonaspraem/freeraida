@@ -8,9 +8,10 @@ import { LinePictureTimelineComponent } from './components/line-picture-timeline
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { LineModule } from '../../shared-modules/line-module/line.module';
+import { LineHeightProfileComponent } from './components/line-height-profile/line-height-profile.component';
 
 @NgModule({
-  declarations: [LinePageComponent, LineOverviewComponent, LineHeightMapComponent, LinePictureTimelineComponent],
+  declarations: [LinePageComponent, LineOverviewComponent, LineHeightMapComponent, LinePictureTimelineComponent, LineHeightProfileComponent],
   entryComponents: [LinePageComponent],
   exports: [LinePageComponent],
   imports: [lineRoutes, LineModule, SharedModule, Ng2GoogleChartsModule, FormsModule],

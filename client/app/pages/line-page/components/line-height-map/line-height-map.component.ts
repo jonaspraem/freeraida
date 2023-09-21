@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ILine } from '../../../../models/interfaces/types';
 import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
+import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
 
 @Component({
   selector: 'app-line-height-map',
@@ -15,35 +16,54 @@ export class LineHeightMapComponent {
     options: {},
   };
 
+  constructor(public colorDictionary: COLOR_DICTIONARY) {}
+
   public ngOnInit(): void {
     this.reMapChart();
     this.chart.options = {
-      title: 'Height map',
       legend: 'none',
-      vAxis: {
-        gridlines: {
-          count: 0,
-        },
-        baselineColor: 'none',
-      },
-      hAxis: {
-        gridlines: {
-          count: 0,
-        },
-        baselineColor: 'none',
-      },
-      axisFontSize: 0,
-      height: 400,
-      curveType: 'function',
-      pointSize: 0,
-      colors: ['#5E8894'],
+      width: 652,
+      height: 300,
+      colors: [this.colorDictionary.get(this.line.sport)],
+      areaOpacity: 0.5,
       backgroundColor: 'none',
       chartArea: {
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
+        left: 100,
+        right: 50,
+        bottom: 50,
+        top: 20
       },
+      pointSize: 2,
+      vAxis: {
+        title: "Height above sea level",
+        format: '#m',
+        textStyle: {
+          italic: false,
+          fontName: 'K2D',
+          color: '#8c2322',
+        },
+        titleTextStyle: {
+          italic: false,
+          fontName: 'K2D',
+          color: "black",
+          fontSize: 12,
+        },
+      },
+      hAxis: {
+        title: "Distance from start",
+        format: '#.#km',
+        textStyle: {
+          italic: false,
+          fontName: 'K2D',
+          color: '#8c2322'
+        },
+        titleTextStyle: {
+          italic: false,
+          fontName: 'K2D',
+          color: "black",
+          fontSize: 12,
+        },
+      }
     };
   }
 

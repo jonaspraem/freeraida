@@ -34,7 +34,6 @@ export class ProfileTabFollowingComponent implements OnDestroy {
       this._subscriptions['followers'] = this._socialService
         .getFollowing(this.userProfile.username)
         .subscribe((followers) => {
-          console.log('red', followers);
           this.userList = followers;
         });
     });

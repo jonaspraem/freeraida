@@ -27,6 +27,10 @@
             Followers
             <span>{{ profile?.followers?.length }}</span>
           </li>
+
+          <ng-container *ngIf="profile?.isSelf">
+            <a [routerLink]="['edit']" class="button-edit profile__tab-button">Edit profile</a>
+          </ng-container>
         </ul>
       </div>
     </div>

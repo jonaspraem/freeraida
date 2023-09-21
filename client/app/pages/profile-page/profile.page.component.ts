@@ -17,6 +17,7 @@ export enum ProfileTab {
   LINES,
   FOLLOWING,
   FOLLOWERS,
+  EDIT
 }
 
 @Component({

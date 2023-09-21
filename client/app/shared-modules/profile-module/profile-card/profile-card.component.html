@@ -5,11 +5,15 @@
     <h3>{{ user?.firstname }} {{ user?.surname }}</h3>
     <a class="profile-card__username" [routerLink]="'/user/' + user?.username">@{{ user?.username }}</a>
   </div>
-  <hr />
-  <div [ngStyle]="{ opacity: 0.6 }">
-    
+
+  <div class="profile-card__sports-container">
+    <i class="profile-card__sport-icon"><icon-ski></icon-ski></i>
+    <i class="profile-card__sport-icon"><icon-snowboard></icon-snowboard></i>
+    <i class="profile-card__sport-icon"><icon-mountaineering></icon-mountaineering></i>
   </div>
+
   <hr />
+
   <div class="profile-card__stats">
     <div>
       <div>Posts</div>

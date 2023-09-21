@@ -1,5 +1,53 @@
-<div class="line-height-map">
-  <div class="line-height-map__graph width-container">
+<div class="width-container">
+  <table>
+    <td>
+      <span class="material-icons">
+        landscape
+        </span>
+        slope
+    </td>
+
+    <td>
+      <span class="material-icons">route</span>
+      distance
+    </td>
+
+    <td>
+      <span class="material-icons">moving</span>
+      Height meters ascended
+    </td>
+
+    <td>
+      <span class="material-icons">keyboard_double_arrow_down</span>
+      Height meters descended
+    </td>
+
+    <td>
+      <span class="material-icons">shuffle</span>
+      Total height meters traversed
+    </td>
+
+    <td>
+      <span class="material-icons">warning</span>
+      Steepest slope
+    </td>
+
+    <td>
+      <span class="material-icons">query_stats</span>
+      Average slope
+    </td>
+
+    <td>
+      Time of day
+      <span class="material-icons">light_mode</span>
+      <span class="material-icons">dark_mode</span>
+    </td>
+  </table>
+
+  <span class="material-icons">map</span>
+  <span class="material-icons">show_chart</span>
+
+  <div class="line-height-map">
     <google-chart id="chart" [data]="chart"></google-chart>
   </div>
 </div>

@@ -1,0 +1,110 @@
+<div class="width-container  profile-edit">
+  <form [formGroup]="editProfileForm" (ngSubmit)="onSignup()">
+    <div class="form-group flex profile-tab-edit__form-element">
+        <div class="grid-third">
+          <label for="profile-edit-username">Username</label>
+        </div>
+        <div class="grid-two-thirds">
+          <input
+            notEmptyDirective
+            type="text"
+            class="input-light"
+            [ngClass]="editProfileForm.get('username').value.length !== 0 ? 'input-light--active' : ''"
+            id="profile-edit-username"
+            aria-describedby="profile-edit-username-help"
+            formControlName="username"
+            required
+          />
+          <small id="profile-edit-username-help" class="form-text text-muted">Username must be unique</small>
+          <mat-error *ngFor="let validation of messages.username">
+            <mat-error
+              class="landing-page__error-message"
+              *ngIf="
+              editProfileForm.get('username').hasError(validation.type) &&
+                (editProfileForm.get('username').dirty || editProfileForm.get('username').touched)
+              "
+              >* {{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="form-group flex profile-tab-edit__form-element">
+        <div class="grid-third">
+          <label for="profile-edit-firstname">First name</label>
+        </div>
+        <div class="grid-two-thirds">
+          <input
+            type="text"
+            class="input-light"
+            [ngClass]="editProfileForm.get('firstname').value.length !== 0 ? 'input-light--active' : ''"
+            id="profile-edit-firstname"
+            formControlName="firstname"
+            required
+          />
+          <mat-error *ngFor="let validation of messages.firstname">
+            <mat-error
+              class="landing-page__error-message"
+              *ngIf="
+              editProfileForm.get('firstname').hasError(validation.type) &&
+                (editProfileForm.get('firstname').dirty || editProfileForm.get('firstname').touched)
+              "
+              >* {{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="form-group flex profile-tab-edit__form-element">
+        <div class="grid-third">
+          <label for="profile-edit-surname">Surname</label>
+        </div>
+        <div class="grid-two-thirds">
+          <input
+            type="text"
+            class="input-light"
+            [ngClass]="editProfileForm.get('surname').value.length !== 0 ? 'input-light--active' : ''"
+            id="profile-edit-surname"
+            formControlName="surname"
+          />
+          <mat-error *ngFor="let validation of messages.surname">
+            <mat-error
+              class="landing-page__error-message"
+              *ngIf="
+                editProfileForm.get('surname').hasError(validation.type) &&
+                (editProfileForm.get('surname').dirty || editProfileForm.get('surname').touched)
+              "
+              >* {{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="form-group flex profile-tab-edit__form-element">
+        <div class="grid-third">
+          <label for="profile-edit-country-select">Country</label>
+        </div>
+        <div class="grid-two-thirds">
+          <select
+            [formControl]="editProfileForm.controls.country"
+            class="input-light"
+            [ngClass]="editProfileForm.get('country').value.length !== 0 ? 'input-light--active' : ''"
+            id="profile-edit-country-select"
+          >
+            <option *ngFor="let country of countryList" [ngValue]="country">{{ country }}</option>
+          </select>
+
+          <mat-error *ngFor="let validation of messages.country">
+            <mat-error
+              class="landing-page__error-message"
+              *ngIf="
+                editProfileForm.get('country').hasError(validation.type) &&
+                (editProfileForm.get('country').dirty || editProfileForm.get('country').touched)
+              "
+              >* {{ validation.message }}</mat-error
+            >
+          </mat-error>
+        </div>
+      </div>
+  </form>
+</div>
