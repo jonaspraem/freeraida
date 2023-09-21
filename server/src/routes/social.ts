@@ -132,7 +132,6 @@ router.get('/following/:username', async (req, res, next) => {
   }
 
   const promises = await user.following.map(async (followingUsername) => {
-    console.log(followingUsername);
     let following;
 
     try {

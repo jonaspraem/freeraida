@@ -45,7 +45,6 @@ export class LinePictureTimelineComponent implements OnInit {
     } else {
       this.imageOnLocationIndex++;
     }
-    // console.log(this.currentIndex, this.locationIndex, this.imageOnLocationIndex);
 
     // Set image element
     this.imageElement.nativeElement.className = 'photo-timeline__image photo-timeline__image--fade-out';

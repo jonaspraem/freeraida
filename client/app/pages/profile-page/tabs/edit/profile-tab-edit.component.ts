@@ -45,7 +45,6 @@ export class ProfileTabEditComponent implements OnInit {
       }
 
       this.userProfile = profile;
-      console.log(profile);
 
       this.editProfileForm = new FormGroup(
         {
