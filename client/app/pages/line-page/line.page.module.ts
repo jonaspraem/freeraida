@@ -11,7 +11,13 @@ import { LineModule } from '../../shared-modules/line-module/line.module';
 import { LineHeightProfileComponent } from './components/line-height-profile/line-height-profile.component';
 
 @NgModule({
-  declarations: [LinePageComponent, LineOverviewComponent, LineHeightMapComponent, LinePictureTimelineComponent, LineHeightProfileComponent],
+  declarations: [
+    LinePageComponent,
+    LineOverviewComponent,
+    LineHeightMapComponent,
+    LinePictureTimelineComponent,
+    LineHeightProfileComponent,
+  ],
   entryComponents: [LinePageComponent],
   exports: [LinePageComponent],
   imports: [lineRoutes, LineModule, SharedModule, Ng2GoogleChartsModule, FormsModule],

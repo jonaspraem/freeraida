@@ -8,8 +8,7 @@ import { AuthenticationService } from '../../../core/services/authentication.ser
 export class SidenavComponent implements OnInit {
   constructor(private auth_service: AuthenticationService) {}
 
-  public ngOnInit(): void {
-  }
+  public ngOnInit(): void {}
 
   public onLogout(): void {
     this.auth_service.logout();

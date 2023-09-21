@@ -58,8 +58,12 @@ export class LineMapComponent implements OnInit {
     return lng / this.line.locations.length;
   }
 
-  rad2degr(rad: number): number { return rad * 180 / Math.PI; }
-  degr2rad(degr: number): number { return degr * Math.PI / 180; }
+  rad2degr(rad: number): number {
+    return (rad * 180) / Math.PI;
+  }
+  degr2rad(degr: number): number {
+    return (degr * Math.PI) / 180;
+  }
 
   calculateLineCenter(): void {
     const locations = this.line.locations;
@@ -67,13 +71,13 @@ export class LineMapComponent implements OnInit {
     var sumY = 0;
     var sumZ = 0;
 
-    for (var i=0; i < locations.length; i++) {
-        var lat = this.degr2rad(locations[i].latitude);
-        var lng = this.degr2rad(locations[i].longitude);
-        // sum of cartesian coordinates
-        sumX += Math.cos(lat) * Math.cos(lng);
-        sumY += Math.cos(lat) * Math.sin(lng);
-        sumZ += Math.sin(lat);
+    for (var i = 0; i < locations.length; i++) {
+      var lat = this.degr2rad(locations[i].latitude);
+      var lng = this.degr2rad(locations[i].longitude);
+      // sum of cartesian coordinates
+      sumX += Math.cos(lat) * Math.cos(lng);
+      sumY += Math.cos(lat) * Math.sin(lng);
+      sumZ += Math.sin(lat);
     }
 
     var avgX = sumX / locations.length;

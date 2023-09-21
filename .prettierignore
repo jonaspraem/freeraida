@@ -1,0 +1,12 @@
+*
+
+!*.ts
+!*.js
+!*.css
+!*.scss
+!*/
+
+/client/aot
+/node_modules
+/public/js
+/server/dist

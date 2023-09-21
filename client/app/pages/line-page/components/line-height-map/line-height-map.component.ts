@@ -31,11 +31,11 @@ export class LineHeightMapComponent {
         left: 100,
         right: 50,
         bottom: 50,
-        top: 20
+        top: 20,
       },
       pointSize: 2,
       vAxis: {
-        title: "Height above sea level",
+        title: 'Height above sea level',
         format: '#m',
         textStyle: {
           italic: false,
@@ -45,25 +45,25 @@ export class LineHeightMapComponent {
         titleTextStyle: {
           italic: false,
           fontName: 'K2D',
-          color: "black",
+          color: 'black',
           fontSize: 12,
         },
       },
       hAxis: {
-        title: "Distance from start",
+        title: 'Distance from start',
         format: '#.#km',
         textStyle: {
           italic: false,
           fontName: 'K2D',
-          color: '#8c2322'
+          color: '#8c2322',
         },
         titleTextStyle: {
           italic: false,
           fontName: 'K2D',
-          color: "black",
+          color: 'black',
           fontSize: 12,
         },
-      }
+      },
     };
   }
 
