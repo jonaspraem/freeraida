@@ -4,9 +4,10 @@
 !*.js
 !*.css
 !*.scss
+!*.html
 !*/
 
-/client/aot
+/aot
 /node_modules
 /public/js
 /server/dist

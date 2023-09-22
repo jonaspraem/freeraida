@@ -1,5 +1,10 @@
 <div class="line-page" *ngIf="!!line">
-  <app-line-overview [line]="line" [isEdit]="isEdit" (notifyEdit)="toggleEdit($event)" [hasImages]="hasImages"></app-line-overview>
+  <app-line-overview
+    [line]="line"
+    [isEdit]="isEdit"
+    (notifyEdit)="toggleEdit($event)"
+    [hasImages]="hasImages"
+  ></app-line-overview>
   <app-line-height-map [line]="line"></app-line-height-map>
   <!-- <app-line-picture-timeline *ngIf="hasImages" [line]="line"></app-line-picture-timeline> -->
   <app-edit-overlay *ngIf="isEdit" (notifyEdit)="toggleEdit($event)" (saveEdit)="saveEdit()"></app-edit-overlay>
