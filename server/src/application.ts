@@ -32,9 +32,11 @@ class Application {
     // Carabiner
     const carabinerRoutes = require('./routes/carabiner/carabiner');
 
-    mongoose.connect(
-      'mongodb+srv://test-user:33rdlivgarden1995@freeraida-database.5milj.mongodb.net/freeraida-database?retryWrites=true&w=majority'
-    );
+    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/freeraida';
+    mongoose
+      .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+      .then(() => console.log('MongoDB connected'))
+      .catch((err) => console.error('MongoDB connection error:', err.message));
 
     // view engine setup
     this.express.set('views', path.join(__dirname, '../views'));
