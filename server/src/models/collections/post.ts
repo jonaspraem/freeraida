@@ -27,7 +27,7 @@ export async function updatePost(id: ObjectId, update: Partial<IPost>): Promise<
   const result = await getDb()
     .collection<IPost>(COLLECTION)
     .findOneAndUpdate({ _id: id }, { $set: update }, { returnDocument: 'after' });
-  return result;
+  return result.value;
 }
 
 export async function deletePost(id: ObjectId): Promise<void> {

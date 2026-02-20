@@ -25,7 +25,7 @@ export async function updateLine(id: ObjectId, update: Partial<ILine>): Promise<
   const result = await getDb()
     .collection<ILine>(COLLECTION)
     .findOneAndUpdate({ _id: id }, { $set: update }, { returnDocument: 'after' });
-  return result;
+  return result.value;
 }
 
 export async function deleteLine(id: ObjectId): Promise<void> {

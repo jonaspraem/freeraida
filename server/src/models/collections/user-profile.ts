@@ -38,7 +38,7 @@ export async function updateProfile(id: ObjectId, update: Partial<IUserProfile>)
   const result = await getDb()
     .collection<IUserProfile>(COLLECTION)
     .findOneAndUpdate({ _id: id }, { $set: update }, { returnDocument: 'after' });
-  return result;
+  return result.value;
 }
 
 export async function pushToArray(
