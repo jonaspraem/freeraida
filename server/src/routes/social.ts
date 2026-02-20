@@ -1,12 +1,12 @@
 import * as express from 'express';
-import UserProfile, { IUserProfile } from '../models/schemas/user-profile';
-import { ILine } from '../models/schemas/line';
-import Location from '../models/schemas/location';
+import { ObjectId } from 'mongodb';
+import * as userProfile from '../models/collections/user-profile';
+import { IUserProfile } from '../models/types/documents';
+
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
-// Verify token
 router.use('/', async (req, res, next) => {
   try {
     await jwt.verify(req.query.token, keys.token.secret);
@@ -19,130 +19,103 @@ router.use('/', async (req, res, next) => {
   next();
 });
 
-// Follow another user
-router.post('/follow/:username', async (req, res, next) => {
-  const decoded = jwt.decode(req.query.token);
+router.post('/follow/:username', async (req, res) => {
+  const decoded: any = jwt.decode(req.query.token);
   const username = req.params.username;
-  let self;
-  let toFollow;
 
-  try {
-    self = await UserProfile.findById(decoded.id);
-    toFollow = await UserProfile.findOne({ username: username });
-  } catch (e) {
+  const self = decoded?.id ? await userProfile.findById(new ObjectId(decoded.id)) : null;
+  const toFollow = await userProfile.findOne({ username });
+
+  if (!self || !toFollow) {
     return res.status(400).json({
       title: 'An error occurred',
       message: 'No user profile found',
     });
   }
-  const isAlreadyFollowing = self.following.indexOf(username) > -1;
-  if (isAlreadyFollowing) {
+
+  const following = self.following || [];
+  if (following.indexOf(username) > -1) {
     return res.status(400).json({
       title: 'User is already followed',
       message: 'You are already following this user',
     });
   }
-  self.following.push(username);
-  toFollow.followers.push(self.username);
+
+  const newSelfFollowing = [...following, username];
+  const newToFollowFollowers = [...(toFollow.followers || []), self.username];
+
   try {
-    await self.save();
-    toFollow = await toFollow.save();
+    await userProfile.updateProfile(self._id!, { following: newSelfFollowing });
+    await userProfile.updateProfile(toFollow._id!, { followers: newToFollowFollowers });
+    const updated = await userProfile.findById(toFollow._id!);
+    return res.status(200).json(updated);
   } catch (e) {
-    console.log(e);
     return res.status(500).json({
       title: 'An error occurred',
       message: 'Error saving the user profiles',
     });
   }
-  return res.status(200).json(toFollow);
 });
 
-// Un-follow user
-router.post('/unfollow/:username', async (req, res, next) => {
-  const decoded = jwt.decode(req.query.token);
+router.post('/unfollow/:username', async (req, res) => {
+  const decoded: any = jwt.decode(req.query.token);
   const username = req.params.username;
-  let self;
-  let toUnfollow;
 
-  try {
-    self = await UserProfile.findById(decoded.id);
-    toUnfollow = await UserProfile.findOne({ username: username });
-  } catch (e) {
+  const self = decoded?.id ? await userProfile.findById(new ObjectId(decoded.id)) : null;
+  const toUnfollow = await userProfile.findOne({ username });
+
+  if (!self || !toUnfollow) {
     return res.status(400).json({
       title: 'An error occurred',
       message: 'No user profile found',
     });
   }
-  const isAlreadyFollowing = self.following.indexOf(username) > -1;
-  if (!isAlreadyFollowing) {
+
+  const following = self.following || [];
+  if (following.indexOf(username) === -1) {
     return res.status(400).json({
       title: 'User is not followed',
       message: 'You are not currently following this user',
     });
   }
+
+  const newSelfFollowing = following.filter((u) => u !== username);
+  const newToUnfollowFollowers = (toUnfollow.followers || []).filter((u) => u !== self.username);
+
   try {
-    self.following.splice(self.following.indexOf(username), 1);
-    toUnfollow.followers.splice(toUnfollow.followers.indexOf(self.username), 1);
-    await self.save();
-    toUnfollow = await toUnfollow.save();
+    await userProfile.updateProfile(self._id!, { following: newSelfFollowing });
+    await userProfile.updateProfile(toUnfollow._id!, { followers: newToUnfollowFollowers });
+    const updated = await userProfile.findById(toUnfollow._id!);
+    return res.status(200).json(updated);
   } catch (e) {
     return res.status(500).json({
       title: 'An error occurred',
       message: 'Error saving the user profiles',
     });
   }
-  return res.status(200).json(toUnfollow);
 });
 
-router.get('/followers/:username', async (req, res, next) => {
-  const username = req.params.username;
-  let user: IUserProfile;
-  let followers: IUserProfile[] = [];
+router.get('/followers/:username', async (req, res) => {
+  const user = await userProfile.findOne({ username: req.params.username });
+  if (!user) return res.status(404).json('No user found');
 
-  try {
-    user = await UserProfile.findOne({ username: username });
-  } catch (e) {
-    return res.status(404).json('No user found');
+  const followers: IUserProfile[] = [];
+  for (const followerUsername of user.followers || []) {
+    const follower = await userProfile.findOne({ username: followerUsername });
+    if (follower) followers.push(follower);
   }
-
-  const promises = await user.followers.map(async (followerUsername) => {
-    let follower;
-
-    try {
-      follower = await UserProfile.findOne({ username: followerUsername });
-      follower = follower.toObject(); // To make the line mutable
-      followers.push(follower);
-    } catch (e) {}
-  });
-
-  await Promise.all(promises);
-
   return res.status(200).json(followers);
 });
 
-router.get('/following/:username', async (req, res, next) => {
-  const username = req.params.username;
-  let user: IUserProfile;
-  let followingUsers: IUserProfile[] = [];
+router.get('/following/:username', async (req, res) => {
+  const user = await userProfile.findOne({ username: req.params.username });
+  if (!user) return res.status(404).json('No user found');
 
-  try {
-    user = await UserProfile.findOne({ username: username });
-  } catch (e) {
-    return res.status(404).json('No user found');
+  const followingUsers: IUserProfile[] = [];
+  for (const followingUsername of user.following || []) {
+    const following = await userProfile.findOne({ username: followingUsername });
+    if (following) followingUsers.push(following);
   }
-
-  const promises = await user.following.map(async (followingUsername) => {
-    let following;
-
-    try {
-      following = await UserProfile.findOne({ username: followingUsername });
-      following = following.toObject(); // To make the line mutable
-      followingUsers.push(following);
-    } catch (e) {}
-  });
-
-  await Promise.all(promises);
-
   return res.status(200).json(followingUsers);
 });
 

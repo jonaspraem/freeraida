@@ -1,41 +1,43 @@
 import * as express from 'express';
-import UserProfile from '../models/schemas/user-profile';
+import { ObjectId } from 'mongodb';
+import * as userProfile from '../models/collections/user-profile';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
-// Get user profile
-router.get('/user/:username', async (req, res, next) => {
-  let profile;
-
+router.get('/user/:username', async (req, res) => {
   try {
-    profile = await UserProfile.findOne({ username: req.params.username });
-    if (!profile) throw new Error();
-    profile = profile.toObject(); // To make the line mutable
+    const profile = await userProfile.findOne({ username: req.params.username });
+    if (!profile) return res.status(404).json('Error looking up user');
+    return res.status(200).json(profile);
   } catch (e) {
     return res.status(404).json('Error looking up user');
   }
-
-  return res.status(200).json(profile);
 });
 
-// Check availability of user address
-router.get('/available/:id', async (req, res, next) => {
+router.get('/available/:id', async (req, res) => {
   try {
-    await UserProfile.findById(req.params.id);
-  } catch (e) {
-    return res.status(200).json({
-      message: 'User address is unused',
-      obj: { isAvailable: true },
-    });
-  }
+    const id = req.params.id;
+    if (!ObjectId.isValid(id)) {
+      return res.status(200).json({
+        message: 'User address is unused',
+        obj: { isAvailable: true },
+      });
+    }
+    const profile = await userProfile.findById(new ObjectId(id));
+    if (profile) {
+      return res.status(200).json({
+        message: 'User address is used',
+        obj: { isAvailable: false },
+      });
+    }
+  } catch (e) {}
   return res.status(200).json({
-    message: 'User address is used',
-    obj: { isAvailable: false },
+    message: 'User address is unused',
+    obj: { isAvailable: true },
   });
 });
 
-// Verify token
 router.use('/', async (req, res, next) => {
   try {
     await jwt.verify(req.query.token, keys.token.secret);
@@ -45,57 +47,60 @@ router.use('/', async (req, res, next) => {
       message: "Token couldn't be identified",
     });
   }
-
   next();
 });
 
-// Get user profile with token
-router.get('/user-info', async (req, res, next) => {
-  const decoded = jwt.decode(req.query.token);
-  let profile;
+router.get('/user-info', async (req, res) => {
+  const decoded: any = jwt.decode(req.query.token);
+  if (!decoded?.id) {
+    return res.status(404).json({
+      title: 'No profile found',
+      message: 'No profile matching the id',
+    });
+  }
   try {
-    profile = await UserProfile.findById(decoded.id);
+    const profile = await userProfile.findById(new ObjectId(decoded.id));
     if (!profile) throw new Error();
+    return res.status(200).json(profile);
   } catch (e) {
     return res.status(404).json({
       title: 'No profile found',
       message: 'No profile matching the id',
     });
   }
-  return res.status(200).json(profile);
 });
 
-// Edit profile
-router.patch('/edit-profile', async (req, res, next) => {
-  const decoded = jwt.decode(req.query.token);
-  let profile;
-
-  try {
-    profile = await UserProfile.findById(decoded.id);
-  } catch (e) {
+router.patch('/edit-profile', async (req, res) => {
+  const decoded: any = jwt.decode(req.query.token);
+  if (!decoded?.id) {
     return res.status(404).json({
       title: 'No profile found',
       message: 'No profile matching the id',
     });
   }
-
-  // Edit variables
-  profile.representation = req.body.representation;
-  profile.bio = req.body.bio;
-  profile.social_twitter = req.body.social_twitter;
-  profile.social_instagram = req.body.social_instagram;
-  profile.sports = req.body.sports;
+  const profile = await userProfile.findById(new ObjectId(decoded.id));
+  if (!profile) {
+    return res.status(404).json({
+      title: 'No profile found',
+      message: 'No profile matching the id',
+    });
+  }
+  const update: any = {};
+  if (req.body.representation !== undefined) update.representation = req.body.representation;
+  if (req.body.bio !== undefined) update.bio = req.body.bio;
+  if (req.body.social_twitter !== undefined) update.social_twitter = req.body.social_twitter;
+  if (req.body.social_instagram !== undefined) update.social_instagram = req.body.social_instagram;
+  if (req.body.sports !== undefined) update.sports = req.body.sports;
 
   try {
-    await profile.save();
+    const updated = await userProfile.updateProfile(profile._id!, update);
+    return res.status(201).json(updated);
   } catch (e) {
     return res.status(500).json({
       title: 'Error saving the profile',
       message: 'Something happened when saving the user',
     });
   }
-
-  return res.status(201).json(profile);
 });
 
 module.exports = router;

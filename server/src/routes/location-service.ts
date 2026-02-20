@@ -1,6 +1,5 @@
 import * as express from 'express';
-import { ILine } from '../models/schemas/line';
-import { ILocation } from '../models/schemas/location';
+import { ILocation } from '../models/types/documents';
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');

@@ -1,14 +1,8 @@
 import * as express from 'express';
 import * as path from 'path';
 import * as logger from 'morgan';
-import * as cookieParser from 'cookie-parser';
-import cookieSession from 'cookie-session';
 import * as bodyParser from 'body-parser';
-import * as mongoose from 'mongoose';
-import * as favicon from 'serve-favicon';
-import * as session from 'express-session';
-import flash from 'connect-flash';
-import * as keys from '../config/keys';
+import { connectDb } from './db';
 import * as dotenv from "dotenv";
 
 class Application {
@@ -20,8 +14,8 @@ class Application {
   }
 
   private mountRoutes(): void {
-    const router = express.Router();
     dotenv.config();
+    const router = express.Router(); // @TODO can delete?
 
     const index = require('./routes/app');
     const authRoutes = require('./routes/authenticate');
@@ -34,12 +28,18 @@ class Application {
     // Carabiner
     const carabinerRoutes = require('./routes/carabiner/carabiner');
 
-    console.log("connecting to mongo.. ", process.env.MONGODB_URI);
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/freeraida';
-    mongoose
-      .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+    connectDb()
       .then(() => console.log('MongoDB connected'))
       .catch((err) => console.error('MongoDB connection error:', err));
+
+    this.express.use(async (_req, _res, next) => {
+      try {
+        await connectDb();
+        next();
+      } catch (err) {
+        next(err);
+      }
+    });
 
     // view engine setup
     this.express.set('views', path.join(__dirname, '../views'));
@@ -104,6 +104,7 @@ class Application {
     });
 
     console.log('Freeraida server running... ');
+    console.log("DB: ", process.env.MONGODB_URI);
   }
 }
 
