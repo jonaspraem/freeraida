@@ -66,6 +66,7 @@ router.use('/', async (req, res, next) => {
 });
 
 router.post('/new/', async (req, res, next) => {
+  console.log("new line request", req.body);
   const decoded = jwt.decode(req.query.token);
   let userProfile;
   let locationList = [];
@@ -89,20 +90,24 @@ router.post('/new/', async (req, res, next) => {
       if (tempLoc.elevation > highestElevation) {
         highestElevation = tempLoc.elevation;
       }
-      const slope = tempLoc.elevation / tempLoc.distanceFromLast;
-      if (slope > highestSlope) {
-        highestSlope = slope;
+      if (tempLoc.distanceFromLast > 0) {
+        const slope = tempLoc.elevation / tempLoc.distanceFromLast;
+        if (slope > highestSlope) {
+          highestSlope = slope;
+        }
       }
       tempLoc = await tempLoc.save();
       return tempLoc;
     });
     await Promise.all(promises).then((list) => (locationList = list));
   } catch (e) {
+    console.error(e)
     return res.status(500).json({
       title: 'An error occurred',
       message: 'Error saving the locations',
     });
   }
+  console.log("locations saved", locationList);
   let line = new Line({
     locations: locationList,
     name: req.body.name,

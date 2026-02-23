@@ -5,7 +5,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyABj_T1wCMVSfQgskqWFwzHJQKaBFjepko',
+  key: process.env.GOOGLE_MAPS_API_KEY || '',
 });
 
 const rad = (x) => {

@@ -10,6 +10,7 @@ import { LineMapListComponent } from './line-map-list/line-map-list.component';
 import { LineMapComponent } from './line-map/line-map.component';
 import { RouterModule } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
+import { CONFIG } from '../../dictionary/config';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { AgmCoreModule } from '@agm/core';
     RouterModule,
     Ng2GoogleChartsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCiVeucFCv7dkLF9N_VFaHo48b7wb4s8OM',
+      apiKey: CONFIG.GOOGLE_MAPS_KEY,
     }),
     MatListModule,
     MatIconModule,

@@ -26,6 +26,7 @@ const schema = new mongoose.Schema({
 
 schema.pre<ILocation>('save', function (next) {
   // Lookup country
+  next();
 });
 
 const Location = mongoose.model<ILocation>('Location', schema);
