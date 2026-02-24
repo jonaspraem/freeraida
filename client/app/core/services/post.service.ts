@@ -1,9 +1,9 @@
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CONFIG } from '../../dictionary/config';
-import { IPost, IUserProfile } from '../../models/interfaces/types';
+import { IPost } from '../../models/interfaces/types';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { PostListResponse } from '../../models/interfaces/responses';
+import { tap } from 'rxjs/operators';
 
 interface UserListResponse {
   message: string;
@@ -13,10 +13,10 @@ interface UserListResponse {
 @Injectable()
 export class PostService {
   private _userFeed: BehaviorSubject<IPost[]> = new BehaviorSubject<IPost[]>([]);
-  public userFeed$ = this._userFeed.asObservable();
+  public readonly userFeed$ = this._userFeed.asObservable();
 
   constructor(private http: HttpClient, private config: CONFIG) {
-    this.getFeed();
+    this.refreshFeed().subscribe();
   }
 
   addPost(post: IPost) {
@@ -41,13 +41,19 @@ export class PostService {
     return this.http.get<IPost[]>(this.config.getEndpoint() + '/api/post/user-feed/' + username);
   }
 
-  getFeed() {
+  public refreshFeed(): Observable<IPost[]> {
     const token = localStorage.getItem('api_token');
-    this.http
+    return this.http
       .get<IPost[]>(this.config.getEndpoint() + '/api/post/feed', { params: new HttpParams().set('token', token) })
-      .subscribe((feed) => {
-        this._userFeed.next(feed);
-      });
+      .pipe(
+        tap((feed) => {
+          this._userFeed.next(feed);
+        })
+      );
+  }
+
+  public getFeed() {
+    this.refreshFeed().subscribe();
   }
 
   gnarlyPost(postId: string): Observable<IPost> {

@@ -1,7 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { filter, switchMap } from 'rxjs/operators';
 import { IUserProfile } from '../../../models/interfaces/types';
 import { ProfilePageService } from '../profile-page.service';
-import { Subscription } from 'rxjs';
 import { SocialService } from '../../../core/services/social.service';
 
 @Component({
@@ -10,37 +11,18 @@ import { SocialService } from '../../../core/services/social.service';
   template: `
     <div class="width-container">
       <ngx-masonry [options]="{ gutter: 20 }">
-        <div ngxMasonryItem class="masonry-item" *ngFor="let user of userList">
+        <div ngxMasonryItem class="masonry-item" *ngFor="let user of userList$ | async">
           <app-profile-card [user]="user"></app-profile-card>
         </div>
       </ngx-masonry>
     </div>
   `,
 })
-export class ProfileTabFollowersComponent implements OnDestroy {
-  public userProfile: IUserProfile;
-  public userList: IUserProfile[];
-  private _subscriptions: Subscription[] = [];
+export class ProfileTabFollowersComponent {
+  public readonly userList$: Observable<IUserProfile[]> = this._profilePageService.activeUserProfile$.pipe(
+    filter((profile): profile is IUserProfile => !!profile),
+    switchMap((profile) => this._socialService.getFollowers(profile.username))
+  );
 
   constructor(private _profilePageService: ProfilePageService, private _socialService: SocialService) {}
-
-  public ngOnInit(): void {
-    this._subscriptions['activeUser'] = this._profilePageService.activeUserProfile$.subscribe((profile) => {
-      // TODO check for feed changes
-      if (!profile) {
-        return;
-      }
-
-      this.userProfile = profile;
-      this._subscriptions['followers'] = this._socialService
-        .getFollowers(this.userProfile.username)
-        .subscribe((followers) => {
-          this.userList = followers;
-        });
-    });
-  }
-
-  public ngOnDestroy(): void {
-    this._subscriptions.forEach((sub) => sub.unsubscribe());
-  }
 }
