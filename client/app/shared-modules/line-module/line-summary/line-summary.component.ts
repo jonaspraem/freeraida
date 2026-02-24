@@ -11,6 +11,7 @@ import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 export class LineSummaryComponent {
   @Input() line: ILine;
   public colors = COLORS;
+  public hideHeightMapLegend: boolean = true;
 
   constructor(public COLOR_DICTIONARY: COLOR_DICTIONARY) {}
 }

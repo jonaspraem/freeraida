@@ -6,3 +6,4 @@ npm.debug.log
 /public/js
 /server/dist
 .env
+/.angular

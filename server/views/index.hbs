@@ -24,6 +24,10 @@
 <body>
 <app-root>loading ...</app-root>
 <script src="https://apis.google.com/js/platform.js"></script>
+<script>
+  window.__env = window.__env || {};
+  window.__env.GOOGLE_MAPS_API_KEY = {{{googleMapsApiKeyJson}}};
+</script>
 <!--<script src="https://cdn.auth0.com/js/auth0/8.10.1/auth0.min.js"></script>-->
 <!--<script src="node_modules/chart.js/src/chart.js"></script>-->
 <link rel="stylesheet" href="/js/app/browser/styles.css" />

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EditOverlayComponent } from './components/edit-overlay/edit-overlay.component';
 import { ActionArrowLeftComponent } from './components/action-arrow-left.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 /**
  * @author JP
@@ -11,7 +12,7 @@ import { ActionArrowLeftComponent } from './components/action-arrow-left.compone
 
 @NgModule({
   declarations: [ActionArrowLeftComponent, EditOverlayComponent],
-  imports: [CommonModule],
-  exports: [CommonModule, ActionArrowLeftComponent, EditOverlayComponent],
+  imports: [CommonModule, GoogleChartsModule],
+  exports: [CommonModule, GoogleChartsModule, ActionArrowLeftComponent, EditOverlayComponent],
 })
 export class SharedModule {}

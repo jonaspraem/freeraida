@@ -118,7 +118,9 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
     // catch 404 and forward to error handler
     this.express.use((req, res, next) => {
-      res.render('index');
+      res.render('index', {
+        googleMapsApiKeyJson: JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
+      });
     });
 
     console.log('Freeraida server running... ');
