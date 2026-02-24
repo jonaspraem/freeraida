@@ -1,20 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
 import { ILine } from '../../../../models/interfaces/types';
 
 @Component({
+  standalone: false,
   selector: 'app-line-height-profile',
   templateUrl: './line-height-profile.component.html',
 })
 
 export class LineHeightProfileComponent implements OnInit {
   @Input() line: ILine;
-  public lineChartData: ChartDataSets[];
-  public lineChartOptions: ChartOptions = {
+  public lineChartData: any[];
+  public lineChartOptions: any = {
     responsive: true,
   };
-  public lineChartColors: Color[] = [
+  public lineChartColors: any[] = [
     {
       borderColor: 'black',
       backgroundColor: 'rgba(255,0,0,0.3)',

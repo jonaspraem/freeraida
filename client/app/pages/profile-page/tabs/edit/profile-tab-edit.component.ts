@@ -8,6 +8,7 @@ import signup_messages from "../../../landing-page/SignupValidationMessages";
 import { FLAG_DICTIONARY } from "../../../../dictionary/flag-dictionary";
 
 @Component({
+  standalone: false,
     selector: 'app-profile-tab-edit',
     templateUrl: './profile-tab-edit.component.html'
 })
@@ -63,5 +64,9 @@ export class ProfileTabEditComponent implements OnInit {
         }
       );
     });
+  }
+
+  onSignup(): void {
+    // TODO: wire profile update endpoint during follow-up cleanup.
   }
 }

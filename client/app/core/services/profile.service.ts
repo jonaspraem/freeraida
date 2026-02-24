@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import 'rxjs';
 import { CONFIG } from '../../dictionary/config';
 import { Router } from '@angular/router';
 import { IUserProfile } from '../../models/interfaces/types';
@@ -31,14 +30,14 @@ export class ProfileService {
         headers: headers,
         params: new HttpParams().set('token', token),
       })
-      .subscribe(
-        (profile) => {
+      .subscribe({
+        next: (profile) => {
           this._userProfile.next(profile);
           localStorage.setItem('username', profile.username);
         },
-        (err) => {
+        error: () => {
           this.router.navigate(['/landing-page']);
-        }
-      );
+        },
+      });
   }
 }

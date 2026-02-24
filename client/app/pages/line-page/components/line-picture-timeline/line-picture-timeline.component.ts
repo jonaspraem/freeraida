@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ILine, ILineLocation } from '../../../../models/interfaces/types';
 
 @Component({
+  standalone: false,
   selector: 'app-line-picture-timeline',
   templateUrl: './line-picture-timeline.component.html',
 })

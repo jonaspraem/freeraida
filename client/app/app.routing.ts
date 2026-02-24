@@ -8,9 +8,9 @@ const APP_ROUTES: Routes = [
   { path: '', component: HomePageComponent, canActivate: [AuthGuard], data: { state: 'home' } },
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'line-creator', component: LineCreatorPageComponent, canActivate: [AuthGuard] },
-  { path: 'user', loadChildren: './pages/profile-page/profile.page.module#ProfilePageModule' },
-  { path: 'line', loadChildren: './pages/line-page/line.page.module#LinePageModule' },
-  { path: 'settings', loadChildren: './pages/settings-page/settings.page.module#SettingsPageModule' },
+  { path: 'user', loadChildren: () => import('./pages/profile-page/profile.page.module').then((m) => m.ProfilePageModule) },
+  { path: 'line', loadChildren: () => import('./pages/line-page/line.page.module').then((m) => m.LinePageModule) },
+  { path: 'settings', loadChildren: () => import('./pages/settings-page/settings.page.module').then((m) => m.SettingsPageModule) },
 ];
 
 export const appRouting = RouterModule.forRoot(APP_ROUTES);

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { SocialService } from '../../../core/services/social.service';
 
 @Component({
+  standalone: false,
   selector: 'app-profile-tab-home',
   template: `
     <div class="width-container">

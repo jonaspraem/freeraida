@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ILineLocation } from '../../../models/interfaces/types';
-import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
+
 
 @Component({
+  standalone: false,
   selector: 'app-height-map',
   templateUrl: './height-map.component.html',
 })
@@ -14,7 +15,7 @@ import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces
 export class HeightMapComponent implements OnInit {
   @Input() lineLocations: ILineLocation[];
   @Input() color: string = '#508065';
-  public chart: GoogleChartInterface = {
+  public chart: any = {
     chartType: 'AreaChart',
     dataTable: null,
     //opt_firstRowIsData: true,

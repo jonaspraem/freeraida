@@ -3,6 +3,7 @@ import { ILine, ILocation, IPolylineCoordinates } from '../../../models/interfac
 import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 
 @Component({
+  standalone: false,
   selector: 'app-line-map',
   templateUrl: './line-map.component.html',
 })

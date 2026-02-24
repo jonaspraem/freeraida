@@ -5,6 +5,7 @@ import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 const polyEncoder = require('@mapbox/polyline');
 
 @Component({
+  standalone: false,
   selector: 'app-line-map-list',
   templateUrl: './line-map-list.component.html',
 })

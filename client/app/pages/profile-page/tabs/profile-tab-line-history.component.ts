@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ILine, IUserProfile } from '../../../models/interfaces/types';
 
 @Component({
+  standalone: false,
   selector: 'app-profile-tab-line-history',
   template: `
     <div class="width-container">

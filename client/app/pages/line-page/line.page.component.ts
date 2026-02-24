@@ -5,6 +5,7 @@ import { ILine } from '../../models/interfaces/types';
 import { LineOverviewComponent } from './components/line-overview/line-overview.component';
 
 @Component({
+  standalone: false,
   selector: 'app-line-page',
   templateUrl: './line.page.component.html',
 })

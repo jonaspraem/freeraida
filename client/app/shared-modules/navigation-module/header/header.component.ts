@@ -4,10 +4,11 @@ import { WINDOW } from '../../../core/services/window.service';
 import { ProfileService } from '../../../core/services/profile.service';
 import { IUserProfile } from '../../../models/interfaces/types';
 
-const logoImage = require('../../../../images/logo/favicon.png');
-const defaultProfileImage = require('../../../../images/rider/profile-image.jpg');
+const logoImage = '/js/app/browser/images/logo/favicon.png';
+const defaultProfileImage = '/js/app/browser/images/rider/profile-image.jpg';
 
 @Component({
+  standalone: false,
   host: {
     '(document:click)': 'onOutsideClick($event)',
   },

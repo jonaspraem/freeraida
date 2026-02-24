@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import 'rxjs';
 import { CONFIG } from '../../dictionary/config';
 import { ILine, ILineLocation } from '../../models/interfaces/types';
 import { Observable } from 'rxjs';

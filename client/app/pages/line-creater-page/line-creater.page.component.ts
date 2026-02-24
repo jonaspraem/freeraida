@@ -4,6 +4,7 @@ import { LineService } from '../../core/services/line.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
+  standalone: false,
   selector: 'app-line-creator',
   templateUrl: './line-creator.page.component.html',
 })

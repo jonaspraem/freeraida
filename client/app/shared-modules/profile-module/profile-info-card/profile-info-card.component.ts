@@ -5,6 +5,7 @@ import { SocialService } from '../../../core/services/social.service';
 import { ProfilePageService } from '../../../pages/profile-page/profile-page.service';
 
 @Component({
+  standalone: false,
   selector: 'app-profile-info-card',
   templateUrl: './profile-info-card.component.html',
 })

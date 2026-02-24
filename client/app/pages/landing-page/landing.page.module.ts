@@ -1,23 +1,21 @@
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { LandingPageComponent } from './landing.page.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass, NgStyle } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSidenavModule,
-  MatTabsModule,
-  MatToolbarModule,
-} from '@angular/material';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [LandingPageComponent],
   imports: [
     CommonModule,
+    NgClass,
+    NgStyle,
     ReactiveFormsModule,
-    MDBBootstrapModule.forRoot(),
     FormsModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -26,7 +24,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     MatInputModule,
     MatTabsModule,
   ],
-  entryComponents: [LandingPageComponent],
+  schemas: [NO_ERRORS_SCHEMA],
   exports: [LandingPageComponent],
 })
 export class LandingPageModule {}

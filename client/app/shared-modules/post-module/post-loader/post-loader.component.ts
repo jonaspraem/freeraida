@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PostService } from '../../../core/services/post.service';
 
 @Component({
+  standalone: false,
   selector: 'app-post-loader',
   templateUrl: './post-loader.component.html',
 })

@@ -1,6 +1,5 @@
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import 'rxjs';
 import { CONFIG } from '../../dictionary/config';
 import { IPost, IUserProfile } from '../../models/interfaces/types';
 import { BehaviorSubject, Observable } from 'rxjs';

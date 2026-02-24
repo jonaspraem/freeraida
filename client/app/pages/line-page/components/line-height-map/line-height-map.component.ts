@@ -1,15 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { ILine } from '../../../../models/interfaces/types';
-import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
+
 import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
 
 @Component({
+  standalone: false,
   selector: 'app-line-height-map',
   templateUrl: './line-height-map.component.html',
 })
 export class LineHeightMapComponent {
   @Input() line: ILine;
-  public chart: GoogleChartInterface = {
+  public chart: any = {
     chartType: 'AreaChart',
     dataTable: null,
     //opt_firstRowIsData: true,

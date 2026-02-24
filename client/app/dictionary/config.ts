@@ -2,7 +2,8 @@ import { Injectable, isDevMode } from '@angular/core';
 
 @Injectable()
 export class CONFIG {
-  public static GOOGLE_MAPS_KEY = process.env.GOOGLE_MAPS_API_KEY || '';
+  public static GOOGLE_MAPS_KEY =
+    typeof process !== 'undefined' && process.env && process.env.GOOGLE_MAPS_API_KEY ? process.env.GOOGLE_MAPS_API_KEY : '';
   public static STATIC_MAPS_ENDPOINT = 'https://maps.googleapis.com/maps/api/staticmap';
   private static ENDPOINTS = ['http://localhost:3000', 'https://www.freeraida.com'];
 

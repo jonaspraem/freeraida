@@ -8,8 +8,8 @@ import { PostService } from '../../core/services/post.service';
 import { LineService } from '../../core/services/line.service';
 import { ProfilePageService } from './profile-page.service';
 
-const hero = require('../../../images/licensed/iStock-01.jpg');
-const profile_image = require('../../../images/rider/profile-image.jpg');
+const hero = '/js/app/browser/images/licensed/iStock-01.jpg';
+const profile_image = '/js/app/browser/images/rider/profile-image.jpg';
 
 export enum ProfileTab {
   FEED,
@@ -21,6 +21,7 @@ export enum ProfileTab {
 }
 
 @Component({
+  standalone: false,
   selector: 'app-profile-page',
   templateUrl: './profile.page.component.html',
 })

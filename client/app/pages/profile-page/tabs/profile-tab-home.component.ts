@@ -5,6 +5,7 @@ import { PostService } from '../../../core/services/post.service';
 import { Subscription } from 'rxjs';
 
 @Component({
+  standalone: false,
   selector: 'app-profile-tab-home',
   template: `
     <div class="width-container-flex">

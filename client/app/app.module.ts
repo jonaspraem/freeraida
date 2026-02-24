@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/map';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,21 +10,17 @@ import { COLOR_DICTIONARY } from './dictionary/color-dictionary';
 import { CONFIG } from './dictionary/config';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { CommonModule } from '@angular/common';
-import {
-  MatButtonToggleModule,
-  MatCardModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatListModule,
-  MatSidenavModule,
-  MatToolbarModule,
-} from '@angular/material';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { WINDOW_PROVIDERS } from './core/services/window.service';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ChartsModule } from 'ng2-charts';
 import { HomePageModule } from './pages/home-page/home.page.module';
 import { SharedModule } from './shared/shared.module';
 import { LineModule } from './shared-modules/line-module/line.module';
@@ -40,7 +35,6 @@ import { IconModule } from './shared-modules/icon-module/icon.module';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     RouterModule,
-    MDBBootstrapModule.forRoot(),
     HttpClientModule,
     LandingPageModule,
     CoreModule,
@@ -51,7 +45,6 @@ import { IconModule } from './shared-modules/icon-module/icon.module';
     SharedModule,
     HomePageModule,
     FontAwesomeModule,
-    // ChartsModule,
     // Material design modules:
     MatSidenavModule,
     MatCardModule,
@@ -63,7 +56,7 @@ import { IconModule } from './shared-modules/icon-module/icon.module';
   ],
   exports: [RouterModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-  providers: [CONFIG, SharedModule, FontAwesomeModule, IconModule, FLAG_DICTIONARY, COLOR_DICTIONARY, WINDOW_PROVIDERS],
+  providers: [CONFIG, FLAG_DICTIONARY, COLOR_DICTIONARY, WINDOW_PROVIDERS],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

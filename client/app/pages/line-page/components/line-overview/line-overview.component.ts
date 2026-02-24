@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ILine, ILineLocation } from '../../../../models/interfaces/types';
 import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
 import { ProfileService } from '../../../../core/services/profile.service';
-import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
+
 
 @Component({
+  standalone: false,
   selector: 'app-line-overview',
   templateUrl: './line-overview.component.html',
 })
@@ -14,7 +15,7 @@ export class LineOverviewComponent implements OnInit {
   @Input() hasImages: boolean;
   @Output() notifyEdit: EventEmitter<boolean> = new EventEmitter();
   public isOwn: boolean = false;
-  public chart: GoogleChartInterface = {
+  public chart: any = {
     chartType: 'AreaChart',
     dataTable: null,
     //opt_firstRowIsData: true,

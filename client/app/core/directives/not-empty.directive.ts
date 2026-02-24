@@ -1,9 +1,9 @@
 import { Directive, OnDestroy, ElementRef } from '@angular/core';
 import { FormControlName } from '@angular/forms';
-
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Directive({
+  standalone: false,
   selector: '[notEmptyDirective]',
 })
 export class NotEmptyDirective implements OnDestroy {

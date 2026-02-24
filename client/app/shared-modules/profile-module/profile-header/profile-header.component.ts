@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { IUserProfile } from '../../../models/interfaces/types';
 import { FLAG_DICTIONARY } from '../../../dictionary/flag-dictionary';
 
-const image = require('../../../../images/rider/profile-image.jpg');
+const image = '/js/app/browser/images/rider/profile-image.jpg';
 
 @Component({
+  standalone: false,
   selector: 'app-profile-header',
   templateUrl: './profile-header.component.html',
 })

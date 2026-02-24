@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import { FLAG_DICTIONARY } from '../../dictionary/flag-dictionary';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ILogin } from '../../models/interfaces/requests/authentication/login.interface';
 import { UsernameValidator } from '../../shared/form-validators/UsernameValidator';
 import { PasswordValidator } from '../../shared/form-validators/PasswordValidator';
 import signup_messages from './SignupValidationMessages';
 import { IRegister } from '../../models/interfaces/requests/authentication/register.interface';
 
-const image = require('../../../images/350214-mountain-view.jpg');
-
-const logoImage = require('../../../images/logo/favicon.png');
-const backgroundImage = require('../../../images/350214-mountain-view.jpg');
+const logoImage = '/js/app/browser/images/logo/favicon.png';
+const backgroundImage = '/js/app/browser/images/350214-mountain-view.jpg';
 
 @Component({
+  standalone: false,
   selector: 'app-landing-page',
   templateUrl: './landing.page.component.html',
 })

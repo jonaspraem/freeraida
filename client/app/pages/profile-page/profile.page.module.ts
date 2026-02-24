@@ -14,8 +14,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 import { ProfileTabFollowingComponent } from './tabs/profile-tab-following.component';
 import { ProfileTabEditComponent } from './tabs/edit/profile-tab-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { MatFormFieldModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -27,17 +26,16 @@ import { MatFormFieldModule } from '@angular/material';
     ProfileTabEditComponent,
   ],
   imports: [
-    profileRoutes, 
-    SharedModule, 
-    PostModule, 
-    LineModule, 
-    ProfileModule, 
+    profileRoutes,
+    SharedModule,
+    PostModule,
+    LineModule,
+    ProfileModule,
     NgxMasonryModule,
     ReactiveFormsModule,
     MatFormFieldModule,
   ],
   exports: [ProfilePageComponent, RouterModule],
-  entryComponents: [ProfilePageComponent],
   providers: [ProfilePageService],
 })
 export class ProfilePageModule {}

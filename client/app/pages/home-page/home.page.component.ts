@@ -4,6 +4,7 @@ import { ProfileService } from '../../core/services/profile.service';
 import { PostService } from '../../core/services/post.service';
 
 @Component({
+  standalone: false,
   selector: 'app-home-page',
   templateUrl: './home.page.component.html',
 })

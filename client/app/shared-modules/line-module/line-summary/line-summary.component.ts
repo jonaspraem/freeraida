@@ -4,6 +4,7 @@ import { COLORS } from '../../../dictionary/colors';
 import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 
 @Component({
+  standalone: false,
   selector: 'app-line-summary',
   templateUrl: './line-summary.component.html',
 })
