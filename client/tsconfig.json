@@ -1,17 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "ES2022",
     "types": ["node"],
-    "outDir": "server/dist",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "useDefineForClassFields": false,
     "sourceMap": true,
     "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true,
-    "lib": ["es6", "dom"],
+    "strict": false,
+    "skipLibCheck": true,
+    "lib": ["ES2022", "dom"],
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["node_modules", ""]
+  "files": ["app/main.ts"],
+  "include": ["app/**/*.d.ts", "app/**/*.ts"],
+  "exclude": ["node_modules"]
 }

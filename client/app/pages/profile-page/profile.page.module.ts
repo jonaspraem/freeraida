@@ -15,6 +15,8 @@ import { ProfileTabFollowingComponent } from './tabs/profile-tab-following.compo
 import { ProfileTabEditComponent } from './tabs/edit/profile-tab-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NgxMasonryModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   exports: [ProfilePageComponent, RouterModule],
   providers: [ProfilePageService],
