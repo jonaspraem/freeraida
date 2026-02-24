@@ -11,9 +11,9 @@ import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
 export class LineHeightMapComponent {
   @Input() line: ILine;
   public chart: any = {
-    chartType: 'AreaChart',
-    dataTable: null,
-    //opt_firstRowIsData: true,
+    type: 'AreaChart',
+    columnNames: ['X', 'Y'],
+    data: [],
     options: {},
   };
 
@@ -69,11 +69,11 @@ export class LineHeightMapComponent {
   }
 
   private reMapChart(): void {
-    const newData: any[] = [['X', 'Y']];
+    const newData: any[] = [];
     for (let i = 0; i < this.line.locations.length; i++) {
       const location = this.line.locations[i];
       newData.push([location.distanceFromStart, location.elevation]);
     }
-    this.chart.dataTable = newData;
+    this.chart.data = newData;
   }
 }

@@ -9,6 +9,7 @@ import { LineSummaryComponent } from './line-summary/line-summary.component';
 import { LineMapListComponent } from './line-map-list/line-map-list.component';
 import { LineMapComponent } from './line-map/line-map.component';
 import { RouterModule } from '@angular/router';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
+    GoogleMapsModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })

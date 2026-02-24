@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LineService } from '../../core/services/line.service';
 import { ILine } from '../../models/interfaces/types';
@@ -15,14 +15,16 @@ export class LinePageComponent implements OnInit {
   public hasImages: boolean = false;
   public isEdit: boolean = false;
 
-  constructor(private _activatedRoute: ActivatedRoute, private _lineService: LineService) {}
+  constructor(private _activatedRoute: ActivatedRoute, private _lineService: LineService, private _cdRef: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
     this._activatedRoute.params.subscribe((params) => {
       const id = params['id'];
       this._lineService.getLine(id).subscribe((line) => {
+        console.log("line", line);
         this.line = line;
         this.checkImages(line);
+        this._cdRef.detectChanges();
       });
     });
   }

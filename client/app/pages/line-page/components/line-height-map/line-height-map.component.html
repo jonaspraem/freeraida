@@ -48,6 +48,12 @@
   <span class="material-icons">show_chart</span>
 
   <div class="line-height-map">
-    <google-chart id="chart" [data]="chart"></google-chart>
+    <google-chart
+      id="chart"
+      [type]="chart.type"
+      [columns]="chart.columnNames"
+      [data]="chart.data"
+      [options]="chart.options"
+    ></google-chart>
   </div>
 </div>

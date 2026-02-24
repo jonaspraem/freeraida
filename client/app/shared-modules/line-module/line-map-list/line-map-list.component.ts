@@ -25,6 +25,9 @@ export class LineMapListComponent implements OnInit {
   private constructRequest(): void {
     const staticMapUrl = CONFIG.STATIC_MAPS_ENDPOINT;
     const apiKey = CONFIG.getGoogleMapsKey();
+    console.log("apiKey", apiKey);
+    console.log("staticMapUrl", staticMapUrl);
+    console.log("line", this.line);
     const path: number[][] = [];
 
     for (let index in this.line.locations) {

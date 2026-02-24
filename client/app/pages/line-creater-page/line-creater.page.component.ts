@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, NgZone, OnInit } from '@angular/core';
 import { ILine, ILineLocation, ILocation, IPolylineCoordinates } from '../../models/interfaces/types';
 import { LineService } from '../../core/services/line.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +12,20 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LineCreatorPageComponent implements OnInit {
   public line: ILineLocation[] = [];
   public polyCords: IPolylineCoordinates[];
+  public apiReady = false;
+  public center = { lat: 45.8326222, lng: 6.8649248 };
+  public zoom = 13;
+  public mapOptions = {
+    mapTypeId: 'terrain' as const,
+    disableDefaultUI: true,
+    clickableIcons: false,
+  };
+  public polylinePath: { lat: number; lng: number }[] = [];
+  public polylineOptions = {
+    strokeColor: '#404040',
+    strokeWeight: 3,
+    geodesic: true,
+  };
   public counter: number = 0;
   public registerForm = new FormGroup({
     lineName: new FormControl('', Validators.required),
@@ -22,19 +37,29 @@ export class LineCreatorPageComponent implements OnInit {
   public sportsTypes = ['Skiing', 'Snowboarding', 'Free climbing', 'Mountaineering', 'Mountain biking'];
   public lineTypes = ['Trip', 'Whole day', 'Backcountry'];
 
-  constructor(private _lineService: LineService, private _cdRef: ChangeDetectorRef) {}
+  constructor(
+    private _lineService: LineService,
+    private _cdRef: ChangeDetectorRef,
+    @Inject(DOCUMENT) private readonly document: Document,
+    private readonly zone: NgZone
+  ) {}
 
   public ngOnInit(): void {
+    this.ensureGoogleMapsApiLoaded();
     this.onFormChanges();
   }
 
-  mapClicked($event: any) {
+  mapClicked($event: google.maps.MapMouseEvent): void {
+    if (!$event.latLng) {
+      return;
+    }
+
     // Ensure new object spawn
     const prevLocations: ILineLocation[] = Object.assign([], this.line);
     // Push new
     const location: ILineLocation = {
-      latitude: $event.coords.lat,
-      longitude: $event.coords.lng,
+      latitude: $event.latLng.lat(),
+      longitude: $event.latLng.lng(),
       elevation: 20,
       distanceFromStart: this.counter += this.counter,
     };
@@ -47,6 +72,7 @@ export class LineCreatorPageComponent implements OnInit {
   public updateLine() {
     this._lineService.getLineInfo(this.line).subscribe((data) => {
       this.line = data.obj;
+      this.updatePolylinePath();
     });
     this.updatePolyCords();
   }
@@ -67,16 +93,21 @@ export class LineCreatorPageComponent implements OnInit {
       prev_lng = loc.longitude;
     }
     this.polyCords = cords;
+    this.updatePolylinePath();
   }
 
   clickedMarker(loc: ILocation, index: number) {
     console.log('Clicked marker ', loc);
   }
 
-  markerDragEnd(location: ILocation, index: number, $event: any) {
+  markerDragEnd(location: ILocation, index: number, $event: google.maps.MapMouseEvent): void {
+    if (!$event.latLng) {
+      return;
+    }
+
     this.line[index] = {
-      latitude: $event.coords.lat,
-      longitude: $event.coords.lng,
+      latitude: $event.latLng.lat(),
+      longitude: $event.latLng.lng(),
     };
     this.updateLine();
   }
@@ -84,6 +115,7 @@ export class LineCreatorPageComponent implements OnInit {
   public onClear(): void {
     this.line = [];
     this.polyCords = [];
+    this.polylinePath = [];
     this.registerForm.reset();
   }
 
@@ -108,5 +140,49 @@ export class LineCreatorPageComponent implements OnInit {
         this.registerForm.get('lineType').enable();
       }
     });
+  }
+
+  private updatePolylinePath(): void {
+    this.polylinePath = this.line.map((loc) => ({
+      lat: loc.latitude,
+      lng: loc.longitude,
+    }));
+  }
+
+  private ensureGoogleMapsApiLoaded(): void {
+    if ((globalThis as any)?.google?.maps) {
+      this.apiReady = true;
+      return;
+    }
+
+    const existingScript = this.document.getElementById('google-maps-js-api') as HTMLScriptElement | null;
+    if (existingScript) {
+      if ((globalThis as any)?.google?.maps) {
+        this.apiReady = true;
+        return;
+      }
+      existingScript.addEventListener('load', () => {
+        this.zone.run(() => {
+          this.apiReady = true;
+          this._cdRef.detectChanges();
+        });
+      });
+      return;
+    }
+
+    const script = this.document.createElement('script');
+    const apiKey = (globalThis as any)?.__env?.GOOGLE_MAPS_API_KEY || '';
+    const query = apiKey ? '?key=' + encodeURIComponent(apiKey) : '';
+    script.id = 'google-maps-js-api';
+    script.src = 'https://maps.googleapis.com/maps/api/js' + query;
+    script.async = true;
+    script.defer = true;
+    script.addEventListener('load', () => {
+      this.zone.run(() => {
+        this.apiReady = true;
+        this._cdRef.detectChanges();
+      });
+    });
+    this.document.head.appendChild(script);
   }
 }
