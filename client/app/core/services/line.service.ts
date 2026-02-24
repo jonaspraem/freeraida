@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { CONFIG } from '../../dictionary/config';
-import { ILine, ILineLocation } from '../../models/interfaces/types';
+import { IExploreLine, ILine, ILineLocation } from '../../models/interfaces/types';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -40,6 +40,32 @@ export class LineService {
   public getLine(id: string): Observable<ILine> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.get<ILine>(this.config.getEndpoint() + '/api/line/get/' + id, { headers: headers });
+  }
+
+  public getExploreLines(params?: {
+    limit?: number;
+    offset?: number;
+    north?: number;
+    south?: number;
+    east?: number;
+    west?: number;
+  }): Observable<IExploreLine[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let queryParams = new HttpParams();
+
+    if (params) {
+      if (typeof params.limit === 'number') queryParams = queryParams.set('limit', params.limit.toString());
+      if (typeof params.offset === 'number') queryParams = queryParams.set('offset', params.offset.toString());
+      if (typeof params.north === 'number') queryParams = queryParams.set('north', params.north.toString());
+      if (typeof params.south === 'number') queryParams = queryParams.set('south', params.south.toString());
+      if (typeof params.east === 'number') queryParams = queryParams.set('east', params.east.toString());
+      if (typeof params.west === 'number') queryParams = queryParams.set('west', params.west.toString());
+    }
+
+    return this.http.get<IExploreLine[]>(this.config.getEndpoint() + '/api/line/explore', {
+      headers: headers,
+      params: queryParams,
+    });
   }
 
   public updateLine(line: ILine): Observable<ILine> {

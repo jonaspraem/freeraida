@@ -10,6 +10,7 @@ const APP_ROUTES: Routes = [
   { path: 'line-creator', component: LineCreatorPageComponent, canActivate: [AuthGuard] },
   { path: 'user', loadChildren: () => import('./pages/profile-page/profile.page.module').then((m) => m.ProfilePageModule) },
   { path: 'line', loadChildren: () => import('./pages/line-page/line.page.module').then((m) => m.LinePageModule) },
+  { path: 'explore', loadChildren: () => import('./pages/explore-page/explore.page.module').then((m) => m.ExplorePageModule) },
   { path: 'settings', loadChildren: () => import('./pages/settings-page/settings.page.module').then((m) => m.SettingsPageModule) },
 ];
 
