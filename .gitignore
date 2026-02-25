@@ -6,6 +6,6 @@ npm.debug.log
 /public/js
 /server/dist
 .env
-/.angular
-**/.angular/
-**/.angular/cache/
+/.angular/**
+**/.angular/*
+**/.angular/cache/*

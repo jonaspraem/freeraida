@@ -69,10 +69,13 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   }
 
   public selectLine(line: IExploreLine): void {
-    this.selectedLine = line;
-    this.selectedLineDetails = undefined;
-    this.selectedPolylineOptions.strokeColor = this.colorDictionary.get(line.sport) || '#404040';
-    this.loadSelectedLinePath(line._id);
+    this.zone.run(() => {
+      this.selectedLine = line;
+      this.selectedLineDetails = undefined;
+      this.setSelectedPolylineColor(line.sport);
+      this.loadSelectedLinePath(line._id);
+      this.cdRef.detectChanges();
+    });
   }
 
   public getMarkerOptions(line: IExploreLine): any {
@@ -201,25 +204,31 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
           if (requestId !== this.selectedLineRequestId) {
             return;
           }
-          this.selectedLinePath = Array.isArray(line.locations)
-            ? line.locations.map((loc) => ({
-              lat: loc.latitude,
-              lng: loc.longitude,
-            }))
-            : [];
-          this.selectedLineDetails = line;
-          if (line.sport) {
-            this.selectedPolylineOptions.strokeColor = this.colorDictionary.get(line.sport) || '#404040';
-          }
-          this.isSelectedLineLoading = false;
+          this.zone.run(() => {
+            this.selectedLinePath = Array.isArray(line.locations)
+              ? line.locations.map((loc) => ({
+                lat: loc.latitude,
+                lng: loc.longitude,
+              }))
+              : [];
+            this.selectedLineDetails = line;
+            if (line.sport) {
+              this.setSelectedPolylineColor(line.sport);
+            }
+            this.isSelectedLineLoading = false;
+            this.cdRef.detectChanges();
+          });
         },
         error: () => {
           if (requestId !== this.selectedLineRequestId) {
             return;
           }
-          this.selectedLinePath = [];
-          this.selectedLineDetails = undefined;
-          this.isSelectedLineLoading = false;
+          this.zone.run(() => {
+            this.selectedLinePath = [];
+            this.selectedLineDetails = undefined;
+            this.isSelectedLineLoading = false;
+            this.cdRef.detectChanges();
+          });
         },
       });
   }
@@ -281,5 +290,13 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
       });
     });
     nativeMap.fitBounds(bounds);
+  }
+
+  private setSelectedPolylineColor(sport?: string): void {
+    const strokeColor = (sport && this.colorDictionary.get(sport)) || '#404040';
+    this.selectedPolylineOptions = {
+      ...this.selectedPolylineOptions,
+      strokeColor,
+    };
   }
 }
