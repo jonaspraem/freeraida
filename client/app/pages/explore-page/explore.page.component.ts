@@ -327,8 +327,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
         ? [...this.allLines]
         : this.allLines.filter((line) => line.sport === this.selectedSportFilter);
 
-    const selectedLineIsVisible =
-      !!this.selectedLine && this.lines.some((line) => line._id === this.selectedLine?._id);
+    const selectedLineIsVisible = !!this.selectedLine && this.lines.some((line) => line._id === this.selectedLine?._id);
 
     if (!selectedLineIsVisible) {
       this.selectedLine = undefined;

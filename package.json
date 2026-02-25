@@ -18,6 +18,8 @@
     "build:prod": "del-cli public/js/app && ng build freeraida-client --configuration production",
     "format": "prettier --write .",
     "lint": "eslint . --ext .ts,.js,.html",
+    "seed:alps-lines": "npm run node-build && node ./server/dist/scripts/seed-alps-lines.js --limit=40",
+    "seed:alps-lines:write": "npm run node-build && node ./server/dist/scripts/seed-alps-lines.js --write --limit=100",
     "heroku-prebuild": "npm install --include=dev",
     "heroku-postbuild": "npm run build:prod"
   },

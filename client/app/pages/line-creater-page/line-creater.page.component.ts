@@ -19,6 +19,8 @@ export class LineCreatorPageComponent implements OnInit {
     mapTypeId: 'terrain' as const,
     disableDefaultUI: true,
     clickableIcons: false,
+    height: '700px',
+    width: '100%',
   };
   public polylinePath: { lat: number; lng: number }[] = [];
   public polylineOptions = {
