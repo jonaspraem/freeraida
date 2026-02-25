@@ -26,6 +26,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   public hasError = false;
   public isSelectedLineLoading = false;
   public selectedLinePath: { lat: number; lng: number }[] = [];
+  public selectedLineDetails: ILine | undefined;
   public selectedPolylineOptions = {
     strokeColor: '#404040',
     strokeWeight: 3,
@@ -69,6 +70,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
 
   public selectLine(line: IExploreLine): void {
     this.selectedLine = line;
+    this.selectedLineDetails = undefined;
     this.selectedPolylineOptions.strokeColor = this.colorDictionary.get(line.sport) || '#404040';
     this.loadSelectedLinePath(line._id);
   }
@@ -165,6 +167,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
             } else {
               this.selectedLine = undefined;
               this.selectedLinePath = [];
+              this.selectedLineDetails = undefined;
             }
             this.fitToBounds();
             this.cdRef.detectChanges();
@@ -175,6 +178,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
             this.lines = [];
             this.selectedLine = undefined;
             this.selectedLinePath = [];
+            this.selectedLineDetails = undefined;
             this.hasError = true;
             this.cdRef.detectChanges();
           });
@@ -185,6 +189,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   private loadSelectedLinePath(lineId: string): void {
     if (!lineId) {
       this.selectedLinePath = [];
+      this.selectedLineDetails = undefined;
       return;
     }
     const requestId = ++this.selectedLineRequestId;
@@ -202,6 +207,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
               lng: loc.longitude,
             }))
             : [];
+          this.selectedLineDetails = line;
           if (line.sport) {
             this.selectedPolylineOptions.strokeColor = this.colorDictionary.get(line.sport) || '#404040';
           }
@@ -212,6 +218,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
             return;
           }
           this.selectedLinePath = [];
+          this.selectedLineDetails = undefined;
           this.isSelectedLineLoading = false;
         },
       });
