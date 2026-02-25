@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil, timeout } from 'rxjs/operators';
 import { LineService } from '../../core/services/line.service';
 import { COLOR_DICTIONARY } from '../../dictionary/color-dictionary';
 import { CONFIG } from '../../dictionary/config';
@@ -60,8 +60,11 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   }
 
   public onMapInitialized(): void {
-    this.mapReady = true;
-    this.fitToBounds();
+    this.zone.run(() => {
+      this.mapReady = true;
+      this.fitToBounds();
+      this.cdRef.detectChanges();
+    });
   }
 
   public selectLine(line: IExploreLine): void {
@@ -138,30 +141,43 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.hasError = false;
     this.lineService.getExploreLines()
-      .pipe(takeUntil(this._destroy$))
+      .pipe(
+        timeout(15000),
+        takeUntil(this._destroy$),
+        finalize(() => {
+          this.zone.run(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          });
+        })
+      )
       .subscribe({
         next: (lines) => {
-          this.lines = (lines || []).filter((line) =>
-            !!line &&
-            !!line.startLocation &&
-            typeof line.startLocation.latitude === 'number' &&
-            typeof line.startLocation.longitude === 'number'
-          );
-          if (this.lines.length > 0) {
-            this.selectLine(this.lines[0]);
-          } else {
-            this.selectedLine = undefined;
-            this.selectedLinePath = [];
-          }
-          this.fitToBounds();
-          this.isLoading = false;
+          this.zone.run(() => {
+            this.lines = (lines || []).filter((line) =>
+              !!line &&
+              !!line.startLocation &&
+              Number.isFinite(line.startLocation.latitude) &&
+              Number.isFinite(line.startLocation.longitude)
+            );
+            if (this.lines.length > 0) {
+              this.selectLine(this.lines[0]);
+            } else {
+              this.selectedLine = undefined;
+              this.selectedLinePath = [];
+            }
+            this.fitToBounds();
+            this.cdRef.detectChanges();
+          });
         },
         error: () => {
-          this.lines = [];
-          this.selectedLine = undefined;
-          this.selectedLinePath = [];
-          this.hasError = true;
-          this.isLoading = false;
+          this.zone.run(() => {
+            this.lines = [];
+            this.selectedLine = undefined;
+            this.selectedLinePath = [];
+            this.hasError = true;
+            this.cdRef.detectChanges();
+          });
         },
       });
   }
@@ -246,10 +262,15 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
     }
     const mapsApi = (globalThis as any).google.maps;
     const bounds = new mapsApi.LatLngBounds();
-    this.lines.forEach((line) => {
+    this.lines.forEach((line: IExploreLine) => {
+      const lat = line.startLocation.latitude;
+      const lng = line.startLocation.longitude;
+      if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+        return;
+      }
       bounds.extend({
-        lat: line.startLocation.latitude,
-        lng: line.startLocation.longitude,
+        lat,
+        lng,
       });
     });
     nativeMap.fitBounds(bounds);
