@@ -19,9 +19,9 @@ module.exports = webpackMerge(commonConfig, {
         loaders: [
           'babel-loader',
           {
-            loader: 'awesome-typescript-loader',
+            loader: 'ts-loader',
             options: {
-              configFileName: 'tsconfig.json',
+              configFile: 'tsconfig.json',
             },
           },
           'angular2-template-loader',

@@ -1,4 +1,7 @@
 const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 module.exports = {
   entry: {
@@ -29,7 +32,8 @@ module.exports = {
             loader: 'css-loader', // translates CSS into CommonJS
           },
           {
-            loader: 'sass-loader', // compiles Sass to CSS
+            loader: 'sass-loader',
+            options: { implementation: require('sass') },
           },
         ],
       },
@@ -44,4 +48,9 @@ module.exports = {
     ],
     exprContextCritical: false,
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
+    }),
+  ],
 };

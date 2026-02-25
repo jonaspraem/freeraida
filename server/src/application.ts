@@ -9,6 +9,7 @@ import * as favicon from 'serve-favicon';
 import * as session from 'express-session';
 import flash from 'connect-flash';
 import * as keys from '../config/keys';
+import * as dotenv from "dotenv";
 
 class Application {
   public express;
@@ -20,6 +21,14 @@ class Application {
 
   private mountRoutes(): void {
     const router = express.Router();
+    dotenv.config();
+
+    const dns = require("node:dns");
+    dns.setDefaultResultOrder("ipv4first");
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+ console.log("servers", dns.getServers());
+ console.log("--------------------------------");
+
 
     const index = require('./routes/app');
     const authRoutes = require('./routes/authenticate');
@@ -32,9 +41,23 @@ class Application {
     // Carabiner
     const carabinerRoutes = require('./routes/carabiner/carabiner');
 
-    mongoose.connect(
-      'mongodb+srv://test-user:33rdlivgarden1995@freeraida-database.5milj.mongodb.net/freeraida-database?retryWrites=true&w=majority'
+    console.log("connecting to mongo.. ", process.env.MONGODB_URI);
+    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/freeraida';
+    const allowInvalidCerts = ['1', 'true', 'yes', 'on'].includes(
+      (process.env.MONGODB_TLS_ALLOW_INVALID_CERTS || '').trim().toLowerCase()
     );
+    const mongoUriWithTlsOption = allowInvalidCerts
+      ? `${mongoUri}${mongoUri.includes('?') ? '&' : '?'}tlsAllowInvalidCertificates=true`
+      : mongoUri;
+
+    const mongooseClient: any = mongoose;
+    mongooseClient
+      .connect(mongoUriWithTlsOption, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      })
+      .then(() => console.log('MongoDB connected'))
+      .catch((err) => console.error('MongoDB connection error:', err));
 
     // view engine setup
     this.express.set('views', path.join(__dirname, '../views'));
@@ -63,7 +86,7 @@ class Application {
     this.express.use(express.static(path.join(__dirname, '../public')));
     // this.express.use(favicon(path.join(__dirname,'images','favicon.ico')));
 
-    this.express.all('*', (req, res, next) => {
+    /* this.express.use((req, res, next) => {
       if (req.headers.host == 'localhost:3000') {
         next();
       } else if (req.headers['x-forwarded-proto'] === 'https') {
@@ -71,7 +94,7 @@ class Application {
       }
       // Force HTTPS redirect on production server
       else res.redirect('https://' + req.headers.host + req.url);
-    });
+    }); */
 
     this.express.use((req, res, next) => {
       res.setHeader('Acces-Control-Allow-Origin', '*');
@@ -95,7 +118,9 @@ class Application {
 
     // catch 404 and forward to error handler
     this.express.use((req, res, next) => {
-      res.render('index');
+      res.render('index', {
+        googleMapsApiKeyJson: JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
+      });
     });
 
     console.log('Freeraida server running... ');

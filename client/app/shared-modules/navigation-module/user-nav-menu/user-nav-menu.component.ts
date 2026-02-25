@@ -4,6 +4,7 @@ import { IUserProfile } from '../../../models/interfaces/types';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 
 @Component({
+  standalone: false,
   selector: 'app-user-nav-menu',
   templateUrl: './user-nav-menu.component.html',
 })

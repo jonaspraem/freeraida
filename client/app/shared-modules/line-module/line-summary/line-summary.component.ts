@@ -4,12 +4,14 @@ import { COLORS } from '../../../dictionary/colors';
 import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 
 @Component({
+  standalone: false,
   selector: 'app-line-summary',
   templateUrl: './line-summary.component.html',
 })
 export class LineSummaryComponent {
   @Input() line: ILine;
   public colors = COLORS;
+  public hideHeightMapLegend: boolean = true;
 
   constructor(public COLOR_DICTIONARY: COLOR_DICTIONARY) {}
 }

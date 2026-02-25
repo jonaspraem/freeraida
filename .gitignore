@@ -5,3 +5,7 @@ npm.debug.log
 /node_modules
 /public/js
 /server/dist
+.env
+/.angular/**
+**/.angular/*
+**/.angular/cache/*

@@ -73,7 +73,9 @@ router.get('/', async (req, res, next) => {
 
 router.get('/from-location/', async (req, res, next) => {
   // get query parameters
-  const { latitude, longitude, grading, searchRadius } = req.query;
+  const latitude = Number(req.query.latitude) || 0;
+  const longitude = Number(req.query.longitude) || 0;
+  const searchRadius = Number(req.query.searchRadius) || 0;
 
   const myLocation: ICoordinate = {
     latitude,

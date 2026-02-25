@@ -5,6 +5,7 @@ import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 const polyEncoder = require('@mapbox/polyline');
 
 @Component({
+  standalone: false,
   selector: 'app-line-map-list',
   templateUrl: './line-map-list.component.html',
 })
@@ -23,7 +24,7 @@ export class LineMapListComponent implements OnInit {
 
   private constructRequest(): void {
     const staticMapUrl = CONFIG.STATIC_MAPS_ENDPOINT;
-    const apiKey = CONFIG.GOOGLE_MAPS_KEY;
+    const apiKey = CONFIG.getGoogleMapsKey();
     const path: number[][] = [];
 
     for (let index in this.line.locations) {
@@ -52,7 +53,7 @@ export class LineMapListComponent implements OnInit {
     const startMarkerParam = '&markers=' + 'color:' + startColor + '%7Clabel:' + startLabel + '%7C' + markerStart;
     const finishMarkerParam = '&markers=' + 'color:' + finishColor + '%7Clabel:' + finishLabel + '%7C' + markerFinish;
     const optionsParam = '&maptype=' + mapType;
-    const apiKeyParam = '&key=' + apiKey;
+    const apiKeyParam = apiKey ? '&key=' + apiKey : '';
 
     this.request = staticMapUrl + sizeParam + pathParam + startMarkerParam + finishMarkerParam + apiKeyParam;
   }

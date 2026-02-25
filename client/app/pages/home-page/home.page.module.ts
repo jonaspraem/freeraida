@@ -8,7 +8,6 @@ import { ProfileModule } from '../../shared-modules/profile-module/profile.modul
 @NgModule({
   declarations: [HomePageComponent],
   exports: [HomePageComponent],
-  entryComponents: [HomePageComponent],
   imports: [FontAwesomeModule, PostModule, SharedModule, ProfileModule],
 })
 export class HomePageModule {}

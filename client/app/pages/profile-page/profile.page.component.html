@@ -1,41 +1,43 @@
-<div class="profile">
-  <div class="profile__hero" [ngStyle]="{ 'background-image': 'url(' + hero + ')' }"></div>
-  <div class="profile__stat-bar">
-    <div class="width-container-flex">
-      <div class="grid-left">
-        <img [src]="profile_image" class="profile__image" />
-      </div>
-      <div class="grid-main">
-        <ul class="profile__stat-menu">
-          <li [routerLink]="['./']" routerLinkActive="profile__tab--active" [routerLinkActiveOptions]="{ exact: true }">
-            Posts
-            <span>{{ profile?.posts.length }}</span>
-          </li>
-          <li>
-            Reputation
-            <span>150.050</span>
-          </li>
-          <li [routerLink]="['lines']" routerLinkActive="profile__tab--active">
-            Lines
-            <span>{{ profile?.lines?.length }}</span>
-          </li>
-          <li [routerLink]="['following']" routerLinkActive="profile__tab--active">
-            Following
-            <span>{{ profile?.following?.length }}</span>
-          </li>
-          <li [routerLink]="['followers']" routerLinkActive="profile__tab--active">
-            Followers
-            <span>{{ profile?.followers?.length }}</span>
-          </li>
+<ng-container *ngIf="profile$ | async as profile">
+  <div class="profile">
+    <div class="profile__hero" [ngStyle]="{ 'background-image': 'url(' + hero + ')' }"></div>
+    <div class="profile__stat-bar">
+      <div class="width-container-flex">
+        <div class="grid-left">
+          <img [src]="profile_image" class="profile__image" />
+        </div>
+        <div class="grid-main">
+          <ul class="profile__stat-menu">
+            <li [routerLink]="['./']" routerLinkActive="profile__tab--active" [routerLinkActiveOptions]="{ exact: true }">
+              Posts
+              <span>{{ profile?.posts?.length }}</span>
+            </li>
+            <li>
+              Reputation
+              <span>150.050</span>
+            </li>
+            <li [routerLink]="['lines']" routerLinkActive="profile__tab--active">
+              Lines
+              <span>{{ profile?.lines?.length }}</span>
+            </li>
+            <li [routerLink]="['following']" routerLinkActive="profile__tab--active">
+              Following
+              <span>{{ profile?.following?.length }}</span>
+            </li>
+            <li [routerLink]="['followers']" routerLinkActive="profile__tab--active">
+              Followers
+              <span>{{ profile?.followers?.length }}</span>
+            </li>
 
-          <ng-container *ngIf="profile?.isSelf">
-            <a [routerLink]="['edit']" class="button-edit profile__tab-button">Edit profile</a>
-          </ng-container>
-        </ul>
+            <ng-container *ngIf="profile?.isSelf">
+              <a [routerLink]="['edit']" class="button-edit profile__tab-button">Edit profile</a>
+            </ng-container>
+          </ul>
+        </div>
       </div>
     </div>
+    <div class="profile__page-container">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-  <div class="profile__page-container">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+</ng-container>

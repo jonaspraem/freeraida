@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import '../styles/styles.scss';
 import { FLAG_DICTIONARY } from './dictionary/flag-dictionary';
 import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { routerTransition } from './shared/animations/router-transition.animation';
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   animations: [routerTransition],

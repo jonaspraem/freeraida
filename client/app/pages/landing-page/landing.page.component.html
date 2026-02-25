@@ -1,5 +1,5 @@
-<div class="landing-page__background-container" [ngStyle]="{ 'background-image': 'url(' + background + ')' }">
-  <div class="landing-page__container-card" [ngClass]="!isLogin ? 'landing-page__container-card--wide' : ''">
+<div class="landing-page__background-container" [style.background-image]="'url(' + background + ')'">
+  <div class="landing-page__container-card" [class.landing-page__container-card--wide]="!isLogin">
     <div *ngIf="isLogin; else signup">
       <!-- Credential login -->
       <h2 class="landing-page__login-item__header">Login</h2>
@@ -9,7 +9,7 @@
           <input
             type="text"
             class="input"
-            [ngClass]="loginForm.get('userInput').value.length !== 0 ? 'input--active' : ''"
+            [class.input--active]="loginForm.get('userInput').value.length !== 0"
             id="inputUsername"
             formControlName="userInput"
             required
@@ -20,7 +20,7 @@
           <input
             type="password"
             class="input"
-            [ngClass]="loginForm.get('password').value.length !== 0 ? 'input--active' : ''"
+            [class.input--active]="loginForm.get('password').value.length !== 0"
             id="inputPassword"
             formControlName="password"
             required
@@ -49,7 +49,7 @@
                 notEmptyDirective
                 type="email"
                 class="input"
-                [ngClass]="signupForm.get('email').value.length !== 0 ? 'input--active' : ''"
+                [class.input--active]="signupForm.get('email').value.length !== 0"
                 id="sign-up-email"
                 aria-describedby="sign-up-email-help"
                 formControlName="email"
@@ -75,7 +75,7 @@
                 notEmptyDirective
                 type="text"
                 class="input"
-                [ngClass]="signupForm.get('username').value.length !== 0 ? 'input--active' : ''"
+                [class.input--active]="signupForm.get('username').value.length !== 0"
                 id="sign-up-username"
                 aria-describedby="sign-up-username-help"
                 formControlName="username"
@@ -100,7 +100,7 @@
               <input
                 type="text"
                 class="input"
-                [ngClass]="signupForm.get('firstname').value.length !== 0 ? 'input--active' : ''"
+                [class.input--active]="signupForm.get('firstname').value.length !== 0"
                 id="sign-up-firstname"
                 formControlName="firstname"
                 required
@@ -121,7 +121,7 @@
               <input
                 type="text"
                 class="input"
-                [ngClass]="signupForm.get('surname').value.length !== 0 ? 'input--active' : ''"
+                [class.input--active]="signupForm.get('surname').value.length !== 0"
                 id="sign-up-surname"
                 formControlName="surname"
               />
@@ -143,7 +143,7 @@
               <input
                 type="password"
                 class="input"
-                [ngClass]="signupForm.get('password').value.length !== 0 ? 'input--active' : ''"
+                [class.input--active]="signupForm.get('password').value.length !== 0"
                 id="sign-up-password"
                 aria-describedby="sign-up-password-help"
                 formControlName="password"
@@ -166,7 +166,7 @@
               <input
                 type="password"
                 class="input"
-                [ngClass]="signupForm.get('password_confirmation').value.length !== 0 ? 'input--active' : ''"
+                [class.input--active]="signupForm.get('password_confirmation').value.length !== 0"
                 id="sign-up-password-repeat"
                 formControlName="password_confirmation"
                 required
@@ -189,7 +189,7 @@
               <select
                 [formControl]="signupForm.controls.country"
                 class="input"
-                [ngClass]="signupForm.get('country').value.length !== 0 ? 'input--active' : ''"
+                [class.input--active]="signupForm.get('country').value.length !== 0"
                 id="country-select"
               >
                 <option *ngFor="let country of countryList" [ngValue]="country">{{ country }}</option>

@@ -1,11 +1,11 @@
 <div class="page-container" [ngStyle]="{ display: 'flex' }">
   <div class="home-page__side-left">
-    <app-profile-card [user]="userProfile"></app-profile-card>
+    <app-profile-card [user]="userProfile$ | async"></app-profile-card>
   </div>
   <div class="home-page__main">
-    <app-post-writer [user]="userProfile"></app-post-writer>
+    <app-post-writer [user]="userProfile$ | async"></app-post-writer>
     <app-post-loader></app-post-loader>
-    <app-post *ngFor="let post of homeFeed" [postModel]="post"></app-post>
+    <app-post *ngFor="let post of homeFeed$ | async" [postModel]="post"></app-post>
   </div>
   <div class="home-page__side-right"></div>
 </div>

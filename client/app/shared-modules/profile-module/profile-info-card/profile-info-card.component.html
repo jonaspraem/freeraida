@@ -13,6 +13,7 @@
       *ngIf="!userProfile?.isSelf"
       class="button-primary"
       (click)="onToggle()"
+      [disabled]="isWaiting"
       [ngClass]="userProfile?.isFollowing ? 'button-primary--active' : ''"
     >
       {{ userProfile?.isFollowing ? 'FOLLOWING' : 'FOLLOW' }}

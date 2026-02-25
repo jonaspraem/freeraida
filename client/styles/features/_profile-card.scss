@@ -37,6 +37,15 @@ $card-border: 2px solid $color-white;
     background-color: $color-white;
   }
 
+  &__nation-image {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    left: 55px;
+    top: 166px;
+    z-index: 1;
+  }
+
   &__header {
     margin: 5px 0 0 90px;
     display: inline-block;

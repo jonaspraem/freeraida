@@ -1,8 +1,19 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ILineLocation } from '../../../models/interfaces/types';
-import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces';
+
 
 @Component({
+  standalone: false,
   selector: 'app-height-map',
   templateUrl: './height-map.component.html',
 })
@@ -11,19 +22,22 @@ import { GoogleChartInterface } from 'ng2-google-charts/google-charts-interfaces
  * @JonasPraem
  * @param takes km from start + height / z coordinate
  */
-export class HeightMapComponent implements OnInit {
-  @Input() lineLocations: ILineLocation[];
+export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+  @Input() lineLocations: ILineLocation[] = [];
   @Input() color: string = '#508065';
-  public chart: GoogleChartInterface = {
-    chartType: 'AreaChart',
-    dataTable: null,
-    //opt_firstRowIsData: true,
+  @Input() hideLegend: boolean = false;
+  @ViewChild('chartContainer') chartContainer?: ElementRef<HTMLDivElement>;
+  public chart: any = {
+    type: 'AreaChart',
+    columnNames: ['X', 'Y'],
+    data: [],
     options: {},
   };
   private _isLoaded: boolean = false;
+  private _resizeObserver?: ResizeObserver;
+  private _chartWidth: number | null = null;
 
   public ngOnInit(): void {
-    this.reMapChart();
     this.chart.options = {
       title: 'Height map',
       legend: 'none',
@@ -36,6 +50,7 @@ export class HeightMapComponent implements OnInit {
         gridlines: {
           count: 0,
         },
+
       },
       axisFontSize: 0,
       height: 170,
@@ -44,12 +59,41 @@ export class HeightMapComponent implements OnInit {
       colors: [this.color],
       backgroundColor: 'none',
       chartArea: {
-        left: 80,
+        left: 5,
         top: 5,
         right: 5,
         bottom: 5,
       },
     };
+    this.reMapChart();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['lineLocations'] || changes['color'] || changes['hideLegend']) {
+      this.reMapChart();
+      this.chart.options = {
+        ...this.chart.options,
+        colors: [this.color],
+        legend: this.hideLegend ? 'none' : { position: 'top' },
+        ...(this._chartWidth ? { width: this._chartWidth } : {}),
+      };
+    }
+  }
+
+  public ngAfterViewInit(): void {
+    this.updateChartWidth();
+    if (this.chartContainer && typeof ResizeObserver !== 'undefined') {
+      this._resizeObserver = new ResizeObserver(() => {
+        this.updateChartWidth();
+      });
+      this._resizeObserver.observe(this.chartContainer.nativeElement);
+    }
+  }
+
+  public ngOnDestroy(): void {
+    if (this._resizeObserver) {
+      this._resizeObserver.disconnect();
+    }
   }
 
   public onChartReady(): void {
@@ -57,11 +101,27 @@ export class HeightMapComponent implements OnInit {
   }
 
   private reMapChart(): void {
-    const newData: any[] = [['X', 'Y']];
-    for (let i = 0; i < this.lineLocations.length; i++) {
+    const newData: any[] = [];
+    for (let i = 0; i < (this.lineLocations?.length ?? 0); i++) {
       const location = this.lineLocations[i];
+      if (location?.distanceFromStart == null || location?.elevation == null) {
+        continue;
+      }
       newData.push([location.distanceFromStart, location.elevation]);
     }
-    this.chart.dataTable = newData;
+    this.chart.data = newData;
+  }
+
+  private updateChartWidth(): void {
+    const width = Math.floor(this.chartContainer?.nativeElement?.clientWidth ?? 0);
+    if (!width || width === this._chartWidth) {
+      return;
+    }
+
+    this._chartWidth = width;
+    this.chart.options = {
+      ...this.chart.options,
+      width: this._chartWidth,
+    };
   }
 }

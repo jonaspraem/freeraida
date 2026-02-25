@@ -3,9 +3,10 @@ import { faFeatherAlt } from '@fortawesome/free-solid-svg-icons';
 import { IPost, IUserProfile } from '../../../models/interfaces/types';
 import { PostService } from '../../../core/services/post.service';
 
-const defaultImage = require('../../../../images/rider/profile-image.jpg');
+const defaultImage = '/js/app/browser/images/rider/profile-image.jpg';
 
 @Component({
+  standalone: false,
   host: {
     '(document:click)': 'onClick($event)',
   },

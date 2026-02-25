@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Explore</h2>
+  <p *ngIf="isLoading">Loading lines...</p>
+  <p *ngIf="hasError">Could not load explore lines right now.</p>
+
+  <google-map
+    *ngIf="apiReady && !isLoading"
+    [height]="'480px'"
+    [width]="'100%'"
+    [center]="center"
+    [zoom]="zoom"
+    [options]="options"
+    (mapInitialized)="onMapInitialized()"
+  >
+    <map-polyline
+      *ngIf="selectedLinePath.length > 1"
+      [path]="selectedLinePath"
+      [options]="selectedPolylineOptions"
+    ></map-polyline>
+    <map-marker
+      *ngIf="getSelectedStartPosition()"
+      [position]="getSelectedStartPosition()"
+      [options]="getSelectedStartMarkerOptions()"
+    ></map-marker>
+    <map-marker
+      *ngIf="getSelectedEndPosition()"
+      [position]="getSelectedEndPosition()"
+      [options]="getSelectedEndMarkerOptions()"
+    ></map-marker>
+    <map-marker
+      *ngFor="let line of lines"
+      [position]="{ lat: line.startLocation.latitude, lng: line.startLocation.longitude }"
+      [options]="getMarkerOptions(line)"
+      (mapClick)="selectLine(line)"
+    ></map-marker>
+  </google-map>
+
+  <p *ngIf="!isLoading && !hasError && lines.length === 0">No lines found yet.</p>
+
+  <div *ngIf="selectedLine">
+    <h4>{{ selectedLine.name }}</h4>
+    <p>Created by <a [routerLink]="['/user', selectedLine.username]">{{ selectedLine.username }}</a></p>
+    <app-line-summary *ngIf="selectedLineDetails" [line]="selectedLineDetails"></app-line-summary>
+    <a [routerLink]="['/line', selectedLine._id]">Open line details</a>
+    <p *ngIf="isSelectedLineLoading">Loading selected line path...</p>
+  </div>
+</div>

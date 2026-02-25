@@ -3,9 +3,10 @@ import { IPost } from '../../../models/interfaces/types';
 import { PostViewModel } from '../../../models/viewmodels/post.model';
 import { PostService } from '../../../core/services/post.service';
 
-const defaultImage = require('../../../../images/rider/profile-image.jpg');
+const defaultImage = '/js/app/browser/images/rider/profile-image.jpg';
 
 @Component({
+  standalone: false,
   selector: 'app-post',
   templateUrl: './post.component.html',
 })

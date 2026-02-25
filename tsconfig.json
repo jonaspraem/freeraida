@@ -9,9 +9,11 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true,
+    "strict": false,
+    "strictNullChecks": false,
     "lib": ["es6", "dom"],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "client/*"]
 }

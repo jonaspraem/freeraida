@@ -6,7 +6,11 @@
     <div class="line-summary__band-aid" [ngStyle]="{ backgroundColor: COLOR_DICTIONARY.get(line.sport) }"></div>
     <div class="line-summary__container">
       <div class="line-summary__height-map">
-        <app-height-map [lineLocations]="line.locations" [color]="COLOR_DICTIONARY.get(line.sport)"></app-height-map>
+        <app-height-map
+          [lineLocations]="line.locations"
+          [color]="COLOR_DICTIONARY.get(line.sport)"
+          [hideLegend]="hideHeightMapLegend"
+        ></app-height-map>
       </div>
       <div class="line-summary__info">
         <div class="line-summary__main-info">

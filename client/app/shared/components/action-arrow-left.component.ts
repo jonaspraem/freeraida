@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'arrow-action-left',
   template: `
     <div class="arrow-action-left">

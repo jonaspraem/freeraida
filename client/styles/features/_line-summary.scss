@@ -24,7 +24,13 @@
   }
 
   &__height-map {
-    width: 300px;
+    overflow: hidden;
+  }
+
+  app-height-map {
+    display: block;
+    width: 100%;
+    max-width: 100%;
   }
 
   &__info {

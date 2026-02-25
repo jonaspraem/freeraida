@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import 'rxjs';
 import { CONFIG } from '../../dictionary/config';
 import { Router } from '@angular/router';
 import { IUserProfile } from '../../models/interfaces/types';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class ProfileService {
   private _userProfile: BehaviorSubject<IUserProfile> = new BehaviorSubject<IUserProfile>(null);
-  public userProfile$ = this._userProfile.asObservable();
+  public readonly userProfile$ = this._userProfile.asObservable();
 
   constructor(private http: HttpClient, private config: CONFIG, private router: Router) {
     this.getProfileWithToken();
@@ -23,22 +23,29 @@ export class ProfileService {
     this._userProfile.next(profile);
   }
 
-  public getProfileWithToken(): void {
+  public refreshProfileWithToken(): Observable<IUserProfile> {
     const token = localStorage.getItem('api_token');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http
+    return this.http
       .get<IUserProfile>(this.config.getEndpoint() + '/api/user-profile/user-info', {
         headers: headers,
         params: new HttpParams().set('token', token),
       })
-      .subscribe(
-        (profile) => {
+      .pipe(
+        tap((profile) => {
           this._userProfile.next(profile);
           localStorage.setItem('username', profile.username);
-        },
-        (err) => {
-          this.router.navigate(['/landing-page']);
-        }
+        })
       );
+  }
+
+  public getProfileWithToken(): void {
+    this.refreshProfileWithToken()
+      .subscribe({
+        next: () => {},
+        error: () => {
+          this.router.navigate(['/landing-page']);
+        },
+      });
   }
 }

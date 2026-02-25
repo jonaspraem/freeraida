@@ -27,8 +27,8 @@ const schema = new mongoose.Schema({
   slope: { type: Number },
 });
 
-schema.pre('remove', async (next) => {
-  const model = this;
+schema.pre('remove', async function (next) {
+  const model = this as any;
   try {
     const locations = await Location.find({ _id: { $in: model.markers } });
     locations.forEach((location) => {
@@ -37,8 +37,10 @@ schema.pre('remove', async (next) => {
   } catch (e) {}
   try {
     const userProfile = await UserProfile.findOne({ user_id: model.user_id });
-    userProfile.lines.pull(model._id);
-    userProfile.save();
+    if (userProfile) {
+      userProfile.lines.pull(model._id);
+      userProfile.save();
+    }
   } catch (e) {}
   next();
 });

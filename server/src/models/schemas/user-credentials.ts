@@ -37,8 +37,8 @@ schema.pre<IUserCredentials>('save', function (next) {
   });
 });
 
-schema.methods.validPassword = async function (password) {
-  return await bcrypt.compare(password, this.password);
+schema.methods.validPassword = async function (password: string) {
+  return await bcrypt.compare(password, (this as IUserCredentials).password);
 };
 
 schema.plugin(mongooseUniqueValidator);

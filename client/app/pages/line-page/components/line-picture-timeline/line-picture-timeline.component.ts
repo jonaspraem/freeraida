@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ILine, ILineLocation } from '../../../../models/interfaces/types';
 
 @Component({
+  standalone: false,
   selector: 'app-line-picture-timeline',
   templateUrl: './line-picture-timeline.component.html',
 })
@@ -56,6 +57,6 @@ export class LinePictureTimelineComponent implements OnInit {
   }
 
   async delay(ms: number) {
-    await new Promise((resolve) => setTimeout(() => resolve(), ms));
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), ms));
   }
 }

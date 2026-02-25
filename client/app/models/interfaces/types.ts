@@ -61,6 +61,15 @@ export interface ILine {
   endLocation?: ILineLocation;
 }
 
+export interface IExploreLine {
+  _id: string;
+  name: string;
+  sport: string;
+  username: string;
+  timestamp?: Date;
+  startLocation: ILocation;
+}
+
 export interface IPolylineCoordinates {
   org_lat: number;
   org_lng: number;

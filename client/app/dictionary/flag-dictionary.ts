@@ -1,320 +1,317 @@
-import 'rxjs';
-import 'rxjs/add/operator/map';
-
 import { Injectable } from '@angular/core';
 
 // Requires all flag images A to Z
 // A
-const abkhazia = require('../../images/flags/abkhazia.png');
-const afghanistan = require('../../images/flags/afghanistan.png');
-const aland_islands = require('../../images/flags/aland-islands.png');
-const albania = require('../../images/flags/albania.png');
-const algeria = require('../../images/flags/algeria.png');
-const american_samoa = require('../../images/flags/american-samoa.png');
-const andorra = require('../../images/flags/andorra.png');
-const anguilla = require('../../images/flags/anguilla.png');
-const antigua_and_barbuda = require('../../images/flags/antigua-and-barbuda.png');
-const argentina = require('../../images/flags/argentina.png');
-const armenia = require('../../images/flags/armenia.png');
-const aruba = require('../../images/flags/aruba.png');
-const australia = require('../../images/flags/australia.png');
-const austria = require('../../images/flags/austria.png');
-const azerbaijan = require('../../images/flags/azerbaijan.png');
-const azores_islands = require('../../images/flags/azores-islands.png');
+const abkhazia = '/js/app/browser/images/flags/abkhazia.png';
+const afghanistan = '/js/app/browser/images/flags/afghanistan.png';
+const aland_islands = '/js/app/browser/images/flags/aland-islands.png';
+const albania = '/js/app/browser/images/flags/albania.png';
+const algeria = '/js/app/browser/images/flags/algeria.png';
+const american_samoa = '/js/app/browser/images/flags/american-samoa.png';
+const andorra = '/js/app/browser/images/flags/andorra.png';
+const anguilla = '/js/app/browser/images/flags/anguilla.png';
+const antigua_and_barbuda = '/js/app/browser/images/flags/antigua-and-barbuda.png';
+const argentina = '/js/app/browser/images/flags/argentina.png';
+const armenia = '/js/app/browser/images/flags/armenia.png';
+const aruba = '/js/app/browser/images/flags/aruba.png';
+const australia = '/js/app/browser/images/flags/australia.png';
+const austria = '/js/app/browser/images/flags/austria.png';
+const azerbaijan = '/js/app/browser/images/flags/azerbaijan.png';
+const azores_islands = '/js/app/browser/images/flags/azores-islands.png';
 
 // B
-const bahamas = require('../../images/flags/bahamas.png');
-const bahrain = require('../../images/flags/bahrain.png');
-const balearic_islands = require('../../images/flags/balearic-islands.png');
-const bangladesh = require('../../images/flags/bangladesh.png');
-const barbados = require('../../images/flags/barbados.png');
-const basque_country = require('../../images/flags/basque-country.png');
-const belarus = require('../../images/flags/belarus.png');
-const belgium = require('../../images/flags/belgium.png');
-const belize = require('../../images/flags/belize.png');
-const benin = require('../../images/flags/benin.png');
-const bermuda = require('../../images/flags/bermuda.png');
-const bhutan = require('../../images/flags/bhutan-1.png');
-const bolivia = require('../../images/flags/bolivia.png');
-const bonaire = require('../../images/flags/bonaire.png');
-const bosnia_and_herzegovina = require('../../images/flags/bosnia-and-herzegovina.png');
-const botswana = require('../../images/flags/botswana.png');
-const brazil = require('../../images/flags/brazil.png');
-const british_columbia = require('../../images/flags/british-columbia.png');
-const british_indian_ocean_territory = require('../../images/flags/british-indian-ocean-territory.png');
-const british_virgin_islands = require('../../images/flags/british-virgin-islands.png');
-const brunei = require('../../images/flags/brunei.png');
-const bulgaria = require('../../images/flags/bulgaria.png');
-const burkina_faso = require('../../images/flags/burkina-faso.png');
-const burundi = require('../../images/flags/burundi.png');
+const bahamas = '/js/app/browser/images/flags/bahamas.png';
+const bahrain = '/js/app/browser/images/flags/bahrain.png';
+const balearic_islands = '/js/app/browser/images/flags/balearic-islands.png';
+const bangladesh = '/js/app/browser/images/flags/bangladesh.png';
+const barbados = '/js/app/browser/images/flags/barbados.png';
+const basque_country = '/js/app/browser/images/flags/basque-country.png';
+const belarus = '/js/app/browser/images/flags/belarus.png';
+const belgium = '/js/app/browser/images/flags/belgium.png';
+const belize = '/js/app/browser/images/flags/belize.png';
+const benin = '/js/app/browser/images/flags/benin.png';
+const bermuda = '/js/app/browser/images/flags/bermuda.png';
+const bhutan = '/js/app/browser/images/flags/bhutan-1.png';
+const bolivia = '/js/app/browser/images/flags/bolivia.png';
+const bonaire = '/js/app/browser/images/flags/bonaire.png';
+const bosnia_and_herzegovina = '/js/app/browser/images/flags/bosnia-and-herzegovina.png';
+const botswana = '/js/app/browser/images/flags/botswana.png';
+const brazil = '/js/app/browser/images/flags/brazil.png';
+const british_columbia = '/js/app/browser/images/flags/british-columbia.png';
+const british_indian_ocean_territory = '/js/app/browser/images/flags/british-indian-ocean-territory.png';
+const british_virgin_islands = '/js/app/browser/images/flags/british-virgin-islands.png';
+const brunei = '/js/app/browser/images/flags/brunei.png';
+const bulgaria = '/js/app/browser/images/flags/bulgaria.png';
+const burkina_faso = '/js/app/browser/images/flags/burkina-faso.png';
+const burundi = '/js/app/browser/images/flags/burundi.png';
 
 // C
-const cambodia = require('../../images/flags/cambodia.png');
-const cameroon = require('../../images/flags/cameroon.png');
-const canada = require('../../images/flags/canada.png');
-const canary_islands = require('../../images/flags/canary-islands.png');
-const cape_verde = require('../../images/flags/cape-verde.png');
-const cayman_islands = require('../../images/flags/cayman-islands.png');
-const central_african_republic = require('../../images/flags/central-african-republic.png');
-const ceuta = require('../../images/flags/ceuta.png');
-const chad = require('../../images/flags/chad.png');
-const chile = require('../../images/flags/chile.png');
-const china = require('../../images/flags/china.png');
-const christmas_island = require('../../images/flags/christmas-island.png');
-const cocos_island = require('../../images/flags/cocos-island.png');
-const colombia = require('../../images/flags/colombia.png');
-const comoros = require('../../images/flags/comoros.png');
-const congo = require('../../images/flags/congo.png');
-const cook_islands = require('../../images/flags/cook-islands.png');
-const corsica = require('../../images/flags/corsica.png');
-const costa_rica = require('../../images/flags/costa-rica.png');
-const croatia = require('../../images/flags/croatia.png');
-const cuba = require('../../images/flags/cuba.png');
-const curacao = require('../../images/flags/curacao.png');
-const cyprus = require('../../images/flags/cyprus.png');
-const czech_republic = require('../../images/flags/czech-republic.png');
+const cambodia = '/js/app/browser/images/flags/cambodia.png';
+const cameroon = '/js/app/browser/images/flags/cameroon.png';
+const canada = '/js/app/browser/images/flags/canada.png';
+const canary_islands = '/js/app/browser/images/flags/canary-islands.png';
+const cape_verde = '/js/app/browser/images/flags/cape-verde.png';
+const cayman_islands = '/js/app/browser/images/flags/cayman-islands.png';
+const central_african_republic = '/js/app/browser/images/flags/central-african-republic.png';
+const ceuta = '/js/app/browser/images/flags/ceuta.png';
+const chad = '/js/app/browser/images/flags/chad.png';
+const chile = '/js/app/browser/images/flags/chile.png';
+const china = '/js/app/browser/images/flags/china.png';
+const christmas_island = '/js/app/browser/images/flags/christmas-island.png';
+const cocos_island = '/js/app/browser/images/flags/cocos-island.png';
+const colombia = '/js/app/browser/images/flags/colombia.png';
+const comoros = '/js/app/browser/images/flags/comoros.png';
+const congo = '/js/app/browser/images/flags/congo.png';
+const cook_islands = '/js/app/browser/images/flags/cook-islands.png';
+const corsica = '/js/app/browser/images/flags/corsica.png';
+const costa_rica = '/js/app/browser/images/flags/costa-rica.png';
+const croatia = '/js/app/browser/images/flags/croatia.png';
+const cuba = '/js/app/browser/images/flags/cuba.png';
+const curacao = '/js/app/browser/images/flags/curacao.png';
+const cyprus = '/js/app/browser/images/flags/cyprus.png';
+const czech_republic = '/js/app/browser/images/flags/czech-republic.png';
 
 // D
-const democratic_republic_of_congo = require('../../images/flags/democratic-republic-of-congo.png');
-const denmark = require('../../images/flags/denmark.png');
-const djibouti = require('../../images/flags/djibouti.png');
-const dominica = require('../../images/flags/dominica.png');
-const dominican_republic = require('../../images/flags/dominican-republic.png');
+const democratic_republic_of_congo = '/js/app/browser/images/flags/democratic-republic-of-congo.png';
+const denmark = '/js/app/browser/images/flags/denmark.png';
+const djibouti = '/js/app/browser/images/flags/djibouti.png';
+const dominica = '/js/app/browser/images/flags/dominica.png';
+const dominican_republic = '/js/app/browser/images/flags/dominican-republic.png';
 
 // E
-const east_timor = require('../../images/flags/east-timor.png');
-const ecuador = require('../../images/flags/ecuador.png');
-const egypt = require('../../images/flags/egypt.png');
-const england = require('../../images/flags/england.png');
-const equatorial_guinea = require('../../images/flags/equatorial-guinea.png');
-const eritrea = require('../../images/flags/eritrea.png');
-const estonia = require('../../images/flags/estonia.png');
-const ethiopia = require('../../images/flags/ethiopia.png');
-const european_union = require('../../images/flags/european-union.png');
+const east_timor = '/js/app/browser/images/flags/east-timor.png';
+const ecuador = '/js/app/browser/images/flags/ecuador.png';
+const egypt = '/js/app/browser/images/flags/egypt.png';
+const england = '/js/app/browser/images/flags/england.png';
+const equatorial_guinea = '/js/app/browser/images/flags/equatorial-guinea.png';
+const eritrea = '/js/app/browser/images/flags/eritrea.png';
+const estonia = '/js/app/browser/images/flags/estonia.png';
+const ethiopia = '/js/app/browser/images/flags/ethiopia.png';
+const european_union = '/js/app/browser/images/flags/european-union.png';
 
 // F
-const falkland_islands = require('../../images/flags/falkland-islands.png');
-const faroe_islands = require('../../images/flags/faroe-islands.png');
-const fiji = require('../../images/flags/fiji.png');
-const finland = require('../../images/flags/finland.png');
-const france = require('../../images/flags/france.png');
-const french_polynesia = require('../../images/flags/french-polynesia.png');
+const falkland_islands = '/js/app/browser/images/flags/falkland-islands.png';
+const faroe_islands = '/js/app/browser/images/flags/faroe-islands.png';
+const fiji = '/js/app/browser/images/flags/fiji.png';
+const finland = '/js/app/browser/images/flags/finland.png';
+const france = '/js/app/browser/images/flags/france.png';
+const french_polynesia = '/js/app/browser/images/flags/french-polynesia.png';
 
 // G
-const gabon = require('../../images/flags/gabon.png');
-const galapagos_islands = require('../../images/flags/galapagos-islands.png');
-const gambia = require('../../images/flags/gambia.png');
-const georgia = require('../../images/flags/georgia.png');
-const germany = require('../../images/flags/germany.png');
-const ghana = require('../../images/flags/ghana.png');
-const gibraltar = require('../../images/flags/gibraltar.png');
-const greece = require('../../images/flags/greece.png');
-const greenland = require('../../images/flags/greenland.png');
-const grenada = require('../../images/flags/grenada.png');
-const guam = require('../../images/flags/guam.png');
-const guatemala = require('../../images/flags/guatemala.png');
-const guernsey = require('../../images/flags/guernsey.png');
-const guinea = require('../../images/flags/guinea.png');
-const guinea_bissau = require('../../images/flags/guinea-bissau.png');
-const guyana = require('../../images/flags/guyana.png');
+const gabon = '/js/app/browser/images/flags/gabon.png';
+const galapagos_islands = '/js/app/browser/images/flags/galapagos-islands.png';
+const gambia = '/js/app/browser/images/flags/gambia.png';
+const georgia = '/js/app/browser/images/flags/georgia.png';
+const germany = '/js/app/browser/images/flags/germany.png';
+const ghana = '/js/app/browser/images/flags/ghana.png';
+const gibraltar = '/js/app/browser/images/flags/gibraltar.png';
+const greece = '/js/app/browser/images/flags/greece.png';
+const greenland = '/js/app/browser/images/flags/greenland.png';
+const grenada = '/js/app/browser/images/flags/grenada.png';
+const guam = '/js/app/browser/images/flags/guam.png';
+const guatemala = '/js/app/browser/images/flags/guatemala.png';
+const guernsey = '/js/app/browser/images/flags/guernsey.png';
+const guinea = '/js/app/browser/images/flags/guinea.png';
+const guinea_bissau = '/js/app/browser/images/flags/guinea-bissau.png';
+const guyana = '/js/app/browser/images/flags/guyana.png';
 
 // H
-const haiti = require('../../images/flags/haiti.png');
-const hawaii = require('../../images/flags/hawaii.png');
-const honduras = require('../../images/flags/honduras.png');
-const hong_kong = require('../../images/flags/hong-kong.png');
-const hungary = require('../../images/flags/hungary.png');
+const haiti = '/js/app/browser/images/flags/haiti.png';
+const hawaii = '/js/app/browser/images/flags/hawaii.png';
+const honduras = '/js/app/browser/images/flags/honduras.png';
+const hong_kong = '/js/app/browser/images/flags/hong-kong.png';
+const hungary = '/js/app/browser/images/flags/hungary.png';
 
 // I
-const iceland = require('../../images/flags/iceland.png');
-const india = require('../../images/flags/india.png');
-const indonesia = require('../../images/flags/indonesia.png');
-const iran = require('../../images/flags/iran.png');
-const iraq = require('../../images/flags/iraq.png');
-const ireland = require('../../images/flags/ireland.png');
-const isle_of_man = require('../../images/flags/isle-of-man.png');
-const israel = require('../../images/flags/israel.png');
-const ivory_coast = require('../../images/flags/ivory-coast.png');
+const iceland = '/js/app/browser/images/flags/iceland.png';
+const india = '/js/app/browser/images/flags/india.png';
+const indonesia = '/js/app/browser/images/flags/indonesia.png';
+const iran = '/js/app/browser/images/flags/iran.png';
+const iraq = '/js/app/browser/images/flags/iraq.png';
+const ireland = '/js/app/browser/images/flags/ireland.png';
+const isle_of_man = '/js/app/browser/images/flags/isle-of-man.png';
+const israel = '/js/app/browser/images/flags/israel.png';
+const ivory_coast = '/js/app/browser/images/flags/ivory-coast.png';
 
 // J
-const jamaica = require('../../images/flags/jamaica.png');
-const japan = require('../../images/flags/japan.png');
-const jersey = require('../../images/flags/jersey.png');
-const jordan = require('../../images/flags/jordan.png');
+const jamaica = '/js/app/browser/images/flags/jamaica.png';
+const japan = '/js/app/browser/images/flags/japan.png';
+const jersey = '/js/app/browser/images/flags/jersey.png';
+const jordan = '/js/app/browser/images/flags/jordan.png';
 
 // K
-const kazakhstan = require('../../images/flags/kazakhstan.png');
-const kenya = require('../../images/flags/kenya.png');
-const kiribati = require('../../images/flags/kiribati.png');
-const kosovo = require('../../images/flags/kosovo.png');
-const kuwait = require('../../images/flags/kuwait.png');
-const kyrgyzstan = require('../../images/flags/kyrgyzstan.png');
+const kazakhstan = '/js/app/browser/images/flags/kazakhstan.png';
+const kenya = '/js/app/browser/images/flags/kenya.png';
+const kiribati = '/js/app/browser/images/flags/kiribati.png';
+const kosovo = '/js/app/browser/images/flags/kosovo.png';
+const kuwait = '/js/app/browser/images/flags/kuwait.png';
+const kyrgyzstan = '/js/app/browser/images/flags/kyrgyzstan.png';
 
 // L
-const laos = require('../../images/flags/laos.png');
-const latvia = require('../../images/flags/latvia.png');
-const lebanon = require('../../images/flags/lebanon.png');
-const lesotho = require('../../images/flags/lesotho.png');
-const liberia = require('../../images/flags/liberia.png');
-const libya = require('../../images/flags/libya.png');
-const liechtenstein = require('../../images/flags/liechtenstein.png');
-const lithuania = require('../../images/flags/lithuania.png');
-const luxembourg = require('../../images/flags/luxembourg.png');
+const laos = '/js/app/browser/images/flags/laos.png';
+const latvia = '/js/app/browser/images/flags/latvia.png';
+const lebanon = '/js/app/browser/images/flags/lebanon.png';
+const lesotho = '/js/app/browser/images/flags/lesotho.png';
+const liberia = '/js/app/browser/images/flags/liberia.png';
+const libya = '/js/app/browser/images/flags/libya.png';
+const liechtenstein = '/js/app/browser/images/flags/liechtenstein.png';
+const lithuania = '/js/app/browser/images/flags/lithuania.png';
+const luxembourg = '/js/app/browser/images/flags/luxembourg.png';
 
 // M
-const macao = require('../../images/flags/macao.png');
-const macedonia = require('../../images/flags/macedonia.png');
-const madagascar = require('../../images/flags/madagascar.png');
-const madeira = require('../../images/flags/madeira.png');
-const malawi = require('../../images/flags/malawi.png');
-const malaysia = require('../../images/flags/malaysia.png');
-const maldives = require('../../images/flags/maldives.png');
-const mali = require('../../images/flags/mali.png');
-const malta = require('../../images/flags/malta.png');
-const marshall_island = require('../../images/flags/marshall-island.png');
-const martinique = require('../../images/flags/martinique.png');
-const mauritania = require('../../images/flags/mauritania.png');
-const mauritius = require('../../images/flags/mauritius.png');
-const melilla = require('../../images/flags/melilla.png');
-const mexico = require('../../images/flags/mexico.png');
-const micronesia = require('../../images/flags/micronesia.png');
-const moldova = require('../../images/flags/moldova.png');
-const monaco = require('../../images/flags/monaco.png');
-const mongolia = require('../../images/flags/mongolia.png');
-const montenegro = require('../../images/flags/montenegro.png');
-const montserrat = require('../../images/flags/montserrat.png');
-const morocco = require('../../images/flags/morocco.png');
-const mozambique = require('../../images/flags/mozambique.png');
-const myanmar = require('../../images/flags/myanmar.png');
+const macao = '/js/app/browser/images/flags/macao.png';
+const macedonia = '/js/app/browser/images/flags/macedonia.png';
+const madagascar = '/js/app/browser/images/flags/madagascar.png';
+const madeira = '/js/app/browser/images/flags/madeira.png';
+const malawi = '/js/app/browser/images/flags/malawi.png';
+const malaysia = '/js/app/browser/images/flags/malaysia.png';
+const maldives = '/js/app/browser/images/flags/maldives.png';
+const mali = '/js/app/browser/images/flags/mali.png';
+const malta = '/js/app/browser/images/flags/malta.png';
+const marshall_island = '/js/app/browser/images/flags/marshall-island.png';
+const martinique = '/js/app/browser/images/flags/martinique.png';
+const mauritania = '/js/app/browser/images/flags/mauritania.png';
+const mauritius = '/js/app/browser/images/flags/mauritius.png';
+const melilla = '/js/app/browser/images/flags/melilla.png';
+const mexico = '/js/app/browser/images/flags/mexico.png';
+const micronesia = '/js/app/browser/images/flags/micronesia.png';
+const moldova = '/js/app/browser/images/flags/moldova.png';
+const monaco = '/js/app/browser/images/flags/monaco.png';
+const mongolia = '/js/app/browser/images/flags/mongolia.png';
+const montenegro = '/js/app/browser/images/flags/montenegro.png';
+const montserrat = '/js/app/browser/images/flags/montserrat.png';
+const morocco = '/js/app/browser/images/flags/morocco.png';
+const mozambique = '/js/app/browser/images/flags/mozambique.png';
+const myanmar = '/js/app/browser/images/flags/myanmar.png';
 
 // N
-const namibia = require('../../images/flags/namibia.png');
-const nato = require('../../images/flags/nato.png');
-const nauru = require('../../images/flags/nauru.png');
-const nepal = require('../../images/flags/nepal.png');
-const netherlands = require('../../images/flags/netherlands.png');
-const new_zealand = require('../../images/flags/new-zealand.png');
-const nicaragua = require('../../images/flags/nicaragua.png');
-const niger = require('../../images/flags/niger.png');
-const nigeria = require('../../images/flags/nigeria.png');
-const niue = require('../../images/flags/niue.png');
-const norfolk_island = require('../../images/flags/norfolk-island.png');
-const north_korea = require('../../images/flags/north-korea.png');
-const northern_cyprus = require('../../images/flags/northern-cyprus.png');
-const northern_marianas_islands = require('../../images/flags/northern-marianas-islands.png');
-const norway = require('../../images/flags/norway.png');
+const namibia = '/js/app/browser/images/flags/namibia.png';
+const nato = '/js/app/browser/images/flags/nato.png';
+const nauru = '/js/app/browser/images/flags/nauru.png';
+const nepal = '/js/app/browser/images/flags/nepal.png';
+const netherlands = '/js/app/browser/images/flags/netherlands.png';
+const new_zealand = '/js/app/browser/images/flags/new-zealand.png';
+const nicaragua = '/js/app/browser/images/flags/nicaragua.png';
+const niger = '/js/app/browser/images/flags/niger.png';
+const nigeria = '/js/app/browser/images/flags/nigeria.png';
+const niue = '/js/app/browser/images/flags/niue.png';
+const norfolk_island = '/js/app/browser/images/flags/norfolk-island.png';
+const north_korea = '/js/app/browser/images/flags/north-korea.png';
+const northern_cyprus = '/js/app/browser/images/flags/northern-cyprus.png';
+const northern_marianas_islands = '/js/app/browser/images/flags/northern-marianas-islands.png';
+const norway = '/js/app/browser/images/flags/norway.png';
 
 // O
-const oman = require('../../images/flags/oman.png');
-const orkney_islands = require('../../images/flags/orkney-islands.png');
-const ossetia = require('../../images/flags/ossetia.png');
+const oman = '/js/app/browser/images/flags/oman.png';
+const orkney_islands = '/js/app/browser/images/flags/orkney-islands.png';
+const ossetia = '/js/app/browser/images/flags/ossetia.png';
 
 // P
-const pakistan = require('../../images/flags/pakistan.png');
-const palau = require('../../images/flags/palau.png');
-const palestine = require('../../images/flags/palestine.png');
-const panama = require('../../images/flags/panama.png');
-const papua_new_guinea = require('../../images/flags/papua-new-guinea.png');
-const paraguay = require('../../images/flags/paraguay.png');
-const peru = require('../../images/flags/peru.png');
-const philippines = require('../../images/flags/philippines.png');
-const pitcairn_islands = require('../../images/flags/pitcairn-islands.png');
-const poland = require('../../images/flags/poland.png');
-const portugal = require('../../images/flags/portugal.png');
-const puerto_rico = require('../../images/flags/puerto-rico.png');
+const pakistan = '/js/app/browser/images/flags/pakistan.png';
+const palau = '/js/app/browser/images/flags/palau.png';
+const palestine = '/js/app/browser/images/flags/palestine.png';
+const panama = '/js/app/browser/images/flags/panama.png';
+const papua_new_guinea = '/js/app/browser/images/flags/papua-new-guinea.png';
+const paraguay = '/js/app/browser/images/flags/paraguay.png';
+const peru = '/js/app/browser/images/flags/peru.png';
+const philippines = '/js/app/browser/images/flags/philippines.png';
+const pitcairn_islands = '/js/app/browser/images/flags/pitcairn-islands.png';
+const poland = '/js/app/browser/images/flags/poland.png';
+const portugal = '/js/app/browser/images/flags/portugal.png';
+const puerto_rico = '/js/app/browser/images/flags/puerto-rico.png';
 
 // Q
-const qatar = require('../../images/flags/qatar.png');
+const qatar = '/js/app/browser/images/flags/qatar.png';
 
 // R
-const rapa_nui = require('../../images/flags/rapa-nui.png');
-const romania = require('../../images/flags/romania.png');
-const russia = require('../../images/flags/russia.png');
-const rwanda = require('../../images/flags/rwanda.png');
+const rapa_nui = '/js/app/browser/images/flags/rapa-nui.png';
+const romania = '/js/app/browser/images/flags/romania.png';
+const russia = '/js/app/browser/images/flags/russia.png';
+const rwanda = '/js/app/browser/images/flags/rwanda.png';
 
 // S
-const saba_island = require('../../images/flags/saba-island.png');
-const saint_kitts_and_nevis = require('../../images/flags/saint-kitts-and-nevis.png');
-const salvador = require('../../images/flags/salvador.png');
-const samoa = require('../../images/flags/samoa.png');
-const san_marino = require('../../images/flags/san-marino.png');
-const sao_tome_and_principe = require('../../images/flags/sao-tome-and-principe.png');
-const sardinia = require('../../images/flags/sardinia.png');
-const saudi_arabia = require('../../images/flags/saudi-arabia.png');
-const scotland = require('../../images/flags/scotland.png');
-const senegal = require('../../images/flags/senegal.png');
-const serbia = require('../../images/flags/serbia.png');
-const seychelles = require('../../images/flags/seychelles.png');
-const sierra_leone = require('../../images/flags/sierra-leone.png');
-const singapore = require('../../images/flags/singapore.png');
-const sint_eustatius = require('../../images/flags/sint-eustatius.png');
-const sint_maarten = require('../../images/flags/sint-maarten.png');
-const slovakia = require('../../images/flags/slovakia.png');
-const slovenia = require('../../images/flags/slovenia.png');
-const solomon_islands = require('../../images/flags/solomon-islands.png');
-const somalia = require('../../images/flags/somalia.png');
-const somaliland = require('../../images/flags/somaliland.png');
-const south_africa = require('../../images/flags/south-africa.png');
-const south_korea = require('../../images/flags/south-korea.png');
-const south_sudan = require('../../images/flags/south-sudan.png');
-const spain = require('../../images/flags/spain.png');
-const sri_lanka = require('../../images/flags/sri-lanka.png');
-const st_barthelemy = require('../../images/flags/st-barthelemy.png');
-const st_lucia = require('../../images/flags/st-lucia.png');
-const st_vincent_and_the_grenadines = require('../../images/flags/st-vincent-and-the-grenadines.png');
-const sudan = require('../../images/flags/sudan.png');
-const suriname = require('../../images/flags/suriname.png');
-const swaziland = require('../../images/flags/swaziland.png');
-const sweden = require('../../images/flags/sweden.png');
-const switzerland = require('../../images/flags/switzerland.png');
-const syria = require('../../images/flags/syria.png');
+const saba_island = '/js/app/browser/images/flags/saba-island.png';
+const saint_kitts_and_nevis = '/js/app/browser/images/flags/saint-kitts-and-nevis.png';
+const salvador = '/js/app/browser/images/flags/salvador.png';
+const samoa = '/js/app/browser/images/flags/samoa.png';
+const san_marino = '/js/app/browser/images/flags/san-marino.png';
+const sao_tome_and_principe = '/js/app/browser/images/flags/sao-tome-and-principe.png';
+const sardinia = '/js/app/browser/images/flags/sardinia.png';
+const saudi_arabia = '/js/app/browser/images/flags/saudi-arabia.png';
+const scotland = '/js/app/browser/images/flags/scotland.png';
+const senegal = '/js/app/browser/images/flags/senegal.png';
+const serbia = '/js/app/browser/images/flags/serbia.png';
+const seychelles = '/js/app/browser/images/flags/seychelles.png';
+const sierra_leone = '/js/app/browser/images/flags/sierra-leone.png';
+const singapore = '/js/app/browser/images/flags/singapore.png';
+const sint_eustatius = '/js/app/browser/images/flags/sint-eustatius.png';
+const sint_maarten = '/js/app/browser/images/flags/sint-maarten.png';
+const slovakia = '/js/app/browser/images/flags/slovakia.png';
+const slovenia = '/js/app/browser/images/flags/slovenia.png';
+const solomon_islands = '/js/app/browser/images/flags/solomon-islands.png';
+const somalia = '/js/app/browser/images/flags/somalia.png';
+const somaliland = '/js/app/browser/images/flags/somaliland.png';
+const south_africa = '/js/app/browser/images/flags/south-africa.png';
+const south_korea = '/js/app/browser/images/flags/south-korea.png';
+const south_sudan = '/js/app/browser/images/flags/south-sudan.png';
+const spain = '/js/app/browser/images/flags/spain.png';
+const sri_lanka = '/js/app/browser/images/flags/sri-lanka.png';
+const st_barthelemy = '/js/app/browser/images/flags/st-barthelemy.png';
+const st_lucia = '/js/app/browser/images/flags/st-lucia.png';
+const st_vincent_and_the_grenadines = '/js/app/browser/images/flags/st-vincent-and-the-grenadines.png';
+const sudan = '/js/app/browser/images/flags/sudan.png';
+const suriname = '/js/app/browser/images/flags/suriname.png';
+const swaziland = '/js/app/browser/images/flags/swaziland.png';
+const sweden = '/js/app/browser/images/flags/sweden.png';
+const switzerland = '/js/app/browser/images/flags/switzerland.png';
+const syria = '/js/app/browser/images/flags/syria.png';
 
 // T
-const taiwan = require('../../images/flags/taiwan.png');
-const tajikistan = require('../../images/flags/tajikistan.png');
-const tanzania = require('../../images/flags/tanzania.png');
-const thailand = require('../../images/flags/thailand.png');
-const tibet = require('../../images/flags/tibet.png');
-const togo = require('../../images/flags/togo.png');
-const tokelau = require('../../images/flags/tokelau.png');
-const tonga = require('../../images/flags/tonga.png');
-const transnistria = require('../../images/flags/transnistria.png');
-const trinidad_and_tobago = require('../../images/flags/trinidad-and-tobago.png');
-const tunisia = require('../../images/flags/tunisia.png');
-const turkey = require('../../images/flags/turkey.png');
-const turkmenistan = require('../../images/flags/turkmenistan.png');
-const turks_and_caicos = require('../../images/flags/turks-and-caicos.png');
-const tuvalu = require('../../images/flags/tuvalu.png');
+const taiwan = '/js/app/browser/images/flags/taiwan.png';
+const tajikistan = '/js/app/browser/images/flags/tajikistan.png';
+const tanzania = '/js/app/browser/images/flags/tanzania.png';
+const thailand = '/js/app/browser/images/flags/thailand.png';
+const tibet = '/js/app/browser/images/flags/tibet.png';
+const togo = '/js/app/browser/images/flags/togo.png';
+const tokelau = '/js/app/browser/images/flags/tokelau.png';
+const tonga = '/js/app/browser/images/flags/tonga.png';
+const transnistria = '/js/app/browser/images/flags/transnistria.png';
+const trinidad_and_tobago = '/js/app/browser/images/flags/trinidad-and-tobago.png';
+const tunisia = '/js/app/browser/images/flags/tunisia.png';
+const turkey = '/js/app/browser/images/flags/turkey.png';
+const turkmenistan = '/js/app/browser/images/flags/turkmenistan.png';
+const turks_and_caicos = '/js/app/browser/images/flags/turks-and-caicos.png';
+const tuvalu = '/js/app/browser/images/flags/tuvalu.png';
 
 // U
-const uganda = require('../../images/flags/uganda.png');
-const ukraine = require('../../images/flags/ukraine.png');
-const united_arab_emirates = require('../../images/flags/united-arab-emirates.png');
-const united_kingdom = require('../../images/flags/united-kingdom.png');
-const united_nations = require('../../images/flags/united-nations.png');
-const united_states_of_america = require('../../images/flags/united-states-of-america.png');
-const uruguay = require('../../images/flags/uruguay.png');
-const uzbekistan = require('../../images/flags/uzbekistan.png');
+const uganda = '/js/app/browser/images/flags/uganda.png';
+const ukraine = '/js/app/browser/images/flags/ukraine.png';
+const united_arab_emirates = '/js/app/browser/images/flags/united-arab-emirates.png';
+const united_kingdom = '/js/app/browser/images/flags/united-kingdom.png';
+const united_nations = '/js/app/browser/images/flags/united-nations.png';
+const united_states_of_america = '/js/app/browser/images/flags/united-states-of-america.png';
+const uruguay = '/js/app/browser/images/flags/uruguay.png';
+const uzbekistan = '/js/app/browser/images/flags/uzbekistan.png';
 
 // V
-const vanuatu = require('../../images/flags/vanuatu.png');
-const vatican_city = require('../../images/flags/vatican-city.png');
-const venezuela = require('../../images/flags/venezuela.png');
-const vietnam = require('../../images/flags/vietnam.png');
-const virgin_islands = require('../../images/flags/virgin-islands.png');
+const vanuatu = '/js/app/browser/images/flags/vanuatu.png';
+const vatican_city = '/js/app/browser/images/flags/vatican-city.png';
+const venezuela = '/js/app/browser/images/flags/venezuela.png';
+const vietnam = '/js/app/browser/images/flags/vietnam.png';
+const virgin_islands = '/js/app/browser/images/flags/virgin-islands.png';
 
 // W
-const wales = require('../../images/flags/wales.png');
-const western_sahara = require('../../images/flags/western-sahara.png');
+const wales = '/js/app/browser/images/flags/wales.png';
+const western_sahara = '/js/app/browser/images/flags/western-sahara.png';
 
 // X
 
 // Y
-const yemen = require('../../images/flags/yemen.png');
+const yemen = '/js/app/browser/images/flags/yemen.png';
 
 // Z
-const zambia = require('../../images/flags/zambia.png');
-const zimbabwe = require('../../images/flags/zimbabwe.png');
+const zambia = '/js/app/browser/images/flags/zambia.png';
+const zimbabwe = '/js/app/browser/images/flags/zimbabwe.png';
 
 @Injectable()
 export class FLAG_DICTIONARY {
@@ -508,7 +505,7 @@ export class FLAG_DICTIONARY {
 
     // N
     FLAG_DICTIONARY.flagmap.set('Namibia', namibia);
-    // FLAG_DICTIONARY.flagmap.set('Nato', 'assets/images/flags/nato.png');
+    // FLAG_DICTIONARY.flagmap.set('Nato', 'assets/images/flags/nato.png';
     FLAG_DICTIONARY.flagmap.set('Nauru', nauru);
     FLAG_DICTIONARY.flagmap.set('Nepal', nepal);
     FLAG_DICTIONARY.flagmap.set('Netherlands', netherlands);

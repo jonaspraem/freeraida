@@ -8,18 +8,19 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 
 router.get('/get/:id', async (req, res, next) => {
-  let line: ILine;
+  let line: ILine | null;
   try {
     // TODO Move to function
     line = await Line.findById(req.params.id);
-    line.locations = await Location.find({ _id: { $in: line.locations } });
-    line = line.toObject(); // To make the line mutable
-    line.startLocation = line.locations[0];
-    line.endLocation = line.locations[line.locations.length - 1];
+    if (!line) return res.status(404);
+    line.locations = await Location.find({ _id: { $in: line.locations } }) as any;
+    const result = line.toObject() as any; // To make the line mutable
+    result.startLocation = result.locations[0];
+    result.endLocation = result.locations[result.locations.length - 1];
+    return res.status(200).json(result);
   } catch (e) {
     return res.status(404);
   }
-  return res.status(200).json(line);
 });
 
 router.get('/user/:username', async (req, res, next) => {
@@ -51,6 +52,83 @@ router.get('/user/:username', async (req, res, next) => {
   return res.status(201).json(lines);
 });
 
+router.get('/explore', async (req, res, next) => {
+  const parseInteger = (value: any, fallback: number, min: number, max: number): number => {
+    const parsed = parseInt(value, 10);
+    if (isNaN(parsed)) {
+      return fallback;
+    }
+    return Math.min(Math.max(parsed, min), max);
+  };
+  const parseFloatOrUndefined = (value: any): number | undefined => {
+    const parsed = Number(value);
+    return isNaN(parsed) ? undefined : parsed;
+  };
+
+  const limit = parseInteger(req.query.limit, 500, 1, 2000);
+  const offset = parseInteger(req.query.offset, 0, 0, 1000000);
+  const north = parseFloatOrUndefined(req.query.north);
+  const south = parseFloatOrUndefined(req.query.south);
+  const east = parseFloatOrUndefined(req.query.east);
+  const west = parseFloatOrUndefined(req.query.west);
+
+  const hasBoundingBox = [north, south, east, west].every((value) => typeof value === 'number');
+  const boundingBoxFilter = hasBoundingBox
+    ? {
+      'startLocation.latitude': { $gte: south, $lte: north },
+      'startLocation.longitude': { $gte: west, $lte: east },
+    }
+    : {};
+
+  try {
+    const lines = await Line.aggregate([
+      {
+        $project: {
+          name: 1,
+          sport: 1,
+          username: 1,
+          timestamp: 1,
+          firstLocationId: { $arrayElemAt: ['$locations', 0] },
+        },
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'firstLocationId',
+          foreignField: '_id',
+          as: 'startLocation',
+        },
+      },
+      { $unwind: '$startLocation' },
+      { $match: boundingBoxFilter },
+      { $sort: { timestamp: -1, _id: -1 } },
+      { $skip: offset },
+      { $limit: limit },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          sport: 1,
+          username: 1,
+          timestamp: 1,
+          startLocation: {
+            latitude: '$startLocation.latitude',
+            longitude: '$startLocation.longitude',
+            elevation: '$startLocation.elevation',
+          },
+        },
+      },
+    ]);
+
+    return res.status(200).json(lines);
+  } catch (e) {
+    return res.status(500).json({
+      title: 'An error occurred',
+      message: 'Error fetching explore lines',
+    });
+  }
+});
+
 // Verify token
 router.use('/', async (req, res, next) => {
   try {
@@ -65,6 +143,7 @@ router.use('/', async (req, res, next) => {
 });
 
 router.post('/new/', async (req, res, next) => {
+  console.log("new line request", req.body);
   const decoded = jwt.decode(req.query.token);
   let userProfile;
   let locationList = [];
@@ -88,20 +167,24 @@ router.post('/new/', async (req, res, next) => {
       if (tempLoc.elevation > highestElevation) {
         highestElevation = tempLoc.elevation;
       }
-      const slope = tempLoc.elevation / tempLoc.distanceFromLast;
-      if (slope > highestSlope) {
-        highestSlope = slope;
+      if (tempLoc.distanceFromLast > 0) {
+        const slope = tempLoc.elevation / tempLoc.distanceFromLast;
+        if (slope > highestSlope) {
+          highestSlope = slope;
+        }
       }
       tempLoc = await tempLoc.save();
       return tempLoc;
     });
     await Promise.all(promises).then((list) => (locationList = list));
   } catch (e) {
+    console.error(e)
     return res.status(500).json({
       title: 'An error occurred',
       message: 'Error saving the locations',
     });
   }
+  console.log("locations saved", locationList);
   let line = new Line({
     locations: locationList,
     name: req.body.name,
