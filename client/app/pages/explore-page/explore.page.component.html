@@ -1,7 +1,20 @@
-<div class="container">
+<div class="container explore-page">
   <h2>Explore</h2>
   <p *ngIf="isLoading">Loading lines...</p>
   <p *ngIf="hasError">Could not load explore lines right now.</p>
+
+  <div class="explore-page__sport-filter" *ngIf="!isLoading && !hasError">
+    <button
+      *ngFor="let sport of sportFilters"
+      type="button"
+      class="explore-page__sport-option"
+      [ngStyle]="getSportFilterStyles(sport)"
+      [class.explore-page__sport-option--active]="selectedSportFilter === sport"
+      (click)="onSportFilterChange(sport)"
+    >
+      {{ sport }}
+    </button>
+  </div>
 
   <google-map
     *ngIf="apiReady && !isLoading"
