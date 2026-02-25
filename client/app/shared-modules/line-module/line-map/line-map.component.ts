@@ -1,5 +1,15 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  NgZone,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { GoogleMap, MapMarker, MapPolyline } from '@angular/google-maps';
 import { ILine } from '../../../models/interfaces/types';
 import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
@@ -168,6 +178,10 @@ export class LineMapComponent implements OnInit, OnChanges {
     return { lat: this.rad2degr(lat), lng: this.rad2degr(lng) };
   }
 
-  private rad2degr(rad: number): number { return rad * 180 / Math.PI; }
-  private degr2rad(degr: number): number { return degr * Math.PI / 180; }
+  private rad2degr(rad: number): number {
+    return (rad * 180) / Math.PI;
+  }
+  private degr2rad(degr: number): number {
+    return (degr * Math.PI) / 180;
+  }
 }

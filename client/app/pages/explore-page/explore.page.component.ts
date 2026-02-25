@@ -145,7 +145,8 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   private fetchExploreLines(): void {
     this.isLoading = true;
     this.hasError = false;
-    this.lineService.getExploreLines()
+    this.lineService
+      .getExploreLines()
       .pipe(
         timeout(15000),
         takeUntil(this._destroy$),
@@ -159,11 +160,12 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (lines) => {
           this.zone.run(() => {
-            this.lines = (lines || []).filter((line) =>
-              !!line &&
-              !!line.startLocation &&
-              Number.isFinite(line.startLocation.latitude) &&
-              Number.isFinite(line.startLocation.longitude)
+            this.lines = (lines || []).filter(
+              (line) =>
+                !!line &&
+                !!line.startLocation &&
+                Number.isFinite(line.startLocation.latitude) &&
+                Number.isFinite(line.startLocation.longitude)
             );
             if (this.lines.length > 0) {
               this.selectLine(this.lines[0]);
@@ -197,7 +199,8 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
     }
     const requestId = ++this.selectedLineRequestId;
     this.isSelectedLineLoading = true;
-    this.lineService.getLine(lineId)
+    this.lineService
+      .getLine(lineId)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (line: ILine) => {
@@ -207,9 +210,9 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
           this.zone.run(() => {
             this.selectedLinePath = Array.isArray(line.locations)
               ? line.locations.map((loc) => ({
-                lat: loc.latitude,
-                lng: loc.longitude,
-              }))
+                  lat: loc.latitude,
+                  lng: loc.longitude,
+                }))
               : [];
             this.selectedLineDetails = line;
             if (line.sport) {
@@ -269,7 +272,13 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   }
 
   private fitToBounds(): void {
-    if (!this.apiReady || !this.mapReady || !this.map || this.lines.length === 0 || !(globalThis as any)?.google?.maps) {
+    if (
+      !this.apiReady ||
+      !this.mapReady ||
+      !this.map ||
+      this.lines.length === 0 ||
+      !(globalThis as any)?.google?.maps
+    ) {
       return;
     }
     const nativeMap = this.map.googleMap;

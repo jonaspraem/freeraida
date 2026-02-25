@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { ILineLocation } from '../../../models/interfaces/types';
 
-
 @Component({
   standalone: false,
   selector: 'app-height-map',
@@ -50,7 +49,6 @@ export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnD
         gridlines: {
           count: 0,
         },
-
       },
       axisFontSize: 0,
       height: 170,

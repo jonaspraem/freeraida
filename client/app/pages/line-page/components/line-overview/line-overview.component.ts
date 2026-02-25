@@ -5,7 +5,6 @@ import { ProfileService } from '../../../../core/services/profile.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-
 @Component({
   standalone: false,
   selector: 'app-line-overview',

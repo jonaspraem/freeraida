@@ -13,7 +13,7 @@ router.get('/get/:id', async (req, res, next) => {
     // TODO Move to function
     line = await Line.findById(req.params.id);
     if (!line) return res.status(404);
-    line.locations = await Location.find({ _id: { $in: line.locations } }) as any;
+    line.locations = (await Location.find({ _id: { $in: line.locations } })) as any;
     const result = line.toObject() as any; // To make the line mutable
     result.startLocation = result.locations[0];
     result.endLocation = result.locations[result.locations.length - 1];
@@ -75,9 +75,9 @@ router.get('/explore', async (req, res, next) => {
   const hasBoundingBox = [north, south, east, west].every((value) => typeof value === 'number');
   const boundingBoxFilter = hasBoundingBox
     ? {
-      'startLocation.latitude': { $gte: south, $lte: north },
-      'startLocation.longitude': { $gte: west, $lte: east },
-    }
+        'startLocation.latitude': { $gte: south, $lte: north },
+        'startLocation.longitude': { $gte: west, $lte: east },
+      }
     : {};
 
   try {
@@ -143,7 +143,7 @@ router.use('/', async (req, res, next) => {
 });
 
 router.post('/new/', async (req, res, next) => {
-  console.log("new line request", req.body);
+  console.log('new line request', req.body);
   const decoded = jwt.decode(req.query.token);
   let userProfile;
   let locationList = [];
@@ -178,13 +178,13 @@ router.post('/new/', async (req, res, next) => {
     });
     await Promise.all(promises).then((list) => (locationList = list));
   } catch (e) {
-    console.error(e)
+    console.error(e);
     return res.status(500).json({
       title: 'An error occurred',
       message: 'Error saving the locations',
     });
   }
-  console.log("locations saved", locationList);
+  console.log('locations saved', locationList);
   let line = new Line({
     locations: locationList,
     name: req.body.name,

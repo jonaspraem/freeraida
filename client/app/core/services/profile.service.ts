@@ -40,12 +40,11 @@ export class ProfileService {
   }
 
   public getProfileWithToken(): void {
-    this.refreshProfileWithToken()
-      .subscribe({
-        next: () => {},
-        error: () => {
-          this.router.navigate(['/landing-page']);
-        },
-      });
+    this.refreshProfileWithToken().subscribe({
+      next: () => {},
+      error: () => {
+        this.router.navigate(['/landing-page']);
+      },
+    });
   }
 }

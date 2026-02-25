@@ -8,7 +8,11 @@
         </div>
         <div class="grid-main">
           <ul class="profile__stat-menu">
-            <li [routerLink]="['./']" routerLinkActive="profile__tab--active" [routerLinkActiveOptions]="{ exact: true }">
+            <li
+              [routerLink]="['./']"
+              routerLinkActive="profile__tab--active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
               Posts
               <span>{{ profile?.posts?.length }}</span>
             </li>

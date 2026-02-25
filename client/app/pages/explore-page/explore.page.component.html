@@ -39,7 +39,9 @@
 
   <div *ngIf="selectedLine">
     <h4>{{ selectedLine.name }}</h4>
-    <p>Created by <a [routerLink]="['/user', selectedLine.username]">{{ selectedLine.username }}</a></p>
+    <p>
+      Created by <a [routerLink]="['/user', selectedLine.username]">{{ selectedLine.username }}</a>
+    </p>
     <app-line-summary *ngIf="selectedLineDetails" [line]="selectedLineDetails"></app-line-summary>
     <a [routerLink]="['/line', selectedLine._id]">Open line details</a>
     <p *ngIf="isSelectedLineLoading">Loading selected line path...</p>

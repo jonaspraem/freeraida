@@ -9,7 +9,7 @@ import * as favicon from 'serve-favicon';
 import * as session from 'express-session';
 import flash from 'connect-flash';
 import * as keys from '../config/keys';
-import * as dotenv from "dotenv";
+import * as dotenv from 'dotenv';
 
 class Application {
   public express;
@@ -23,12 +23,11 @@ class Application {
     const router = express.Router();
     dotenv.config();
 
-    const dns = require("node:dns");
-    dns.setDefaultResultOrder("ipv4first");
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
- console.log("servers", dns.getServers());
- console.log("--------------------------------");
-
+    const dns = require('node:dns');
+    dns.setDefaultResultOrder('ipv4first');
+    dns.setServers(['8.8.8.8', '8.8.4.4']);
+    console.log('servers', dns.getServers());
+    console.log('--------------------------------');
 
     const index = require('./routes/app');
     const authRoutes = require('./routes/authenticate');
@@ -41,7 +40,7 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
     // Carabiner
     const carabinerRoutes = require('./routes/carabiner/carabiner');
 
-    console.log("connecting to mongo.. ", process.env.MONGODB_URI);
+    console.log('connecting to mongo.. ', process.env.MONGODB_URI);
     const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/freeraida';
     const allowInvalidCerts = ['1', 'true', 'yes', 'on'].includes(
       (process.env.MONGODB_TLS_ALLOW_INVALID_CERTS || '').trim().toLowerCase()
@@ -54,7 +53,7 @@ dns.setServers(["8.8.8.8", "8.8.4.4"]);
     mongooseClient
       .connect(mongoUriWithTlsOption, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
       })
       .then(() => console.log('MongoDB connected'))
       .catch((err) => console.error('MongoDB connection error:', err));

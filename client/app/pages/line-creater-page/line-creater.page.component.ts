@@ -61,7 +61,7 @@ export class LineCreatorPageComponent implements OnInit {
       latitude: $event.latLng.lat(),
       longitude: $event.latLng.lng(),
       elevation: 20,
-      distanceFromStart: this.counter += this.counter,
+      distanceFromStart: (this.counter += this.counter),
     };
     prevLocations.push(location);
     this.line = prevLocations;

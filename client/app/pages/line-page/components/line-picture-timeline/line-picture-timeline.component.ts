@@ -6,7 +6,6 @@ import { ILine, ILineLocation } from '../../../../models/interfaces/types';
   selector: 'app-line-picture-timeline',
   templateUrl: './line-picture-timeline.component.html',
 })
-
 export class LinePictureTimelineComponent implements OnInit {
   @Input() line: ILine;
   @ViewChild('image') imageElement: ElementRef;

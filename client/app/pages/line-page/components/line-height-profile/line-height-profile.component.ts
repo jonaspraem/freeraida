@@ -6,7 +6,6 @@ import { ILine } from '../../../../models/interfaces/types';
   selector: 'app-line-height-profile',
   templateUrl: './line-height-profile.component.html',
 })
-
 export class LineHeightProfileComponent implements OnInit {
   @Input() line: ILine;
   public lineChartData: any[];
@@ -23,14 +22,17 @@ export class LineHeightProfileComponent implements OnInit {
   public lineChartType = 'scatter';
   public lineChartPlugins = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.lineChartData = [
-      { data: this.line.locations.map((loc) => ({
-        x: loc.elevation,
-        y: loc.distanceFromStart
-      })), label: 'Series A' },
+      {
+        data: this.line.locations.map((loc) => ({
+          x: loc.elevation,
+          y: loc.distanceFromStart,
+        })),
+        label: 'Series A',
+      },
     ];
   }
 }

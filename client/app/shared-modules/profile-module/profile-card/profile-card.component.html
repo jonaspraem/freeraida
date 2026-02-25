@@ -1,7 +1,7 @@
 <div class="profile-card">
   <img [src]="mockImage" class="profile-card__cover-image" />
   <img [src]="defaultProfileImage" class="profile-card__profile-image" />
-  <img [src]="profileCountryImage" class="profile-card__nation-image"  />
+  <img [src]="profileCountryImage" class="profile-card__nation-image" />
   <div class="profile-card__header">
     <h3>{{ user?.firstname }} {{ user?.surname }}</h3>
     <a class="profile-card__username" [routerLink]="'/user/' + user?.username">@{{ user?.username }}</a>
