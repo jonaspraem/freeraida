@@ -30,7 +30,21 @@ export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnD
     type: 'AreaChart',
     columnNames: ['X', 'Y'],
     data: [],
-    options: {},
+    options: {
+      vAxis: {
+        gridlines: {
+          count: 0,
+        },
+        minValue: 0,
+        baselineColor: 'none',
+      },
+      hAxis: {
+        gridlines: {
+          count: 0,
+        },
+        baselineColor: 'none',
+      },
+    },
   };
   private _isLoaded: boolean = false;
   private _resizeObserver?: ResizeObserver;
@@ -44,11 +58,14 @@ export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnD
         gridlines: {
           count: 0,
         },
+        minValue: 0,
+        baselineColor: 'none',
       },
       hAxis: {
         gridlines: {
           count: 0,
         },
+        baselineColor: 'none',
       },
       axisFontSize: 0,
       height: 170,
@@ -57,10 +74,10 @@ export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnD
       colors: [this.color],
       backgroundColor: 'none',
       chartArea: {
-        left: 5,
-        top: 5,
-        right: 5,
-        bottom: 5,
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
       },
     };
     this.reMapChart();

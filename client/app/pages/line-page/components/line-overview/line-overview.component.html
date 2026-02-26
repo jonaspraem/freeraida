@@ -18,9 +18,10 @@
     </div>
   </div>
 
-  <div class="line-overview__height-map-container">
+  <div class="line-overview__height-map-container" #chartContainer>
     <google-chart
       id="chart"
+      style="display: block; width: 100%"
       [type]="chart.type"
       [columns]="chart.columnNames"
       [data]="chart.data"

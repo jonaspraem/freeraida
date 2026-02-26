@@ -1,4 +1,16 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ILine, ILineLocation } from '../../../../models/interfaces/types';
 import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
 import { ProfileService } from '../../../../core/services/profile.service';
@@ -10,22 +22,27 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-line-overview',
   templateUrl: './line-overview.component.html',
 })
-export class LineOverviewComponent implements OnInit, OnChanges, OnDestroy {
+export class LineOverviewComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() line: ILine;
   @Input() isEdit: boolean;
   @Input() hasImages: boolean;
+  @ViewChild('chartContainer') chartContainer?: ElementRef<HTMLDivElement>;
   @Output() notifyEdit: EventEmitter<boolean> = new EventEmitter();
   public isOwn: boolean = false;
   public chart: any = {
     type: 'AreaChart',
     columnNames: ['X', 'Y'],
     data: [],
-    options: {},
+    options: {
+      width: '100%',
+    },
   };
   public activeImage: string;
   public imageAttachedLocations: ILineLocation[];
   public sportColor: string = '#404040';
   private readonly _destroy$ = new Subject<void>();
+  private _resizeObserver?: ResizeObserver;
+  private _chartWidth: number | null = null;
 
   constructor(public colorDictionary: COLOR_DICTIONARY, public profileService: ProfileService) {}
 
@@ -39,10 +56,24 @@ export class LineOverviewComponent implements OnInit, OnChanges, OnDestroy {
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['line']) {
       this.rebuildViewModel();
+      this.updateChartWidth();
+    }
+  }
+
+  public ngAfterViewInit(): void {
+    this.updateChartWidth();
+    if (this.chartContainer && typeof ResizeObserver !== 'undefined') {
+      this._resizeObserver = new ResizeObserver(() => {
+        this.updateChartWidth();
+      });
+      this._resizeObserver.observe(this.chartContainer.nativeElement);
     }
   }
 
   public ngOnDestroy(): void {
+    if (this._resizeObserver) {
+      this._resizeObserver.disconnect();
+    }
     this._destroy$.next();
     this._destroy$.complete();
   }
@@ -78,6 +109,7 @@ export class LineOverviewComponent implements OnInit, OnChanges, OnDestroy {
     this.imageAttachedLocations = this.line.locations.filter((loc) => Array.isArray(loc.images));
     this.mapChart();
     this.chart.options = {
+      ...(this._chartWidth ? { width: this._chartWidth } : {}),
       title: 'Height map',
       legend: 'none',
       vAxis: {
@@ -105,6 +137,19 @@ export class LineOverviewComponent implements OnInit, OnChanges, OnDestroy {
         right: 0,
         bottom: 0,
       },
+    };
+  }
+
+  private updateChartWidth(): void {
+    const width = Math.floor(this.chartContainer?.nativeElement?.clientWidth ?? 0);
+    if (!width || width === this._chartWidth) {
+      return;
+    }
+
+    this._chartWidth = width;
+    this.chart.options = {
+      ...this.chart.options,
+      width: this._chartWidth,
     };
   }
 }
