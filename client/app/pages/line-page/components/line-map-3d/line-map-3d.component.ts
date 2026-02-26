@@ -225,6 +225,7 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
     const centerLat = (bounds.north + bounds.south) / 2;
     const centerLng = (bounds.east + bounds.west) / 2;
     const range = this.estimateRangeMeters(bounds, centerLat);
+    const heading = this.getPathHeading(path);
 
     const camera = {
       center: {
@@ -234,7 +235,7 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
       },
       range,
       tilt: 58,
-      heading: 0,
+      heading,
     };
 
     if (typeof map3d.flyCameraTo === 'function') {
@@ -282,6 +283,35 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
 
   private getPathKey(path: LatLng[]): string {
     return path.map((point) => point.lat.toFixed(6) + ':' + point.lng.toFixed(6)).join('|');
+  }
+
+  private getPathHeading(path: LatLng[]): number {
+    if (path.length < 2) {
+      return 0;
+    }
+
+    const start = path[0];
+    const end = path[path.length - 1];
+    if (start.lat === end.lat && start.lng === end.lng) {
+      return 0;
+    }
+
+    const startLat = this.degr2rad(start.lat);
+    const endLat = this.degr2rad(end.lat);
+    const deltaLng = this.degr2rad(end.lng - start.lng);
+    const y = Math.sin(deltaLng) * Math.cos(endLat);
+    const x = Math.cos(startLat) * Math.sin(endLat) - Math.sin(startLat) * Math.cos(endLat) * Math.cos(deltaLng);
+    const bearingDeg = this.rad2degr(Math.atan2(y, x));
+
+    return (bearingDeg + 360) % 360;
+  }
+
+  private rad2degr(rad: number): number {
+    return (rad * 180) / Math.PI;
+  }
+
+  private degr2rad(degr: number): number {
+    return (degr * Math.PI) / 180;
   }
 
   private async resolveMaps3dLibrary(): Promise<any> {
