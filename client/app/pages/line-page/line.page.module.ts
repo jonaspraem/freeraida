@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { LineModule } from '../../shared-modules/line-module/line.module';
 import { LineHeightProfileComponent } from './components/line-height-profile/line-height-profile.component';
+import { LineMap3dComponent } from './components/line-map-3d/line-map-3d.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { LineHeightProfileComponent } from './components/line-height-profile/lin
     LineHeightMapComponent,
     LinePictureTimelineComponent,
     LineHeightProfileComponent,
+    LineMap3dComponent,
   ],
   exports: [LinePageComponent],
   imports: [lineRoutes, LineModule, SharedModule, FormsModule],
