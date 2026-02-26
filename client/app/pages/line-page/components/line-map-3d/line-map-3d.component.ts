@@ -35,6 +35,7 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
   private isViewReady = false;
   private isDestroyed = false;
   private readonly scriptId = 'google-maps-js-api';
+  private lastPathKey = '';
 
   constructor(
     @Inject(DOCUMENT) private readonly document: Document,
@@ -59,12 +60,29 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
   }
 
   public ngOnDestroy(): void {
+    const map3d = this.getMapElement();
+    if (map3d && this.polyline3d && typeof map3d.removeChild === 'function' && map3d.contains(this.polyline3d)) {
+      map3d.removeChild(this.polyline3d);
+    }
     this.isDestroyed = true;
   }
 
   private ensureGoogleMapsApiLoaded(): void {
+    const globalScope = globalThis as any;
     if ((globalThis as any)?.google?.maps?.importLibrary) {
       this.markApiReady();
+      return;
+    }
+
+    if (globalScope.__freeraidaGoogleMapsLoadPromise) {
+      globalScope.__freeraidaGoogleMapsLoadPromise
+        .then(() => this.markApiReady())
+        .catch(() => {
+          this.zone.run(() => {
+            this.mapUnavailable = true;
+            this.cdRef.detectChanges();
+          });
+        });
       return;
     }
 
@@ -74,7 +92,18 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
         this.markApiReady();
         return;
       }
-      existingScript.addEventListener('load', () => this.markApiReady(), { once: true });
+      globalScope.__freeraidaGoogleMapsLoadPromise = new Promise<void>((resolve, reject) => {
+        existingScript.addEventListener('load', () => resolve(), { once: true });
+        existingScript.addEventListener('error', () => reject(), { once: true });
+      });
+      globalScope.__freeraidaGoogleMapsLoadPromise
+        .then(() => this.markApiReady())
+        .catch(() => {
+          this.zone.run(() => {
+            this.mapUnavailable = true;
+            this.cdRef.detectChanges();
+          });
+        });
       return;
     }
 
@@ -90,17 +119,18 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
     script.src = 'https://maps.googleapis.com/maps/api/js' + query;
     script.async = true;
     script.defer = true;
-    script.addEventListener('load', () => this.markApiReady(), { once: true });
-    script.addEventListener(
-      'error',
-      () => {
+    globalScope.__freeraidaGoogleMapsLoadPromise = new Promise<void>((resolve, reject) => {
+      script.addEventListener('load', () => resolve(), { once: true });
+      script.addEventListener('error', () => reject(), { once: true });
+    });
+    globalScope.__freeraidaGoogleMapsLoadPromise
+      .then(() => this.markApiReady())
+      .catch(() => {
         this.zone.run(() => {
           this.mapUnavailable = true;
           this.cdRef.detectChanges();
         });
-      },
-      { once: true }
-    );
+      });
     this.document.head.appendChild(script);
   }
 
@@ -141,6 +171,7 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
     const path = this.line.locations
       .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
       .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng));
+    const pathKey = this.getPathKey(path);
 
     const map3d = this.getMapElement();
     if (!map3d) {
@@ -151,6 +182,11 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
       if (this.polyline3d && typeof map3d.removeChild === 'function' && map3d.contains(this.polyline3d)) {
         map3d.removeChild(this.polyline3d);
       }
+      this.lastPathKey = '';
+      return;
+    }
+
+    if (pathKey === this.lastPathKey) {
       return;
     }
 
@@ -171,9 +207,10 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
       strokeWidth: 6,
       outerWidth: 0.35,
       ...(altitudeMode ? { altitudeMode } : {}),
-      drawsOccludedSegments: true,
+      drawsOccludedSegments: false,
     });
     map3d.append(this.polyline3d);
+    this.lastPathKey = pathKey;
 
     this.fitLineInView(path);
   }
@@ -241,6 +278,10 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
 
   private getMapElement(): any | null {
     return this.map3dRef?.nativeElement ?? null;
+  }
+
+  private getPathKey(path: LatLng[]): string {
+    return path.map((point) => point.lat.toFixed(6) + ':' + point.lng.toFixed(6)).join('|');
   }
 
   private async resolveMaps3dLibrary(): Promise<any> {

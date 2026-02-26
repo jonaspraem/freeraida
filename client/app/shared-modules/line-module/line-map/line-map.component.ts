@@ -76,8 +76,16 @@ export class LineMapComponent implements OnInit, OnChanges {
   }
 
   private ensureGoogleMapsApiLoaded(): void {
+    const globalScope = globalThis as any;
     if ((globalThis as any)?.google?.maps) {
       this.markApiReady();
+      return;
+    }
+
+    if (globalScope.__freeraidaGoogleMapsLoadPromise) {
+      globalScope.__freeraidaGoogleMapsLoadPromise
+        .then(() => this.markApiReady())
+        .catch(() => undefined);
       return;
     }
 
@@ -87,9 +95,13 @@ export class LineMapComponent implements OnInit, OnChanges {
         this.markApiReady();
         return;
       }
-      existingScript.addEventListener('load', () => {
-        this.markApiReady();
+      globalScope.__freeraidaGoogleMapsLoadPromise = new Promise<void>((resolve, reject) => {
+        existingScript.addEventListener('load', () => resolve(), { once: true });
+        existingScript.addEventListener('error', () => reject(), { once: true });
       });
+      globalScope.__freeraidaGoogleMapsLoadPromise
+        .then(() => this.markApiReady())
+        .catch(() => undefined);
       return;
     }
 
@@ -100,9 +112,13 @@ export class LineMapComponent implements OnInit, OnChanges {
     script.src = 'https://maps.googleapis.com/maps/api/js' + query;
     script.async = true;
     script.defer = true;
-    script.addEventListener('load', () => {
-      this.markApiReady();
+    globalScope.__freeraidaGoogleMapsLoadPromise = new Promise<void>((resolve, reject) => {
+      script.addEventListener('load', () => resolve(), { once: true });
+      script.addEventListener('error', () => reject(), { once: true });
     });
+    globalScope.__freeraidaGoogleMapsLoadPromise
+      .then(() => this.markApiReady())
+      .catch(() => undefined);
     this.document.head.appendChild(script);
   }
 
