@@ -5,8 +5,9 @@
     (notifyEdit)="toggleEdit($event)"
     [hasImages]="hasImages"
   ></app-line-overview>
-  <app-line-height-map [line]="line"></app-line-height-map>
+
   <app-line-map-3d [line]="line"></app-line-map-3d>
+  <app-line-height-map [line]="line"></app-line-height-map>
   <!-- <app-line-picture-timeline *ngIf="hasImages" [line]="line"></app-line-picture-timeline> -->
   <app-edit-overlay *ngIf="isEdit" (notifyEdit)="toggleEdit($event)" (saveEdit)="saveEdit()"></app-edit-overlay>
 </div>
