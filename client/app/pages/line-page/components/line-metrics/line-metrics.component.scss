@@ -1,8 +1,17 @@
+.line-metrics-group {
+  margin-bottom: 14px;
+}
+
+.line-metrics-group h3 {
+  margin: 0 0 6px 2px;
+  font-size: 18px;
+}
+
 .line-metrics-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 10px 10px;
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .line-metrics-table td {

@@ -9,7 +9,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { ILineLocation } from '../../../models/interfaces/types';
+import { ILineLocation, ILineSegment } from '../../../models/interfaces/types';
 
 @Component({
   standalone: false,
@@ -23,6 +23,7 @@ import { ILineLocation } from '../../../models/interfaces/types';
  */
 export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() lineLocations: ILineLocation[] = [];
+  @Input() lineSegments: ILineSegment[] = [];
   @Input() color: string = '#508065';
   @Input() hideLegend: boolean = false;
   @ViewChild('chartContainer') chartContainer?: ElementRef<HTMLDivElement>;
@@ -117,8 +118,12 @@ export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnD
 
   private reMapChart(): void {
     const newData: any[] = [];
-    for (let i = 0; i < (this.lineLocations?.length ?? 0); i++) {
-      const location = this.lineLocations[i];
+    const sourceLocations =
+      Array.isArray(this.lineSegments) && this.lineSegments.length > 0
+        ? this.lineSegments.reduce((acc: ILineLocation[], segment: ILineSegment) => acc.concat(segment.locations || []), [])
+        : this.lineLocations;
+    for (let i = 0; i < (sourceLocations?.length ?? 0); i++) {
+      const location = sourceLocations[i];
       if (location?.distanceFromStart == null || location?.elevation == null) {
         continue;
       }

@@ -7,7 +7,11 @@
   [options]="options"
   (mapInitialized)="onMapInitialized()"
 >
-  <map-polyline [path]="path" [options]="polylineOptions"></map-polyline>
+  <map-polyline
+    *ngFor="let segment of segmentPaths"
+    [path]="segment.path"
+    [options]="getPolylineOptions(segment.type)"
+  ></map-polyline>
   <map-marker *ngIf="startPosition" #startMarker [position]="startPosition"></map-marker>
   <map-marker *ngIf="endPosition" #endMarker [position]="endPosition"></map-marker>
 </google-map>

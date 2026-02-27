@@ -7,7 +7,7 @@
     <div class="line-summary__container">
       <div class="line-summary__height-map">
         <app-height-map
-          [lineLocations]="line.locations"
+          [lineSegments]="line.segments"
           [color]="COLOR_DICTIONARY.get(line.sport)"
           [hideLegend]="hideHeightMapLegend"
         ></app-height-map>

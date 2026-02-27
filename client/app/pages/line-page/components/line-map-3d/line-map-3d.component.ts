@@ -15,7 +15,8 @@ import {
 } from '@angular/core';
 import { CONFIG } from '../../../../dictionary/config';
 import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
-import { ILine } from '../../../../models/interfaces/types';
+import { ILine, ILineSegment } from '../../../../models/interfaces/types';
+import { flattenLineSegments } from '../../../../models/interfaces/line-segment.utils';
 
 type LatLng = { lat: number; lng: number };
 
@@ -31,7 +32,7 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
   public apiReady = false;
   public mapUnavailable = false;
   private maps3dLib: any;
-  private polyline3d?: any;
+  private polyline3dElements: any[] = [];
   private isViewReady = false;
   private isDestroyed = false;
   private readonly scriptId = 'google-maps-js-api';
@@ -61,9 +62,12 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
 
   public ngOnDestroy(): void {
     const map3d = this.getMapElement();
-    if (map3d && this.polyline3d && typeof map3d.removeChild === 'function' && map3d.contains(this.polyline3d)) {
-      map3d.removeChild(this.polyline3d);
+    for (const polyline of this.polyline3dElements) {
+      if (map3d && typeof map3d.removeChild === 'function' && map3d.contains(polyline)) {
+        map3d.removeChild(polyline);
+      }
     }
+    this.polyline3dElements = [];
     this.isDestroyed = true;
   }
 
@@ -157,7 +161,7 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
         map3d.gestureHandling = 'COOPERATIVE';
       }
       this.renderLineOnMap();
-    } catch (_error) {
+    } catch {
       this.zone.run(() => {
         this.mapUnavailable = true;
         this.cdRef.detectChanges();
@@ -166,24 +170,27 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
   }
 
   private renderLineOnMap(): void {
-    if (!this.maps3dLib || !this.line || !Array.isArray(this.line.locations)) {
+    if (!this.maps3dLib || !this.line || !Array.isArray(this.line.segments)) {
       return;
     }
 
-    const path = this.line.locations
+    const flattenedPath = flattenLineSegments(this.line)
       .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
       .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng));
-    const pathKey = this.getPathKey(path);
+    const pathKey = this.getSegmentsKey(this.line.segments);
 
     const map3d = this.getMapElement();
     if (!map3d) {
       return;
     }
 
-    if (path.length === 0) {
-      if (this.polyline3d && typeof map3d.removeChild === 'function' && map3d.contains(this.polyline3d)) {
-        map3d.removeChild(this.polyline3d);
+    if (flattenedPath.length === 0) {
+      for (const polyline of this.polyline3dElements) {
+        if (typeof map3d.removeChild === 'function' && map3d.contains(polyline)) {
+          map3d.removeChild(polyline);
+        }
       }
+      this.polyline3dElements = [];
       this.lastPathKey = '';
       return;
     }
@@ -192,29 +199,42 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
       return;
     }
 
-    if (this.polyline3d && typeof map3d.removeChild === 'function' && map3d.contains(this.polyline3d)) {
-      map3d.removeChild(this.polyline3d);
+    for (const polyline of this.polyline3dElements) {
+      if (typeof map3d.removeChild === 'function' && map3d.contains(polyline)) {
+        map3d.removeChild(polyline);
+      }
     }
+    this.polyline3dElements = [];
 
-    const sportColor = this.colorDictionary.get(this.line.sport) || '#404040';
     const { Polyline3DElement, AltitudeMode } = this.maps3dLib;
     const altitudeMode =
       AltitudeMode && typeof AltitudeMode.RELATIVE_TO_GROUND !== 'undefined'
         ? AltitudeMode.RELATIVE_TO_GROUND
         : undefined;
-    this.polyline3d = new Polyline3DElement({
-      path,
-      strokeColor: sportColor,
-      outerColor: '#ffffff',
-      strokeWidth: 6,
-      outerWidth: 0.35,
-      ...(altitudeMode ? { altitudeMode } : {}),
-      drawsOccludedSegments: false,
-    });
-    map3d.append(this.polyline3d);
+    this.polyline3dElements = this.line.segments
+      .map((segment: ILineSegment) => {
+        const path = (segment.locations || [])
+          .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
+          .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng));
+        if (path.length < 2) {
+          return null;
+        }
+        const polyline = new Polyline3DElement({
+          path,
+          strokeColor: this.colorDictionary.getSegmentColor(segment.type) || '#404040',
+          outerColor: '#ffffff',
+          strokeWidth: 6,
+          outerWidth: 0.35,
+          ...(altitudeMode ? { altitudeMode } : {}),
+          drawsOccludedSegments: false,
+        });
+        map3d.append(polyline);
+        return polyline;
+      })
+      .filter((polyline) => !!polyline);
     this.lastPathKey = pathKey;
 
-    this.fitLineInView(path);
+    this.fitLineInView(flattenedPath);
   }
 
   private fitLineInView(path: LatLng[]): void {
@@ -285,6 +305,15 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
 
   private getPathKey(path: LatLng[]): string {
     return path.map((point) => point.lat.toFixed(6) + ':' + point.lng.toFixed(6)).join('|');
+  }
+
+  private getSegmentsKey(segments: ILineSegment[]): string {
+    if (!Array.isArray(segments)) {
+      return '';
+    }
+    return segments
+      .map((segment) => `${segment.type}:${this.getPathKey((segment.locations || []).map((loc) => ({ lat: loc.latitude, lng: loc.longitude })))}`)
+      .join('||');
   }
 
   private getPathHeading(path: LatLng[]): number {

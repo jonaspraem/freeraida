@@ -8,7 +8,7 @@ export interface ILine extends mongoose.Document {
   username: string;
   sport: string;
   discipline: string;
-  locations: ILocation[];
+  segments: ILineSegment[];
   timestamp: Date;
   peak: number;
   slope: number;
@@ -16,12 +16,25 @@ export interface ILine extends mongoose.Document {
   endLocation?: ILocation;
 }
 
+export interface ILineSegment {
+  type: string;
+  locations: ILocation[];
+}
+
+const lineSegmentSchema = new mongoose.Schema(
+  {
+    type: { type: String, required: true },
+    locations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Location', required: true }],
+  },
+  { _id: false }
+);
+
 const schema = new mongoose.Schema({
   name: { type: String, required: true },
   username: { type: String, required: true },
   sport: { type: String, required: true },
   discipline: { type: String, required: true },
-  locations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Location', required: true }],
+  segments: { type: [lineSegmentSchema], required: true },
   timestamp: { type: Date, required: true },
   peak: { type: Number },
   slope: { type: Number },
@@ -30,7 +43,15 @@ const schema = new mongoose.Schema({
 schema.pre('remove', async function (next) {
   const model = this as any;
   try {
-    const locations = await Location.find({ _id: { $in: model.markers } });
+    const locationIds = Array.isArray(model.segments)
+      ? model.segments.reduce((acc: any[], segment: any) => {
+          if (Array.isArray(segment?.locations)) {
+            return acc.concat(segment.locations);
+          }
+          return acc;
+        }, [])
+      : [];
+    const locations = await Location.find({ _id: { $in: locationIds } });
     locations.forEach((location) => {
       location.remove((err) => {});
     });

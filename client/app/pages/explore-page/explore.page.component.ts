@@ -7,6 +7,7 @@ import { LineService } from '../../core/services/line.service';
 import { COLOR_DICTIONARY } from '../../dictionary/color-dictionary';
 import { CONFIG } from '../../dictionary/config';
 import { IExploreLine, ILine } from '../../models/interfaces/types';
+import { flattenLineSegments } from '../../models/interfaces/line-segment.utils';
 
 @Component({
   standalone: false,
@@ -228,12 +229,10 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
             return;
           }
           this.zone.run(() => {
-            this.selectedLinePath = Array.isArray(line.locations)
-              ? line.locations.map((loc) => ({
-                  lat: loc.latitude,
-                  lng: loc.longitude,
-                }))
-              : [];
+            this.selectedLinePath = flattenLineSegments(line).map((loc) => ({
+              lat: loc.latitude,
+              lng: loc.longitude,
+            }));
             this.selectedLineDetails = line;
             if (line.sport) {
               this.setSelectedPolylineColor(line.sport);

@@ -2,13 +2,27 @@
   padding: 15px;
   max-width: 1400px;
   margin: auto;
-  height: 800px;
+  min-height: 800px;
+
+  &__map-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 16px;
+    align-items: stretch;
+    margin-bottom: 20px;
+  }
+
+  &__map-wrap {
+    min-height: 720px;
+  }
 
   &__map {
     display: block;
     width: 100%;
     height: 100%;
-    max-height: 100vh;
+    min-height: 720px;
+    border-radius: 10px;
+    overflow: hidden;
   }
 
   &__map-unavailable {
@@ -41,6 +55,63 @@
     overflow-y: auto;
     border-radius: 8px;
     padding: 16px;
+  }
+
+  &__control-panel {
+    background-color: $color-white;
+    box-shadow: $effect-box-shadow-standard;
+    border-radius: 8px;
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    > h3 {
+      margin: 0 0 2px;
+      font-size: 22px;
+    }
+  }
+
+  &__segment-selector {
+    margin-top: 4px;
+
+    > label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: #6a6a6a;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
+  &__segment-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  &__segment-button {
+    border: 2px solid #404040;
+    border-radius: 6px;
+    font-weight: 700;
+    padding: 8px 10px;
+    cursor: pointer;
+    text-align: left;
+    background: #fff;
+  }
+
+  &__segment-button--active {
+    color: #fff;
+  }
+
+  &__segment-summary {
+    font-size: 12px;
+    color: #555;
+    border-top: 1px solid #ececec;
+    margin-top: 8px;
+    padding-top: 10px;
+    line-height: 1.4;
   }
 
   &__waypoints-header {
@@ -133,13 +204,21 @@
 
   &__button-group {
     display: flex;
+    gap: 10px;
 
     > button {
       flex: 1;
+    }
+  }
 
-      &:first-child {
-        margin-right: 20px;
-      }
+  @media (max-width: 1100px) {
+    &__map-layout {
+      grid-template-columns: 1fr;
+    }
+
+    &__map-wrap,
+    &__map {
+      min-height: 500px;
     }
   }
 }

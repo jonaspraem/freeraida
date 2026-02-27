@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ILine } from '../../../../models/interfaces/types';
-
-import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
+import { ILine, ILineLocation, ILineSegment, LineSegmentType } from '../../../../models/interfaces/types';
 
 @Component({
   standalone: false,
@@ -20,15 +18,14 @@ export class LineHeightMapComponent {
     return this._line;
   }
   public chart: any = {
-    type: 'AreaChart',
-    columnNames: ['X', 'Y'],
+    type: 'LineChart',
+    columnNames: ['Distance', 'Freeride', 'Skinning', 'Boot section'],
     data: [],
     options: {
       legend: 'none',
       width: 652,
       height: 300,
-      colors: ['#404040'],
-      areaOpacity: 0.5,
+      colors: ['#560000', '#448BDD', '#E1BC21'],
       backgroundColor: 'none',
       chartArea: {
         left: 100,
@@ -71,20 +68,37 @@ export class LineHeightMapComponent {
   };
   private _line: ILine;
 
-  constructor(public colorDictionary: COLOR_DICTIONARY) {}
+  private readonly segmentIndex: Record<LineSegmentType, number> = {
+    FREERIDE: 1,
+    SKINNING: 2,
+    BOOT_SECTION: 3,
+  };
 
   private reMapChart(): void {
-    const newData: any[] = [];
-    if (!this.line || !Array.isArray(this.line.locations)) {
-      this.chart.data = newData;
+    if (!this.line || !Array.isArray(this.line.segments)) {
+      this.chart.data = [];
       return;
     }
 
-    for (let i = 0; i < this.line.locations.length; i++) {
-      const location = this.line.locations[i];
-      newData.push([location.distanceFromStart, location.elevation]);
-    }
-    this.chart.data = newData;
+    const segmentRows = this.line.segments.reduce((rows: any[], segment: ILineSegment) => {
+      const seriesIndex = this.segmentIndex[segment.type];
+      if (!seriesIndex) {
+        return rows;
+      }
+      for (const location of segment.locations || []) {
+        rows.push(this.toSegmentChartRow(location, seriesIndex));
+      }
+      return rows;
+    }, []);
+
+    this.chart.data = segmentRows;
+    return;
+  }
+
+  private toSegmentChartRow(location: ILineLocation, seriesIndex: number): any[] {
+    const row = [location.distanceFromStart, null, null, null];
+    row[seriesIndex] = location.elevation;
+    return row;
   }
 
   private rebuildViewModel(): void {
@@ -93,8 +107,7 @@ export class LineHeightMapComponent {
       legend: 'none',
       width: 652,
       height: 300,
-      colors: [this.colorDictionary.get(this.line?.sport) || '#404040'],
-      areaOpacity: 0.5,
+      colors: ['#560000', '#448BDD', '#E1BC21'],
       backgroundColor: 'none',
       chartArea: {
         left: 100,
@@ -102,7 +115,7 @@ export class LineHeightMapComponent {
         bottom: 50,
         top: 20,
       },
-      pointSize: 2,
+      pointSize: 1,
       vAxis: {
         title: 'Height above sea level',
         format: '#m',

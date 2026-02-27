@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ILine, ILocation } from '../../../models/interfaces/types';
+import { ILine, ILineSegment, ILocation } from '../../../models/interfaces/types';
 import { CONFIG } from '../../../dictionary/config';
 import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 const polyEncoder = require('@mapbox/polyline');
+import { flattenLineSegments } from '../../../models/interfaces/line-segment.utils';
 
 @Component({
   standalone: false,
@@ -25,22 +26,29 @@ export class LineMapListComponent implements OnInit {
   private constructRequest(): void {
     const staticMapUrl = CONFIG.STATIC_MAPS_ENDPOINT;
     const apiKey = CONFIG.getGoogleMapsKey();
-    const path: number[][] = [];
-
-    for (let index in this.line.locations) {
-      const loc: ILocation = this.line.locations[index];
-      path.push([loc.latitude, loc.longitude]);
+    const flattenedLocations = flattenLineSegments(this.line);
+    if (flattenedLocations.length === 0) {
+      this.request = '';
+      return;
     }
-    const polyline: string = polyEncoder.encode(path);
-    const markerStart = this.line.locations[0].latitude + ',' + this.line.locations[0].longitude;
+    const markerStart = flattenedLocations[0].latitude + ',' + flattenedLocations[0].longitude;
     const markerFinish =
-      this.line.locations[this.line.locations.length - 1].latitude +
-      ',' +
-      this.line.locations[this.line.locations.length - 1].longitude;
+      flattenedLocations[flattenedLocations.length - 1].latitude + ',' + flattenedLocations[flattenedLocations.length - 1].longitude;
 
     // OPTIONS
     const weight = 3;
-    const color = COLOR_DICTIONARY.getEncoded(this.line.sport);
+    const pathParam = (this.line.segments || [])
+      .map((segment: ILineSegment) => {
+        const points = (segment.locations || []).map((loc: ILocation) => [loc.latitude, loc.longitude]);
+        if (points.length < 2) {
+          return '';
+        }
+        const polyline = polyEncoder.encode(points);
+        const segmentColor = this.getSegmentColorEncoded(segment.type);
+        return '&path=weight:' + weight + '%7Ccolor:0x' + segmentColor + '%7Cenc:' + polyline;
+      })
+      .filter((value) => !!value)
+      .join('');
     const startColor = 'green';
     const startLabel = 'S';
     const finishColor = 'black';
@@ -49,12 +57,16 @@ export class LineMapListComponent implements OnInit {
 
     // PARAMS
     const sizeParam = '?size=250x200';
-    const pathParam = '&path=weight:' + weight + '%7Ccolor:0x' + color + '%7Cenc:' + polyline;
     const startMarkerParam = '&markers=' + 'color:' + startColor + '%7Clabel:' + startLabel + '%7C' + markerStart;
     const finishMarkerParam = '&markers=' + 'color:' + finishColor + '%7Clabel:' + finishLabel + '%7C' + markerFinish;
     const optionsParam = '&maptype=' + mapType;
     const apiKeyParam = apiKey ? '&key=' + apiKey : '';
 
-    this.request = staticMapUrl + sizeParam + pathParam + startMarkerParam + finishMarkerParam + apiKeyParam;
+    this.request = staticMapUrl + sizeParam + pathParam + startMarkerParam + finishMarkerParam + optionsParam + apiKeyParam;
+  }
+
+  private getSegmentColorEncoded(segmentType: string): string {
+    const color = COLOR_DICTIONARY.get(segmentType) || '#404040';
+    return color.slice(1);
   }
 }

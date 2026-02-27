@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ILine } from '../../../../models/interfaces/types';
+import { flattenLineSegments } from '../../../../models/interfaces/line-segment.utils';
 
 @Component({
   standalone: false,
@@ -25,9 +26,10 @@ export class LineHeightProfileComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    const locations = flattenLineSegments(this.line);
     this.lineChartData = [
       {
-        data: this.line.locations.map((loc) => ({
+        data: locations.map((loc) => ({
           x: loc.elevation,
           y: loc.distanceFromStart,
         })),

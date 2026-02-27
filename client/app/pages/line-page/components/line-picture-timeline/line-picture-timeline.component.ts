@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ILine, ILineLocation } from '../../../../models/interfaces/types';
+import { flattenLineSegments } from '../../../../models/interfaces/line-segment.utils';
 
 @Component({
   standalone: false,
@@ -18,7 +19,7 @@ export class LinePictureTimelineComponent implements OnInit {
   private imageCount: number = 0;
 
   public ngOnInit(): void {
-    this.imageAttachedLocations = this.line.locations.filter((loc) => Array.isArray(loc.images));
+    this.imageAttachedLocations = flattenLineSegments(this.line).filter((loc) => Array.isArray(loc.images));
     this.imageAttachedLocations.map((loc) => (this.imageCount += loc.images.length));
     this.activeImageUrl = this.imageAttachedLocations[0].images[0];
     setInterval(() => {

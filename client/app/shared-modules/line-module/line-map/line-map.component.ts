@@ -11,9 +11,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { GoogleMap, MapMarker, MapPolyline } from '@angular/google-maps';
-import { ILine } from '../../../models/interfaces/types';
+import { ILine, ILineSegment } from '../../../models/interfaces/types';
 import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 import { CONFIG } from '../../../dictionary/config';
+import { flattenLineSegments } from '../../../models/interfaces/line-segment.utils';
 
 @Component({
   standalone: false,
@@ -32,6 +33,7 @@ export class LineMapComponent implements OnInit, OnChanges {
   public apiReady = false;
   public center: { lat: number; lng: number };
   public path: { lat: number; lng: number }[] = [];
+  public segmentPaths: { type: string; path: { lat: number; lng: number }[] }[] = [];
   public startPosition: { lat: number; lng: number };
   public endPosition: { lat: number; lng: number };
   public zoom = 12;
@@ -129,22 +131,35 @@ export class LineMapComponent implements OnInit, OnChanges {
   }
 
   private rebuildMapData(): void {
-    if (!this.line || !Array.isArray(this.line.locations) || this.line.locations.length === 0) {
+    if (!this.line || !Array.isArray(this.line.segments) || this.line.segments.length === 0) {
       this.path = [];
+      this.segmentPaths = [];
       this.startPosition = undefined;
       this.endPosition = undefined;
       this.center = undefined;
       return;
     }
 
-    this.path = this.line.locations.map((loc) => ({
+    this.path = flattenLineSegments(this.line).map((loc) => ({
       lat: loc.latitude,
       lng: loc.longitude,
     }));
+    this.segmentPaths = (this.line.segments || [])
+      .map((segment: ILineSegment) => ({
+        type: segment.type,
+        path: (segment.locations || []).map((loc) => ({ lat: loc.latitude, lng: loc.longitude })),
+      }))
+      .filter((segment) => segment.path.length > 1);
     this.startPosition = this.path[0];
     this.endPosition = this.path[this.path.length - 1];
     this.center = this.getLineCenter(this.path);
-    this.polylineOptions.strokeColor = this.colorDictionary.get(this.line.sport) || '#404040';
+  }
+
+  public getPolylineOptions(segmentType: string): { strokeColor: string; strokeWeight: number; geodesic: boolean } {
+    return {
+      ...this.polylineOptions,
+      strokeColor: this.colorDictionary.getSegmentColor(segmentType) || '#404040',
+    };
   }
 
   private fitToBounds(forceResize = false): void {

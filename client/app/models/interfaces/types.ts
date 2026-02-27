@@ -47,12 +47,19 @@ export interface ILineLocation extends ILocation {
   images?: string[];
 }
 
+export type LineSegmentType = 'FREERIDE' | 'SKINNING' | 'BOOT_SECTION';
+
+export interface ILineSegment {
+  type: LineSegmentType;
+  locations: ILineLocation[];
+}
+
 export interface ILine {
   _id?: string;
   name: string;
   sport: string;
   discipline: string;
-  locations: ILineLocation[];
+  segments: ILineSegment[];
   username?: string;
   timestamp?: Date;
   peak?: number;

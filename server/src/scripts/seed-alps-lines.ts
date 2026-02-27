@@ -113,7 +113,12 @@ async function run() {
       timestamp,
       peak,
       slope,
-      locations: builtLocations,
+      segments: [
+        {
+          type: 'FREERIDE',
+          locations: builtLocations,
+        },
+      ],
     };
 
     if (options.previewJson) {
@@ -128,14 +133,22 @@ async function run() {
       continue;
     }
 
-    const persistedLocations = await Location.insertMany(linePayload.locations);
+    const persistedSegments = await Promise.all(
+      linePayload.segments.map(async (segment) => {
+        const persistedLocations = await Location.insertMany(segment.locations);
+        return {
+          type: segment.type,
+          locations: persistedLocations.map((loc) => loc._id),
+        };
+      })
+    );
 
     const line = await new Line({
       name: linePayload.name,
       username: linePayload.username,
       sport: linePayload.sport,
       discipline: linePayload.discipline,
-      locations: persistedLocations.map((loc) => loc._id),
+      segments: persistedSegments,
       timestamp: linePayload.timestamp,
       peak: linePayload.peak,
       slope: linePayload.slope,
@@ -352,13 +365,17 @@ function printPreviewJson(
     timestamp: Date;
     peak: number;
     slope: number;
-    locations: BuiltLocation[];
+    segments: {
+      type: string;
+      locations: BuiltLocation[];
+    }[];
   },
   previewLocations: number
 ) {
-  const total = payload.locations.length;
-  const head = payload.locations.slice(0, previewLocations);
-  const tail = total > previewLocations ? payload.locations.slice(-Math.min(3, total - previewLocations)) : [];
+  const allLocations = payload.segments.reduce((acc, segment) => acc.concat(segment.locations), [] as BuiltLocation[]);
+  const total = allLocations.length;
+  const head = allLocations.slice(0, previewLocations);
+  const tail = total > previewLocations ? allLocations.slice(-Math.min(3, total - previewLocations)) : [];
   const preview = {
     sourceKey,
     line: {
@@ -370,6 +387,7 @@ function printPreviewJson(
       peak: payload.peak,
       slope: payload.slope,
       locationCount: total,
+      segmentCount: payload.segments.length,
     },
     locationsPreview: head,
     locationsTailPreview: tail,

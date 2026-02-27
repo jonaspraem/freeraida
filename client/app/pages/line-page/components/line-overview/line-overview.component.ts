@@ -16,6 +16,7 @@ import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { flattenLineSegments } from '../../../../models/interfaces/line-segment.utils';
 
 @Component({
   standalone: false,
@@ -83,22 +84,25 @@ export class LineOverviewComponent implements OnInit, OnChanges, AfterViewInit, 
   }
 
   public onHeightProfileMouseover(event): void {
-    if (Array.isArray(this.line.locations[event.position.row].images)) {
-      this.activeImage = this.line.locations[event.position.row].images[0];
+    const locations = flattenLineSegments(this.line);
+    if (Array.isArray(locations[event.position.row]?.images)) {
+      this.activeImage = locations[event.position.row].images[0];
     }
   }
 
   private mapChart(): void {
     const newData: any[] = [];
-    for (let i = 0; i < this.line.locations.length; i++) {
-      const location = this.line.locations[i];
+    const locations = flattenLineSegments(this.line);
+    for (let i = 0; i < locations.length; i++) {
+      const location = locations[i];
       newData.push([location.distanceFromStart, location.elevation]);
     }
     this.chart.data = newData;
   }
 
   private rebuildViewModel(): void {
-    if (!this.line || !Array.isArray(this.line.locations)) {
+    const locations = flattenLineSegments(this.line);
+    if (!this.line || locations.length === 0) {
       this.imageAttachedLocations = [];
       this.chart.data = [];
       this.sportColor = '#404040';
@@ -106,7 +110,7 @@ export class LineOverviewComponent implements OnInit, OnChanges, AfterViewInit, 
     }
 
     this.sportColor = this.colorDictionary.get(this.line.sport) || '#404040';
-    this.imageAttachedLocations = this.line.locations.filter((loc) => Array.isArray(loc.images));
+    this.imageAttachedLocations = locations.filter((loc) => Array.isArray(loc.images));
     this.mapChart();
     this.chart.options = {
       ...(this._chartWidth ? { width: this._chartWidth } : {}),

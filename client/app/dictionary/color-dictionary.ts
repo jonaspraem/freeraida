@@ -36,6 +36,9 @@ export class COLOR_DICTIONARY {
     COLOR_DICTIONARY.COLOR_MAP.set('ascent', '#448BDD');
     COLOR_DICTIONARY.COLOR_MAP.set('descent', '#560000');
     COLOR_DICTIONARY.COLOR_MAP.set('tour', '#E1BC21');
+    COLOR_DICTIONARY.COLOR_MAP.set('FREERIDE', '#560000');
+    COLOR_DICTIONARY.COLOR_MAP.set('SKINNING', '#448BDD');
+    COLOR_DICTIONARY.COLOR_MAP.set('BOOT_SECTION', '#E1BC21');
 
     // Other mains
     COLOR_DICTIONARY.COLOR_MAP.set('address', '#99C053');
@@ -78,5 +81,9 @@ export class COLOR_DICTIONARY {
 
   getAlias(key: string) {
     return COLOR_DICTIONARY.ALIAS.get(key);
+  }
+
+  getSegmentColor(segmentType: string) {
+    return COLOR_DICTIONARY.COLOR_MAP.get(segmentType) || COLOR_DICTIONARY.COLOR_MAP.get('grey');
   }
 }

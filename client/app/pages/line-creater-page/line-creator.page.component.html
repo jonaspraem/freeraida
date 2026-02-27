@@ -1,14 +1,12 @@
-<div class="line-creator">
-  <gmp-map-3d
-    *ngIf="apiReady"
-    #map3dRef
-    class="line-creator__map"
-  ></gmp-map-3d>
-  <p *ngIf="mapUnavailable" class="line-creator__map-unavailable">3D map is unavailable right now.</p>
-</div>
-<div class="width-container-flex">
-  <div class="line-creator__actions">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form class="line-creator" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="line-creator__map-layout">
+    <div class="line-creator__map-wrap">
+      <gmp-map-3d *ngIf="apiReady" #map3dRef class="line-creator__map"></gmp-map-3d>
+      <p *ngIf="mapUnavailable" class="line-creator__map-unavailable">3D map is unavailable right now.</p>
+    </div>
+
+    <aside class="line-creator__control-panel">
+      <h3>Create line</h3>
       <div class="form-group landing-page__form-element">
         <input
           type="text"
@@ -18,7 +16,7 @@
           [ngClass]="registerForm?.get('lineName').value?.length !== 0 ? 'input--active' : ''"
           required
         />
-        <label for="inputName">Enter name of the line</label>
+        <label for="inputName">Line name</label>
       </div>
       <div class="form-group landing-page__form-element">
         <select
@@ -31,55 +29,66 @@
         </select>
         <label for="sport-select">Sport</label>
       </div>
-      <div class="form-group landing-page__form-element">
-        <select
-          [formControl]="registerForm.controls.lineType"
-          class="input"
-          [ngClass]="registerForm?.get('lineType').value?.length !== 0 ? 'input--active' : ''"
-          id="type-select"
-        >
-          <option *ngFor="let type of lineTypes" [ngValue]="type">{{ type }}</option>
-        </select>
-        <label for="type-select">Line type</label>
+
+      <div class="line-creator__segment-selector">
+        <label>Active segment type</label>
+        <div class="line-creator__segment-buttons">
+          <button
+            type="button"
+            class="line-creator__segment-button"
+            *ngFor="let segmentType of segmentTypeOptions"
+            [class.line-creator__segment-button--active]="activeSegmentType === segmentType.value"
+            [style.borderColor]="getSegmentColor(segmentType.value)"
+            [style.color]="activeSegmentType === segmentType.value ? '#fff' : getSegmentColor(segmentType.value)"
+            [style.backgroundColor]="activeSegmentType === segmentType.value ? getSegmentColor(segmentType.value) : '#fff'"
+            (click)="onSegmentTypeChange(segmentType.value)"
+          >
+            {{ segmentType.label }}
+          </button>
+        </div>
       </div>
+
+      <div class="line-creator__segment-summary" *ngIf="segments.length > 0">
+        <span *ngFor="let segment of segments; let isLast = last">
+          <strong [style.color]="getSegmentColor(segment.type)">{{ getSegmentLabel(segment.type) }}</strong>
+          ({{ segment.locations.length }} pts){{ isLast ? '' : ', ' }}
+        </span>
+      </div>
+
       <div class="line-creator__button-group">
+        <button type="button" class="button-primary" (click)="onUndoLastPoint()">UNDO</button>
         <button type="button" class="button-primary" (click)="onClear()">CLEAR</button>
         <button type="submit" class="button-primary">SAVE</button>
       </div>
-    </form>
+    </aside>
   </div>
-  <div class="grid-main">
-    <section class="line-creator__waypoints">
-      <header class="line-creator__waypoints-header">
-        <h3>Line waypoints</h3>
-        <span>{{ line.length }} points</span>
-      </header>
 
-      <div class="line-creator__waypoints-empty" *ngIf="line.length === 0">
-        Click on the map to add waypoints.
-      </div>
+  <section class="line-creator__waypoints width-container">
+    <header class="line-creator__waypoints-header">
+      <h3>Line waypoints</h3>
+      <span>{{ line.length }} points</span>
+    </header>
 
-      <div
-        class="line-creator__waypoint"
-        *ngFor="let location of line; let i = index"
-        [ngClass]="{ 'line-creator__waypoint--mismatch': hasElevationMismatch(location) }"
-      >
-        <div class="line-creator__waypoint-top">
-          <span class="line-creator__waypoint-index">#{{ i + 1 }}</span>
-          <strong>{{ formatDistance(location.distanceFromStart) }}</strong>
-        </div>
-        <div class="line-creator__waypoint-coords">
-          {{ location.latitude | number : '1.5-5' }}, {{ location.longitude | number : '1.5-5' }}
-        </div>
-        <div class="line-creator__waypoint-elevations">
-          <span>Map: {{ formatElevation(location.elevation) }}</span>
-          <span>API: {{ formatApiElevation(location) }}</span>
-        </div>
-        <div class="line-creator__waypoint-warning" *ngIf="hasElevationMismatch(location)">
-          Elevation mismatch: {{ getElevationDiff(location) | number : '1.0-1' }} m
-          (threshold: {{ elevationMismatchThresholdMeters }} m)
-        </div>
+    <div class="line-creator__waypoints-empty" *ngIf="line.length === 0">Click on the map to add waypoints.</div>
+
+    <div
+      class="line-creator__waypoint"
+      *ngFor="let location of line; let i = index"
+      [ngClass]="{ 'line-creator__waypoint--mismatch': hasElevationMismatch(location) }"
+    >
+      <div class="line-creator__waypoint-top">
+        <span class="line-creator__waypoint-index">#{{ i + 1 }}</span>
+        <strong>{{ formatDistance(location.distanceFromStart) }}</strong>
       </div>
-    </section>
-  </div>
-</div>
+      <div class="line-creator__waypoint-coords">{{ location.latitude | number : '1.5-5' }}, {{ location.longitude | number : '1.5-5' }}</div>
+      <div class="line-creator__waypoint-elevations">
+        <span>Map: {{ formatElevation(location.elevation) }}</span>
+        <span>API: {{ formatApiElevation(location) }}</span>
+      </div>
+      <div class="line-creator__waypoint-warning" *ngIf="hasElevationMismatch(location)">
+        Elevation mismatch: {{ getElevationDiff(location) | number : '1.0-1' }} m
+        (threshold: {{ elevationMismatchThresholdMeters }} m)
+      </div>
+    </div>
+  </section>
+</form>

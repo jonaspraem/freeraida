@@ -1,9 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ILine, ILineLocation, ILocation, IPolylineCoordinates } from '../../models/interfaces/types';
+import { ILine, ILineLocation, ILineSegment, IPolylineCoordinates, LineSegmentType } from '../../models/interfaces/types';
 import { LineService } from '../../core/services/line.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CONFIG } from '../../dictionary/config';
+import { COLOR_DICTIONARY } from '../../dictionary/color-dictionary';
+import { flattenLineSegments, segmentTypeToLabel } from '../../models/interfaces/line-segment.utils';
 
 @Component({
   standalone: false,
@@ -12,6 +14,7 @@ import { CONFIG } from '../../dictionary/config';
 })
 export class LineCreatorPageComponent implements OnInit, OnDestroy {
   @ViewChild('map3dRef') map3dRef?: ElementRef<HTMLElement>;
+  public segments: ILineSegment[] = [];
   public line: ILineLocation[] = [];
   public polyCords: IPolylineCoordinates[];
   public apiReady = false;
@@ -21,24 +24,30 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
   public registerForm = new FormGroup({
     lineName: new FormControl('', Validators.required),
     lineSport: new FormControl('', Validators.required),
-    lineType: new FormControl('', Validators.required),
   });
 
   /**
    * Make enum
    * rework
    */
-  public sportsTypes = ['Skiing', 'Snowboarding', 'Free climbing', 'Mountaineering', 'Mountain biking'];
-  public lineTypes = ['Trip', 'Whole day', 'Backcountry'];
+  public sportsTypes = ['Skiing', 'Snowboarding'];
+  public segmentTypeOptions: { value: LineSegmentType; label: string }[] = [
+    { value: 'FREERIDE', label: 'Freeride' },
+    { value: 'SKINNING', label: 'Skinning' },
+    { value: 'BOOT_SECTION', label: 'Boot section' },
+  ];
+  public activeSegmentType: LineSegmentType = 'FREERIDE';
   private readonly markerDotColor = '#141d2f';
+  private readonly defaultDiscipline = 'Segmented';
 
 
   public readonly elevationMismatchThresholdMeters = 2;
   private maps3dLib: any;
-  private polyline3d?: any;
+  private polyline3dElements: any[] = [];
   private marker3dElements: any[] = [];
   private isDestroyed = false;
   private isViewReady = false;
+  private segmentTransitionStart?: ILineLocation;
   private readonly scriptId = 'google-maps-js-api';
   private readonly onMapClickListener = (event: any) => this.onMap3dClicked(event);
 
@@ -46,12 +55,12 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
     private _lineService: LineService,
     private _cdRef: ChangeDetectorRef,
     @Inject(DOCUMENT) private readonly document: Document,
-    private readonly zone: NgZone
+    private readonly zone: NgZone,
+    public readonly colorDictionary: COLOR_DICTIONARY
   ) {}
 
   public ngOnInit(): void {
     this.ensureGoogleMapsApiLoaded();
-    this.onFormChanges();
   }
 
   public ngAfterViewInit(): void {
@@ -74,8 +83,7 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const prevLocations: ILineLocation[] = [...this.line];
-    const previousLocation = prevLocations.length > 0 ? prevLocations[prevLocations.length - 1] : null;
+    const previousLocation = this.line.length > 0 ? this.line[this.line.length - 1] : null;
     const previousDistance = Number(previousLocation?.distanceFromStart || 0);
     const segmentDistance = previousLocation
       ? this.getDistanceKm(previousLocation.latitude, previousLocation.longitude, coords.lat, coords.lng)
@@ -86,8 +94,21 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
       elevation: Number.isFinite(coords.altitude) ? coords.altitude : undefined,
       distanceFromStart: previousDistance + segmentDistance,
     };
-    prevLocations.push(location);
-    this.line = prevLocations;
+    const newSegments = [...this.segments];
+    const activeSegment = newSegments[newSegments.length - 1];
+    if (!activeSegment || activeSegment.type !== this.activeSegmentType) {
+      const transitionStart = this.segmentTransitionStart ? this.cloneLocation(this.segmentTransitionStart) : null;
+      newSegments.push({
+        type: this.activeSegmentType,
+        locations: transitionStart ? [transitionStart, location] : [location],
+      });
+      this.segmentTransitionStart = undefined;
+    } else {
+      activeSegment.locations = [...activeSegment.locations, location];
+      newSegments[newSegments.length - 1] = activeSegment;
+    }
+    this.segments = newSegments;
+    this.syncLineFromSegments();
     this.zone.run(() => {
       this._cdRef.detectChanges();
     });
@@ -96,9 +117,9 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
 
   public updateLine() {
     const currentLine = [...this.line];
-    this._lineService.getLineInfo(this.line).subscribe((data) => {
+    this._lineService.getLineInfo(currentLine).subscribe((data) => {
       const apiLine: ILineLocation[] = Array.isArray(data?.obj) ? data.obj : [];
-      this.line = apiLine.map((apiLoc, index) => {
+      const enrichedFlatLine = apiLine.map((apiLoc, index) => {
         const localLoc = currentLine[index] as any;
         const apiElevation = Number(apiLoc?.elevation);
         const localMapElevation = Number(localLoc?.elevation);
@@ -110,6 +131,8 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
           elevationAPI: Number.isFinite(apiElevation) ? apiElevation : undefined,
         } as ILineLocation;
       });
+      this.applyFlatLineToSegments(enrichedFlatLine);
+      this.syncLineFromSegments();
       this.updatePolylinePath();
       this.renderLine3d();
     });
@@ -117,10 +140,10 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
   }
 
   updatePolyCords() {
-    let cords: IPolylineCoordinates[] = [];
+    const cords: IPolylineCoordinates[] = [];
     let prev_lat;
     let prev_lng;
-    for (let loc of this.line) {
+    for (const loc of this.line) {
       if (prev_lat && prev_lng)
         cords.push({
           org_lat: prev_lat,
@@ -136,34 +159,78 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
   }
 
   public onClear(): void {
+    this.segments = [];
     this.line = [];
     this.polyCords = [];
     this.polylinePath = [];
     this.registerForm.reset();
+    this.segmentTransitionStart = undefined;
     this.clear3dOverlays();
   }
 
   public onSubmit(): void {
-    let line: ILine = {
+    const line: ILine = {
       name: this.registerForm.controls.lineName.value,
       sport: this.registerForm.controls.lineSport.value,
-      discipline: this.registerForm.controls.lineType.value,
-      locations: this.line,
+      discipline: this.defaultDiscipline,
+      segments: this.segments,
     };
-    this._lineService.saveLine(line).subscribe((res) => {
+    this._lineService.saveLine(line).subscribe(() => {
       this.onClear();
     });
   }
 
-  private onFormChanges() {
-    this.registerForm.get('lineSport').valueChanges.subscribe((selectedSport) => {
-      if (selectedSport == '') {
-        this.registerForm.get('lineType').reset();
-        this.registerForm.get('lineType').disable();
-      } else {
-        this.registerForm.get('lineType').enable();
+  public onSegmentTypeChange(segmentType: string): void {
+    const nextSegmentType = segmentType as LineSegmentType;
+    if (!nextSegmentType || nextSegmentType === this.activeSegmentType) {
+      return;
+    }
+    if (this.line.length > 0) {
+      this.segmentTransitionStart = this.cloneLocation(this.line[this.line.length - 1]);
+    }
+    this.activeSegmentType = nextSegmentType;
+  }
+
+  public onUndoLastPoint(): void {
+    if (this.line.length === 0 || this.segments.length === 0) {
+      return;
+    }
+
+    const nextSegments: ILineSegment[] = this.segments.map((segment) => ({
+      ...segment,
+      locations: [...(segment.locations || [])],
+    }));
+    const lastSegment = nextSegments[nextSegments.length - 1];
+    lastSegment.locations.pop();
+
+    while (nextSegments.length > 0 && nextSegments[nextSegments.length - 1].locations.length === 0) {
+      nextSegments.pop();
+    }
+
+    if (nextSegments.length > 1) {
+      const tailSegment = nextSegments[nextSegments.length - 1];
+      const previousSegment = nextSegments[nextSegments.length - 2];
+      const tailOnlyPoint = tailSegment.locations[0];
+      const previousLastPoint = previousSegment.locations[previousSegment.locations.length - 1];
+      if (tailSegment.locations.length === 1 && this.isSameCoordinate(tailOnlyPoint, previousLastPoint)) {
+        nextSegments.pop();
       }
-    });
+    }
+
+    this.segments = nextSegments;
+    this.segmentTransitionStart = undefined;
+    this.syncLineFromSegments();
+    this.updatePolyCords();
+    this.renderLine3d();
+    this._cdRef.detectChanges();
+  }
+
+  public getSegmentLabel(segmentType: LineSegmentType): string {
+    return segmentTypeToLabel(segmentType);
+  }
+
+  public getSegmentColor(segmentType: LineSegmentType): string {
+    return this.colorDictionary.getSegmentColor(segmentType) || '#404040';
   }
 
   private updatePolylinePath(): void {
@@ -285,7 +352,7 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
       map3d.addEventListener('gmp-click', this.onMapClickListener as EventListener);
 
       this.renderLine3d();
-    } catch (_error) {
+    } catch {
       this.zone.run(() => {
         this.mapUnavailable = true;
         this._cdRef.detectChanges();
@@ -304,31 +371,42 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
     }
 
     this.clear3dOverlays();
-    if (!Array.isArray(this.line) || this.line.length === 0) {
+    if (!Array.isArray(this.segments) || this.segments.length === 0) {
       return;
     }
-
-    const path = this.line
-      .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
-      .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng));
 
     const { Polyline3DElement, MarkerElement, AltitudeMode } = this.maps3dLib;
     const altitudeMode =
       AltitudeMode && typeof AltitudeMode.RELATIVE_TO_GROUND !== 'undefined'
         ? AltitudeMode.RELATIVE_TO_GROUND
         : undefined;
-    this.polyline3d = new Polyline3DElement({
-      path,
-      strokeColor: '#404040',
-      outerColor: '#ffffff',
-      strokeWidth: 6,
-      outerWidth: 0.35,
-      ...(altitudeMode ? { altitudeMode } : {}),
-      drawsOccludedSegments: false,
-    });
-    map3d.append(this.polyline3d);
+    this.polyline3dElements = this.segments
+      .map((segment) => {
+        const path = (segment.locations || [])
+          .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
+          .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng));
+        if (path.length < 2) {
+          return null;
+        }
+        const polyline = new Polyline3DElement({
+          path,
+          strokeColor: this.getSegmentColor(segment.type),
+          outerColor: '#ffffff',
+          strokeWidth: 6,
+          outerWidth: 0.35,
+          ...(altitudeMode ? { altitudeMode } : {}),
+          drawsOccludedSegments: false,
+        });
+        map3d.append(polyline);
+        return polyline;
+      })
+      .filter((polyline) => !!polyline);
 
-    this.marker3dElements = path.map((point) => {
+    const markerPath = this.line
+      .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
+      .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng));
+
+    this.marker3dElements = markerPath.map((point) => {
       const marker = new MarkerElement({
         position: point,
         ...(altitudeMode ? { altitudeMode } : {}),
@@ -348,10 +426,12 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.polyline3d && map3d.contains(this.polyline3d)) {
-      map3d.removeChild(this.polyline3d);
+    for (const polyline of this.polyline3dElements) {
+      if (map3d.contains(polyline)) {
+        map3d.removeChild(polyline);
+      }
     }
-    this.polyline3d = undefined;
+    this.polyline3dElements = [];
 
     for (const marker of this.marker3dElements) {
       if (map3d.contains(marker)) {
@@ -395,6 +475,44 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
   public hasElevationMismatch(location: ILineLocation): boolean {
     const diff = this.getElevationDiff(location);
     return diff != null && diff > this.elevationMismatchThresholdMeters;
+  }
+
+  private syncLineFromSegments(): void {
+    this.line = flattenLineSegments({ segments: this.segments } as ILine);
+  }
+
+  private applyFlatLineToSegments(flatLocations: ILineLocation[]): void {
+    let pointer = 0;
+    this.segments = this.segments.map((segment) => {
+      const locationCount = Array.isArray(segment.locations) ? segment.locations.length : 0;
+      const nextLocations = flatLocations.slice(pointer, pointer + locationCount);
+      pointer += locationCount;
+      return {
+        ...segment,
+        locations: nextLocations,
+      };
+    });
+  }
+
+  private cloneLocation(location: ILineLocation): ILineLocation {
+    return {
+      latitude: location.latitude,
+      longitude: location.longitude,
+      elevation: location.elevation,
+      distanceFromStart: location.distanceFromStart,
+      distanceFromLast: location.distanceFromLast,
+      timeFromStart: location.timeFromStart,
+      timeFromLast: location.timeFromLast,
+      images: location.images,
+      lineIndex: location.lineIndex,
+    };
+  }
+
+  private isSameCoordinate(a?: ILineLocation, b?: ILineLocation): boolean {
+    if (!a || !b) {
+      return false;
+    }
+    return Number(a.latitude) === Number(b.latitude) && Number(a.longitude) === Number(b.longitude);
   }
 
   private extractClickedPosition(event: any): { lat: number; lng: number; altitude?: number } | null {

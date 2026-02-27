@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LineService } from '../../core/services/line.service';
 import { ILine } from '../../models/interfaces/types';
 import { LineOverviewComponent } from './components/line-overview/line-overview.component';
+import { flattenLineSegments } from '../../models/interfaces/line-segment.utils';
 
 @Component({
   standalone: false,
@@ -56,7 +57,7 @@ export class LinePageComponent implements OnInit {
   }
 
   private checkImages(line: ILine): void {
-    const imageAttachedLocations = line.locations.filter((loc) => Array.isArray(loc.images));
+    const imageAttachedLocations = flattenLineSegments(line).filter((loc) => Array.isArray(loc.images));
     this.hasImages = imageAttachedLocations.length > 0;
   }
 }
