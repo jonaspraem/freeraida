@@ -1,29 +1,10 @@
-<div class="line-creator width-container">
-  <google-map
+<div class="line-creator">
+  <gmp-map-3d
     *ngIf="apiReady"
+    #map3dRef
     class="line-creator__map"
-    height="700px"
-    width="100%"
-    [center]="center"
-    [zoom]="13"
-    [options]="mapOptions"
-    (mapClick)="mapClicked($event)"
-  >
-    <map-marker
-      *ngFor="let loc of line; let i = index"
-      (mapClick)="clickedMarker(loc, i)"
-      [position]="{ lat: loc.latitude, lng: loc.longitude }"
-      [options]="{ draggable: true }"
-      (mapDragend)="markerDragEnd(loc, i, $event)"
-    >
-      <map-info-window>
-        <strong>{{ loc.latitude }} {{ loc.longitude }}</strong>
-        <br />
-        <!--<a class="delete" (click)="removeMarker(m)">delete</a>-->
-      </map-info-window>
-    </map-marker>
-    <map-polyline [path]="polylinePath" [options]="polylineOptions"></map-polyline>
-  </google-map>
+  ></gmp-map-3d>
+  <p *ngIf="mapUnavailable" class="line-creator__map-unavailable">3D map is unavailable right now.</p>
 </div>
 <div class="width-container-flex">
   <div class="line-creator__actions">
@@ -62,19 +43,43 @@
         <label for="type-select">Line type</label>
       </div>
       <div class="line-creator__button-group">
-        <button type="submit" class="button-primary">CLEAR</button>
-        <button class="button-primary">SAVE</button>
+        <button type="button" class="button-primary" (click)="onClear()">CLEAR</button>
+        <button type="submit" class="button-primary">SAVE</button>
       </div>
     </form>
   </div>
   <div class="grid-main">
-    <mat-list class="line-creator__line-list">
-      <h3 mat-subheader>Line waypoints</h3>
-      <mat-list-item *ngFor="let location of line; let i = index">
-        <mat-icon mat-list-icon class="line-creator__list-icon">location_on</mat-icon>
-        <h4 mat-line>{{ location.distanceFromStart }} km</h4>
-        <p mat-line>{{ location.elevation }} m</p>
-      </mat-list-item>
-    </mat-list>
+    <section class="line-creator__waypoints">
+      <header class="line-creator__waypoints-header">
+        <h3>Line waypoints</h3>
+        <span>{{ line.length }} points</span>
+      </header>
+
+      <div class="line-creator__waypoints-empty" *ngIf="line.length === 0">
+        Click on the map to add waypoints.
+      </div>
+
+      <div
+        class="line-creator__waypoint"
+        *ngFor="let location of line; let i = index"
+        [ngClass]="{ 'line-creator__waypoint--mismatch': hasElevationMismatch(location) }"
+      >
+        <div class="line-creator__waypoint-top">
+          <span class="line-creator__waypoint-index">#{{ i + 1 }}</span>
+          <strong>{{ formatDistance(location.distanceFromStart) }}</strong>
+        </div>
+        <div class="line-creator__waypoint-coords">
+          {{ location.latitude | number : '1.5-5' }}, {{ location.longitude | number : '1.5-5' }}
+        </div>
+        <div class="line-creator__waypoint-elevations">
+          <span>Map: {{ formatElevation(location.elevation) }}</span>
+          <span>API: {{ formatApiElevation(location) }}</span>
+        </div>
+        <div class="line-creator__waypoint-warning" *ngIf="hasElevationMismatch(location)">
+          Elevation mismatch: {{ getElevationDiff(location) | number : '1.0-1' }} m
+          (threshold: {{ elevationMismatchThresholdMeters }} m)
+        </div>
+      </div>
+    </section>
   </div>
 </div>

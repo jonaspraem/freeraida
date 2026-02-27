@@ -274,7 +274,13 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
 
     const apiKey = CONFIG.getGoogleMapsKey();
     const script = this.document.createElement('script');
-    const query = apiKey ? '?key=' + encodeURIComponent(apiKey) : '';
+    const queryParts: string[] = [];
+    if (apiKey) {
+      queryParts.push('key=' + encodeURIComponent(apiKey));
+    }
+    queryParts.push('v=beta');
+    queryParts.push('loading=async');
+    const query = queryParts.length > 0 ? '?' + queryParts.join('&') : '';
     script.id = 'google-maps-js-api';
     script.src = 'https://maps.googleapis.com/maps/api/js' + query;
     script.async = true;

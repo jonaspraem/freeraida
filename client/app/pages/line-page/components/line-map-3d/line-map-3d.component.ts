@@ -112,6 +112,8 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
     if (apiKey) {
       queryParts.push('key=' + encodeURIComponent(apiKey));
     }
+    queryParts.push('v=beta');
+    queryParts.push('loading=async');
     const query = queryParts.length > 0 ? '?' + queryParts.join('&') : '';
 
     const script = this.document.createElement('script');
