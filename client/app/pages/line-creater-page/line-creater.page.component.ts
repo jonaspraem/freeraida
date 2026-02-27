@@ -24,9 +24,15 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
     lineType: new FormControl('', Validators.required),
   });
 
-  // TODO move - make enum
+  /**
+   * Make enum
+   * rework
+   */
   public sportsTypes = ['Skiing', 'Snowboarding', 'Free climbing', 'Mountaineering', 'Mountain biking'];
   public lineTypes = ['Trip', 'Whole day', 'Backcountry'];
+  private readonly markerDotColor = '#141d2f';
+
+
   public readonly elevationMismatchThresholdMeters = 2;
   private maps3dLib: any;
   private polyline3d?: any;
@@ -306,7 +312,7 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
       .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
       .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng));
 
-    const { Polyline3DElement, Marker3DElement, AltitudeMode } = this.maps3dLib;
+    const { Polyline3DElement, MarkerElement, AltitudeMode } = this.maps3dLib;
     const altitudeMode =
       AltitudeMode && typeof AltitudeMode.RELATIVE_TO_GROUND !== 'undefined'
         ? AltitudeMode.RELATIVE_TO_GROUND
@@ -322,12 +328,15 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
     });
     map3d.append(this.polyline3d);
 
-    this.marker3dElements = path.map((point, index) => {
-      const marker = new Marker3DElement({
+    this.marker3dElements = path.map((point) => {
+      const marker = new MarkerElement({
         position: point,
-        label: String(index + 1),
         ...(altitudeMode ? { altitudeMode } : {}),
       });
+      marker.innerHTML =
+        '<span style="display:block;width:8px;height:8px;border-radius:50%;background:' +
+        this.markerDotColor +
+        ';border:2px solid #ffffff;box-shadow:0 0 0 1px rgba(0,0,0,0.18);"></span>';
       map3d.append(marker);
       return marker;
     });
