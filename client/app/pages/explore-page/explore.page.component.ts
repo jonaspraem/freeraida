@@ -16,7 +16,10 @@ import { IExploreLine, ILine } from '../../models/interfaces/types';
 export class ExplorePageComponent implements OnInit, OnDestroy {
   @ViewChild(GoogleMap) map: GoogleMap;
 
+  public allLines: IExploreLine[] = [];
   public lines: IExploreLine[] = [];
+  public sportFilters: string[] = ['All'];
+  public selectedSportFilter = 'All';
   public selectedLine: IExploreLine | undefined;
   public center = { lat: 0, lng: 0 };
   public zoom = 2;
@@ -76,6 +79,27 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
       this.loadSelectedLinePath(line._id);
       this.cdRef.detectChanges();
     });
+  }
+
+  public onSportFilterChange(sport: string): void {
+    if (this.selectedSportFilter === sport) {
+      return;
+    }
+    this.zone.run(() => {
+      this.selectedSportFilter = sport;
+      this.applySportFilter(false);
+    });
+  }
+
+  public getSportFilterStyles(sport: string): { [key: string]: string } {
+    const fallbackColor = this.colorDictionary.get('grey') || '#404040';
+    const sportColor = sport === 'All' ? fallbackColor : this.colorDictionary.get(sport) || fallbackColor;
+
+    return {
+      'background-color': sportColor,
+      'border-color': sportColor,
+      color: '#ffffff',
+    };
   }
 
   public getMarkerOptions(line: IExploreLine): any {
@@ -160,27 +184,23 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (lines) => {
           this.zone.run(() => {
-            this.lines = (lines || []).filter(
+            this.allLines = (lines || []).filter(
               (line) =>
                 !!line &&
                 !!line.startLocation &&
                 Number.isFinite(line.startLocation.latitude) &&
                 Number.isFinite(line.startLocation.longitude)
             );
-            if (this.lines.length > 0) {
-              this.selectLine(this.lines[0]);
-            } else {
-              this.selectedLine = undefined;
-              this.selectedLinePath = [];
-              this.selectedLineDetails = undefined;
-            }
-            this.fitToBounds();
-            this.cdRef.detectChanges();
+            this.sportFilters = this.getSportFilters(this.allLines);
+            this.applySportFilter(true);
           });
         },
         error: () => {
           this.zone.run(() => {
+            this.allLines = [];
             this.lines = [];
+            this.sportFilters = ['All'];
+            this.selectedSportFilter = 'All';
             this.selectedLine = undefined;
             this.selectedLinePath = [];
             this.selectedLineDetails = undefined;
@@ -254,7 +274,13 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
 
     const apiKey = CONFIG.getGoogleMapsKey();
     const script = this.document.createElement('script');
-    const query = apiKey ? '?key=' + encodeURIComponent(apiKey) : '';
+    const queryParts: string[] = [];
+    if (apiKey) {
+      queryParts.push('key=' + encodeURIComponent(apiKey));
+    }
+    queryParts.push('v=beta');
+    queryParts.push('loading=async');
+    const query = queryParts.length > 0 ? '?' + queryParts.join('&') : '';
     script.id = 'google-maps-js-api';
     script.src = 'https://maps.googleapis.com/maps/api/js' + query;
     script.async = true;
@@ -299,6 +325,37 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
       });
     });
     nativeMap.fitBounds(bounds);
+  }
+
+  private applySportFilter(shouldFitBounds = false): void {
+    this.lines =
+      this.selectedSportFilter === 'All'
+        ? [...this.allLines]
+        : this.allLines.filter((line) => line.sport === this.selectedSportFilter);
+
+    const selectedLineIsVisible = !!this.selectedLine && this.lines.some((line) => line._id === this.selectedLine?._id);
+
+    if (!selectedLineIsVisible) {
+      this.selectedLine = undefined;
+      this.selectedLinePath = [];
+      this.selectedLineDetails = undefined;
+
+      if (this.lines.length > 0) {
+        this.selectLine(this.lines[0]);
+      }
+    }
+
+    if (shouldFitBounds) {
+      this.fitToBounds();
+    }
+    this.cdRef.detectChanges();
+  }
+
+  private getSportFilters(lines: IExploreLine[]): string[] {
+    const uniqueSports = Array.from(new Set(lines.map((line) => line.sport).filter((sport) => !!sport))).sort((a, b) =>
+      a.localeCompare(b)
+    );
+    return ['All', ...uniqueSports];
   }
 
   private setSelectedPolylineColor(sport?: string): void {

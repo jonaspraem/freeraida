@@ -1,0 +1,31 @@
+.explore-page {
+  &__sport-filter {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 12px 0;
+    padding: 4px 0 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  &__sport-option {
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.9rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    opacity: 0.75;
+
+    &:hover {
+      opacity: 0.92;
+    }
+  }
+
+  &__sport-option--active {
+    opacity: 1;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px rgba(64, 64, 64, 0.35);
+  }
+}

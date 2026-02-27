@@ -2,3 +2,31 @@
   background-color: $color-white;
   min-height: calc(100vh - 56px);
 }
+
+.line-map-3d {
+  padding-bottom: 40px;
+
+  &__title {
+    margin: 0 0 12px 0;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  &__map-frame {
+    border: 1px solid #d7d7d7;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f7f7f7;
+  }
+
+  &__map {
+    display: block;
+    width: 100%;
+    height: 600px;
+  }
+
+  &__unavailable {
+    margin: 0;
+    color: #6a6a6a;
+  }
+}

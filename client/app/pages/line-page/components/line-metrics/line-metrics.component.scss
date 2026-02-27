@@ -1,0 +1,34 @@
+.line-metrics-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 10px 10px;
+  margin-bottom: 12px;
+}
+
+.line-metrics-table td {
+  width: 25%;
+  vertical-align: top;
+  padding: 10px 12px;
+  border: 1px solid rgba(20, 29, 47, 0.12);
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.line-metrics-table .material-icons {
+  font-size: 18px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.line-metrics-table strong {
+  display: block;
+  margin-top: 4px;
+  color: #141d2f;
+}
+
+@media (max-width: 1000px) {
+  .line-metrics-table td {
+    width: 50%;
+  }
+}
