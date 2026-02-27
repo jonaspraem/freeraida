@@ -85,9 +85,7 @@ export class LineMapComponent implements OnInit, OnChanges {
     }
 
     if (globalScope.__freeraidaGoogleMapsLoadPromise) {
-      globalScope.__freeraidaGoogleMapsLoadPromise
-        .then(() => this.markApiReady())
-        .catch(() => undefined);
+      globalScope.__freeraidaGoogleMapsLoadPromise.then(() => this.markApiReady()).catch(() => undefined);
       return;
     }
 
@@ -101,9 +99,7 @@ export class LineMapComponent implements OnInit, OnChanges {
         existingScript.addEventListener('load', () => resolve(), { once: true });
         existingScript.addEventListener('error', () => reject(), { once: true });
       });
-      globalScope.__freeraidaGoogleMapsLoadPromise
-        .then(() => this.markApiReady())
-        .catch(() => undefined);
+      globalScope.__freeraidaGoogleMapsLoadPromise.then(() => this.markApiReady()).catch(() => undefined);
       return;
     }
 
@@ -124,9 +120,7 @@ export class LineMapComponent implements OnInit, OnChanges {
       script.addEventListener('load', () => resolve(), { once: true });
       script.addEventListener('error', () => reject(), { once: true });
     });
-    globalScope.__freeraidaGoogleMapsLoadPromise
-      .then(() => this.markApiReady())
-      .catch(() => undefined);
+    globalScope.__freeraidaGoogleMapsLoadPromise.then(() => this.markApiReady()).catch(() => undefined);
     this.document.head.appendChild(script);
   }
 

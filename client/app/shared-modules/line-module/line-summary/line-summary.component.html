@@ -12,16 +12,43 @@
           [hideLegend]="hideHeightMapLegend"
         ></app-height-map>
       </div>
-      <div class="line-summary__info">
-        <div class="line-summary__main-info">
-          <h5>{{ line.name }}</h5>
-          <h6>{{ line.sport }}</h6>
-          <h6>{{ line.discipline }}</h6>
+      <div class="line-summary__metrics">
+        <div class="line-summary__header">
+          <h5>
+            <span class="line-summary__title-icon" *ngIf="isSkiSport(line.sport)"><icon-ski></icon-ski></span>
+            <span class="line-summary__title-icon" *ngIf="isSnowboardSport(line.sport)"
+              ><icon-snowboard></icon-snowboard
+            ></span>
+            <span>{{ line.name }}</span>
+          </h5>
         </div>
-        <div class="line-summary__main-info flex-1">
-          <div>peak: {{ line.peak }}</div>
-          <div>slope: {{ line.slope }}</div>
-          <div>date: {{ line.timestamp }}</div>
+        <div class="line-summary__metric-grid">
+          <div class="line-summary__metric-cell">
+            <span>Total</span>
+            <strong>{{ formatDistance(summaryMetrics.totalDistanceKm) }}</strong>
+          </div>
+          <div class="line-summary__metric-cell">
+            <span>Ascend</span>
+            <strong>{{ formatMeters(summaryMetrics.totalAscentMeters) }}</strong>
+            <small>{{ formatDistance(summaryMetrics.ascendDistanceKm) }}</small>
+          </div>
+          <div class="line-summary__metric-cell">
+            <span>Descend</span>
+            <strong>{{ formatMeters(summaryMetrics.totalDescendMeters) }}</strong>
+            <small>{{ formatDistance(summaryMetrics.descendDistanceKm) }}</small>
+          </div>
+          <div class="line-summary__metric-cell">
+            <span>Segments</span>
+            <strong>{{ summaryMetrics.segmentCount }}</strong>
+          </div>
+          <div class="line-summary__metric-cell">
+            <span>Points</span>
+            <strong>{{ summaryMetrics.pointCount }}</strong>
+          </div>
+          <div class="line-summary__metric-cell">
+            <span>Date</span>
+            <strong>{{ formatDate(line.timestamp) }}</strong>
+          </div>
         </div>
       </div>
     </div>

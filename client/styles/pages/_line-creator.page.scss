@@ -59,59 +59,79 @@
 
   &__control-panel {
     background-color: $color-white;
-    box-shadow: $effect-box-shadow-standard;
+    border: 1px solid #e7e7e7;
     border-radius: 8px;
-    padding: 18px 14px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+  }
 
-    > h3 {
-      margin: 0 0 2px;
-      font-size: 22px;
+  &__control-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    > label {
+      font-size: 12px;
+      color: #666;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
   }
 
   &__segment-selector {
-    margin-top: 4px;
+    margin-top: 2px;
 
     > label {
       display: block;
-      margin-bottom: 8px;
-      font-size: 13px;
-      color: #6a6a6a;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: #666;
       font-weight: 600;
       text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
   }
 
   &__segment-buttons {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 6px;
+    gap: 5px;
   }
 
   &__segment-button {
-    border: 2px solid #404040;
+    border: 1px solid #404040;
     border-radius: 6px;
-    font-weight: 700;
-    padding: 8px 10px;
+    font-weight: 600;
+    padding: 6px 8px;
     cursor: pointer;
-    text-align: left;
+    text-align: center;
     background: #fff;
+    font-size: 13px;
   }
 
   &__segment-button--active {
     color: #fff;
   }
 
+  &__segment-hint {
+    margin: 6px 2px 0;
+    font-size: 11px;
+    color: #7a7a7a;
+  }
+
   &__segment-summary {
     font-size: 12px;
     color: #555;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  &__segment-summary--list {
     border-top: 1px solid #ececec;
-    margin-top: 8px;
-    padding-top: 10px;
-    line-height: 1.4;
+    padding-top: 6px;
   }
 
   &__waypoints-header {
@@ -204,10 +224,13 @@
 
   &__button-group {
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    margin-top: 4px;
 
     > button {
       flex: 1;
+      min-height: 34px;
+      font-size: 12px;
     }
   }
 

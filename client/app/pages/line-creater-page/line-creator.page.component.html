@@ -6,32 +6,20 @@
     </div>
 
     <aside class="line-creator__control-panel">
-      <h3>Create line</h3>
-      <div class="form-group landing-page__form-element">
-        <input
-          type="text"
-          class="input"
-          id="inputName"
-          formControlName="lineName"
-          [ngClass]="registerForm?.get('lineName').value?.length !== 0 ? 'input--active' : ''"
-          required
-        />
-        <label for="inputName">Line name</label>
+      <div class="line-creator__control-field">
+        <label for="inputName">Name</label>
+        <input type="text" class="input input--active" id="inputName" formControlName="lineName" required />
       </div>
-      <div class="form-group landing-page__form-element">
-        <select
-          [formControl]="registerForm.controls.lineSport"
-          class="input"
-          [ngClass]="registerForm.get('lineSport').value?.length !== 0 ? 'input--active' : ''"
-          id="sport-select"
-        >
+
+      <div class="line-creator__control-field">
+        <label for="sport-select">Sport</label>
+        <select [formControl]="registerForm.controls.lineSport" class="input input--active" id="sport-select">
           <option *ngFor="let type of sportsTypes" [ngValue]="type">{{ type }}</option>
         </select>
-        <label for="sport-select">Sport</label>
       </div>
 
       <div class="line-creator__segment-selector">
-        <label>Active segment type</label>
+        <label>Segment</label>
         <div class="line-creator__segment-buttons">
           <button
             type="button"
@@ -40,15 +28,23 @@
             [class.line-creator__segment-button--active]="activeSegmentType === segmentType.value"
             [style.borderColor]="getSegmentColor(segmentType.value)"
             [style.color]="activeSegmentType === segmentType.value ? '#fff' : getSegmentColor(segmentType.value)"
-            [style.backgroundColor]="activeSegmentType === segmentType.value ? getSegmentColor(segmentType.value) : '#fff'"
+            [style.backgroundColor]="
+              activeSegmentType === segmentType.value ? getSegmentColor(segmentType.value) : '#fff'
+            "
             (click)="onSegmentTypeChange(segmentType.value)"
           >
             {{ segmentType.label }}
           </button>
         </div>
+        <p class="line-creator__segment-hint">Switch segment before placing the next point.</p>
       </div>
 
       <div class="line-creator__segment-summary" *ngIf="segments.length > 0">
+        <strong>{{ segments.length }} segments</strong>
+        <span> / {{ line.length }} points</span>
+      </div>
+
+      <div class="line-creator__segment-summary line-creator__segment-summary--list" *ngIf="segments.length > 0">
         <span *ngFor="let segment of segments; let isLast = last">
           <strong [style.color]="getSegmentColor(segment.type)">{{ getSegmentLabel(segment.type) }}</strong>
           ({{ segment.locations.length }} pts){{ isLast ? '' : ', ' }}
@@ -80,14 +76,16 @@
         <span class="line-creator__waypoint-index">#{{ i + 1 }}</span>
         <strong>{{ formatDistance(location.distanceFromStart) }}</strong>
       </div>
-      <div class="line-creator__waypoint-coords">{{ location.latitude | number : '1.5-5' }}, {{ location.longitude | number : '1.5-5' }}</div>
+      <div class="line-creator__waypoint-coords">
+        {{ location.latitude | number : '1.5-5' }}, {{ location.longitude | number : '1.5-5' }}
+      </div>
       <div class="line-creator__waypoint-elevations">
         <span>Map: {{ formatElevation(location.elevation) }}</span>
         <span>API: {{ formatApiElevation(location) }}</span>
       </div>
       <div class="line-creator__waypoint-warning" *ngIf="hasElevationMismatch(location)">
-        Elevation mismatch: {{ getElevationDiff(location) | number : '1.0-1' }} m
-        (threshold: {{ elevationMismatchThresholdMeters }} m)
+        Elevation mismatch: {{ getElevationDiff(location) | number : '1.0-1' }} m (threshold:
+        {{ elevationMismatchThresholdMeters }} m)
       </div>
     </div>
   </section>

@@ -21,7 +21,9 @@
         <td>
           <span class="material-icons">shuffle</span>
           Total height meters traveled
-          <strong>{{ formatMeters(totalMetrics.totalElevationTraversedMeters, totalMetrics.validSegmentCount > 0) }}</strong>
+          <strong>{{
+            formatMeters(totalMetrics.totalElevationTraversedMeters, totalMetrics.validSegmentCount > 0)
+          }}</strong>
         </td>
       </tr>
       <tr>

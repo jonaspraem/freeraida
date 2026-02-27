@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { ILine, ILineLocation, LineSegmentType } from '../../../../models/interfaces/types';
-import { DOWNHILL_SEGMENT_TYPES, UPHILL_SEGMENT_TYPES, flattenLineSegments } from '../../../../models/interfaces/line-segment.utils';
+import {
+  DOWNHILL_SEGMENT_TYPES,
+  UPHILL_SEGMENT_TYPES,
+  flattenLineSegments,
+} from '../../../../models/interfaces/line-segment.utils';
 
 @Component({
   standalone: false,
@@ -97,9 +101,7 @@ export class LineMetricsComponent {
     metrics.pointCount = locations.length;
     metrics.validSegmentCount = samples.length;
 
-    const elevations = locations
-      .map((loc) => Number(loc?.elevation))
-      .filter((elevation) => Number.isFinite(elevation));
+    const elevations = locations.map((loc) => Number(loc?.elevation)).filter((elevation) => Number.isFinite(elevation));
 
     if (elevations.length > 0) {
       const minElevation = Math.min(...elevations);
@@ -129,7 +131,11 @@ export class LineMetricsComponent {
         metrics.totalDescentMeters += Math.abs(sample.deltaElevationMeters);
       }
 
-      if (this.isUphillSegmentType(sample.segmentType) && sample.slopePercent > 0 && sample.slopePercent > maxUphillPercent) {
+      if (
+        this.isUphillSegmentType(sample.segmentType) &&
+        sample.slopePercent > 0 &&
+        sample.slopePercent > maxUphillPercent
+      ) {
         maxUphillPercent = sample.slopePercent;
         metrics.steepestUphill = { percent: sample.slopePercent, degrees: sample.slopeDegrees };
       } else if (
@@ -146,13 +152,16 @@ export class LineMetricsComponent {
     }
 
     metrics.totalElevationTraversedMeters = metrics.totalAscentMeters + metrics.totalDescentMeters;
-    metrics.averageUphillSlope = this.computeAverageSlopePair(samples, (sample) =>
-      this.isUphillSegmentType(sample.segmentType) && sample.slopePercent > 0
+    metrics.averageUphillSlope = this.computeAverageSlopePair(
+      samples,
+      (sample) => this.isUphillSegmentType(sample.segmentType) && sample.slopePercent > 0
     );
-    metrics.averageDownhillSlope = this.computeAverageSlopePair(samples, (sample) =>
-      this.isDownhillSegmentType(sample.segmentType) && sample.slopePercent < 0
+    metrics.averageDownhillSlope = this.computeAverageSlopePair(
+      samples,
+      (sample) => this.isDownhillSegmentType(sample.segmentType) && sample.slopePercent < 0
     );
-    metrics.averageAbsoluteSlope = absoluteSlopeCount > 0 ? this.toSlopePair(absoluteSlopeSum / absoluteSlopeCount) : null;
+    metrics.averageAbsoluteSlope =
+      absoluteSlopeCount > 0 ? this.toSlopePair(absoluteSlopeSum / absoluteSlopeCount) : null;
     return metrics;
   }
 

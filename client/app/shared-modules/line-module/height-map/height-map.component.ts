@@ -120,7 +120,10 @@ export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnD
     const newData: any[] = [];
     const sourceLocations =
       Array.isArray(this.lineSegments) && this.lineSegments.length > 0
-        ? this.lineSegments.reduce((acc: ILineLocation[], segment: ILineSegment) => acc.concat(segment.locations || []), [])
+        ? this.lineSegments.reduce(
+            (acc: ILineLocation[], segment: ILineSegment) => acc.concat(segment.locations || []),
+            []
+          )
         : this.lineLocations;
     for (let i = 0; i < (sourceLocations?.length ?? 0); i++) {
       const location = sourceLocations[i];

@@ -33,7 +33,9 @@ export class LineMapListComponent implements OnInit {
     }
     const markerStart = flattenedLocations[0].latitude + ',' + flattenedLocations[0].longitude;
     const markerFinish =
-      flattenedLocations[flattenedLocations.length - 1].latitude + ',' + flattenedLocations[flattenedLocations.length - 1].longitude;
+      flattenedLocations[flattenedLocations.length - 1].latitude +
+      ',' +
+      flattenedLocations[flattenedLocations.length - 1].longitude;
 
     // OPTIONS
     const weight = 3;
@@ -62,7 +64,8 @@ export class LineMapListComponent implements OnInit {
     const optionsParam = '&maptype=' + mapType;
     const apiKeyParam = apiKey ? '&key=' + apiKey : '';
 
-    this.request = staticMapUrl + sizeParam + pathParam + startMarkerParam + finishMarkerParam + optionsParam + apiKeyParam;
+    this.request =
+      staticMapUrl + sizeParam + pathParam + startMarkerParam + finishMarkerParam + optionsParam + apiKeyParam;
   }
 
   private getSegmentColorEncoded(segmentType: string): string {

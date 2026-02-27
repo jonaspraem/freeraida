@@ -10,6 +10,7 @@ import { LineMapListComponent } from './line-map-list/line-map-list.component';
 import { LineMapComponent } from './line-map/line-map.component';
 import { RouterModule } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { IconModule } from '../icon-module/icon.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     FormsModule,
     ReactiveFormsModule,
     GoogleMapsModule,
+    IconModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })

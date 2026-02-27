@@ -290,7 +290,10 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
     return { north, south, east, west };
   }
 
-  private estimateRangeMeters(bounds: { north: number; south: number; east: number; west: number }, latitude: number): number {
+  private estimateRangeMeters(
+    bounds: { north: number; south: number; east: number; west: number },
+    latitude: number
+  ): number {
     const latSpan = Math.abs(bounds.north - bounds.south);
     const lngSpan = Math.abs(bounds.east - bounds.west);
     const latMeters = latSpan * 111320;
@@ -312,7 +315,12 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
       return '';
     }
     return segments
-      .map((segment) => `${segment.type}:${this.getPathKey((segment.locations || []).map((loc) => ({ lat: loc.latitude, lng: loc.longitude })))}`)
+      .map(
+        (segment) =>
+          `${segment.type}:${this.getPathKey(
+            (segment.locations || []).map((loc) => ({ lat: loc.latitude, lng: loc.longitude }))
+          )}`
+      )
       .join('||');
   }
 

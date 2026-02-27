@@ -1,7 +1,7 @@
 .line-summary {
   display: flex;
   background-color: $color-white;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   box-shadow: $effect-box-shadow-card;
 
   &__map {
@@ -15,8 +15,8 @@
   }
 
   &__band-aid {
-    margin-bottom: 10px;
-    height: 15px;
+    margin-bottom: 6px;
+    height: 10px;
   }
 
   &__container {
@@ -33,17 +33,96 @@
     max-width: 100%;
   }
 
-  &__info {
+  &__metrics {
     flex: 1;
-    display: flex;
-    margin-left: 15px;
+    margin-left: 10px;
+    padding: 0 8px 8px 0;
   }
 
-  &__main-info {
-    padding: 0 20px;
+  &__header {
+    margin-bottom: 6px;
 
-    &:first-child {
-      width: 200px;
+    h5,
+    h6 {
+      margin: 0;
+    }
+
+    h5 {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.1;
+    }
+
+    h6 {
+      margin-top: 2px;
+      color: #555;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+  }
+
+  &__title-icon {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    overflow: visible;
+
+    icon-ski,
+    icon-snowboard {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  &__metric-cell {
+    border: 1px solid rgba(20, 29, 47, 0.12);
+    border-radius: 6px;
+    padding: 4px 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+
+    > span {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: #6a6a6a;
+      letter-spacing: 0.02em;
+      font-weight: 600;
+    }
+
+    > strong {
+      font-size: 13px;
+      color: #141d2f;
+      font-weight: 700;
+    }
+
+    > small {
+      font-size: 10px;
+      color: #6a6a6a;
+    }
+  }
+
+  @media (max-width: 980px) {
+    &__container {
+      flex-direction: column;
+    }
+
+    &__metrics {
+      margin-left: 0;
+      padding: 8px 12px 12px;
+    }
+
+    &__metric-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 }

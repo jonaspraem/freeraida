@@ -121,22 +121,22 @@ function overpassRequest(endpoint: string, query: string, timeoutMs: number): Pr
     });
 
     req.on('response', (res) => {
-        let data = '';
-        res.setEncoding('utf8');
-        res.on('data', (chunk) => {
-          data += chunk;
-        });
-        res.on('end', () => {
-          if (!res.statusCode || res.statusCode < 200 || res.statusCode > 299) {
-            reject(new Error(`Overpass request failed (${res.statusCode || 0}): ${data.slice(0, 300)}`));
-            return;
-          }
-          try {
-            resolve(JSON.parse(data) as OverpassResponse);
-          } catch (err) {
-            reject(err);
-          }
-        });
+      let data = '';
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+      res.on('end', () => {
+        if (!res.statusCode || res.statusCode < 200 || res.statusCode > 299) {
+          reject(new Error(`Overpass request failed (${res.statusCode || 0}): ${data.slice(0, 300)}`));
+          return;
+        }
+        try {
+          resolve(JSON.parse(data) as OverpassResponse);
+        } catch (err) {
+          reject(err);
+        }
+      });
     });
 
     req.on('error', reject);

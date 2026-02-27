@@ -1,6 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, Inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ILine, ILineLocation, ILineSegment, IPolylineCoordinates, LineSegmentType } from '../../models/interfaces/types';
+import {
+  ILine,
+  ILineLocation,
+  ILineSegment,
+  IPolylineCoordinates,
+  LineSegmentType,
+} from '../../models/interfaces/types';
 import { LineService } from '../../core/services/line.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CONFIG } from '../../dictionary/config';
@@ -39,7 +45,6 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
   public activeSegmentType: LineSegmentType = 'FREERIDE';
   private readonly markerDotColor = '#141d2f';
   private readonly defaultDiscipline = 'Segmented';
-
 
   public readonly elevationMismatchThresholdMeters = 2;
   private maps3dLib: any;
