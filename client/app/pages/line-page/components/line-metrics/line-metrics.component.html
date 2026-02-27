@@ -1,0 +1,92 @@
+<table class="line-metrics-table width-container">
+  <tbody>
+    <tr>
+      <td>
+        <span class="material-icons">route</span>
+        Distance traveled
+        <strong>{{ formatDistance(metrics.totalDistanceKm, metrics.validSegmentCount > 0) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">moving</span>
+        Height meters ascended
+        <strong>{{ formatMeters(metrics.totalAscentMeters, metrics.validSegmentCount > 0) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">keyboard_double_arrow_down</span>
+        Height meters descended
+        <strong>{{ formatMeters(metrics.totalDescentMeters, metrics.validSegmentCount > 0) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">shuffle</span>
+        Total height meters traveled
+        <strong>{{ formatMeters(metrics.totalElevationTraversedMeters, metrics.validSegmentCount > 0) }}</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="material-icons">north</span>
+        Steepest uphill slope
+        <strong>{{ formatSlopePair(metrics.steepestUphill) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">south</span>
+        Steepest downhill slope
+        <strong>{{ formatSlopePair(metrics.steepestDownhill) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">query_stats</span>
+        Average uphill slope
+        <strong>{{ formatSlopePair(metrics.averageUphillSlope) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">landscape</span>
+        Average absolute slope
+        <strong>{{ formatSlopePair(metrics.averageAbsoluteSlope) }}</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="material-icons">terrain</span>
+        Min elevation
+        <strong>{{ formatMeters(metrics.minElevation, metrics.pointCount > 0) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">filter_hdr</span>
+        Max elevation
+        <strong>{{ formatMeters(metrics.maxElevation, metrics.pointCount > 0) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">height</span>
+        Elevation range
+        <strong>{{ formatMeters(metrics.elevationRange, metrics.pointCount > 0) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">trending_up</span>
+        Net elevation change
+        <strong>{{ formatMeters(metrics.netElevationChange, metrics.pointCount > 1) }}</strong>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="material-icons">pin_drop</span>
+        Points in line
+        <strong>{{ metrics.pointCount }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">timeline</span>
+        Valid segments
+        <strong>{{ metrics.validSegmentCount }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">sailing</span>
+        Average downhill slope
+        <strong>{{ formatSlopePair(metrics.averageDownhillSlope) }}</strong>
+      </td>
+      <td>
+        <span class="material-icons">straighten</span>
+        Avg absolute grade
+        <strong>{{ formatPercent(metrics.averageAbsoluteSlope?.percent, 1, metrics.validSegmentCount > 0) }}</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
