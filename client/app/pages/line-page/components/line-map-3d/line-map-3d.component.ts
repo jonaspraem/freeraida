@@ -77,6 +77,7 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
       this.markApiReady();
       return;
     }
+    this.ensureImportLibrarySupport();
 
     if (globalScope.__freeraidaGoogleMapsLoadPromise) {
       globalScope.__freeraidaGoogleMapsLoadPromise
@@ -118,6 +119,7 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
     }
     queryParts.push('v=beta');
     queryParts.push('loading=async');
+    queryParts.push('libraries=maps3d');
     const query = queryParts.length > 0 ? '?' + queryParts.join('&') : '';
 
     const script = this.document.createElement('script');
@@ -141,6 +143,18 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
   }
 
   private markApiReady(): void {
+    this.ensureImportLibrarySupport();
+    const mapsApi = (globalThis as any)?.google?.maps;
+    const hasMaps3d = !!mapsApi?.maps3d?.Polyline3DElement;
+    const hasImportLibrary = typeof mapsApi?.importLibrary === 'function';
+    if (!hasMaps3d && !hasImportLibrary) {
+      this.zone.run(() => {
+        this.mapUnavailable = true;
+        this.apiReady = false;
+        this.cdRef.detectChanges();
+      });
+      return;
+    }
     this.zone.run(() => {
       this.apiReady = true;
       this.cdRef.detectChanges();
@@ -363,10 +377,42 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
       return mapsApi.maps3d;
     }
 
-    if (typeof mapsApi.importLibrary === 'function') {
-      return mapsApi.importLibrary('maps3d');
+    const importLibrary = mapsApi.importLibrary;
+    if (typeof importLibrary === 'function') {
+      const imported = await importLibrary.call(mapsApi, 'maps3d');
+      if (imported?.Polyline3DElement) {
+        return imported;
+      }
     }
 
     throw new Error('Maps 3D library unavailable');
+  }
+
+  private ensureImportLibrarySupport(): void {
+    const mapsApi = (globalThis as any)?.google?.maps;
+    if (!mapsApi || typeof mapsApi.importLibrary === 'function') {
+      return;
+    }
+    mapsApi.importLibrary = async (library: string) => {
+      const timeoutMs = 5000;
+      const startedAt = Date.now();
+      while (Date.now() - startedAt < timeoutMs) {
+        if (library === 'maps' && typeof mapsApi.Map === 'function' && typeof mapsApi.Polyline === 'function') {
+          return mapsApi;
+        }
+        if (library === 'maps3d' && mapsApi.maps3d) {
+          return mapsApi.maps3d;
+        }
+        if (library === 'marker' && (mapsApi as any).marker) {
+          return (mapsApi as any).marker;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      }
+
+      if (library === 'maps') {
+        throw new Error('Maps library unavailable');
+      }
+      return mapsApi;
+    };
   }
 }

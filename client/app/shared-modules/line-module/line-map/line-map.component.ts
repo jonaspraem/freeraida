@@ -6,6 +6,7 @@ import {
   Input,
   NgZone,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
   ViewChild,
@@ -31,7 +32,8 @@ export class LineMapComponent implements OnInit, OnChanges {
   @Input() height: number;
   public mapReady = false;
   public apiReady = false;
-  public center: { lat: number; lng: number };
+  public center: { lat: number; lng: number } = { lat: 45.407043524444866, lng: 7.031422227962352 };
+  public hasRenderableLine = false;
   public path: { lat: number; lng: number }[] = [];
   public segmentPaths: { type: string; path: { lat: number; lng: number }[] }[] = [];
   public startPosition: { lat: number; lng: number };
@@ -51,6 +53,7 @@ export class LineMapComponent implements OnInit, OnChanges {
     strokeWeight: 3,
     geodesic: false,
   };
+  private rebuildTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     public colorDictionary: COLOR_DICTIONARY,
@@ -61,31 +64,47 @@ export class LineMapComponent implements OnInit, OnChanges {
 
   public ngOnInit(): void {
     this.ensureGoogleMapsApiLoaded();
-    this.rebuildMapData();
+    this.scheduleRebuildMapData();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['line'] || changes['height']) {
-      this.rebuildMapData();
-      this.fitToBounds(true);
+      this.scheduleRebuildMapData();
+      this.zone.runOutsideAngular(() => {
+        setTimeout(() => this.fitToBounds(true), 0);
+      });
+    }
+  }
+
+  public ngOnDestroy(): void {
+    if (this.rebuildTimer) {
+      clearTimeout(this.rebuildTimer);
+      this.rebuildTimer = null;
     }
   }
 
   public onMapInitialized(): void {
     this.mapReady = true;
-    this.cdRef.detectChanges();
-    this.fitToBounds(true);
+    this.zone.runOutsideAngular(() => {
+      setTimeout(() => this.fitToBounds(true), 0);
+    });
   }
 
   private ensureGoogleMapsApiLoaded(): void {
     const globalScope = globalThis as any;
     if ((globalThis as any)?.google?.maps) {
+      this.ensureImportLibrarySupport();
       this.markApiReady();
       return;
     }
 
     if (globalScope.__freeraidaGoogleMapsLoadPromise) {
-      globalScope.__freeraidaGoogleMapsLoadPromise.then(() => this.markApiReady()).catch(() => undefined);
+      globalScope.__freeraidaGoogleMapsLoadPromise
+        .then(() => {
+          this.ensureImportLibrarySupport();
+          this.markApiReady();
+        })
+        .catch(() => undefined);
       return;
     }
 
@@ -99,7 +118,12 @@ export class LineMapComponent implements OnInit, OnChanges {
         existingScript.addEventListener('load', () => resolve(), { once: true });
         existingScript.addEventListener('error', () => reject(), { once: true });
       });
-      globalScope.__freeraidaGoogleMapsLoadPromise.then(() => this.markApiReady()).catch(() => undefined);
+      globalScope.__freeraidaGoogleMapsLoadPromise
+        .then(() => {
+          this.ensureImportLibrarySupport();
+          this.markApiReady();
+        })
+        .catch(() => undefined);
       return;
     }
 
@@ -111,6 +135,7 @@ export class LineMapComponent implements OnInit, OnChanges {
     }
     queryParts.push('v=beta');
     queryParts.push('loading=async');
+    queryParts.push('libraries=maps3d');
     const query = queryParts.length > 0 ? '?' + queryParts.join('&') : '';
     script.id = 'google-maps-js-api';
     script.src = 'https://maps.googleapis.com/maps/api/js' + query;
@@ -120,7 +145,12 @@ export class LineMapComponent implements OnInit, OnChanges {
       script.addEventListener('load', () => resolve(), { once: true });
       script.addEventListener('error', () => reject(), { once: true });
     });
-    globalScope.__freeraidaGoogleMapsLoadPromise.then(() => this.markApiReady()).catch(() => undefined);
+    globalScope.__freeraidaGoogleMapsLoadPromise
+      .then(() => {
+        this.ensureImportLibrarySupport();
+        this.markApiReady();
+      })
+      .catch(() => undefined);
     this.document.head.appendChild(script);
   }
 
@@ -130,7 +160,7 @@ export class LineMapComponent implements OnInit, OnChanges {
       this.segmentPaths = [];
       this.startPosition = undefined;
       this.endPosition = undefined;
-      this.center = undefined;
+      this.hasRenderableLine = false;
       return;
     }
 
@@ -144,9 +174,26 @@ export class LineMapComponent implements OnInit, OnChanges {
         path: (segment.locations || []).map((loc) => ({ lat: loc.latitude, lng: loc.longitude })),
       }))
       .filter((segment) => segment.path.length > 1);
+    this.hasRenderableLine = this.path.length > 0;
+    if (!this.hasRenderableLine) {
+      this.startPosition = undefined;
+      this.endPosition = undefined;
+      return;
+    }
     this.startPosition = this.path[0];
     this.endPosition = this.path[this.path.length - 1];
     this.center = this.getLineCenter(this.path);
+  }
+
+  private scheduleRebuildMapData(): void {
+    if (this.rebuildTimer) {
+      clearTimeout(this.rebuildTimer);
+    }
+    this.rebuildTimer = setTimeout(() => {
+      this.rebuildMapData();
+      this.rebuildTimer = null;
+      this.cdRef.markForCheck();
+    }, 0);
   }
 
   public getPolylineOptions(segmentType: string): { strokeColor: string; strokeWeight: number; geodesic: boolean } {
@@ -181,8 +228,9 @@ export class LineMapComponent implements OnInit, OnChanges {
   private markApiReady(): void {
     this.zone.run(() => {
       this.apiReady = true;
-      this.cdRef.detectChanges();
-      this.fitToBounds(true);
+      this.zone.runOutsideAngular(() => {
+        setTimeout(() => this.fitToBounds(true), 0);
+      });
     });
   }
 
@@ -214,5 +262,33 @@ export class LineMapComponent implements OnInit, OnChanges {
   }
   private degr2rad(degr: number): number {
     return (degr * Math.PI) / 180;
+  }
+
+  private ensureImportLibrarySupport(): void {
+    const mapsApi = (globalThis as any)?.google?.maps;
+    if (!mapsApi || typeof mapsApi.importLibrary === 'function') {
+      return;
+    }
+    mapsApi.importLibrary = async (library: string) => {
+      const timeoutMs = 5000;
+      const startedAt = Date.now();
+      while (Date.now() - startedAt < timeoutMs) {
+        if (library === 'maps' && typeof mapsApi.Map === 'function' && typeof mapsApi.Polyline === 'function') {
+          return mapsApi;
+        }
+        if (library === 'marker' && (mapsApi as any).marker) {
+          return (mapsApi as any).marker;
+        }
+        if (library === 'maps3d' && mapsApi.maps3d) {
+          return mapsApi.maps3d;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      }
+
+      if (library === 'maps') {
+        throw new Error('Maps library unavailable');
+      }
+      return mapsApi;
+    };
   }
 }

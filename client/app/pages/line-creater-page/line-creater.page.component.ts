@@ -247,9 +247,9 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
 
   private ensureGoogleMapsApiLoaded(): void {
     const globalScope = globalThis as any;
-    if ((globalThis as any)?.google?.maps) {
-      this.apiReady = true;
-      this.initialize3dMapIfReady();
+    if ((globalScope as any)?.google?.maps) {
+      this.ensureImportLibrarySupport();
+      this.mark3dApiReadyIfSupported();
       return;
     }
 
@@ -257,9 +257,7 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
       globalScope.__freeraidaGoogleMapsLoadPromise
         .then(() => {
           this.zone.run(() => {
-            this.apiReady = true;
-            this._cdRef.detectChanges();
-            this.initialize3dMapIfReady();
+            this.mark3dApiReadyIfSupported();
           });
         })
         .catch(() => {
@@ -274,8 +272,7 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
     const existingScript = this.document.getElementById(this.scriptId) as HTMLScriptElement | null;
     if (existingScript) {
       if ((globalThis as any)?.google?.maps) {
-        this.apiReady = true;
-        this.initialize3dMapIfReady();
+        this.mark3dApiReadyIfSupported();
         return;
       }
       globalScope.__freeraidaGoogleMapsLoadPromise = new Promise<void>((resolve, reject) => {
@@ -285,9 +282,7 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
       globalScope.__freeraidaGoogleMapsLoadPromise
         .then(() => {
           this.zone.run(() => {
-            this.apiReady = true;
-            this._cdRef.detectChanges();
-            this.initialize3dMapIfReady();
+            this.mark3dApiReadyIfSupported();
           });
         })
         .catch(() => {
@@ -307,6 +302,7 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
     }
     queryParts.push('v=beta');
     queryParts.push('loading=async');
+    queryParts.push('libraries=maps3d');
     const query = queryParts.length > 0 ? '?' + queryParts.join('&') : '';
     script.id = this.scriptId;
     script.src = 'https://maps.googleapis.com/maps/api/js' + query;
@@ -319,9 +315,7 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
     globalScope.__freeraidaGoogleMapsLoadPromise
       .then(() => {
         this.zone.run(() => {
-          this.apiReady = true;
-          this._cdRef.detectChanges();
-          this.initialize3dMapIfReady();
+          this.mark3dApiReadyIfSupported();
         });
       })
       .catch(() => {
@@ -331,6 +325,51 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
         });
       });
     this.document.head.appendChild(script);
+  }
+
+  private mark3dApiReadyIfSupported(): void {
+    this.ensureImportLibrarySupport();
+    const mapsApi = (globalThis as any)?.google?.maps;
+    const hasMaps3d = !!mapsApi?.maps3d?.Map3DElement;
+    const hasImportLibrary = typeof mapsApi?.importLibrary === 'function';
+    if (!hasMaps3d && !hasImportLibrary) {
+      this.apiReady = false;
+      this.mapUnavailable = true;
+      this._cdRef.detectChanges();
+      return;
+    }
+    this.apiReady = true;
+    this.mapUnavailable = false;
+    this._cdRef.detectChanges();
+    this.initialize3dMapIfReady();
+  }
+
+  private ensureImportLibrarySupport(): void {
+    const mapsApi = (globalThis as any)?.google?.maps;
+    if (!mapsApi || typeof mapsApi.importLibrary === 'function') {
+      return;
+    }
+    mapsApi.importLibrary = async (library: string) => {
+      const timeoutMs = 5000;
+      const startedAt = Date.now();
+      while (Date.now() - startedAt < timeoutMs) {
+        if (library === 'maps' && typeof mapsApi.Map === 'function' && typeof mapsApi.Polyline === 'function') {
+          return mapsApi;
+        }
+        if (library === 'maps3d' && mapsApi.maps3d) {
+          return mapsApi.maps3d;
+        }
+        if (library === 'marker' && (mapsApi as any).marker) {
+          return (mapsApi as any).marker;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 20));
+      }
+
+      if (library === 'maps') {
+        throw new Error('Maps library unavailable');
+      }
+      return mapsApi;
+    };
   }
 
   private async initialize3dMapIfReady(): Promise<void> {
@@ -552,8 +591,12 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
     if (mapsApi.maps3d?.Map3DElement) {
       return mapsApi.maps3d;
     }
-    if (typeof mapsApi.importLibrary === 'function') {
-      return mapsApi.importLibrary('maps3d');
+    const importLibrary = mapsApi.importLibrary;
+    if (typeof importLibrary === 'function') {
+      const imported = await importLibrary.call(mapsApi, 'maps3d');
+      if (imported?.Map3DElement || imported?.Polyline3DElement) {
+        return imported;
+      }
     }
     throw new Error('Maps 3D library unavailable');
   }

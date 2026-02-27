@@ -1,5 +1,5 @@
 <google-map
-  *ngIf="apiReady && center"
+  *ngIf="apiReady && hasRenderableLine"
   [height]="(height || 400) + 'px'"
   [width]="'100%'"
   [center]="center"
