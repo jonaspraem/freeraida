@@ -425,24 +425,24 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
         ? AltitudeMode.RELATIVE_TO_GROUND
         : undefined;
     this.polyline3dElements = this.segments
-      .map((segment) => {
+      .flatMap((segment) => {
         const path = (segment.locations || [])
           .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
           .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng));
-        if (path.length < 2) {
-          return null;
-        }
-        const polyline = new Polyline3DElement({
-          path,
-          strokeColor: this.getSegmentColor(segment.type),
-          outerColor: '#ffffff',
-          strokeWidth: 6,
-          outerWidth: 0.35,
-          ...(altitudeMode ? { altitudeMode } : {}),
-          drawsOccludedSegments: false,
+        const drawPaths = this.get3dDrawPaths(path, segment.type);
+        return drawPaths.map((drawPath) => {
+          const polyline = new Polyline3DElement({
+            path: drawPath,
+            strokeColor: this.getSegmentColor(segment.type),
+            outerColor: '#ffffff',
+            strokeWidth: 6,
+            outerWidth: 0.35,
+            ...(altitudeMode ? { altitudeMode } : {}),
+            drawsOccludedSegments: false,
+          });
+          map3d.append(polyline);
+          return polyline;
         });
-        map3d.append(polyline);
-        return polyline;
       })
       .filter((polyline) => !!polyline);
 
@@ -557,6 +557,65 @@ export class LineCreatorPageComponent implements OnInit, OnDestroy {
       return false;
     }
     return Number(a.latitude) === Number(b.latitude) && Number(a.longitude) === Number(b.longitude);
+  }
+
+  private get3dDrawPaths(
+    path: Array<{ lat: number; lng: number }>,
+    segmentType: string
+  ): Array<Array<{ lat: number; lng: number }>> {
+    if (path.length < 2) {
+      return [];
+    }
+    if (!this.isAscendSegmentType(segmentType)) {
+      return [path];
+    }
+    const interpolated = this.interpolatePathForDots(path, 15);
+    const dottedPaths: Array<Array<{ lat: number; lng: number }>> = [];
+    for (let i = 0; i < interpolated.length - 1; i += 2) {
+      dottedPaths.push([interpolated[i], interpolated[i + 1]]);
+    }
+    return dottedPaths.length > 0 ? dottedPaths : [path];
+  }
+
+  private interpolatePathForDots(
+    path: Array<{ lat: number; lng: number }>,
+    targetSpacingMeters: number
+  ): Array<{ lat: number; lng: number }> {
+    if (path.length < 2) {
+      return path;
+    }
+    const result: Array<{ lat: number; lng: number }> = [path[0]];
+    for (let i = 0; i < path.length - 1; i++) {
+      const start = path[i];
+      const end = path[i + 1];
+      const segmentDistance = this.haversineDistanceLatLng(start, end);
+      const numPoints = Math.max(1, Math.floor(segmentDistance / targetSpacingMeters));
+      for (let j = 1; j <= numPoints; j++) {
+        const t = j / numPoints;
+        result.push({
+          lat: start.lat + (end.lat - start.lat) * t,
+          lng: start.lng + (end.lng - start.lng) * t,
+        });
+      }
+    }
+    return result;
+  }
+
+  private haversineDistanceLatLng(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
+    const R = 6371000;
+    const lat1 = (a.lat * Math.PI) / 180;
+    const lat2 = (b.lat * Math.PI) / 180;
+    const dLat = lat2 - lat1;
+    const dLng = ((b.lng - a.lng) * Math.PI) / 180;
+    const sinHalfLat = Math.sin(dLat / 2);
+    const sinHalfLng = Math.sin(dLng / 2);
+    const h = sinHalfLat * sinHalfLat + Math.cos(lat1) * Math.cos(lat2) * sinHalfLng * sinHalfLng;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+
+  private isAscendSegmentType(segmentType: string): boolean {
+    const normalized = segmentType as LineSegmentType;
+    return normalized === 'SKINNING' || normalized === 'BOOT_SECTION';
   }
 
   private extractClickedPosition(event: any): { lat: number; lng: number; altitude?: number } | null {

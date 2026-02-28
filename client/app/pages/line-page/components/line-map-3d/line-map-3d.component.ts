@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { CONFIG } from '../../../../dictionary/config';
 import { COLOR_DICTIONARY } from '../../../../dictionary/color-dictionary';
-import { ILine, ILineSegment } from '../../../../models/interfaces/types';
+import { ILine, ILineSegment, LineSegmentType } from '../../../../models/interfaces/types';
 import { flattenLineSegments } from '../../../../models/interfaces/line-segment.utils';
 
 type LatLng = { lat: number; lng: number };
@@ -226,24 +226,24 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
         ? AltitudeMode.RELATIVE_TO_GROUND
         : undefined;
     this.polyline3dElements = this.line.segments
-      .map((segment: ILineSegment) => {
+      .flatMap((segment: ILineSegment) => {
         const path = (segment.locations || [])
           .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
           .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng));
-        if (path.length < 2) {
-          return null;
-        }
-        const polyline = new Polyline3DElement({
-          path,
-          strokeColor: this.colorDictionary.getSegmentColor(segment.type) || '#404040',
-          outerColor: '#ffffff',
-          strokeWidth: 6,
-          outerWidth: 0.35,
-          ...(altitudeMode ? { altitudeMode } : {}),
-          drawsOccludedSegments: false,
+        const drawPaths = this.get3dDrawPaths(path, segment.type);
+        return drawPaths.map((drawPath) => {
+          const polyline = new Polyline3DElement({
+            path: drawPath,
+            strokeColor: this.colorDictionary.getSegmentColor(segment.type) || '#404040',
+            //outerColor: '#ffffff',
+            strokeWidth: 2,
+            outerWidth: 0.2,
+            ...(altitudeMode ? { altitudeMode } : {}),
+            drawsOccludedSegments: false,
+          });
+          map3d.append(polyline);
+          return polyline;
         });
-        map3d.append(polyline);
-        return polyline;
       })
       .filter((polyline) => !!polyline);
     this.lastPathKey = pathKey;
@@ -414,5 +414,58 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
       }
       return mapsApi;
     };
+  }
+
+  private get3dDrawPaths(path: LatLng[], segmentType: string): LatLng[][] {
+    if (path.length < 2) {
+      return [];
+    }
+    if (!this.isAscendSegmentType(segmentType)) {
+      return [path];
+    }
+    const interpolated = this.interpolatePathForDots(path, 15);
+    const dottedPaths: LatLng[][] = [];
+    for (let i = 0; i < interpolated.length - 1; i += 2) {
+      dottedPaths.push([interpolated[i], interpolated[i + 1]]);
+    }
+    return dottedPaths.length > 0 ? dottedPaths : [path];
+  }
+
+  private interpolatePathForDots(path: LatLng[], targetSpacingMeters: number): LatLng[] {
+    if (path.length < 2) {
+      return path;
+    }
+    const result: LatLng[] = [path[0]];
+    for (let i = 0; i < path.length - 1; i++) {
+      const start = path[i];
+      const end = path[i + 1];
+      const segmentDistance = this.haversineDistance(start, end);
+      const numPoints = Math.max(1, Math.floor(segmentDistance / targetSpacingMeters));
+      for (let j = 1; j <= numPoints; j++) {
+        const t = j / numPoints;
+        result.push({
+          lat: start.lat + (end.lat - start.lat) * t,
+          lng: start.lng + (end.lng - start.lng) * t,
+        });
+      }
+    }
+    return result;
+  }
+
+  private haversineDistance(a: LatLng, b: LatLng): number {
+    const R = 6371000;
+    const lat1 = this.degr2rad(a.lat);
+    const lat2 = this.degr2rad(b.lat);
+    const dLat = lat2 - lat1;
+    const dLng = this.degr2rad(b.lng - a.lng);
+    const sinHalfLat = Math.sin(dLat / 2);
+    const sinHalfLng = Math.sin(dLng / 2);
+    const h = sinHalfLat * sinHalfLat + Math.cos(lat1) * Math.cos(lat2) * sinHalfLng * sinHalfLng;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+
+  private isAscendSegmentType(segmentType: string): boolean {
+    const normalized = segmentType as LineSegmentType;
+    return normalized === 'SKINNING' || normalized === 'BOOT_SECTION';
   }
 }

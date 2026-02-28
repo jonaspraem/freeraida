@@ -12,7 +12,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { GoogleMap, MapMarker, MapPolyline } from '@angular/google-maps';
-import { ILine, ILineSegment } from '../../../models/interfaces/types';
+import { ILine, ILineSegment, LineSegmentType } from '../../../models/interfaces/types';
 import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 import { CONFIG } from '../../../dictionary/config';
 import { flattenLineSegments } from '../../../models/interfaces/line-segment.utils';
@@ -38,7 +38,7 @@ export class LineMapComponent implements OnInit, OnChanges {
   public segmentPaths: { type: string; path: { lat: number; lng: number }[] }[] = [];
   public startPosition: { lat: number; lng: number };
   public endPosition: { lat: number; lng: number };
-  public zoom = 12;
+  public zoom = 10;
   public options = {
     mapTypeId: 'terrain' as const,
     disableDefaultUI: true,
@@ -196,11 +196,41 @@ export class LineMapComponent implements OnInit, OnChanges {
     }, 0);
   }
 
-  public getPolylineOptions(segmentType: string): { strokeColor: string; strokeWeight: number; geodesic: boolean } {
+  public getPolylineOptions(segmentType: string): any {
+    const strokeColor = this.colorDictionary.getSegmentColor(segmentType) || '#404040';
+    if (this.isAscendSegmentType(segmentType)) {
+      return {
+        ...this.polylineOptions,
+        strokeColor,
+        strokeOpacity: 0,
+        icons: [
+          {
+            icon: {
+              path: 0, // google.maps.SymbolPath.CIRCLE
+              fillColor: strokeColor,
+              fillOpacity: 1,
+              strokeColor,
+              strokeOpacity: 1,
+              strokeWeight: 0.5,
+              scale: 2.5,
+            },
+            offset: '0',
+            repeat: '8px',
+          },
+        ],
+      };
+    }
     return {
       ...this.polylineOptions,
-      strokeColor: this.colorDictionary.getSegmentColor(segmentType) || '#404040',
+      strokeColor,
+      strokeOpacity: 1,
+      icons: undefined,
     };
+  }
+
+  private isAscendSegmentType(segmentType: string): boolean {
+    const normalized = segmentType as LineSegmentType;
+    return normalized === 'SKINNING' || normalized === 'BOOT_SECTION';
   }
 
   private fitToBounds(forceResize = false): void {
