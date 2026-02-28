@@ -9,7 +9,8 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { ILineLocation, ILineSegment } from '../../../models/interfaces/types';
+import { ILineLocation, ILineSegment, LineSegmentType } from '../../../models/interfaces/types';
+import { COLOR_DICTIONARY } from '../../../dictionary/color-dictionary';
 
 @Component({
   standalone: false,
@@ -29,68 +30,32 @@ export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnD
   @ViewChild('chartContainer') chartContainer?: ElementRef<HTMLDivElement>;
   public chart: any = {
     type: 'AreaChart',
-    columnNames: ['X', 'Y'],
+    columnNames: ['Distance', 'Freeride', 'Skinning', 'Boot section'],
     data: [],
-    options: {
-      vAxis: {
-        gridlines: {
-          count: 0,
-        },
-        minValue: 0,
-        baselineColor: 'none',
-      },
-      hAxis: {
-        gridlines: {
-          count: 0,
-        },
-        baselineColor: 'none',
-      },
-    },
+    options: {},
   };
   private _isLoaded: boolean = false;
   private _resizeObserver?: ResizeObserver;
   private _chartWidth: number | null = null;
 
+  private readonly segmentIndex: Record<LineSegmentType, number> = {
+    FREERIDE: 1,
+    SKINNING: 2,
+    BOOT_SECTION: 3,
+  };
+
+  constructor(private readonly colorDictionary: COLOR_DICTIONARY) {}
+
   public ngOnInit(): void {
-    this.chart.options = {
-      title: 'Height map',
-      legend: 'none',
-      vAxis: {
-        gridlines: {
-          count: 0,
-        },
-        minValue: 0,
-        baselineColor: 'none',
-      },
-      hAxis: {
-        gridlines: {
-          count: 0,
-        },
-        baselineColor: 'none',
-      },
-      axisFontSize: 0,
-      height: 170,
-      pointSize: 0,
-      // areaOpacity: 0.5,
-      colors: [this.color],
-      backgroundColor: 'none',
-      chartArea: {
-        left: 0,
-        top: 0,
-        right: 0,
-        bottom: 0,
-      },
-    };
+    this.chart.options = this.buildChartOptions();
     this.reMapChart();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (changes['lineLocations'] || changes['color'] || changes['hideLegend']) {
+    if (changes['lineLocations'] || changes['lineSegments'] || changes['color'] || changes['hideLegend']) {
       this.reMapChart();
       this.chart.options = {
-        ...this.chart.options,
-        colors: [this.color],
-        legend: this.hideLegend ? 'none' : { position: 'top' },
+        ...this.buildChartOptions(),
         ...(this._chartWidth ? { width: this._chartWidth } : {}),
       };
     }
@@ -117,22 +82,69 @@ export class HeightMapComponent implements OnInit, OnChanges, AfterViewInit, OnD
   }
 
   private reMapChart(): void {
-    const newData: any[] = [];
-    const sourceLocations =
-      Array.isArray(this.lineSegments) && this.lineSegments.length > 0
-        ? this.lineSegments.reduce(
-            (acc: ILineLocation[], segment: ILineSegment) => acc.concat(segment.locations || []),
-            []
-          )
-        : this.lineLocations;
-    for (let i = 0; i < (sourceLocations?.length ?? 0); i++) {
-      const location = sourceLocations[i];
-      if (location?.distanceFromStart == null || location?.elevation == null) {
-        continue;
+    if (Array.isArray(this.lineSegments) && this.lineSegments.length > 0) {
+      const segmentRows = this.lineSegments.reduce((rows: any[], segment: ILineSegment) => {
+        const seriesIndex = this.segmentIndex[segment.type];
+        if (!seriesIndex) {
+          return rows;
+        }
+        for (const location of segment.locations || []) {
+          if (location?.distanceFromStart == null || location?.elevation == null) {
+            continue;
+          }
+          const row: any[] = [location.distanceFromStart, null, null, null];
+          row[seriesIndex] = location.elevation;
+          rows.push(row);
+        }
+        return rows;
+      }, []);
+      this.chart.data = segmentRows;
+    } else {
+      const newData: any[] = [];
+      for (let i = 0; i < (this.lineLocations?.length ?? 0); i++) {
+        const location = this.lineLocations[i];
+        if (location?.distanceFromStart == null || location?.elevation == null) {
+          continue;
+        }
+        newData.push([location.distanceFromStart, location.elevation, null, null]);
       }
-      newData.push([location.distanceFromStart, location.elevation]);
+      this.chart.data = newData;
     }
-    this.chart.data = newData;
+  }
+
+  private buildChartOptions(): any {
+    return {
+      title: 'Height map',
+      legend: this.hideLegend ? 'none' : { position: 'top' },
+      vAxis: {
+        gridlines: {
+          count: 0,
+        },
+        minValue: 0,
+        baselineColor: 'none',
+      },
+      hAxis: {
+        gridlines: {
+          count: 0,
+        },
+        baselineColor: 'none',
+      },
+      axisFontSize: 0,
+      height: 170,
+      pointSize: 0,
+      colors: [
+        this.colorDictionary.getSegmentColor('FREERIDE'),
+        this.colorDictionary.getSegmentColor('SKINNING'),
+        this.colorDictionary.getSegmentColor('BOOT_SECTION'),
+      ],
+      backgroundColor: 'none',
+      chartArea: {
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+      },
+    };
   }
 
   private updateChartWidth(): void {

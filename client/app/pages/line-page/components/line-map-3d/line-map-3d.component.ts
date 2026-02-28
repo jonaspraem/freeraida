@@ -257,11 +257,20 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
       return;
     }
 
-    const bounds = this.getBounds(path);
-    const centerLat = (bounds.north + bounds.south) / 2;
-    const centerLng = (bounds.east + bounds.west) / 2;
+    const lastFreerideSegment = this.getLastFreerideSegment();
+    const freerideSegmentPath = lastFreerideSegment
+      ? (lastFreerideSegment.locations || [])
+          .map((loc) => ({ lat: Number(loc.latitude), lng: Number(loc.longitude) }))
+          .filter((point) => Number.isFinite(point.lat) && Number.isFinite(point.lng))
+      : [];
+
+    const targetPath = freerideSegmentPath.length >= 2 ? freerideSegmentPath : path;
+    const bounds = this.getBounds(targetPath);
+    const pathCenter = this.getPathStartPoint(targetPath);
+    const centerLat = pathCenter.lat;
+    const centerLng = pathCenter.lng;
     const range = this.estimateRangeMeters(bounds, centerLat);
-    const heading = this.getPathHeading(path);
+    const heading = this.getPathHeadingReversed(targetPath);
 
     const camera = {
       center: {
@@ -286,6 +295,46 @@ export class LineMap3dComponent implements OnInit, OnChanges, AfterViewInit, OnD
     map3d.range = camera.range;
     map3d.tilt = camera.tilt;
     map3d.heading = camera.heading;
+  }
+
+  private getLastFreerideSegment(): ILineSegment | null {
+    if (!this.line?.segments || !Array.isArray(this.line.segments)) {
+      return null;
+    }
+    for (let i = this.line.segments.length - 1; i >= 0; i--) {
+      if (this.line.segments[i].type === 'FREERIDE') {
+        return this.line.segments[i];
+      }
+    }
+    return null;
+  }
+
+  private getPathHeadingReversed(path: LatLng[]): number {
+    if (path.length < 2) {
+      return 0;
+    }
+
+    const start = path[path.length - 1];
+    const end = path[0];
+    if (start.lat === end.lat && start.lng === end.lng) {
+      return 0;
+    }
+
+    const startLat = this.degr2rad(start.lat);
+    const endLat = this.degr2rad(end.lat);
+    const deltaLng = this.degr2rad(end.lng - start.lng);
+    const y = Math.sin(deltaLng) * Math.cos(endLat);
+    const x = Math.cos(startLat) * Math.sin(endLat) - Math.sin(startLat) * Math.cos(endLat) * Math.cos(deltaLng);
+    const bearingDeg = this.rad2degr(Math.atan2(y, x));
+
+    return (bearingDeg + 360) % 360;
+  }
+
+  private getPathStartPoint(path: LatLng[]): LatLng {
+    if (path.length === 0) {
+      return { lat: 0, lng: 0 };
+    }
+    return path[0];
   }
 
   private getBounds(path: LatLng[]): { north: number; south: number; east: number; west: number } {
