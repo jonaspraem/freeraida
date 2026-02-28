@@ -6,7 +6,7 @@ import { finalize, takeUntil, timeout } from 'rxjs/operators';
 import { LineService } from '../../core/services/line.service';
 import { COLOR_DICTIONARY } from '../../dictionary/color-dictionary';
 import { CONFIG } from '../../dictionary/config';
-import { IExploreLine, ILine } from '../../models/interfaces/types';
+import { IExploreLine, ILine, ILineSegment, LineSegmentType } from '../../models/interfaces/types';
 import { flattenLineSegments } from '../../models/interfaces/line-segment.utils';
 
 @Component({
@@ -30,8 +30,9 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   public hasError = false;
   public isSelectedLineLoading = false;
   public selectedLinePath: { lat: number; lng: number }[] = [];
+  public selectedSegmentPaths: { type: string; path: { lat: number; lng: number }[] }[] = [];
   public selectedLineDetails: ILine | undefined;
-  public selectedPolylineOptions = {
+  public polylineOptions = {
     strokeColor: '#404040',
     strokeWeight: 3,
     geodesic: false,
@@ -76,7 +77,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
     this.zone.run(() => {
       this.selectedLine = line;
       this.selectedLineDetails = undefined;
-      this.setSelectedPolylineColor(line.sport);
+      this.selectedSegmentPaths = [];
       this.loadSelectedLinePath(line._id);
       this.cdRef.detectChanges();
     });
@@ -130,7 +131,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   }
 
   public getSelectedStartMarkerOptions(): any {
-    const color = this.selectedPolylineOptions.strokeColor || '#404040';
+    const color = this.colorDictionary.get(this.selectedLineDetails?.sport) || '#404040';
     const markerOptions: any = {
       title: 'Selected line start',
       zIndex: 1001,
@@ -149,7 +150,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   }
 
   public getSelectedEndMarkerOptions(): any {
-    const color = this.selectedPolylineOptions.strokeColor || '#404040';
+    const color = this.colorDictionary.get(this.selectedLineDetails?.sport) || '#404040';
     const markerOptions: any = {
       title: 'Selected line end',
       zIndex: 1000,
@@ -165,6 +166,43 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
       };
     }
     return markerOptions;
+  }
+
+  public getPolylineOptions(segmentType: string): any {
+    const strokeColor = this.colorDictionary.getSegmentColor(segmentType) || '#404040';
+    if (this.isAscendSegmentType(segmentType)) {
+      return {
+        ...this.polylineOptions,
+        strokeColor,
+        strokeOpacity: 0,
+        icons: [
+          {
+            icon: {
+              path: 0, // google.maps.SymbolPath.CIRCLE
+              fillColor: strokeColor,
+              fillOpacity: 1,
+              strokeColor,
+              strokeOpacity: 1,
+              strokeWeight: 0.5,
+              scale: 2.5,
+            },
+            offset: '0',
+            repeat: '8px',
+          },
+        ],
+      };
+    }
+    return {
+      ...this.polylineOptions,
+      strokeColor,
+      strokeOpacity: 1,
+      icons: undefined,
+    };
+  }
+
+  private isAscendSegmentType(segmentType: string): boolean {
+    const normalized = segmentType as LineSegmentType;
+    return normalized === 'SKINNING' || normalized === 'BOOT_SECTION';
   }
 
   private fetchExploreLines(): void {
@@ -215,6 +253,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
   private loadSelectedLinePath(lineId: string): void {
     if (!lineId) {
       this.selectedLinePath = [];
+      this.selectedSegmentPaths = [];
       this.selectedLineDetails = undefined;
       return;
     }
@@ -233,10 +272,13 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
               lat: loc.latitude,
               lng: loc.longitude,
             }));
+            this.selectedSegmentPaths = (line.segments || [])
+              .map((segment: ILineSegment) => ({
+                type: segment.type,
+                path: (segment.locations || []).map((loc) => ({ lat: loc.latitude, lng: loc.longitude })),
+              }))
+              .filter((segment) => segment.path.length > 1);
             this.selectedLineDetails = line;
-            if (line.sport) {
-              this.setSelectedPolylineColor(line.sport);
-            }
             this.isSelectedLineLoading = false;
             this.cdRef.detectChanges();
           });
@@ -247,6 +289,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
           }
           this.zone.run(() => {
             this.selectedLinePath = [];
+            this.selectedSegmentPaths = [];
             this.selectedLineDetails = undefined;
             this.isSelectedLineLoading = false;
             this.cdRef.detectChanges();
@@ -337,6 +380,7 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
     if (!selectedLineIsVisible) {
       this.selectedLine = undefined;
       this.selectedLinePath = [];
+      this.selectedSegmentPaths = [];
       this.selectedLineDetails = undefined;
 
       if (this.lines.length > 0) {
@@ -355,13 +399,5 @@ export class ExplorePageComponent implements OnInit, OnDestroy {
       a.localeCompare(b)
     );
     return ['All', ...uniqueSports];
-  }
-
-  private setSelectedPolylineColor(sport?: string): void {
-    const strokeColor = (sport && this.colorDictionary.get(sport)) || '#404040';
-    this.selectedPolylineOptions = {
-      ...this.selectedPolylineOptions,
-      strokeColor,
-    };
   }
 }

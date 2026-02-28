@@ -26,9 +26,9 @@
     (mapInitialized)="onMapInitialized()"
   >
     <map-polyline
-      *ngIf="selectedLinePath.length > 1"
-      [path]="selectedLinePath"
-      [options]="selectedPolylineOptions"
+      *ngFor="let segment of selectedSegmentPaths"
+      [path]="segment.path"
+      [options]="getPolylineOptions(segment.type)"
     ></map-polyline>
     <map-marker
       *ngIf="getSelectedStartPosition()"
